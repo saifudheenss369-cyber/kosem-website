@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-export default function ImageHero({ title = 'Kosem Perfumes', subtitle = 'Premium Attar & Oudh', link = '/shop', image = '/hero-image.JPG' }) {
+export default function ImageHero({ title = 'Kosem Perfumes', subtitle = 'Premium Attar & Oudh', link = '/shop', image = '/hero-image.jpg' }) {
     return (
         <section style={{
             position: 'relative',
