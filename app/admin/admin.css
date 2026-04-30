@@ -1,0 +1,128 @@
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.admin-sidebar {
+    width: 250px;
+    background-color: var(--color-black);
+    color: var(--color-cream);
+    padding: 2rem;
+}
+
+.admin-sidebar h2 {
+    color: var(--color-gold);
+    margin-bottom: 2rem;
+}
+
+.admin-sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.admin-sidebar a {
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.admin-sidebar a:hover {
+    background-color: rgba(212, 175, 55, 0.2);
+    color: var(--color-gold);
+}
+
+.admin-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* --- Responsive Admin Dashboard --- */
+@media screen and (max-width: 900px) {
+    .admin-container {
+        flex-direction: column !important;
+    }
+
+    .admin-sidebar {
+        width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    .admin-sidebar h2 {
+        margin-bottom: 1rem !important;
+        font-size: 1.5rem !important;
+    }
+
+    .admin-sidebar nav {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem !important;
+    }
+
+    .admin-sidebar a {
+        text-align: center;
+        flex: 1 1 auto;
+        font-size: 0.85rem;
+        padding: 0.5rem !important;
+    }
+
+    .admin-content {
+        width: 100% !important;
+        padding: 1rem !important;
+        box-sizing: border-box;
+        overflow-x: hidden;
+    }
+
+    /* Force tables to be horizontally scrollable to prevent bleed */
+    .admin-content table, 
+    .admin-content [style*="border-radius: 8px"],
+    .admin-content [style*="max-width: 100%"] {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Force any space-between flex headers in cards to stack vertically */
+    .admin-content [style*="justify-content: space-between"] {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 1rem !important;
+    }
+
+    /* Force text-aligning to reset to left on mobile */
+    .admin-content [style*="text-align: right"] {
+        text-align: left !important;
+        width: 100% !important;
+    }
+
+    /* Make buttons full width */
+    .admin-content button {
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+}

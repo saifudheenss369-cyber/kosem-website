@@ -1,0 +1,40 @@
+{
+  "name": "attar-store",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "5.10.0",
+    "axios": "^1.13.4",
+    "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.3.1",
+    "firebase": "^12.9.0",
+    "firebase-admin": "^13.7.0",
+    "jsonwebtoken": "^9.0.2",
+    "next": "13.4.19",
+    "node-fetch": "^3.3.2",
+    "nodemailer": "^8.0.0",
+    "prisma": "5.10.0",
+    "razorpay": "^2.9.6",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^5.5.0",
+    "shortid": "^2.2.17",
+    "three": "^0.183.2",
+    "twilio": "^5.12.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.50.0",
+    "eslint-config-next": "^13.4.19"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
