@@ -128,11 +128,11 @@ export default async function Home() {
 
                 <div style={{ background: 'var(--color-bg-secondary)', padding: '4rem 2rem', textAlign: 'center' }}>
                     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
-                        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '2rem', color: '#111' }}>
+                        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '2rem', color: '#ffffffff' }}>
                             The Art of Refinement
                         </h2>
                         <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', lineHeight: '2', marginBottom: '3rem' }}>
-                            At <strong>Al Juman</strong>, we believe that fragrance is an invisible accessory.
+                            At <strong>Kosem Perfumes</strong>, we believe that fragrance is an invisible accessory.
                             Our concentrated oils are derived from the rarest ingredients, distilled to perfection
                             to offer you an aura of sophistication that lingers.
                         </p>
@@ -142,7 +142,7 @@ export default async function Home() {
                 {/* Shop by Category (Interactive Grid) */}
                 <section style={{ background: 'var(--color-bg-secondary)', paddingTop: '2rem', paddingBottom: '4rem' }}>
                     <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', color: '#111' }}>Shop by Category</h2>
+                        <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', color: '#ffffffff' }}>Shop by Category</h2>
                         <p style={{ color: 'var(--color-text-muted)', marginTop: '1rem' }}>Discover our curated collections</p>
                     </div>
                     <div className="container">
@@ -154,12 +154,14 @@ export default async function Home() {
                 <MovingCarousel products={JSON.parse(JSON.stringify(carouselProducts))} />
 
                 {/* 1. Best Sellers */}
-                <section style={{ background: 'var(--color-bg-secondary)' }}>
-                    <FeaturedCarousel
-                        title="Best Sellers"
-                        initialProducts={JSON.parse(JSON.stringify(bestSellers))}
-                    />
-                </section>
+                {bestSellers.length > 0 && (
+                    <section style={{ background: 'var(--color-bg-secondary)' }}>
+                        <FeaturedCarousel
+                            title="Best Sellers"
+                            initialProducts={JSON.parse(JSON.stringify(bestSellers))}
+                        />
+                    </section>
+                )}
 
                 {/* 2. Premium */}
                 {premiumProducts.length > 0 && (
