@@ -98,10 +98,10 @@ export default async function ProductPage({ params }) {
                                 {'★'.repeat(Math.round(product.rating))}
                                 {'☆'.repeat(5 - Math.round(product.rating))}
                             </div>
-                            <span style={{ fontSize: '1rem', fontWeight: '600', color: '#333' }}>
+                            <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--color-text-main)' }}>
                                 {product.rating.toFixed(1)}
                             </span>
-                            <span style={{ fontSize: '0.9rem', color: '#666', borderLeft: '1px solid #ddd', paddingLeft: '10px' }}>
+                            <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', borderLeft: '1px solid #ddd', paddingLeft: '10px' }}>
                                 {(product._count?.reviews || 0) + (product.fakeRatingCount || 0)} Reviews
                             </span>
                         </div>
@@ -175,7 +175,7 @@ export default async function ProductPage({ params }) {
                             </div>
                         </div>
 
-                        <div style={{ marginTop: '3rem', padding: '2rem', background: '#f9f9f9', borderTop: '1px solid #eee', fontSize: '0.9rem', color: '#666' }}>
+                        <div style={{ marginTop: '3rem', padding: '2rem', background: 'var(--color-bg-secondary)', borderTop: '1px solid var(--color-border)', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
                             <strong style={{ color: 'var(--color-black)', display: 'block', marginBottom: '0.5rem' }}>Authenticity Guaranteed</strong>
                             <p>All our Attars are 100% alcohol-free, long-lasting, and sourced from premium ingredients.</p>
                         </div>
@@ -194,15 +194,15 @@ export default async function ProductPage({ params }) {
                             {similarProducts.map((sp) => (
                                 <Link href={`/product/${sp.id}`} key={sp.id} style={{ textDecoration: 'none', color: 'inherit' }}>
                                     <div style={{ background: '#f8f8f8', padding: '1rem', borderRadius: '8px', transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-5px)' } }}>
-                                        <div style={{ background: '#fff', height: '250px', marginBottom: '1rem', overflow: 'hidden', borderRadius: '4px' }}>
+                                        <div style={{ background: 'var(--color-bg-secondary)', height: '250px', marginBottom: '1rem', overflow: 'hidden', borderRadius: '4px' }}>
                                             {sp.images ? (
                                                 <img src={sp.images} alt={sp.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                             ) : (
-                                                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ccc' }}>No Image</div>
+                                                <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-text-muted)' }}>No Image</div>
                                             )}
                                         </div>
                                         <h3 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', fontFamily: 'var(--font-serif)' }}>{sp.name}</h3>
-                                        {sp.size && <p style={{ fontSize: '0.9rem', color: '#888', marginBottom: '0.5rem' }}>Size: {sp.size}</p>}
+                                        {sp.size && <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '0.5rem' }}>Size: {sp.size}</p>}
                                         <p style={{ fontWeight: 'bold', color: 'var(--color-gold-dim)' }}>₹{sp.price}</p>
                                     </div>
                                 </Link>

@@ -83,7 +83,7 @@ export default function TrackOrder() {
                         <div style={{ borderBottom: '1px solid #333', paddingBottom: '1.5rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                             <div>
                                 <h3 style={{ fontSize: '1.8rem', marginBottom: '0.25rem' }}>Order #{getSmartId(order)}</h3>
-                                <p style={{ color: '#888', fontSize: '1rem' }}>Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
+                                <p style={{ color: 'var(--color-text-muted)', fontSize: '1rem' }}>Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
                             </div>
 
                             <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
@@ -213,7 +213,7 @@ export default function TrackOrder() {
                                 <h4 style={{ color: 'var(--color-gold)', marginBottom: '1.5rem', fontFamily: 'var(--font-sans)', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px' }}>Items Summary</h4>
                                 {order.items.map(item => (
                                     <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1rem', marginBottom: '1rem', borderBottom: '1px solid #333', paddingBottom: '1rem' }}>
-                                        <span style={{ color: '#eee' }}>{item.product?.name || 'Product'} <span style={{ color: '#888', fontSize: '0.9em', marginLeft: '0.5rem' }}>x {item.quantity}</span></span>
+                                        <span style={{ color: '#eee' }}>{item.product?.name || 'Product'} <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9em', marginLeft: '0.5rem' }}>x {item.quantity}</span></span>
                                         <span style={{ color: '#ddd' }}>₹{item.price}</span>
                                     </div>
                                 ))}
@@ -225,20 +225,20 @@ export default function TrackOrder() {
 
                             <div style={{ background: '#161616', padding: '1.5rem', borderRadius: '8px', border: '1px solid #222' }}>
                                 <h4 style={{ color: 'var(--color-gold)', marginBottom: '1.5rem', fontFamily: 'var(--font-sans)', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px' }}>Delivery Details</h4>
-                                <div style={{ color: '#ccc', lineHeight: '1.8', fontSize: '0.95rem' }}>
+                                <div style={{ color: 'var(--color-text-muted)', lineHeight: '1.8', fontSize: '0.95rem' }}>
                                     <div style={{ marginBottom: '1rem' }}>
-                                        <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase' }}>Customer Name</div>
+                                        <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', textTransform: 'uppercase' }}>Customer Name</div>
                                         <div style={{ color: '#fff' }}>{order.shippingName || order.user?.name || 'Customer'}</div>
                                     </div>
                                     <div style={{ marginBottom: '1rem' }}>
-                                        <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase' }}>Shipping Address</div>
+                                        <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', textTransform: 'uppercase' }}>Shipping Address</div>
                                         <div style={{ color: '#fff' }}>
                                             {order.shippingAddress}<br />
                                             {order.shippingCity}, {order.shippingState} - {order.shippingPincode}
                                         </div>
                                     </div>
                                     <div>
-                                        <div style={{ color: '#888', fontSize: '0.8rem', textTransform: 'uppercase' }}>Contact Info</div>
+                                        <div style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', textTransform: 'uppercase' }}>Contact Info</div>
                                         <div style={{ color: '#fff' }}>{order.shippingPhone || order.user?.phone}</div>
                                     </div>
                                 </div>

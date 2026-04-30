@@ -29,7 +29,7 @@ export default function CustomPopup({ isOpen, onClose, title, message, type = 'i
             animation: 'fadeIn 0.2s ease-out'
         }}>
             <div style={{
-                background: 'white',
+                background: 'var(--color-bg-secondary)',
                 padding: '2.5rem 2rem',
                 borderRadius: '16px',
                 maxWidth: '420px',
@@ -51,7 +51,7 @@ export default function CustomPopup({ isOpen, onClose, title, message, type = 'i
                     {title || (type === 'login' ? 'Authentication Required' : 'Notice')}
                 </h3>
 
-                <p style={{ color: '#666', marginBottom: '2rem', lineHeight: '1.6', fontSize: '1rem' }}>
+                <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem', lineHeight: '1.6', fontSize: '1rem' }}>
                     {message}
                 </p>
 

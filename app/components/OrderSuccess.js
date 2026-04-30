@@ -50,7 +50,7 @@ export default function OrderSuccess({ order, onClose }) {
                 </div>
 
                 <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-gold)', marginBottom: '0.5rem' }}>Order Confirmed!</h2>
-                <p style={{ color: '#ccc', marginBottom: '2rem' }}>Thank you for shopping with Kosem.</p>
+                <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>Thank you for shopping with Kosem.</p>
 
                 <div style={{
                     background: 'rgba(255,255,255,0.05)',
@@ -60,13 +60,13 @@ export default function OrderSuccess({ order, onClose }) {
                     textAlign: 'left'
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                        <span style={{ color: '#888' }}>Order ID (Tracking):</span>
+                        <span style={{ color: 'var(--color-text-muted)' }}>Order ID (Tracking):</span>
                         <strong style={{ color: 'var(--color-white)', letterSpacing: '1px' }}>{order.id}</strong>
                     </div>
                     {order.paymentMethod !== 'COD' && (
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                            <span style={{ color: '#888' }}>Transaction ID:</span>
-                            <span style={{ color: '#ccc', fontFamily: 'monospace' }}>{transactionId}</span>
+                            <span style={{ color: 'var(--color-text-muted)' }}>Transaction ID:</span>
+                            <span style={{ color: 'var(--color-text-muted)', fontFamily: 'monospace' }}>{transactionId}</span>
                         </div>
                     )}
                     <div style={{ borderTop: '1px solid #333', margin: '0.5rem 0' }}></div>
@@ -78,7 +78,7 @@ export default function OrderSuccess({ order, onClose }) {
                     </div>
                 </div>
 
-                <p style={{ fontSize: '0.9rem', color: '#666', marginBottom: '2rem' }}>
+                <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
                     A confirmation email has been sent to you. You can track your order status using the ID above.
                 </p>
 

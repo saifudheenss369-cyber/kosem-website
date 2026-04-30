@@ -126,12 +126,12 @@ export default async function Home() {
                     <ImageHero />
                 )}
 
-                <div style={{ background: '#fff', padding: '4rem 2rem', textAlign: 'center' }}>
+                <div style={{ background: 'var(--color-bg-secondary)', padding: '4rem 2rem', textAlign: 'center' }}>
                     <div style={{ maxWidth: '800px', margin: '0 auto' }}>
                         <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '2rem', color: '#111' }}>
                             The Art of Refinement
                         </h2>
-                        <p style={{ color: '#666', fontSize: '1.1rem', lineHeight: '2', marginBottom: '3rem' }}>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', lineHeight: '2', marginBottom: '3rem' }}>
                             At <strong>Al Juman</strong>, we believe that fragrance is an invisible accessory.
                             Our concentrated oils are derived from the rarest ingredients, distilled to perfection
                             to offer you an aura of sophistication that lingers.
@@ -140,10 +140,10 @@ export default async function Home() {
                 </div>
 
                 {/* Shop by Category (Interactive Grid) */}
-                <section style={{ background: '#fafafa', paddingTop: '2rem', paddingBottom: '4rem' }}>
+                <section style={{ background: 'var(--color-bg-secondary)', paddingTop: '2rem', paddingBottom: '4rem' }}>
                     <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                         <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', color: '#111' }}>Shop by Category</h2>
-                        <p style={{ color: '#666', marginTop: '1rem' }}>Discover our curated collections</p>
+                        <p style={{ color: 'var(--color-text-muted)', marginTop: '1rem' }}>Discover our curated collections</p>
                     </div>
                     <div className="container">
                         <CategoryGrid activeCategory="All" />
@@ -154,7 +154,7 @@ export default async function Home() {
                 <MovingCarousel products={JSON.parse(JSON.stringify(carouselProducts))} />
 
                 {/* 1. Best Sellers */}
-                <section style={{ background: '#fff' }}>
+                <section style={{ background: 'var(--color-bg-secondary)' }}>
                     <FeaturedCarousel
                         title="Best Sellers"
                         initialProducts={JSON.parse(JSON.stringify(bestSellers))}
@@ -163,7 +163,7 @@ export default async function Home() {
 
                 {/* 2. Premium */}
                 {premiumProducts.length > 0 && (
-                    <section style={{ background: '#fafafa' }}>
+                    <section style={{ background: 'var(--color-bg-secondary)' }}>
                         <FeaturedCarousel
                             title="Premium Collection"
                             category="Premium"
@@ -174,7 +174,7 @@ export default async function Home() {
 
                 {/* 3. Luxury */}
                 {luxuryProducts.length > 0 && (
-                    <section style={{ background: '#fff' }}>
+                    <section style={{ background: 'var(--color-bg-secondary)' }}>
                         <FeaturedCarousel
                             title="Luxury Edition"
                             category="Luxury"
@@ -189,17 +189,17 @@ export default async function Home() {
                         <div>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🌿</div>
                             <h3>100% Pure</h3>
-                            <p style={{ color: '#aaa' }}>Alcohol-free, concentrated oils extracted from natural ingredients.</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Alcohol-free, concentrated oils extracted from natural ingredients.</p>
                         </div>
                         <div>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>💎</div>
                             <h3>Premium Quality</h3>
-                            <p style={{ color: '#aaa' }}>Aged to perfection to ensure deep and lasting fragrance profiles.</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Aged to perfection to ensure deep and lasting fragrance profiles.</p>
                         </div>
                         <div>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🏆</div>
                             <h3>Trusted Heritage</h3>
-                            <p style={{ color: '#aaa' }}>Decades of experience in the art of Attar and Oudh making.</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Decades of experience in the art of Attar and Oudh making.</p>
                         </div>
                     </div>
                 </section>

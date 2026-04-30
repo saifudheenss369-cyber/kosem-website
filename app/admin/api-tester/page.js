@@ -74,15 +74,15 @@ export default function ApiTester() {
             <Navbar />
             <main className="container" style={{ paddingTop: '120px', paddingBottom: '4rem' }}>
                 <h1 style={{ marginBottom: '1rem', fontFamily: 'var(--font-serif)' }}>API Diagnostic Dashboard</h1>
-                <p style={{ marginBottom: '2rem', color: '#666' }}>Run these tests to verify that your integrations (Shiprocket, Firebase, Database) are configured correctly.</p>
+                <p style={{ marginBottom: '2rem', color: 'var(--color-text-muted)' }}>Run these tests to verify that your integrations (Shiprocket, Firebase, Database) are configured correctly.</p>
 
                 <div style={{ display: 'grid', gap: '2rem' }}>
                     {tests.map((test, index) => (
-                        <div key={index} style={{ background: '#fff', border: '1px solid #eee', borderRadius: '8px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                        <div key={index} style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '1.5rem', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem' }}>
                                 <div>
                                     <h3 style={{ margin: 0, color: 'var(--color-black)' }}>{test.name}</h3>
-                                    <p style={{ margin: '0.5rem 0 0 0', color: '#666', fontSize: '0.9rem', maxWidth: '600px' }}>{test.desc}</p>
+                                    <p style={{ margin: '0.5rem 0 0 0', color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: '600px' }}>{test.desc}</p>
                                 </div>
                                 <button
                                     onClick={test.action}

@@ -55,7 +55,7 @@ export default function PincodeChecker() {
         <div style={{
             marginTop: '1.5rem',
             padding: '1.5rem',
-            background: '#fafafa',
+            background: 'var(--color-bg-secondary)',
             border: '1px solid #eaeaea',
             borderRadius: '8px'
         }}>
@@ -77,7 +77,7 @@ export default function PincodeChecker() {
                     style={{
                         flex: 1,
                         padding: '0.6rem 1rem',
-                        border: '1px solid #ddd',
+                        border: '1px solid var(--color-border)',
                         borderRadius: '4px',
                         outline: 'none',
                         fontSize: '0.9rem'
@@ -126,7 +126,7 @@ export default function PincodeChecker() {
                 </div>
             )}
 
-            <p style={{ margin: '0.8rem 0 0 0', fontSize: '0.75rem', color: '#888' }}>
+            <p style={{ margin: '0.8rem 0 0 0', fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
                 * Fast delivery across India via Shiprocket. COD eligibility depends on location.
             </p>
         </div>

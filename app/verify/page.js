@@ -96,9 +96,9 @@ function VerifyContent() {
                 message={popupConfig.message}
                 type={popupConfig.type}
             />
-            <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.1)', maxWidth: '400px', width: '100%', textAlign: 'center' }}>
                 <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1rem' }}>Verify Your Account</h1>
-                <p style={{ color: '#666', marginBottom: '2rem' }}>
+                <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>
                     {step === 1 ? 'Enter your phone number to receive a verification code.' : `Enter the code sent to ${phone}`}
                 </p>
 
@@ -110,7 +110,7 @@ function VerifyContent() {
                             onChange={e => setPhone(e.target.value)}
                             placeholder="Phone Number"
                             required
-                            style={{ width: '100%', padding: '1rem', fontSize: '1rem', border: '1px solid #ddd', borderRadius: '8px', marginBottom: '1rem' }}
+                            style={{ width: '100%', padding: '1rem', fontSize: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', marginBottom: '1rem' }}
                         />
                         <div id="recaptcha-verify"></div>
                         <button disabled={isLoading} className="btn-primary" style={{ width: '100%', padding: '1rem' }}>
@@ -127,13 +127,13 @@ function VerifyContent() {
                                 onChange={e => setOtp(e.target.value)}
                                 placeholder="123456"
                                 required
-                                style={{ width: '150px', padding: '1rem', fontSize: '1.5rem', textAlign: 'center', border: '1px solid #ddd', borderRadius: '8px', letterSpacing: '5px' }}
+                                style={{ width: '150px', padding: '1rem', fontSize: '1.5rem', textAlign: 'center', border: '1px solid var(--color-border)', borderRadius: '8px', letterSpacing: '5px' }}
                             />
                         </div>
                         <button disabled={isLoading} className="btn-primary" style={{ width: '100%', padding: '1rem' }}>
                             {isLoading ? 'Verifying...' : 'Verify & Continue'}
                         </button>
-                        <button type="button" onClick={() => setStep(1)} style={{ background: 'none', border: 'none', color: '#666', marginTop: '1rem', cursor: 'pointer', textDecoration: 'underline' }}>
+                        <button type="button" onClick={() => setStep(1)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', marginTop: '1rem', cursor: 'pointer', textDecoration: 'underline' }}>
                             Change Number
                         </button>
                     </form>

@@ -36,8 +36,8 @@ export default function MyOrders() {
                     ) : (
                         <div style={{ display: 'grid', gap: '1.5rem' }}>
                             {orders.map(order => (
-                                <div key={order.id} style={{ background: '#f9f9f9', padding: '1.5rem', borderRadius: '8px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid #eee', paddingBottom: '0.5rem' }}>
+                                <div key={order.id} style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px' }}>
+                                    <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem' }}>
                                         <strong>Order #{getSmartId(order)}</strong>
                                         <span style={{ color: 'var(--color-gold)' }}>{order.status}</span>
                                     </div>
@@ -45,7 +45,7 @@ export default function MyOrders() {
                                     <p>Total: ₹{order.total}</p>
                                     <div style={{ marginTop: '1rem' }}>
                                         {order.items.map(item => (
-                                            <div key={item.id} style={{ fontSize: '0.9rem', color: '#666' }}>
+                                            <div key={item.id} style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
                                                 {item.product?.name} x {item.quantity}
                                             </div>
                                         ))}
@@ -54,13 +54,13 @@ export default function MyOrders() {
                                     {order.shiprocketShipmentId ? (
                                         <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px solid #eaeaea', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                                             <div>
-                                                <span style={{ fontSize: '0.85rem', color: '#666', display: 'block' }}>Courier: <strong>{order.courierName || 'Assigned'}</strong></span>
-                                                <span style={{ fontSize: '0.85rem', color: '#666', display: 'block' }}>Shipment ID: <strong>{order.shiprocketShipmentId}</strong></span>
+                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', display: 'block' }}>Courier: <strong>{order.courierName || 'Assigned'}</strong></span>
+                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', display: 'block' }}>Shipment ID: <strong>{order.shiprocketShipmentId}</strong></span>
                                             </div>
                                             <Link
                                                 href={`/track-order?id=${order.id}`}
                                                 className="btn-primary"
-                                                style={{ padding: '0.4rem 1.2rem', fontSize: '0.9rem', color: 'black', textDecoration: 'none', display: 'inline-block' }}
+                                                style={{ padding: '0.4rem 1.2rem', fontSize: '0.9rem', color: 'var(--color-text-main)', textDecoration: 'none', display: 'inline-block' }}
                                             >
                                                 Track Live Order
                                             </Link>

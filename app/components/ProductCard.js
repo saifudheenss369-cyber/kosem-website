@@ -26,7 +26,7 @@ export default function ProductCard({ product }) {
     return (
         <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
             <div className="product-card" style={{
-                background: '#fff',
+                background: 'var(--color-bg-secondary)',
                 borderRadius: '150px 150px 20px 20px', // Deep Arch
                 boxShadow: '0 15px 35px rgba(0,0,0,0.05)',
                 transition: 'all 0.3s ease',
@@ -42,7 +42,7 @@ export default function ProductCard({ product }) {
                 <div className="product-img-container" style={{
                     width: '100%',
                     position: 'relative',
-                    background: '#f9f9f9', // Removed pink gradient, simple background
+                    background: 'var(--color-bg-secondary)', // Removed pink gradient, simple background
                     borderRadius: '150px 150px 0 0', // Clip image to arch
                     display: 'flex',
                     alignItems: 'center',
@@ -85,7 +85,7 @@ export default function ProductCard({ product }) {
                             className="product-img"
                         />
                     ) : (
-                        <div style={{ color: '#ccc' }}>No Image</div>
+                        <div style={{ color: 'var(--color-text-muted)' }}>No Image</div>
                     )}
 
                     {/* NEW Badge (Top Center) */}
@@ -95,8 +95,8 @@ export default function ProductCard({ product }) {
                             top: '30px',
                             left: '50%',
                             transform: 'translateX(-50%)',
-                            background: 'white',
-                            color: '#c58c48',
+                            background: 'var(--color-bg-secondary)',
+                            color: 'var(--color-gold)',
                             padding: '5px 15px',
                             borderRadius: '20px',
                             fontSize: '0.75rem',
@@ -126,7 +126,7 @@ export default function ProductCard({ product }) {
                         fontFamily: 'var(--font-serif)',
                         fontSize: '1.1rem',
                         marginBottom: '0.5rem',
-                        color: '#c58c48',
+                        color: 'var(--color-gold)',
                         fontWeight: '700',
                         letterSpacing: '-0.5px',
                         height: '2.4rem', // Fixed height for 2 lines
@@ -157,16 +157,16 @@ export default function ProductCard({ product }) {
                     <div style={{ marginBottom: '0.5rem', color: '#FFD700', fontSize: '0.9rem', letterSpacing: '2px' }}>
                         {'★'.repeat(Math.round(ratingValue))}
                         {'☆'.repeat(5 - Math.round(ratingValue))}
-                        <span style={{ color: '#333', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '600' }}>
+                        <span style={{ color: 'var(--color-text-main)', fontSize: '0.75rem', marginLeft: '5px', fontWeight: '600' }}>
                             ({ratingValue.toFixed(1)})
                         </span>
-                        <span style={{ color: '#999', fontSize: '0.75rem', marginLeft: '4px' }}>
+                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', marginLeft: '4px' }}>
                             ({reviewCount})
                         </span>
                     </div>
 
                     {/* Description Line */}
-                    <p style={{ fontSize: '0.75rem', color: '#999', marginBottom: '1rem', lineHeight: '1.4', maxWidth: '100%' }}>
+                    <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '1rem', lineHeight: '1.4', maxWidth: '100%' }}>
                         Luxury concentrated perfume oil.
                     </p>
 
@@ -178,8 +178,8 @@ export default function ProductCard({ product }) {
                                 style={{
                                     flex: 1,
                                     background: 'transparent',
-                                    border: '1px solid #ddd',
-                                    color: '#555',
+                                    border: '1px solid var(--color-border)',
+                                    color: 'var(--color-text-muted)',
                                     padding: '0.6rem',
                                     borderRadius: '8px',
                                     fontSize: '0.8rem',
@@ -195,7 +195,7 @@ export default function ProductCard({ product }) {
                                 Shop Now
                             </button>
                         ) : (
-                            <button disabled style={{ flex: 1, padding: '0.6rem', background: '#f5f5f5', border: 'none', color: '#aaa', borderRadius: '8px', fontSize: '0.8rem' }}>Sold Out</button>
+                            <button disabled style={{ flex: 1, padding: '0.6rem', background: 'var(--color-bg-secondary)', border: 'none', color: 'var(--color-text-muted)', borderRadius: '8px', fontSize: '0.8rem' }}>Sold Out</button>
                         )}
 
                         <button
@@ -208,9 +208,9 @@ export default function ProductCard({ product }) {
                                 width: '38px', // Matches height roughly
                                 height: '38px',
                                 borderRadius: '8px',
-                                background: isSaved ? '#c58c48' : 'transparent',
-                                color: isSaved ? 'white' : '#c58c48',
-                                border: `1px solid ${isSaved ? '#c58c48' : '#ddd'}`,
+                                background: isSaved ? 'var(--color-gold)' : 'transparent',
+                                color: isSaved ? 'white' : 'var(--color-gold)',
+                                border: `1px solid ${isSaved ? 'var(--color-gold)' : '#ddd'}`,
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
@@ -219,7 +219,7 @@ export default function ProductCard({ product }) {
                                 transition: 'all 0.2s'
                             }}
                         >
-                            <FiHeart size={18} fill={isSaved ? 'white' : 'none'} color={isSaved ? 'white' : '#c58c48'} />
+                            <FiHeart size={18} fill={isSaved ? 'white' : 'none'} color={isSaved ? 'white' : 'var(--color-gold)'} />
                         </button>
                     </div>
                 </div>

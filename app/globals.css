@@ -1,27 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
 
 :root {
-  /* Kosem Luxury LIGHT Palette */
-  --color-gold: #C5A059;
-  /* Muted elegant gold */
-  --color-gold-light: #E5C585;
-  /* Highlight gold */
-  --color-gold-dim: #9A7B4F;
-  /* Darker Gold for text */
+  /* Kosem Luxury DARK Palette */
+  --color-bg-main: #0F172A; /* Slate 900 */
+  --color-bg-secondary: #1E293B; /* Slate 800 */
+  --color-gold: #B8860B; /* Dark Goldenrod */
+  --color-gold-light: #d69e0b; /* Highlight gold */
+  --color-gold-dim: #8b6508; /* Darker Gold */
+  
+  --color-text-main: #F8FAFC; /* Slate 50 */
+  --color-text-muted: #94A3B8; /* Slate 400 */
 
-  --color-black: #111111;
-  /* Text Black */
-  --color-charcoal: #333333;
-  /* Soft Black for secondary text */
-  --color-white: #FFFFFF;
-  /* Main Background */
-  --color-off-white: #FAFAFA;
-  /* Section Background */
-  --color-border: #EAEAEA;
-  /* Light Border */
-
-  --color-text-main: #111111;
-  --color-text-muted: #666666;
+  /* Legacy remapping for backwards compatibility */
+  --color-black: #05080f; /* Darker than main bg for deepest shadows */
+  --color-charcoal: #1E293B; /* Maps to secondary surface */
+  --color-white: #F8FAFC; /* White text */
+  --color-off-white: #1E293B; /* Light background mapped to dark card */
+  --color-border: #334155; /* Slate 700 */
 
   --font-serif: "Playfair Display", serif;
   --font-sans: "Inter", sans-serif;
@@ -41,7 +36,7 @@ html, body {
 
 body {
   color: var(--color-text-main);
-  background-color: var(--color-white);
+  background-color: var(--color-bg-main);
   font-family: var(--font-sans);
   min-height: 100vh;
   font-weight: 400;

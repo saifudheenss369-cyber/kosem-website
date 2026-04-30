@@ -120,31 +120,31 @@ export default function Shop() {
                 }}>
                     {/* SIDEBAR FILTERS */}
                     <aside className="shop-sidebar" style={{
-                        background: 'white',
+                        background: 'var(--color-bg-secondary)',
                         padding: '1.5rem',
                         borderRadius: '12px',
                         boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
                         position: 'sticky',
                         top: '100px'
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid #eee', paddingBottom: '1rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem' }}>
                             <h2 style={{ fontSize: '1.2rem', margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-serif)' }}>
                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
                                 Filters
                             </h2>
                             {(selectedCategories.length > 0 || selectedOccasions.length > 0) && (
-                                <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', color: '#d4af37', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}>Clear All</button>
+                                <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', color: 'var(--color-gold)', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}>Clear All</button>
                             )}
                         </div>
 
                         {/* Occasion Filter */}
                         <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#333', display: 'flex', justifyContent: 'space-between' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-text-main)', display: 'flex', justifyContent: 'space-between' }}>
                                 Occasion
                             </h3>
                             <div className="filter-group">
                                 {occasionOptions.map(occ => (
-                                    <label key={occ} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: '#555' }}>
+                                    <label key={occ} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>
                                         <input
                                             type="checkbox"
                                             checked={selectedOccasions.includes(occ)}
@@ -157,16 +157,16 @@ export default function Shop() {
                             </div>
                         </div>
 
-                        <hr style={{ border: 'none', borderTop: '1px solid #eee', margin: '1.5rem 0' }} />
+                        <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '1.5rem 0' }} />
 
                         {/* Category Filter */}
                         <div style={{ marginBottom: '1rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: '#333', display: 'flex', justifyContent: 'space-between' }}>
+                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-text-main)', display: 'flex', justifyContent: 'space-between' }}>
                                 Category/Type
                             </h3>
                             <div className="filter-group">
                                 {categories.map(cat => (
-                                    <label key={cat.id} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: '#555' }}>
+                                    <label key={cat.id} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>
                                         <input
                                             type="checkbox"
                                             checked={selectedCategories.includes(cat.name)}
@@ -176,7 +176,7 @@ export default function Shop() {
                                         {cat.name}
                                     </label>
                                 ))}
-                                {categories.length === 0 && <p style={{ color: '#888', fontSize: '0.85rem' }}>Loading categories...</p>}
+                                {categories.length === 0 && <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>Loading categories...</p>}
                             </div>
                         </div>
                     </aside>
@@ -193,7 +193,7 @@ export default function Shop() {
                             gap: '1rem'
                         }}>
                             <h1 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-serif)', margin: 0 }}>
-                                Collection <span style={{ fontSize: '1rem', color: '#888', fontFamily: 'var(--font-sans)', fontWeight: 'normal' }}>({products.length} Items)</span>
+                                Collection <span style={{ fontSize: '1rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-sans)', fontWeight: 'normal' }}>({products.length} Items)</span>
                             </h1>
 
                             <div className="search-sort-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -203,16 +203,16 @@ export default function Shop() {
                                         placeholder="Search..."
                                         value={search}
                                         onChange={e => setSearch(e.target.value)}
-                                        style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', outline: 'none', width: '200px' }}
+                                        style={{ padding: '0.5rem 1rem', border: '1px solid var(--color-border)', borderRadius: '4px', outline: 'none', width: '200px' }}
                                     />
                                 </form>
 
                                 <div className="sort-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <span style={{ fontSize: '0.9rem', color: '#666' }}>Sort by:</span>
+                                    <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Sort by:</span>
                                     <select
                                         value={sortBy}
                                         onChange={e => setSortBy(e.target.value)}
-                                        style={{ padding: '0.5rem 1rem', border: '1px solid #ddd', borderRadius: '4px', background: 'transparent', outline: 'none', cursor: 'pointer', fontWeight: '500' }}
+                                        style={{ padding: '0.5rem 1rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: 'transparent', outline: 'none', cursor: 'pointer', fontWeight: '500' }}
                                     >
                                         <option value="price_asc">Price - Low to High</option>
                                         <option value="price_desc">Price - High to Low</option>
@@ -225,7 +225,7 @@ export default function Shop() {
                         {loading ? (
                             <div className="product-layout" style={{ gap: '2rem' }}>
                                 {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                                    <div key={n} style={{ border: '1px solid #eee', borderRadius: '8px', overflow: 'hidden', background: '#fff' }}>
+                                    <div key={n} style={{ border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden', background: 'var(--color-bg-secondary)' }}>
                                         <div className="shimmer-box" style={{ height: '300px', width: '100%' }}></div>
                                         <div style={{ padding: '1rem' }}>
                                             <div className="shimmer-box" style={{ height: '20px', width: '60%', marginBottom: '10px' }}></div>
@@ -256,9 +256,9 @@ export default function Shop() {
                         ) : (
                             <div className="product-layout" style={{ gap: '2rem' }}>
                                 {products.length === 0 ? (
-                                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
                                         <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '1rem' }}>No products found</h3>
-                                        <p style={{ color: '#666' }}>Try adjusting your filters or search term to find what you're looking for.</p>
+                                        <p style={{ color: 'var(--color-text-muted)' }}>Try adjusting your filters or search term to find what you're looking for.</p>
                                         <button onClick={clearAllFilters} className="btn-primary" style={{ marginTop: '1.5rem', padding: '0.8rem 2rem' }}>Clear All Filters</button>
                                     </div>
                                 ) : (

@@ -18,7 +18,7 @@ export default function WishlistPage() {
                 </h1>
 
                 {wishlist.length === 0 ? (
-                    <div style={{ textAlign: 'center', marginTop: '4rem', color: '#666' }}>
+                    <div style={{ textAlign: 'center', marginTop: '4rem', color: 'var(--color-text-muted)' }}>
                         <p style={{ fontSize: '1.2rem', marginBottom: '2rem' }}>Your wishlist is currently empty.</p>
                         <Link href="/shop" style={{
                             padding: '1rem 3rem',

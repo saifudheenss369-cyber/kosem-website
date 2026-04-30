@@ -39,12 +39,12 @@ export default function ForgotPasswordPage() {
     return (
         <>
             <Navbar />
-            <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f9f9f9', padding: '1rem' }}>
-                <div style={{ background: 'white', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', width: '100%', maxWidth: '450px' }}>
+            <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)', padding: '1rem' }}>
+                <div style={{ background: 'var(--color-bg-secondary)', padding: '2rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', width: '100%', maxWidth: '450px' }}>
                     <h1 style={{ textAlign: 'center', marginBottom: '1rem', fontFamily: 'var(--font-serif)', fontSize: '2rem' }}>Forgot Password?</h1>
 
                     {status !== 'success' && (
-                        <p style={{ textAlign: 'center', color: '#666', marginBottom: '2rem', fontSize: '1rem' }}>
+                        <p style={{ textAlign: 'center', color: 'var(--color-text-muted)', marginBottom: '2rem', fontSize: '1rem' }}>
                             Enter your email address and we'll send you a link to reset your password.
                         </p>
                     )}
@@ -65,7 +65,7 @@ export default function ForgotPasswordPage() {
                     ) : (
                         <form onSubmit={handleSubmit}>
                             <div style={{ marginBottom: '1.5rem' }}>
-                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: '#333' }}>Email Address</label>
+                                <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500', color: 'var(--color-text-main)' }}>Email Address</label>
                                 <input
                                     type="email"
                                     value={email}
@@ -103,7 +103,7 @@ export default function ForgotPasswordPage() {
                             </button>
 
                             <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                                <Link href="/login" style={{ color: '#666', fontSize: '0.9rem', textDecoration: 'none' }}>
+                                <Link href="/login" style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', textDecoration: 'none' }}>
                                     Remember your password? <span style={{ color: 'var(--color-gold)', fontWeight: '500' }}>Login</span>
                                 </Link>
                             </div>

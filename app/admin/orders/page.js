@@ -427,7 +427,7 @@ export default function AdminOrders() {
                                 notifStatus === 'loading' ? '⏳ Enabling...' :
                                     '🔔 Enable Notifications'}
                     </button>
-                    <span style={{ fontSize: '0.8rem', color: '#999', whiteSpace: 'nowrap' }}>Live Updates: {lastUpdated.toLocaleTimeString()}</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', whiteSpace: 'nowrap' }}>Live Updates: {lastUpdated.toLocaleTimeString()}</span>
                 </div>
             </div>
 
@@ -436,7 +436,7 @@ export default function AdminOrders() {
                 display: 'flex',
                 gap: '1rem',
                 flexWrap: 'wrap',
-                background: 'white',
+                background: 'var(--color-bg-secondary)',
                 padding: '1.2rem',
                 borderRadius: '8px',
                 marginBottom: '1rem',
@@ -452,7 +452,7 @@ export default function AdminOrders() {
                             value={searchText}
                             onChange={(e) => setSearchText(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && setFilters({ ...filters, q: searchText, page: 1 })}
-                            style={{ flex: 1, padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                            style={{ flex: 1, padding: '0.6rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                         />
                         <button onClick={() => setFilters({ ...filters, q: searchText, page: 1 })} style={{ padding: '0.6rem 1rem', background: '#333', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}>Search</button>
                     </div>
@@ -463,7 +463,7 @@ export default function AdminOrders() {
                     <select
                         value={filters.datePreset}
                         onChange={handleDatePreset}
-                        style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                        style={{ padding: '0.6rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                     >
                         <option value="ALL">All Time</option>
                         <option value="TODAY">Today</option>
@@ -478,7 +478,7 @@ export default function AdminOrders() {
                     <select
                         value={filters.status}
                         onChange={e => setFilters({ ...filters, status: e.target.value, page: 1 })}
-                        style={{ padding: '0.6rem', border: '1px solid #ddd', borderRadius: '4px', minWidth: '150px' }}
+                        style={{ padding: '0.6rem', border: '1px solid var(--color-border)', borderRadius: '4px', minWidth: '150px' }}
                     >
                         <option value="ALL">All States</option>
                         <option value="PENDING">Pending</option>
@@ -493,14 +493,14 @@ export default function AdminOrders() {
                         setSearchText('');
                         setFilters({ startDate: '', endDate: '', status: 'ALL', q: '', datePreset: 'ALL', page: 1 });
                     }}
-                    style={{ padding: '0.6rem 1.2rem', background: '#e0e0e0', color: '#333', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '0.6rem 1.2rem', background: '#e0e0e0', color: 'var(--color-text-main)', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                     Clear Filter
                 </button>
             </div>
 
             {orders.length === 0 ? (
-                <p style={{ marginTop: '1rem', color: '#666', textAlign: 'center', padding: '2rem' }}>No orders found matching filters.</p>
+                <p style={{ marginTop: '1rem', color: 'var(--color-text-muted)', textAlign: 'center', padding: '2rem' }}>No orders found matching filters.</p>
             ) : (
                 <div style={{ display: 'grid', gap: '1.5rem' }}>
                     {orders.map(order => (
@@ -509,25 +509,25 @@ export default function AdminOrders() {
                         // I'll replace the closing `</div>` of the list container?
                         // No, unsafe.
                         // I'll replace the closing `)}` with pagination controls inside.
-                        <div key={order.id} style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
+                        <div key={order.id} style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
                             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
                                 {/* ... Header ... */}
                                 <div>
                                     <h4 style={{ margin: 0, color: 'var(--color-black)' }}>
-                                        <span style={{ color: '#666', fontSize: '0.9rem', textTransform: 'uppercase' }}>Tracking ID:</span> {getSmartId(order)}
+                                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', textTransform: 'uppercase' }}>Tracking ID:</span> {getSmartId(order)}
                                     </h4>
-                                    <small style={{ color: '#666' }}>Placed: {new Date(order.createdAt).toLocaleString()}</small>
+                                    <small style={{ color: 'var(--color-text-muted)' }}>Placed: {new Date(order.createdAt).toLocaleString()}</small>
                                 </div>
                                 <div style={{ textAlign: 'right' }}>
                                     <span style={{ fontWeight: 'bold', fontSize: '1.1rem', display: 'block' }}>₹{order.total}</span>
-                                    <span style={{ fontSize: '0.8rem', color: '#555', background: '#eee', padding: '2px 6px', borderRadius: '4px' }}>
+                                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', background: '#eee', padding: '2px 6px', borderRadius: '4px' }}>
                                         {order.paymentMethod || 'COD'}
                                     </span>
                                     <select
                                         value={order.status}
                                         onChange={(e) => updateStatus(order.id, e.target.value)}
                                         disabled={updatingStatusId === order.id}
-                                        style={{ padding: '0.25rem', marginTop: '0.5rem', borderRadius: '4px', border: '1px solid #ddd', opacity: updatingStatusId === order.id ? 0.6 : 1, cursor: updatingStatusId === order.id ? 'wait' : 'pointer' }}
+                                        style={{ padding: '0.25rem', marginTop: '0.5rem', borderRadius: '4px', border: '1px solid var(--color-border)', opacity: updatingStatusId === order.id ? 0.6 : 1, cursor: updatingStatusId === order.id ? 'wait' : 'pointer' }}
                                     >
                                         <option value="PENDING">Pending</option>
                                         <option value="SHIPPED">Shipped</option>
@@ -544,7 +544,7 @@ export default function AdminOrders() {
                                 </div>
                             </div>
 
-                            <div style={{ marginBottom: '1rem', background: '#f9f9f9', padding: '1rem', borderRadius: '4px' }}>
+                            <div style={{ marginBottom: '1rem', background: 'var(--color-bg-secondary)', padding: '1rem', borderRadius: '4px' }}>
                                 <strong>Customer Delivery Details:</strong>
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginTop: '0.5rem', fontSize: '0.9rem' }}>
                                     <div>
@@ -596,9 +596,9 @@ export default function AdminOrders() {
 
                             {/* Shiprocket Admin Actions */}
                             <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #f0f0f0' }}>
-                                <div style={{ fontSize: '0.75rem', color: '#999', marginBottom: '0.5rem', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
+                                <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginBottom: '0.5rem', textTransform: 'uppercase', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem' }}>
                                     <span>Shiprocket Actions</span>
-                                    {order.shiprocketOrderId && <span style={{ color: '#666' }}>SR ID: {order.shiprocketOrderId}</span>}
+                                    {order.shiprocketOrderId && <span style={{ color: 'var(--color-text-muted)' }}>SR ID: {order.shiprocketOrderId}</span>}
                                 </div>
                                 
                                 <div className="sr-actions-container">

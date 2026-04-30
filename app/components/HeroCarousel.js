@@ -118,7 +118,7 @@ export default function HeroCarousel({ products }) {
                             fontSize: '1.2rem',
                             letterSpacing: '5px',
                             textTransform: 'uppercase',
-                            color: '#d4af37',
+                            color: 'var(--color-gold)',
                             marginBottom: '1rem',
                             animation: idx === currentIndex ? 'lidOpen 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s backwards' : 'none',
                         }}>
@@ -151,9 +151,9 @@ export default function HeroCarousel({ products }) {
                         }}>
                             <Link href={`/product/${product.id}`} style={{
                                 padding: '1rem 3rem',
-                                background: '#d4af37',
+                                background: 'var(--color-gold)',
                                 border: '1px solid #d4af37',
-                                color: '#000',
+                                color: 'var(--color-text-main)',
                                 textDecoration: 'none',
                                 textTransform: 'uppercase',
                                 letterSpacing: '2px',
@@ -236,7 +236,7 @@ export default function HeroCarousel({ products }) {
                                     width: idx === currentIndex ? '28px' : '8px',
                                     height: '8px',
                                     borderRadius: idx === currentIndex ? '4px' : '50%',
-                                    background: idx === currentIndex ? '#d4af37' : 'rgba(255,255,255,0.4)',
+                                    background: idx === currentIndex ? 'var(--color-gold)' : 'rgba(255,255,255,0.4)',
                                     cursor: 'pointer',
                                     transition: 'all 0.4s ease',
                                 }}

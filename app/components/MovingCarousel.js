@@ -52,7 +52,7 @@ export default function MovingCarousel({ products }) {
     const visibleItems = getVisibleProducts();
 
     return (
-        <section style={{ padding: '4rem 0', background: '#fafafa', overflow: 'hidden' }}>
+        <section style={{ padding: '4rem 0', background: 'var(--color-bg-secondary)', overflow: 'hidden' }}>
             <div className="container" style={{ textAlign: 'center', marginBottom: '3rem' }}>
                 <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem' }}>Featured Collection</h2>
                 <div style={{ width: '60px', height: '2px', background: 'var(--color-gold)', margin: '1rem auto' }}></div>

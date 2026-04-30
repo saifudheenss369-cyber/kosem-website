@@ -198,18 +198,18 @@ export default function AdminProducts() {
             </div>
 
             {/* QUICK FILTERS */}
-            <div style={{ background: 'white', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', display: 'flex', gap: '1rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', padding: '1rem', borderRadius: '8px', marginBottom: '1.5rem', display: 'flex', gap: '1rem', boxShadow: '0 2px 4px rgba(0,0,0,0.05)' }}>
                 <input
                     type="text"
                     placeholder="Search products by name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    style={{ flex: 1, padding: '0.8rem', border: '1px solid #ddd', borderRadius: '6px', fontSize: '1rem' }}
+                    style={{ flex: 1, padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '6px', fontSize: '1rem' }}
                 />
                 <select
                     value={filterCategory}
                     onChange={(e) => setFilterCategory(e.target.value)}
-                    style={{ padding: '0.8rem', border: '1px solid #ddd', borderRadius: '6px', fontSize: '1rem', minWidth: '200px' }}
+                    style={{ padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '6px', fontSize: '1rem', minWidth: '200px' }}
                 >
                     <option value="ALL">All Categories</option>
                     {categories.map(cat => (
@@ -219,10 +219,10 @@ export default function AdminProducts() {
             </div>
 
             {/* PRODUCT TABLE */}
-            <div style={{ background: 'white', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse' }}>
                     <thead>
-                        <tr style={{ background: '#f8f9fa', color: '#666', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                        <tr style={{ background: '#f8f9fa', color: 'var(--color-text-muted)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
                             <th style={{ padding: '1.2rem', textAlign: 'left', fontWeight: 'bold' }}>Product Name</th>
                             <th style={{ padding: '1.2rem', textAlign: 'left', fontWeight: 'bold' }}>Category</th>
                             <th style={{ padding: '1.2rem', textAlign: 'left', fontWeight: 'bold' }}>Price</th>
@@ -234,7 +234,7 @@ export default function AdminProducts() {
                     <tbody>
                         {filteredProducts.length === 0 ? (
                             <tr>
-                                <td colSpan="6" style={{ padding: '2rem', textAlign: 'center', color: '#888' }}>
+                                <td colSpan="6" style={{ padding: '2rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>
                                     No products match your filters.
                                 </td>
                             </tr>
@@ -251,7 +251,7 @@ export default function AdminProducts() {
                                         {p.isBestSeller && <span style={{ fontSize: '0.6rem', background: 'var(--color-gold)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>BEST</span>}
                                     </div>
                                 </td>
-                                <td style={{ padding: '1.2rem', color: '#666' }}>{p.category}</td>
+                                <td style={{ padding: '1.2rem', color: 'var(--color-text-muted)' }}>{p.category}</td>
                                 <td style={{ padding: '1.2rem', fontWeight: 'bold' }}>₹{p.price}</td>
                                 <td style={{ padding: '1.2rem', textAlign: 'center' }}>
                                     <span style={{
@@ -265,7 +265,7 @@ export default function AdminProducts() {
                                         {p.stock} units
                                     </span>
                                 </td>
-                                <td style={{ padding: '1.2rem', textAlign: 'center', fontSize: '0.9rem', color: '#666' }}>
+                                <td style={{ padding: '1.2rem', textAlign: 'center', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
                                     ⭐ {p.rating} ({p.fakeRatingCount})
                                 </td>
                                 <td style={{ padding: '1.2rem', textAlign: 'right' }}>
@@ -292,12 +292,12 @@ export default function AdminProducts() {
                     zIndex: 2000, display: 'flex', alignItems: 'center', justifyContent: 'center'
                 }}>
                     <div className="animate-fade-up" style={{
-                        background: 'white', width: '900px', maxWidth: '95%', maxHeight: '90vh',
+                        background: 'var(--color-bg-secondary)', width: '900px', maxWidth: '95%', maxHeight: '90vh',
                         borderRadius: '16px', overflow: 'hidden', display: 'flex', flexDirection: 'column',
                         boxShadow: '0 20px 50px rgba(0,0,0,0.2)'
                     }}>
                         {/* Header */}
-                        <div style={{ padding: '1.5rem', borderBottom: '1px solid #eee', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
+                        <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', alignItems: 'center' }}>
                             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', margin: 0 }}>
                                 {editingId ? 'Edit Product Details' : 'Add New Product'}
                             </h2>
@@ -325,10 +325,10 @@ export default function AdminProducts() {
                                         </div>
                                         {formData.images && (
                                             <div style={{ marginTop: '0.5rem' }}>
-                                                <img src={formData.images} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '1px solid #ddd' }} />
+                                                <img src={formData.images} alt="Preview" style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '8px', border: '1px solid var(--color-border)' }} />
                                             </div>
                                         )}
-                                        <small style={{ color: '#888' }}>Main thumbnail image shown on shop page.</small>
+                                        <small style={{ color: 'var(--color-text-muted)' }}>Main thumbnail image shown on shop page.</small>
                                     </div>
                                     <div className="form-group">
                                         <label>Additional Gallery Images</label>
@@ -339,14 +339,14 @@ export default function AdminProducts() {
                                                     const gal = JSON.parse(formData.gallery);
                                                     return Array.isArray(gal) ? gal.map((img, idx) => (
                                                         <div key={idx} style={{ position: 'relative' }}>
-                                                            <img src={img} alt={`Gallery ${idx}`} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }} />
+                                                            <img src={img} alt={`Gallery ${idx}`} style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--color-border)' }} />
                                                             <button type="button" onClick={() => removeGalleryImage(idx)} style={{ position: 'absolute', top: -5, right: -5, background: 'red', color: 'white', border: 'none', borderRadius: '50%', width: '20px', height: '20px', cursor: 'pointer', fontSize: '10px' }}>X</button>
                                                         </div>
                                                     )) : null;
                                                 } catch { return null; }
                                             })()}
                                         </div>
-                                        <small style={{ color: '#888' }}>Upload multiple photos for the product page carousel.</small>
+                                        <small style={{ color: 'var(--color-text-muted)' }}>Upload multiple photos for the product page carousel.</small>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <input type="checkbox" checked={formData.isBestSeller} onChange={e => setFormData({ ...formData, isBestSeller: e.target.checked })} id="bestSeller" style={{ width: '20px', height: '20px' }} />
@@ -395,7 +395,7 @@ export default function AdminProducts() {
 
                                     <div className="form-group">
                                         <label>Occasions</label>
-                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', background: '#f9f9f9', padding: '1rem', borderRadius: '8px', border: '1px solid #e0e0e0' }}>
+                                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', background: 'var(--color-bg-secondary)', padding: '1rem', borderRadius: '8px', border: '1px solid #e0e0e0' }}>
                                             {occasionOptions.map(occ => {
                                                 const currentOccs = formData.occasions ? formData.occasions.split(',').map(s => s.trim()) : [];
                                                 const isChecked = currentOccs.includes(occ);
@@ -412,16 +412,16 @@ export default function AdminProducts() {
                                                 );
                                             })}
                                         </div>
-                                        <small style={{ color: '#888' }}>Select all that apply.</small>
+                                        <small style={{ color: 'var(--color-text-muted)' }}>Select all that apply.</small>
                                     </div>
 
-                                    <div style={{ padding: '1.5rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                                    <div style={{ padding: '1.5rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
                                         <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-gold)' }}>Variations & Links</h4>
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                             <div className="form-group">
                                                 <label>Size / Variant Name</label>
                                                 <input type="text" placeholder="e.g., 6ml, 12ml" value={formData.size || ''} onChange={e => setFormData({ ...formData, size: e.target.value })} />
-                                                <small style={{ color: '#888' }}>The label for this variant. Leave blank if standard product.</small>
+                                                <small style={{ color: 'var(--color-text-muted)' }}>The label for this variant. Leave blank if standard product.</small>
                                             </div>
                                             <div className="form-group">
                                                 <label>Variant Group ID</label>
@@ -429,7 +429,7 @@ export default function AdminProducts() {
                                                 <datalist id="variant-group-list">
                                                     {uniqueVariantGroups.map(vg => <option key={vg} value={vg} />)}
                                                 </datalist>
-                                                <small style={{ color: '#888' }}>Products with the exact same ID here will show as size options on the product page. Or type a new one.</small>
+                                                <small style={{ color: 'var(--color-text-muted)' }}>Products with the exact same ID here will show as size options on the product page. Or type a new one.</small>
                                             </div>
                                             <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                                 <input type="checkbox" checked={formData.isMainVariant} onChange={e => setFormData({ ...formData, isMainVariant: e.target.checked })} id="isMainVariant" style={{ width: '20px', height: '20px' }} />
@@ -437,7 +437,7 @@ export default function AdminProducts() {
                                             </div>
                                             <div className="form-group">
                                                 <label>Similar Products</label>
-                                                <div style={{ maxHeight: '150px', overflowY: 'auto', border: '1px solid #e0e0e0', padding: '10px', borderRadius: '6px', background: 'white' }}>
+                                                <div style={{ maxHeight: '150px', overflowY: 'auto', border: '1px solid #e0e0e0', padding: '10px', borderRadius: '6px', background: 'var(--color-bg-secondary)' }}>
                                                     {products.filter(p => p.id !== editingId).map(p => {
                                                         const currentSimilars = formData.similarProductIds ? formData.similarProductIds.split(',').filter(Boolean) : [];
                                                         const isLinked = currentSimilars.includes(p.id.toString());
@@ -458,12 +458,12 @@ export default function AdminProducts() {
                                                         );
                                                     })}
                                                 </div>
-                                                <small style={{ color: '#888' }}>Select products to show in "Similar Products".</small>
+                                                <small style={{ color: 'var(--color-text-muted)' }}>Select products to show in "Similar Products".</small>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div style={{ padding: '1.5rem', background: '#f9f9f9', borderRadius: '8px' }}>
+                                    <div style={{ padding: '1.5rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
                                         <h4 style={{ margin: '0 0 1rem 0', color: 'var(--color-gold)' }}>Social Proof Engineering</h4>
                                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
                                             <div className="form-group">
@@ -483,12 +483,12 @@ export default function AdminProducts() {
                                                         </span>
                                                     ))}
                                                 </div>
-                                                <small style={{ color: '#888' }}>Current: {formData.rating} Stars</small>
+                                                <small style={{ color: 'var(--color-text-muted)' }}>Current: {formData.rating} Stars</small>
                                             </div>
                                             <div className="form-group">
                                                 <label>Fake Review Count</label>
                                                 <input type="number" value={formData.fakeRatingCount} onChange={e => setFormData({ ...formData, fakeRatingCount: parseInt(e.target.value) })} />
-                                                <small style={{ color: '#888' }}>Shows as "(123 reviews)"</small>
+                                                <small style={{ color: 'var(--color-text-muted)' }}>Shows as "(123 reviews)"</small>
                                             </div>
                                         </div>
                                     </div>

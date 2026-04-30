@@ -7,7 +7,7 @@ export default function ProductGallery({ images, productName }) {
 
     if (!images || images.length === 0) {
         return (
-            <div style={{ background: '#f0f0f0', height: '550px', display: 'grid', placeItems: 'center', color: '#ccc' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', height: '550px', display: 'grid', placeItems: 'center', color: 'var(--color-text-muted)' }}>
                 No Image
             </div>
         );
@@ -16,7 +16,7 @@ export default function ProductGallery({ images, productName }) {
     return (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {/* Main Image */}
-            <div style={{ background: '#f0f0f0', height: '550px', borderRadius: '0', overflow: 'hidden', position: 'relative' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', height: '550px', borderRadius: '0', overflow: 'hidden', position: 'relative' }}>
                 <img 
                     src={images[currentIndex]} 
                     alt={`${productName} image ${currentIndex + 1}`} 

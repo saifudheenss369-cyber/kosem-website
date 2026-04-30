@@ -160,8 +160,8 @@ export default function Signup() {
                 message={popupConfig.message}
                 type={popupConfig.type}
             />
-            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-                <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
+            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)' }}>
+                <div style={{ background: 'var(--color-bg-secondary)', padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
                     <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)' }}>Create Account</h2>
 
                     {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '1rem' }}>{error}</p>}
@@ -174,7 +174,7 @@ export default function Signup() {
                                 value={formData.name}
                                 onChange={e => setFormData({ ...formData, name: e.target.value })}
                                 required
-                                style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                             />
                         </div>
 
@@ -188,7 +188,7 @@ export default function Signup() {
                                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                     placeholder="9876543210"
                                     disabled={isVerified}
-                                    style={{ flex: 1, padding: '0.8rem', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px', background: isVerified ? '#e9ecef' : 'white' }}
+                                    style={{ flex: 1, padding: '0.8rem', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: isVerified ? '#e9ecef' : 'white' }}
                                 />
                                 {!isVerified && (
                                     <button
@@ -224,9 +224,9 @@ export default function Signup() {
                                         value={otp}
                                         onChange={e => setOtp(e.target.value)}
                                         placeholder="6-digit code"
-                                        style={{ flex: 1, padding: '0.8rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                        style={{ flex: 1, padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                     />
-                                    <button type="button" onClick={handleVerifyOtp} style={{ padding: '0 1rem', background: 'var(--color-gold)', color: 'black', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
+                                    <button type="button" onClick={handleVerifyOtp} style={{ padding: '0 1rem', background: 'var(--color-gold)', color: 'var(--color-text-main)', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
                                         Verify
                                     </button>
                                 </div>
@@ -255,7 +255,7 @@ export default function Signup() {
                                     }
                                 }}
                                 required
-                                style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                             />
                         </div>
 
@@ -268,7 +268,7 @@ export default function Signup() {
                                     onChange={e => setFormData({ ...formData, password: e.target.value })}
                                     required
                                     minLength={6}
-                                    style={{ width: '100%', padding: '0.8rem', paddingRight: '40px', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                    style={{ width: '100%', padding: '0.8rem', paddingRight: '40px', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                 />
                                 <button
                                     type="button"
@@ -281,7 +281,7 @@ export default function Signup() {
                                         border: 'none',
                                         background: 'none',
                                         cursor: 'pointer',
-                                        color: '#666'
+                                        color: 'var(--color-text-muted)'
                                     }}
                                 >
                                     {showPassword ? (
@@ -306,7 +306,7 @@ export default function Signup() {
                                 onChange={(e) => setAgreedToTerms(e.target.checked)}
                                 style={{ marginTop: '4px', cursor: 'pointer', width: '16px', height: '16px' }}
                             />
-                            <label htmlFor="terms" style={{ fontSize: '0.85rem', color: '#555', cursor: 'pointer' }}>
+                            <label htmlFor="terms" style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
                                 I have read and agree to the <Link href="/terms" style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>Terms & Conditions</Link> and <Link href="/privacy" style={{ color: 'var(--color-gold)', textDecoration: 'underline' }}>Privacy Policy</Link>.
                             </label>
                         </div>

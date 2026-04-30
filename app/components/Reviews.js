@@ -79,7 +79,7 @@ export default function Reviews({ productId, product }) {
     const displayCount = reviews.length + (product?.fakeRatingCount || 0);
 
     return (
-        <div style={{ marginTop: '3rem', borderTop: '1px solid #eee', paddingTop: '2rem' }}>
+        <div style={{ marginTop: '3rem', borderTop: '1px solid var(--color-border)', paddingTop: '2rem' }}>
             <CustomPopup
                 isOpen={popupConfig.isOpen}
                 onClose={() => setPopupConfig({ ...popupConfig, isOpen: false })}
@@ -91,7 +91,7 @@ export default function Reviews({ productId, product }) {
                 Customer Reviews ({displayCount > reviews.length ? displayCount : reviews.length})
             </h3>
 
-            <div style={{ marginBottom: '2rem', padding: '1.5rem', background: '#f9f9f9', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
+            <div style={{ marginBottom: '2rem', padding: '1.5rem', background: 'var(--color-bg-secondary)', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
                 <h4 style={{ marginBottom: '1rem', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px' }}>Write a Review</h4>
                 {canReview ? (
                     <form onSubmit={handleSubmit}>
@@ -119,29 +119,29 @@ export default function Reviews({ productId, product }) {
                             value={newReview.text}
                             onChange={e => setNewReview({ ...newReview, text: e.target.value })}
                             required
-                            style={{ width: '100%', padding: '1rem', minHeight: '100px', marginBottom: '1rem', border: '1px solid #ddd', borderRadius: '4px', fontFamily: 'inherit' }}
+                            style={{ width: '100%', padding: '1rem', minHeight: '100px', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px', fontFamily: 'inherit' }}
                         />
                         <button type="submit" className="btn-primary" disabled={submitting}>
                             {submitting ? 'Publishing...' : 'Publish Review'}
                         </button>
                     </form>
                 ) : (
-                    <p style={{ color: '#666', fontStyle: 'italic', margin: 0 }}>
+                    <p style={{ color: 'var(--color-text-muted)', fontStyle: 'italic', margin: 0 }}>
                         {reviewMessage || 'Checking eligibility...'}
                     </p>
                 )}
             </div>
 
             <div style={{ display: 'grid', gap: '1.5rem' }}>
-                {reviews.length === 0 && <p style={{ color: '#666' }}>No reviews yet. Be the first!</p>}
+                {reviews.length === 0 && <p style={{ color: 'var(--color-text-muted)' }}>No reviews yet. Be the first!</p>}
                 {reviews.map(review => (
-                    <div key={review.id} style={{ borderBottom: '1px solid #eee', paddingBottom: '1rem' }}>
+                    <div key={review.id} style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem' }}>
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                             <strong>{review.user?.name || 'Anonymous'}</strong>
                             <span style={{ color: '#FFD700' }}>{'★'.repeat(review.rating)}</span>
                         </div>
-                        <p style={{ color: '#555', lineHeight: '1.6' }}>{review.text}</p>
-                        <small style={{ color: '#aaa' }}>{new Date(review.createdAt).toLocaleDateString()}</small>
+                        <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>{review.text}</p>
+                        <small style={{ color: 'var(--color-text-muted)' }}>{new Date(review.createdAt).toLocaleDateString()}</small>
                     </div>
                 ))}
             </div>

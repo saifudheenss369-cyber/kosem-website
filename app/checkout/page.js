@@ -392,7 +392,7 @@ export default function Checkout() {
                                             }
                                         }
                                     }}
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
                                 />
                                 {user && user.isVerified && user.phone === formData.phone && (
                                     <div style={{ color: 'green', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
@@ -405,12 +405,12 @@ export default function Checkout() {
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                                             <h4 style={{ margin: 0, fontSize: '0.9rem' }}>Enter Verification Code</h4>
                                             {resendTimer > 0 ? (
-                                                <span style={{ fontSize: '0.8rem', color: '#666' }}>Resend in {resendTimer}s</span>
+                                                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Resend in {resendTimer}s</span>
                                             ) : (
                                                 <button 
                                                     type="button" 
                                                     onClick={() => handleSendOtp(formData.phone)}
-                                                    style={{ background: 'none', border: 'none', color: '#D4AF37', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', padding: 0 }}
+                                                    style={{ background: 'none', border: 'none', color: 'var(--color-gold)', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', padding: 0 }}
                                                 >
                                                     Resend OTP
                                                 </button>
@@ -423,7 +423,7 @@ export default function Checkout() {
                                                 value={inlineOtp}
                                                 onChange={e => setInlineOtp(e.target.value.replace(/[^0-9]/g, ''))}
                                                 placeholder="123456"
-                                                style={{ flex: 1, padding: '0.8rem', fontSize: '1.2rem', textAlign: 'center', letterSpacing: '4px', border: '1px solid #ccc', borderRadius: '4px' }}
+                                                style={{ flex: 1, padding: '0.8rem', fontSize: '1.2rem', textAlign: 'center', letterSpacing: '4px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                             />
                                             <button
                                                 type="button"
@@ -435,7 +435,7 @@ export default function Checkout() {
                                                 {inlineAuthStep === 1 ? '...' : 'Verify'}
                                             </button>
                                         </div>
-                                        <button type="button" onClick={() => setInlineAuthStep(0)} style={{ background: 'none', border: 'none', color: '#666', fontSize: '0.7rem', marginTop: '0.5rem', cursor: 'pointer', textDecoration: 'underline' }}>Wrong number? Change</button>
+                                        <button type="button" onClick={() => setInlineAuthStep(0)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '0.7rem', marginTop: '0.5rem', cursor: 'pointer', textDecoration: 'underline' }}>Wrong number? Change</button>
                                     </div>
                                 )}
                             </div>
@@ -449,7 +449,7 @@ export default function Checkout() {
                                     maxLength="6"
                                     required
                                     placeholder="Enter 6-digit Pincode"
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
                                 />
                             </div>
 
@@ -461,7 +461,7 @@ export default function Checkout() {
                                         value={formData.district}
                                         onChange={e => setFormData({ ...formData, district: e.target.value })}
                                         required
-                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid #ccc', background: '#f9f9f9' }}
+                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -471,7 +471,7 @@ export default function Checkout() {
                                         value={formData.state}
                                         onChange={e => setFormData({ ...formData, state: e.target.value })}
                                         required
-                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid #ccc', background: '#f9f9f9' }}
+                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}
                                     />
                                 </div>
                             </div>
@@ -483,7 +483,7 @@ export default function Checkout() {
                                     onChange={e => setFormData({ ...formData, address: e.target.value })}
                                     required
                                     rows="2"
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid #ccc' }}
+                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
                                 />
                             </div>
 
@@ -491,7 +491,7 @@ export default function Checkout() {
                             <div style={{ marginBottom: '1.5rem' }}>
                                 <h3>Shipping Method</h3>
                                 <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'STANDARD' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'STANDARD' ? '#D4AF37' : '#ddd' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'STANDARD' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'STANDARD' ? 'var(--color-gold)' : '#ddd' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                             <input
                                                 type="radio"
@@ -502,7 +502,7 @@ export default function Checkout() {
                                             />
                                             <div>
                                                 <span style={{ display: 'block', fontWeight: 'bold' }}>Standard Delivery</span>
-                                                <span style={{ fontSize: '0.85rem', color: '#666' }}>3-5 Business Days</span>
+                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>3-5 Business Days</span>
                                             </div>
                                         </div>
                                         <span style={{ fontWeight: 'bold', color: subtotal >= 500 ? 'green' : '#333' }}>
@@ -510,7 +510,7 @@ export default function Checkout() {
                                         </span>
                                     </label>
 
-                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'EXPRESS' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'EXPRESS' ? '#D4AF37' : '#ddd' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'EXPRESS' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'EXPRESS' ? 'var(--color-gold)' : '#ddd' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                                             <input
                                                 type="radio"
@@ -521,7 +521,7 @@ export default function Checkout() {
                                             />
                                             <div>
                                                 <span style={{ display: 'block', fontWeight: 'bold' }}>EXPRESS Shipping</span>
-                                                <span style={{ fontSize: '0.85rem', color: '#666' }}>1-2 Business Days</span>
+                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>1-2 Business Days</span>
                                             </div>
                                         </div>
                                         <span style={{ fontWeight: 'bold' }}>₹99</span>
@@ -534,7 +534,7 @@ export default function Checkout() {
                                 <h3>Payment Method</h3>
                                 <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
                                     {isCodAvailable ? (
-                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer' }}>
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer' }}>
                                             <input
                                                 type="radio"
                                                 name="payment"
@@ -550,7 +550,7 @@ export default function Checkout() {
                                             <div style={{ fontSize: '0.8rem', marginTop: '4px' }}>Cash on Delivery is not supported for this PIN Code. Please pay online.</div>
                                         </div>
                                     )}
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid #ddd', borderRadius: '8px', cursor: 'pointer', background: '#f9f9ff' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: '#f9f9ff' }}>
                                         <input
                                             type="radio"
                                             name="payment"
@@ -566,7 +566,7 @@ export default function Checkout() {
                         </form>
                     </div>
                     {/* Coupon Section */}
-                    <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem', background: '#fff', border: '1px solid #ddd', padding: '1rem', borderRadius: '8px' }}>
+                    <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', padding: '1rem', borderRadius: '8px' }}>
                         <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Have a promo code?</h4>
 
                         {!appliedCoupon ? (
@@ -576,7 +576,7 @@ export default function Checkout() {
                                     placeholder="Enter code"
                                     value={couponCodeInput}
                                     onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
-                                    style={{ flex: 1, padding: '0.8rem', border: '1px solid #ccc', borderRadius: '4px', textTransform: 'uppercase' }}
+                                    style={{ flex: 1, padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '4px', textTransform: 'uppercase' }}
                                 />
                                 <button
                                     type="submit"
@@ -590,7 +590,7 @@ export default function Checkout() {
                             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#D4AF3715', border: '1px dashed #D4AF37', padding: '0.8rem', borderRadius: '4px' }}>
                                 <div>
                                     <span style={{ fontWeight: 'bold', color: '#B38B22', fontSize: '0.9rem' }}>{appliedCoupon.code}</span>
-                                    <span style={{ fontSize: '0.8rem', color: '#666', display: 'block' }}>Discount applied!</span>
+                                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'block' }}>Discount applied!</span>
                                 </div>
                                 <button
                                     type="button"
@@ -605,7 +605,7 @@ export default function Checkout() {
                         {couponError && <p style={{ color: 'red', fontSize: '0.85rem', marginTop: '0.5rem', margin: 0 }}>{couponError}</p>}
                     </div>
 
-                    <div style={{ background: '#f9f9f9', padding: '1.5rem', borderRadius: '8px', height: 'fit-content' }}>
+                    <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', height: 'fit-content' }}>
                         <h3>Order Summary</h3>
                         {cart.map(item => (
                             <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
@@ -614,11 +614,11 @@ export default function Checkout() {
                             </div>
                         ))}
                         <hr style={{ margin: '0.5rem 0' }} />
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#666' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: 'var(--color-text-muted)' }}>
                             <span>Subtotal</span>
                             <span>₹{subtotal}</span>
                         </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#666' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: 'var(--color-text-muted)' }}>
                             <span>Shipping</span>
                             <span>{shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}</span>
                         </div>

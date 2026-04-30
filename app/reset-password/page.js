@@ -82,8 +82,8 @@ export default function ResetPasswordPage() {
     return (
         <>
             <Navbar />
-            <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f9f9f9', padding: '1rem' }}>
-                <div style={{ background: 'white', padding: '2.5rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', width: '100%', maxWidth: '450px' }}>
+            <div style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)', padding: '1rem' }}>
+                <div style={{ background: 'var(--color-bg-secondary)', padding: '2.5rem', borderRadius: '12px', boxShadow: '0 4px 20px rgba(0,0,0,0.05)', width: '100%', maxWidth: '450px' }}>
                     <h1 style={{ textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)', fontSize: '1.8rem' }}>Reset Password</h1>
 
                     {status === 'success' ? (
@@ -110,12 +110,12 @@ export default function ResetPasswordPage() {
                                         value={newPassword}
                                         onChange={e => setNewPassword(e.target.value)}
                                         required
-                                        style={{ width: '100%', padding: '0.8rem', paddingRight: '40px', border: '1px solid #ddd', borderRadius: '4px' }}
+                                        style={{ width: '100%', padding: '0.8rem', paddingRight: '40px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                     />
                                     <button
                                         type="button"
                                         onClick={() => setShowPassword(!showPassword)}
-                                        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'none', cursor: 'pointer', color: '#666' }}
+                                        style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', border: 'none', background: 'none', cursor: 'pointer', color: 'var(--color-text-muted)' }}
                                     >
                                         {showPassword ? "Hide" : "Show"}
                                     </button>
@@ -129,7 +129,7 @@ export default function ResetPasswordPage() {
                                     value={confirmPassword}
                                     onChange={e => setConfirmPassword(e.target.value)}
                                     required
-                                    style={{ width: '100%', padding: '0.8rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                    style={{ width: '100%', padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                 />
                             </div>
 

@@ -179,7 +179,7 @@ export default function WebGLHero({ image = '/hero-box.jpg', title = 'Kosem', su
                     fontSize: '0.75rem',
                     letterSpacing: '5px',
                     textTransform: 'uppercase',
-                    color: '#d4af37',
+                    color: 'var(--color-gold)',
                     marginBottom: '0.6rem',
                 }}>Premium Collection</p>
                 <h1 style={{
@@ -192,15 +192,15 @@ export default function WebGLHero({ image = '/hero-box.jpg', title = 'Kosem', su
                 }}>{title}</h1>
                 <p style={{
                     fontSize: '1rem',
-                    color: '#ccc',
+                    color: 'var(--color-text-muted)',
                     letterSpacing: '3px',
                     textTransform: 'uppercase',
                     marginBottom: '2rem',
                 }}>{subtitle}</p>
                 <Link href={link} style={{
                     padding: '0.9rem 2.8rem',
-                    background: '#d4af37',
-                    color: '#000',
+                    background: 'var(--color-gold)',
+                    color: 'var(--color-text-main)',
                     textDecoration: 'none',
                     textTransform: 'uppercase',
                     letterSpacing: '2px',
@@ -211,7 +211,7 @@ export default function WebGLHero({ image = '/hero-box.jpg', title = 'Kosem', su
                     border: '1px solid #d4af37',
                 }}
                     onMouseOver={e => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.color = '#000'; }}
-                    onMouseOut={e => { e.currentTarget.style.background = '#d4af37'; e.currentTarget.style.color = '#000'; }}
+                    onMouseOut={e => { e.currentTarget.style.background = 'var(--color-gold)'; e.currentTarget.style.color = '#000'; }}
                 >
                     Explore Collection
                 </Link>

@@ -14,7 +14,7 @@ export default function NotFound() {
             textAlign: 'center'
         }}>
             <h1 style={{ fontSize: '6rem', fontFamily: 'var(--font-serif)', color: 'var(--color-gold)', margin: 0 }}>404</h1>
-            <p style={{ fontSize: '1.5rem', marginBottom: '2rem', color: '#888' }}>Page Not Found</p>
+            <p style={{ fontSize: '1.5rem', marginBottom: '2rem', color: 'var(--color-text-muted)' }}>Page Not Found</p>
             <Link href="/" className="btn-primary">
                 Return Home
             </Link>

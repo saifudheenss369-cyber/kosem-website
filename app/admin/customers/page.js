@@ -66,18 +66,18 @@ export default function AdminCustomers() {
         <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '2rem' }}>Customers</h1>
 
-            <div style={{ background: 'white', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.05)', overflow: 'hidden' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
-                    <thead style={{ background: '#f9f9f9', borderBottom: '1px solid #eee' }}>
+                    <thead style={{ background: 'var(--color-bg-secondary)', borderBottom: '1px solid var(--color-border)' }}>
                         <tr>
-                            <th style={{ padding: '1rem', color: '#555' }}>Name & Email</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Phone</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Phone</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Role</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Address</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Orders</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Total Spent</th>
-                            <th style={{ padding: '1rem', color: '#555' }}>Joined</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Name & Email</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Phone</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Phone</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Role</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Address</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Orders</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Total Spent</th>
+                            <th style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>Joined</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,13 +87,13 @@ export default function AdminCustomers() {
                             <tr><td colSpan="7" style={{ padding: '2rem', textAlign: 'center' }}>No customers found.</td></tr>
                         ) : (
                             customers.map(customer => (
-                                <tr key={customer.id} style={{ borderBottom: '1px solid #eee' }}>
+                                <tr key={customer.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                                     <td style={{ padding: '1rem' }}>
                                         <div style={{ fontWeight: '500' }}>{customer.name || 'Guest'}</div>
-                                        <div style={{ fontSize: '0.85rem', color: '#666' }}>{customer.email}</div>
+                                        <div style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>{customer.email}</div>
                                     </td>
-                                    <td style={{ padding: '1rem', color: '#666' }}>{customer.phone || '-'}</td>
-                                    <td style={{ padding: '1rem', color: '#666' }}>{customer.phone || '-'}</td>
+                                    <td style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>{customer.phone || '-'}</td>
+                                    <td style={{ padding: '1rem', color: 'var(--color-text-muted)' }}>{customer.phone || '-'}</td>
                                     <td style={{ padding: '1rem' }}>
                                         <span style={{
                                             padding: '0.2rem 0.5rem',
@@ -119,12 +119,12 @@ export default function AdminCustomers() {
                                             {customer.role === 'ADMIN' ? 'Demote' : 'Make Admin'}
                                         </button>
                                     </td>
-                                    <td style={{ padding: '1rem', color: '#666', fontSize: '0.9rem', maxWidth: '200px' }}>
+                                    <td style={{ padding: '1rem', color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: '200px' }}>
                                         {customer.address ? `${customer.address}, ${customer.city || ''}` : '-'}
                                     </td>
                                     <td style={{ padding: '1rem' }}>{customer._count?.orders || 0}</td>
                                     <td style={{ padding: '1rem', fontWeight: 'bold' }}>₹{customer.totalSpent || 0}</td>
-                                    <td style={{ padding: '1rem', fontSize: '0.9rem', color: '#888' }}>{new Date(customer.createdAt).toLocaleDateString()}</td>
+                                    <td style={{ padding: '1rem', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{new Date(customer.createdAt).toLocaleDateString()}</td>
                                 </tr>
                             ))
                         )}

@@ -80,8 +80,8 @@ export default function ProductActions({ product }) {
                 style={{
                     padding: '1rem',
                     background: isSaved ? '#f5f5f5' : 'transparent',
-                    color: isSaved ? '#c58c48' : 'var(--color-text-muted)',
-                    border: '1px solid #ddd',
+                    color: isSaved ? 'var(--color-gold)' : 'var(--color-text-muted)',
+                    border: '1px solid var(--color-border)',
                     fontWeight: 'bold',
                     display: 'flex',
                     alignItems: 'center',
@@ -94,7 +94,7 @@ export default function ProductActions({ product }) {
                     fontSize: '0.9rem'
                 }}
             >
-                <FiHeart size={20} fill={isSaved ? '#c58c48' : 'none'} color={isSaved ? '#c58c48' : 'currentColor'} />
+                <FiHeart size={20} fill={isSaved ? 'var(--color-gold)' : 'none'} color={isSaved ? 'var(--color-gold)' : 'currentColor'} />
                 {isSaved ? 'Saved to Wishlist' : 'Add to Wishlist'}
             </button>
         </div>

@@ -8,7 +8,7 @@ export default function Footer() {
     if (pathname.startsWith('/admin')) return null;
 
     return (
-        <footer style={{ background: '#050505', color: '#888', paddingTop: '3rem', paddingBottom: '2rem', borderTop: '1px solid #222' }}>
+        <footer style={{ background: '#050505', color: 'var(--color-text-muted)', paddingTop: '3rem', paddingBottom: '2rem', borderTop: '1px solid #222' }}>
             <div className="container footer-grid" style={{ marginBottom: '3rem' }}>
 
                 {/* Brand */}
@@ -32,10 +32,10 @@ export default function Footer() {
                 <div>
                     <h4 style={{ color: '#fff', marginBottom: '1.2rem' }}>Shop</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                        <Link href="/shop" style={{ color: '#888', transition: 'color 0.3s' }}>All Collections</Link>
-                        <Link href="/shop?category=Oudh" style={{ color: '#888', transition: 'color 0.3s' }}>Premium Oudh</Link>
-                        <Link href="/shop?category=Musk" style={{ color: '#888', transition: 'color 0.3s' }}>Royal Musk</Link>
-                        <Link href="/track-order" style={{ color: '#888', transition: 'color 0.3s' }}>Track Order</Link>
+                        <Link href="/shop" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>All Collections</Link>
+                        <Link href="/shop?category=Oudh" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Premium Oudh</Link>
+                        <Link href="/shop?category=Musk" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Royal Musk</Link>
+                        <Link href="/track-order" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Track Order</Link>
                     </div>
                 </div>
 
@@ -43,12 +43,12 @@ export default function Footer() {
                 <div>
                     <h4 style={{ color: '#fff', marginBottom: '1.2rem' }}>Company</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
-                        <Link href="/about" style={{ color: '#888', transition: 'color 0.3s' }}>Our Story</Link>
-                        <Link href="/contact" style={{ color: '#888', transition: 'color 0.3s' }}>Contact Us</Link>
-                        <Link href="/privacy-policy" style={{ color: '#888', transition: 'color 0.3s' }}>Privacy Policy</Link>
-                        <Link href="/terms" style={{ color: '#888', transition: 'color 0.3s' }}>Terms & Conditions</Link>
-                        <Link href="/refund-policy" style={{ color: '#888', transition: 'color 0.3s' }}>Refund Policy</Link>
-                        <Link href="/shipping-policy" style={{ color: '#888', transition: 'color 0.3s' }}>Shipping Policy</Link>
+                        <Link href="/about" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Our Story</Link>
+                        <Link href="/contact" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Contact Us</Link>
+                        <Link href="/privacy-policy" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Privacy Policy</Link>
+                        <Link href="/terms" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Terms & Conditions</Link>
+                        <Link href="/refund-policy" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Refund Policy</Link>
+                        <Link href="/shipping-policy" style={{ color: 'var(--color-text-muted)', transition: 'color 0.3s' }}>Shipping Policy</Link>
                     </div>
                 </div>
 

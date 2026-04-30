@@ -42,7 +42,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <head>
                 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
-                <meta name="theme-color" content="#D4AF37" />
+                <meta name="theme-color" content='var(--color-gold)' />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

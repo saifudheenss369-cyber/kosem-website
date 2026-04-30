@@ -41,7 +41,7 @@ export default function AdminLogin() {
             <div style={{ background: '#2c2c2c', padding: '3rem 2rem', borderRadius: '12px', boxShadow: '0 10px 25px rgba(0,0,0,0.5)', width: '100%', maxWidth: '420px', color: 'white' }}>
                 <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                     <h1 style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-gold)', margin: 0, fontSize: '2rem' }}>Admin Portal</h1>
-                    <p style={{ color: '#aaa', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>Secure Login</p>
+                    <p style={{ color: 'var(--color-text-muted)', margin: '0.5rem 0 0 0', fontSize: '0.9rem' }}>Secure Login</p>
                 </div>
 
                 {error && <div style={{ background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.3)', color: '#ff6b6b', padding: '0.75rem', borderRadius: '4px', textAlign: 'center', marginBottom: '1.5rem', fontSize: '0.9rem' }}>{error}</div>}
@@ -69,12 +69,12 @@ export default function AdminLogin() {
                             required
                         />
                     </div>
-                    <button type="submit" style={{ width: '100%', padding: '1rem', background: 'var(--color-gold)', color: '#000', border: 'none', borderRadius: '4px', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer', transition: 'background 0.3s' }}>
+                    <button type="submit" style={{ width: '100%', padding: '1rem', background: 'var(--color-gold)', color: 'var(--color-text-main)', border: 'none', borderRadius: '4px', fontSize: '1rem', fontWeight: 'bold', cursor: 'pointer', transition: 'background 0.3s' }}>
                         Enter Dashboard
                     </button>
 
                     <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
-                        <a href="/" style={{ color: '#888', textDecoration: 'none', fontSize: '0.8rem' }}>&larr; Back to Main Website</a>
+                        <a href="/" style={{ color: 'var(--color-text-muted)', textDecoration: 'none', fontSize: '0.8rem' }}>&larr; Back to Main Website</a>
                     </div>
                 </form>
             </div>

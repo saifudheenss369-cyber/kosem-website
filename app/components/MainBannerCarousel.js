@@ -55,7 +55,7 @@ export default function MainBannerCarousel({ banners }) {
                 width: '100%', 
                 position: 'relative', 
                 overflow: 'hidden',
-                background: '#f5f5f5' // placeholder background
+                background: 'var(--color-bg-secondary)' // placeholder background
             }}
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}

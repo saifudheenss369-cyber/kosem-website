@@ -16,10 +16,10 @@ export default function AuditLogPage() {
     return (
         <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1.5rem' }}>Audit Logs</h1>
-            <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', overflowX: 'auto' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', overflowX: 'auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.9rem' }}>
                     <thead>
-                        <tr style={{ background: '#f5f5f5', textAlign: 'left' }}>
+                        <tr style={{ background: 'var(--color-bg-secondary)', textAlign: 'left' }}>
                             <th style={{ padding: '0.8rem' }}>Time</th>
                             <th style={{ padding: '0.8rem' }}>Admin</th>
                             <th style={{ padding: '0.8rem' }}>Action</th>
@@ -28,7 +28,7 @@ export default function AuditLogPage() {
                     </thead>
                     <tbody>
                         {logs.length > 0 ? logs.map(log => (
-                            <tr key={log.id} style={{ borderBottom: '1px solid #eee' }}>
+                            <tr key={log.id} style={{ borderBottom: '1px solid var(--color-border)' }}>
                                 <td style={{ padding: '0.8rem' }}>{new Date(log.createdAt).toLocaleString()}</td>
                                 <td style={{ padding: '0.8rem' }}>{log.admin?.name || log.adminId}</td>
                                 <td style={{ padding: '0.8rem' }}>
@@ -46,7 +46,7 @@ export default function AuditLogPage() {
                             </tr>
                         )) : (
                             <tr>
-                                <td colSpan="4" style={{ padding: '1rem', textAlign: 'center', color: '#888' }}>No logs found.</td>
+                                <td colSpan="4" style={{ padding: '1rem', textAlign: 'center', color: 'var(--color-text-muted)' }}>No logs found.</td>
                             </tr>
                         )}
                     </tbody>

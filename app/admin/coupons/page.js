@@ -1,15 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
 
-const gold = '#D4AF37';
+const gold = 'var(--color-gold)';
 const cardStyle = {
-    background: '#fff',
+    background: 'var(--color-bg-secondary)',
     borderRadius: '12px',
     boxShadow: '0 2px 12px rgba(0,0,0,0.07)',
     padding: '1.5rem',
 };
-const labelStyle = { display: 'block', fontSize: '0.8rem', fontWeight: '600', color: '#555', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.04em' };
-const inputStyle = { width: '100%', padding: '0.7rem 0.9rem', border: '1.5px solid #e0e0e0', borderRadius: '8px', fontSize: '0.95rem', outline: 'none', background: '#fafafa', boxSizing: 'border-box', transition: 'border 0.2s' };
+const labelStyle = { display: 'block', fontSize: '0.8rem', fontWeight: '600', color: 'var(--color-text-muted)', marginBottom: '0.4rem', textTransform: 'uppercase', letterSpacing: '0.04em' };
+const inputStyle = { width: '100%', padding: '0.7rem 0.9rem', border: '1.5px solid #e0e0e0', borderRadius: '8px', fontSize: '0.95rem', outline: 'none', background: 'var(--color-bg-secondary)', boxSizing: 'border-box', transition: 'border 0.2s' };
 
 export default function CouponsPage() {
     const [coupons, setCoupons] = useState([]);
@@ -77,7 +77,7 @@ export default function CouponsPage() {
             {/* Header */}
             <div style={{ marginBottom: '2rem' }}>
                 <h1 style={{ fontSize: '1.8rem', fontWeight: '700', color: '#111', margin: 0 }}>🎟️ Coupons Management</h1>
-                <p style={{ color: '#888', marginTop: '0.3rem', fontSize: '0.9rem' }}>Create and manage discount coupons for your customers</p>
+                <p style={{ color: 'var(--color-text-muted)', marginTop: '0.3rem', fontSize: '0.9rem' }}>Create and manage discount coupons for your customers</p>
             </div>
 
             {/* Alerts */}
@@ -157,13 +157,13 @@ export default function CouponsPage() {
                             <div style={{ width: '32px', height: '32px', background: '#f0f4ff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem' }}>📋</div>
                             <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: '700', color: '#111' }}>Existing Coupons</h2>
                         </div>
-                        <span style={{ background: '#f5f5f5', padding: '0.2rem 0.7rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: '600', color: '#555' }}>
+                        <span style={{ background: 'var(--color-bg-secondary)', padding: '0.2rem 0.7rem', borderRadius: '20px', fontSize: '0.8rem', fontWeight: '600', color: 'var(--color-text-muted)' }}>
                             {coupons.length} total
                         </span>
                     </div>
 
                     {loading ? (
-                        <div style={{ textAlign: 'center', padding: '3rem', color: '#aaa' }}>Loading...</div>
+                        <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--color-text-muted)' }}>Loading...</div>
                     ) : coupons.length === 0 ? (
                         <div style={{ textAlign: 'center', padding: '3rem', color: '#bbb' }}>
                             <div style={{ fontSize: '2.5rem', marginBottom: '0.5rem' }}>🎟️</div>
@@ -189,7 +189,7 @@ export default function CouponsPage() {
                                                 {coupon.isActive ? 'ACTIVE' : 'DISABLED'}
                                             </span>
                                         </div>
-                                        <div style={{ fontSize: '0.82rem', color: '#555', display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
+                                        <div style={{ fontSize: '0.82rem', color: 'var(--color-text-muted)', display: 'flex', gap: '0.8rem', flexWrap: 'wrap' }}>
                                             <span>💰 {coupon.discountType === 'PERCENTAGE' ? `${coupon.discountValue}% off` : `₹${coupon.discountValue} off`}</span>
                                             {coupon.minOrderValue && <span>🛒 Min ₹{coupon.minOrderValue}</span>}
                                             {coupon.maxDiscount && <span>🔝 Max ₹{coupon.maxDiscount}</span>}

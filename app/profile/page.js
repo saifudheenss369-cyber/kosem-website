@@ -88,31 +88,31 @@ export default function Profile() {
                 {msg && <p style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>{msg}</p>}
 
                 <form onSubmit={handleSave} style={{ display: 'grid', gap: '1.5rem' }}>
-                    <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', border: '1px solid #eee', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                        <h3 style={{ borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem', color: 'var(--color-gold-dim)' }}>Contact Details</h3>
+                    <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                        <h3 style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', marginBottom: '1rem', color: 'var(--color-gold-dim)' }}>Contact Details</h3>
 
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Full Name</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Full Name</label>
                             <input type="text" value={formData.name || ''} disabled style={disabledInput} />
-                            <small style={{ color: '#888' }}>Cannot change name/email directly.</small>
+                            <small style={{ color: 'var(--color-text-muted)' }}>Cannot change name/email directly.</small>
                         </div>
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Email</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Email</label>
                             <input type="email" value={formData.email || ''} disabled style={disabledInput} />
                         </div>
 
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Phone Number</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Phone Number</label>
                             <input name="phone" type="tel" value={formData.phone || ''} onChange={handleChange} style={inputStyle} placeholder="+91..." />
                         </div>
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Alternative Phone (Optional)</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Alternative Phone (Optional)</label>
                             <input name="altPhone" type="tel" value={formData.altPhone || ''} onChange={handleChange} style={inputStyle} placeholder="Home/Work..." />
                         </div>
                     </div>
 
-                    <div style={{ background: 'white', padding: '1.5rem', borderRadius: '8px', border: '1px solid #eee', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid #eee', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
+                    <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', marginBottom: '1rem' }}>
                             <h3 style={{ margin: 0, color: 'var(--color-gold-dim)' }}>Address</h3>
                             <button type="button" onClick={detectLocation} style={{ background: 'transparent', border: '1px solid var(--color-gold)', color: 'var(--color-gold)', padding: '0.25rem 0.5rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem' }}>
                                 📍 Auto-Detect
@@ -120,26 +120,26 @@ export default function Profile() {
                         </div>
 
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Street Address</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Street Address</label>
                             <textarea name="address" value={formData.address || ''} onChange={handleChange} style={{ ...inputStyle, minHeight: '80px' }} />
                         </div>
 
                         <div className="form-group">
-                            <label style={{ color: '#333', fontWeight: '500' }}>Landmark (Near by)</label>
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Landmark (Near by)</label>
                             <input name="landmark" type="text" value={formData.landmark || ''} onChange={handleChange} style={inputStyle} placeholder="e.g. Near Grand Mosque" />
                         </div>
 
                         <div className="address-grid">
                             <div className="form-group">
-                                <label style={{ color: '#333', fontWeight: '500' }}>City</label>
+                                <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>City</label>
                                 <input name="city" type="text" value={formData.city || ''} onChange={handleChange} style={inputStyle} />
                             </div>
                             <div className="form-group">
-                                <label style={{ color: '#333', fontWeight: '500' }}>State</label>
+                                <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>State</label>
                                 <input name="state" type="text" value={formData.state || ''} onChange={handleChange} style={inputStyle} />
                             </div>
                             <div className="form-group">
-                                <label style={{ color: '#333', fontWeight: '500' }}>Pincode</label>
+                                <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Pincode</label>
                                 <input name="zip" type="text" value={formData.zip || ''} onChange={handleChange} style={inputStyle} />
                             </div>
                         </div>
@@ -176,9 +176,9 @@ export default function Profile() {
 const inputStyle = {
     width: '100%',
     padding: '0.8rem',
-    background: '#fff',
-    border: '1px solid #ddd',
-    color: '#333',
+    background: 'var(--color-bg-secondary)',
+    border: '1px solid var(--color-border)',
+    color: 'var(--color-text-main)',
     borderRadius: '4px',
     marginTop: '0.25rem',
     fontSize: '1rem'
@@ -186,8 +186,8 @@ const inputStyle = {
 
 const disabledInput = {
     ...inputStyle,
-    background: '#f9f9f9',
+    background: 'var(--color-bg-secondary)',
     color: '#777',
-    border: '1px solid #eee',
+    border: '1px solid var(--color-border)',
     cursor: 'not-allowed'
 };

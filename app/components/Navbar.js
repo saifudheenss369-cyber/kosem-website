@@ -55,18 +55,18 @@ export default function Navbar() {
                 top: '32px',
                 left: 0,
                 right: 0,
-                height: '80px', // Standardized height
+                height: '120px', // Standardized height
                 padding: '0 2rem',
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
                 zIndex: 1000,
                 transition: 'all 0.4s ease',
-                backgroundColor: scrolled || !isHome ? '#000' : 'transparent', 
+                backgroundColor: scrolled || !isHome ? 'var(--color-bg-main)' : 'transparent',
                 backdropFilter: scrolled || !isHome ? 'blur(10px)' : 'none',
-                borderBottom: scrolled || !isHome ? '1px solid #222' : 'none',
-                color: 'white', 
-                boxShadow: scrolled || !isHome ? '0 4px 6px -1px rgba(0,0,0,0.05)' : 'none'
+                borderBottom: scrolled || !isHome ? '1px solid var(--color-border)' : 'none',
+                color: 'var(--color-text-main)',
+                boxShadow: scrolled || !isHome ? '0 4px 6px -1px rgba(0,0,0,0.2)' : 'none'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', height: '100%' }}>
                     <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
@@ -146,7 +146,7 @@ export default function Navbar() {
                 </div>
 
 
-                <style>{`
+                <style dangerouslySetInnerHTML={{ __html: `
         .nav-link {
           text-transform: uppercase;
           font-size: 0.875rem;
@@ -255,10 +255,10 @@ export default function Navbar() {
                 left: 0;
                 bottom: 0;
                 width: 280px;
-                background: white;
+                background: var(--color-bg-main);
                 z-index: 1002;
                 padding: 2rem;
-                box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                box-shadow: 2px 0 10px rgba(0,0,0,0.5);
                 animation: slideIn 0.3s ease-out;
                 overflow-y: auto;
             }
@@ -276,7 +276,7 @@ export default function Navbar() {
                 color: var(--color-gold);
             }
         }
-      `}</style>
+      `}} />
             </nav>
             {/* Mobile Menu Dropdown (Side Drawer) - Moved outside nav to fix stacking context */
                 mobileMenuOpen && (
@@ -290,7 +290,7 @@ export default function Navbar() {
                         />
                         <div className="mobile-menu-drawer">
                             {/* Header */}
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid #eee' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--color-border)' }}>
                                 <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-black)' }}>MENU</span>
                                 <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', fontSize: '2rem', cursor: 'pointer', color: 'var(--color-black)', lineHeight: '1' }}>&times;</button>
                             </div>
@@ -298,13 +298,13 @@ export default function Navbar() {
                             {/* Welcome Section (Moved to Top) */}
                             <div style={{ marginBottom: '2rem' }}>
                                 {user ? (
-                                    <div style={{ padding: '1rem', background: '#f9f9f9', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
-                                        <p style={{ margin: 0, fontSize: '0.8rem', color: '#666', textTransform: 'uppercase', letterSpacing: '1px' }}>Welcome Back</p>
+                                    <div style={{ padding: '1rem', background: 'var(--color-bg-secondary)', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
+                                        <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Welcome Back</p>
                                         <p style={{ margin: '0.2rem 0 0', fontSize: '1.2rem', fontFamily: 'var(--font-serif)', fontWeight: 'bold', color: 'var(--color-black)' }}>{user.name}</p>
                                     </div>
                                 ) : (
-                                    <div style={{ padding: '1rem', background: '#f9f9f9', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
-                                        <p style={{ margin: 0, fontSize: '0.8rem', color: '#666', textTransform: 'uppercase', letterSpacing: '1px' }}>Welcome Guests</p>
+                                    <div style={{ padding: '1rem', background: 'var(--color-bg-secondary)', borderRadius: '8px', borderLeft: '4px solid var(--color-gold)' }}>
+                                        <p style={{ margin: 0, fontSize: '0.8rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>Welcome Guests</p>
                                         <Link href="/login" onClick={() => setMobileMenuOpen(false)} style={{ display: 'inline-block', marginTop: '0.5rem', fontSize: '0.9rem', color: 'var(--color-black)', fontWeight: 'bold', textDecoration: 'underline' }}>Login / Register</Link>
                                     </div>
                                 )}
@@ -318,7 +318,7 @@ export default function Navbar() {
                             </div>
 
                             {/* Category Section in a dedicated box */}
-                            <div style={{ marginBottom: '2rem', padding: '1.5rem', background: '#fafafa', borderRadius: '8px' }}>
+                            <div style={{ marginBottom: '2rem', padding: '1.5rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
                                 <h4 style={{ fontSize: '0.8rem', color: 'var(--color-gold)', textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '2px', fontWeight: 'bold', marginTop: 0 }}>Shop Collection</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">All Products</Link>
@@ -341,12 +341,12 @@ export default function Navbar() {
                                 </div>
                                 {user && (
                                     <div style={{ textAlign: 'center', marginTop: '1.5rem' }}>
-                                        <span onClick={() => { logout(); setMobileMenuOpen(false); }} style={{ color: '#aaa', fontSize: '0.8rem', textDecoration: 'underline', cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '1px' }}>Log Out Securely</span>
+                                        <span onClick={() => { logout(); setMobileMenuOpen(false); }} style={{ color: 'var(--color-text-muted)', fontSize: '0.8rem', textDecoration: 'underline', cursor: 'pointer', textTransform: 'uppercase', letterSpacing: '1px' }}>Log Out Securely</span>
                                     </div>
                                 )}
                             </div>
                         </div>
-                        <style>{`
+                        <style dangerouslySetInnerHTML={{ __html: `
                         .mobile-menu-drawer {
                             display: flex;
                             flex-direction: column;
@@ -356,10 +356,10 @@ export default function Navbar() {
                             bottom: 0;
                             width: 320px;
                             max-width: 85vw;
-                            background: white;
+                            background: var(--color-bg-main);
                             z-index: 2001;
                             padding: 2rem 1.5rem;
-                            box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
                             animation: slideIn 0.3s ease-out;
                             overflow-y: auto;
                         }
@@ -381,7 +381,7 @@ export default function Navbar() {
                             justify-content: space-between;
                             align-items: center;
                             padding-bottom: 0.5rem;
-                            border-bottom: 1px dashed #eaeaea;
+                            border-bottom: 1px dashed var(--color-border);
                         }
                         .mobile-main-link::after {
                             content: '→';
@@ -398,7 +398,7 @@ export default function Navbar() {
                         }
                         .mobile-sub-link {
                             font-size: 1rem !important;
-                            color: #555 !important;
+                            color: var(--color-text-muted) !important;
                             display: block;
                             padding-left: 0.5rem;
                             border-left: 2px solid transparent;
@@ -409,7 +409,7 @@ export default function Navbar() {
                             border-left: 2px solid var(--color-gold);
                             padding-left: 1rem;
                         }
-                    `}</style>
+                    `}} />
                     </>
                 )
             }

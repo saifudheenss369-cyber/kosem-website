@@ -25,36 +25,36 @@ export default function Contact() {
                     {/* Info */}
                     <div>
                         <h3 style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>Get in Touch</h3>
-                        <p style={{ marginBottom: '1rem', color: '#ccc' }}>
+                        <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
                             Have questions about our premium Attars? Need help with an order? We are here to assist you.
                         </p>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Email:</strong>
-                            <p style={{ color: '#888' }}>support@kosemperfume.com</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>support@kosemperfume.com</p>
                         </div>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Phone:</strong>
-                            <p style={{ color: '#888' }}>+91 90746 78278</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>+91 90746 78278</p>
                         </div>
                         <div>
                             <strong style={{ color: '#fff' }}>Address:</strong>
-                            <p style={{ color: '#888' }}>Kosem Perfume, Kottayam, Kerala - 686016</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Kosem Perfume, Kottayam, Kerala - 686016</p>
                         </div>
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} style={{ background: '#fff', border: '1px solid #eaeaea', padding: '2rem', borderRadius: '8px' }}>
+                    <form onSubmit={handleSubmit} style={{ background: 'var(--color-bg-secondary)', border: '1px solid #eaeaea', padding: '2rem', borderRadius: '8px' }}>
                         <div className="form-group" style={{ marginBottom: '1rem' }}>
                             <label style={{ color: '#111', fontWeight: 'bold' }}>Name</label>
-                            <input type="text" placeholder="Enter your name" required style={{ width: '100%', padding: '0.8rem', background: '#f9f9f9', border: '1px solid #ccc', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
+                            <input type="text" placeholder="Enter your name" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
                         </div>
                         <div className="form-group" style={{ marginBottom: '1rem' }}>
                             <label style={{ color: '#111', fontWeight: 'bold' }}>Email</label>
-                            <input type="email" placeholder="Enter your email address" required style={{ width: '100%', padding: '0.8rem', background: '#f9f9f9', border: '1px solid #ccc', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
+                            <input type="email" placeholder="Enter your email address" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
                         </div>
                         <div className="form-group" style={{ marginBottom: '1.5rem' }}>
                             <label style={{ color: '#111', fontWeight: 'bold' }}>Message</label>
-                            <textarea placeholder="How can we help you?" required rows="4" style={{ width: '100%', padding: '0.8rem', background: '#f9f9f9', border: '1px solid #ccc', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }}></textarea>
+                            <textarea placeholder="How can we help you?" required rows="4" style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }}></textarea>
                         </div>
                         <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.8rem' }}>Send Message</button>
                     </form>

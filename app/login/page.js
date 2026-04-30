@@ -42,8 +42,8 @@ export default function LoginPage() {
     return (
         <>
             <Navbar />
-            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f5f5f5' }}>
-                <div style={{ background: 'white', padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
+            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)' }}>
+                <div style={{ background: 'var(--color-bg-secondary)', padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
                     <h1 style={{ textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)' }}>Login</h1>
 
                     {error && <p style={{ color: 'red', textAlign: 'center', marginBottom: '1rem' }}>{error}</p>}
@@ -55,7 +55,7 @@ export default function LoginPage() {
                                 type="text"
                                 value={identifier}
                                 onChange={e => setIdentifier(e.target.value)}
-                                style={{ width: '100%', padding: '0.75rem', border: '1px solid #ddd', borderRadius: '4px' }}
+                                style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                 placeholder="Enter your email or phone"
                                 required
                             />
@@ -67,7 +67,7 @@ export default function LoginPage() {
                                     type={showPassword ? "text" : "password"}
                                     value={password}
                                     onChange={e => setPassword(e.target.value)}
-                                    style={{ width: '100%', padding: '0.75rem', paddingRight: '40px', border: '1px solid #ddd', borderRadius: '4px' }}
+                                    style={{ width: '100%', padding: '0.75rem', paddingRight: '40px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                                     required
                                 />
                                 <button
@@ -81,7 +81,7 @@ export default function LoginPage() {
                                         border: 'none',
                                         background: 'none',
                                         cursor: 'pointer',
-                                        color: '#666'
+                                        color: 'var(--color-text-muted)'
                                     }}
                                 >
                                     {showPassword ? (
@@ -98,12 +98,12 @@ export default function LoginPage() {
                             </div>
                         </div>
                         <div style={{ textAlign: 'right', marginBottom: '1rem' }}>
-                            <a href="/forgot-password" style={{ fontSize: '0.9rem', color: '#666', textDecoration: 'none' }}>Forgot Password?</a>
+                            <a href="/forgot-password" style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', textDecoration: 'none' }}>Forgot Password?</a>
                         </div>
                         <button type="submit" className="btn-primary" style={{ width: '100%' }}>Sign In</button>
                     </form>
                     <div style={{ marginTop: '1rem', textAlign: 'center' }}>
-                        <p style={{ fontSize: '0.9rem', color: '#666' }}>Don't have an account? <a href="/signup" style={{ color: 'var(--color-gold)' }}>Sign up</a></p>
+                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Don't have an account? <a href="/signup" style={{ color: 'var(--color-gold)' }}>Sign up</a></p>
                     </div>
                 </div>
             </div>

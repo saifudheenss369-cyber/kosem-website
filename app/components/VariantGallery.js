@@ -43,7 +43,7 @@ export default function VariantGallery({ variants, currentProductId, productImag
             {/* Gallery */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '1.5rem' }}>
                 {/* Main Image */}
-                <div style={{ background: '#f0f0f0', borderRadius: '0', overflow: 'hidden', position: 'relative' }} className="gallery-main-img">
+                <div style={{ background: 'var(--color-bg-secondary)', borderRadius: '0', overflow: 'hidden', position: 'relative' }} className="gallery-main-img">
                     {images.length > 0 ? (
                         <img
                             key={`${activeVariantId}-${galleryIndex}`}
@@ -52,7 +52,7 @@ export default function VariantGallery({ variants, currentProductId, productImag
                             style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'opacity 0.3s ease' }}
                         />
                     ) : (
-                        <div style={{ display: 'grid', placeItems: 'center', height: '100%', color: '#ccc' }}>
+                        <div style={{ display: 'grid', placeItems: 'center', height: '100%', color: 'var(--color-text-muted)' }}>
                             No Image
                         </div>
                     )}

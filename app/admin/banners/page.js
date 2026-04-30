@@ -189,7 +189,7 @@ export default function BannersAdmin() {
             </h1>
 
             {/* Add/Edit Banner Form */}
-            <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', marginBottom: '30px' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', marginBottom: '30px' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px', display: 'flex', justifyContent: 'space-between' }}>
                     {editingId ? 'Edit Banner' : 'Add New Banner'}
                     {editingId && (
@@ -208,7 +208,7 @@ export default function BannersAdmin() {
                                 placeholder="Paste Image URL or Base64"
                                 value={imageUrl}
                                 onChange={(e) => setImageUrl(e.target.value)}
-                                style={{ flex: 1, padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+                                style={{ flex: 1, padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                             />
                             <span style={{ padding: '10px' }}>OR</span>
                             <input
@@ -229,7 +229,7 @@ export default function BannersAdmin() {
                             type="text"
                             value={title}
                             onChange={(e) => setTitle(e.target.value)}
-                            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+                            style={{ width: '100%', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                         />
                     </div>
 
@@ -240,7 +240,7 @@ export default function BannersAdmin() {
                             placeholder="/shop or /product/123"
                             value={link}
                             onChange={(e) => setLink(e.target.value)}
-                            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+                            style={{ width: '100%', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                         />
                     </div>
 
@@ -250,7 +250,7 @@ export default function BannersAdmin() {
                             type="number"
                             value={order}
                             onChange={(e) => setOrder(e.target.value)}
-                            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+                            style={{ width: '100%', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                         />
                     </div>
 
@@ -289,9 +289,9 @@ export default function BannersAdmin() {
             </div>
 
             {/* Banners List */}
-            <div style={{ background: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+            <div style={{ background: 'var(--color-bg-secondary)', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
                 <h2 style={{ fontSize: '18px', fontWeight: 'bold', marginBottom: '15px' }}>Current Banners ({banners.length})</h2>
-                <p style={{ fontSize: '14px', color: '#666', marginBottom: '15px' }}>You can drag and drop rows to reorder them.</p>
+                <p style={{ fontSize: '14px', color: 'var(--color-text-muted)', marginBottom: '15px' }}>You can drag and drop rows to reorder them.</p>
 
                 {banners.length === 0 ? (
                     <p>No banners found.</p>
@@ -318,12 +318,12 @@ export default function BannersAdmin() {
                                         onDrop={(e) => handleDrop(e, index)}
                                         onDragEnd={handleDragEnd}
                                         style={{
-                                            borderBottom: '1px solid #ddd',
+                                            borderBottom: '1px solid var(--color-border)',
                                             backgroundColor: draggedItemIndex === index ? '#f0f0f0' : 'transparent',
                                             transition: 'background-color 0.2s'
                                         }}
                                     >
-                                        <td style={{ padding: '12px', color: '#aaa', cursor: 'grab', textAlign: 'center' }}>
+                                        <td style={{ padding: '12px', color: 'var(--color-text-muted)', cursor: 'grab', textAlign: 'center' }}>
                                             <FaGripVertical />
                                         </td>
                                         <td style={{ padding: '12px' }}>

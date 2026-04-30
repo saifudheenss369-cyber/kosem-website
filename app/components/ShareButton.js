@@ -42,7 +42,7 @@ export default function ShareButton({ title, text, url }) {
                 cursor: 'pointer',
                 fontSize: '1rem',
                 fontWeight: '600',
-                color: '#444',
+                color: 'var(--color-text-main)',
                 transition: 'all 0.3s ease',
                 boxShadow: '0 2px 5px rgba(0,0,0,0.02)',
                 width: '100%'
