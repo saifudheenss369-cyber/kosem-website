@@ -6,6 +6,8 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
+export const maxDuration = 60; // Increase timeout
+
 
 
 
@@ -153,7 +155,8 @@ export async function POST(req) {
                 category,
                 occasions: occasions || '',
                 images: images || '',
-                rating: parseFloat(rating || 0),
+                images: images || '',
+                rating: isNaN(parseFloat(rating)) ? 0 : parseFloat(rating),
                 isBestSeller: Boolean(isBestSeller),
                 isMainVariant: Boolean(isMainVariant),
                 size: size || null,
@@ -161,8 +164,8 @@ export async function POST(req) {
                 similarProductIds: similarProductIds || null,
                 gallery: gallery || null,
                 showStockCount: showStockCount !== undefined ? Boolean(showStockCount) : true,
-                originalPrice: originalPrice ? parseFloat(originalPrice) : null,
-                fakeRatingCount: fakeRatingCount ? parseInt(fakeRatingCount) : 0,
+                originalPrice: (originalPrice && !isNaN(parseFloat(originalPrice))) ? parseFloat(originalPrice) : null,
+                fakeRatingCount: (fakeRatingCount && !isNaN(parseInt(fakeRatingCount))) ? parseInt(fakeRatingCount) : 0,
                 isInCarousel: Boolean(isInCarousel),
                 isInHero: Boolean(isInHero)
             }
@@ -203,17 +206,16 @@ export async function PUT(req) {
                 category,
                 occasions: occasions !== undefined ? occasions : undefined,
                 images,
-                rating: parseFloat(rating),
+                rating: isNaN(parseFloat(rating)) ? 0 : parseFloat(rating),
                 isBestSeller: Boolean(isBestSeller),
                 size: size !== undefined ? size : null,
                 variantGroupId: variantGroupId !== undefined ? variantGroupId : null,
                 similarProductIds: similarProductIds !== undefined ? similarProductIds : null,
                 gallery: gallery !== undefined ? gallery : null,
                 ...(isMainVariant !== undefined && { isMainVariant: Boolean(isMainVariant) }),
-                // Only update these if provided (or if null is intended, but for now assuming optional update)
                 ...(showStockCount !== undefined && { showStockCount: Boolean(showStockCount) }),
-                ...(originalPrice !== undefined && { originalPrice: originalPrice ? parseFloat(originalPrice) : null }),
-                ...(fakeRatingCount !== undefined && { fakeRatingCount: parseInt(fakeRatingCount) }),
+                ...(originalPrice !== undefined && { originalPrice: (originalPrice && !isNaN(parseFloat(originalPrice))) ? parseFloat(originalPrice) : null }),
+                ...(fakeRatingCount !== undefined && { fakeRatingCount: (fakeRatingCount && !isNaN(parseInt(fakeRatingCount))) ? parseInt(fakeRatingCount) : 0 }),
                 ...(isInCarousel !== undefined && { isInCarousel: Boolean(isInCarousel) }),
                 ...(isInHero !== undefined && { isInHero: Boolean(isInHero) })
             }
