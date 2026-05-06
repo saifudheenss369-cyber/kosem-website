@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 
 export default function WhatsAppFloat() {
     const pathname = usePathname();
-    const phoneNumber = '919074678278'; // ADMIN NUMBER
+    const phoneNumber = '919656867773'; // ADMIN NUMBER
     const message = 'Hello Kosem, I am interested in your products.';
 
     if (pathname.startsWith('/admin')) return null;

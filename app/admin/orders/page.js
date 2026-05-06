@@ -310,7 +310,7 @@ export default function AdminOrders() {
                         <h1>KOSEM</h1>
                         <p>PREMIUM ATTAR & OUDH</p>
                         <p>KERALA, INDIA.</p>
-                        <p>PHONE : 9074678278</p>
+                        <p>PHONE : 9656867773</p>
                     </div>
                     
                     <div class="title">Retail Invoice</div>

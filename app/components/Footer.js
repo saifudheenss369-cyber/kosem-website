@@ -56,7 +56,7 @@ export default function Footer() {
                 <div>
                     <h4 style={{ color: '#fff', marginBottom: '1.2rem' }}>Contact</h4>
                     <p style={{ marginBottom: '0.5rem' }}>support@kosemperfume.com</p>
-                    <p style={{ marginBottom: '0.5rem' }}>+91 90746 78278</p>
+                    <p style={{ marginBottom: '0.5rem' }}>+91 96568 67773</p>
                     <p>Kottayam, Kerala, India</p>
                 </div>
             </div>
