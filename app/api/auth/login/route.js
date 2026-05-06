@@ -39,7 +39,7 @@ export async function POST(req) {
         }
 
         const token = jwt.sign(
-            { userId: existingUser.id, email: existingUser.email, role: existingUser.role }, // Use actual DB role
+            { id: existingUser.id, email: existingUser.email, role: existingUser.role }, // Use 'id' for consistency
             JWT_SECRET,
             { expiresIn: '30d' }
         );
