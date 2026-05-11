@@ -34,7 +34,7 @@ export default function Contact() {
                         </div>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Phone:</strong>
-                            <p style={{ color: 'var(--color-text-muted)' }}>+91 90746 78278</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>+91 96568 67773</p>
                         </div>
                         <div>
                             <strong style={{ color: '#fff' }}>Address:</strong>

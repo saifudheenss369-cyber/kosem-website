@@ -17,12 +17,12 @@ export default function Footer() {
     if (pathname.startsWith('/admin')) return null;
 
     return (
-        <footer className="main-footer" style={{ 
-            background: 'linear-gradient(to bottom, #050505, #0a0a0a)', 
-            color: 'var(--color-text-muted)', 
-            paddingTop: '5rem', 
-            paddingBottom: '2rem', 
-            borderTop: '1px solid rgba(184, 134, 11, 0.1)' 
+        <footer className="main-footer" style={{
+            background: 'linear-gradient(to bottom, #050505, #0a0a0a)',
+            color: 'var(--color-text-muted)',
+            paddingTop: '5rem',
+            paddingBottom: '2rem',
+            borderTop: '1px solid rgba(184, 134, 11, 0.1)'
         }}>
             <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '3rem', marginBottom: '4rem' }}>
 
@@ -50,7 +50,7 @@ export default function Footer() {
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <FaInstagram size={18} />
                         </a>
-                        <a href="https://wa.me/919074678278" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://wa.me/9656867773" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <FaWhatsapp size={18} />
                         </a>
                     </div>
@@ -88,7 +88,7 @@ export default function Footer() {
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ color: 'var(--color-gold)' }}>📞</span>
-                            <span style={{ fontSize: '0.9rem' }}>+91 90746 78278</span>
+                            <span style={{ fontSize: '0.9rem' }}>+91 96568 67773</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ color: 'var(--color-gold)' }}>📍</span>
@@ -98,10 +98,10 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div style={{ 
-                textAlign: 'center', 
-                borderTop: '1px solid rgba(255,255,255,0.05)', 
-                paddingTop: '2.5rem', 
+            <div style={{
+                textAlign: 'center',
+                borderTop: '1px solid rgba(255,255,255,0.05)',
+                paddingTop: '2.5rem',
                 fontSize: '0.8rem',
                 letterSpacing: '1px',
                 color: 'rgba(255,255,255,0.3)'
