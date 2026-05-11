@@ -1,0 +1,201 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("CUSTOMER") // CUSTOMER, ADMIN
+  
+  // Extended Profile
+  phone     String?
+  altPhone  String?
+  address   String?
+  city      String?
+  state     String?
+  zip       String?
+  landmark  String?
+  
+  // Verification
+  isVerified Boolean @default(false)
+  otp       String? // Temporary storage for OTP
+  
+  // Password Reset
+  resetToken String?
+  resetTokenExpiry DateTime?
+  
+  orders    Order[]
+  createdAt DateTime @default(now())
+  reviews   Review[]
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("ADMIN") // Kept for consistency in JWT
+  createdAt DateTime @default(now())
+  auditLogs AuditLog[]
+}
+
+model Category {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  slug      String   @unique
+  image     String?
+  showOnHome Boolean @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Expense {
+  id           Int      @id @default(autoincrement())
+  amount       Float
+  investorName String
+  reason       String
+  date         DateTime @default(now())
+  createdAt    DateTime @default(now())
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  text      String
+  rating    Int      @default(5)
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  productId Int
+  product   Product  @relation(fields: [productId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Product {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  stock       Int      @default(50)
+  showStockCount Boolean @default(true)
+  images      String   @db.LongText // Stored as JSON string or comma-separated URL or Base64
+  category    String
+  occasions   String?  // Comma-separated occasions like "Daily Wear, Office"
+  rating      Float    @default(0.0)
+  isBestSeller Boolean @default(false)
+  
+  // V2 Features
+  originalPrice Float?   // For Strike-through price
+  fakeRatingCount Int    @default(0) // For "social proof"
+  isInCarousel Boolean   @default(false)
+  isInHero     Boolean   @default(false)
+
+  // Variants & Gallery
+  size              String?
+  variantGroupId    String?
+  isMainVariant     Boolean   @default(false)
+  similarProductIds String?
+  gallery           String?   @db.LongText // Add multiple image base64s or URLs
+  
+  createdAt   DateTime @default(now())
+  orderItems  OrderItem[]
+  reviews     Review[]
+}
+
+model Order {
+  id        Int         @id @default(autoincrement())
+  userId    Int
+  user      User        @relation(fields: [userId], references: [id])
+  status    String      @default("PENDING") // PENDING, SHIPPED, DELIVERED
+  total     Float
+  paymentMethod String  @default("COD") // COD, ONLINE
+  shippingMethod String @default("STANDARD") // STANDARD, EXPRESS
+  
+  // Shipping Details
+  shippingName    String?
+  shippingAddress String?
+  shippingCity    String?
+  shippingState   String?
+  shippingPincode String?
+  shippingPhone   String?
+  shippingEmail   String?
+
+  // Shiprocket Integration
+  shiprocketOrderId      String?
+  shiprocketShipmentId   String?
+  trackingUrl            String?
+  courierName            String?
+
+  // Coupons
+  couponCode        String?
+  discountAmount    Float?
+
+  items     OrderItem[]
+  createdAt DateTime    @default(now())
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  action    String
+  details   String
+  adminId   Int
+  admin     Admin    @relation(fields: [adminId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Verification {
+  id        Int      @id @default(autoincrement())
+  identifier String  @unique // Email or Phone
+  otp       String
+  expiresAt DateTime
+  verified  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model OfferBanner {
+  id        Int      @id @default(autoincrement())
+  title     String?  // Optional title for the banner
+  imageUrl  String   @db.LongText // High capacity for Base64 or long URLs
+  link      String?  // Optional URL to redirect to on click
+  isActive  Boolean  @default(true)
+  order     Int      @default(0) // To control display order
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Coupon {
+  id            Int      @id @default(autoincrement())
+  code          String   @unique
+  discountType  String   // PERCENTAGE, FIXED
+  discountValue Float
+  minOrderValue Float?
+  maxDiscount   Float?
+  usageLimit    Int?     // Total allowed usages across all users
+  usedCount     Int      @default(0) // How many times it has been used
+  expiresAt     DateTime?
+  isActive      Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Setting {
+  id        Int      @id @default(autoincrement())
+  key       String   @unique
+  value     String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
