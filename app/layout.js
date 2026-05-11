@@ -1,4 +1,17 @@
 import './globals.css';
+import { Inter, Playfair_Display } from 'next/font/google';
+
+const inter = Inter({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-inter',
+});
+
+const playfair = Playfair_Display({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-serif',
+});
 import React from 'react';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
@@ -41,13 +54,12 @@ export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <head>
-                <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
                 <meta name="theme-color" content='var(--color-gold)' />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
             </head>
-            <body>
+            <body className={`${inter.variable} ${playfair.variable}`}>
                 <WishlistProvider>
                     <CartProvider>
                         <AuthProvider>

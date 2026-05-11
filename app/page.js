@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from './components/Navbar';
 import FeaturedCarousel from './components/FeaturedCarousel';
 import MovingCarousel from './components/MovingCarousel';
@@ -49,66 +50,47 @@ export default async function Home() {
     // Initialize data
     let bestSellers = [];
     let carouselProducts = [];
-    let categoriesWithProducts = [];
     let premiumProducts = [];
     let luxuryProducts = [];
     let heroProducts = [];
     let offerBanners = [];
 
     try {
-        // Fetch Banners
-        offerBanners = await prisma.offerBanner.findMany({
-            where: { isActive: true },
-            orderBy: { order: 'asc' }
-        });
+        // Parallelize all data fetching
+        const [
+            fetchedBanners,
+            fetchedHero,
+            fetchedCarousel,
+            fetchedBestSellers,
+            fetchedPremium,
+            fetchedLuxury
+        ] = await Promise.all([
+            prisma.offerBanner.findMany({ where: { isActive: true }, orderBy: { order: 'asc' } }),
+            prisma.product.findMany({ where: { isInHero: true }, take: 5, orderBy: { createdAt: 'desc' } }),
+            prisma.product.findMany({ where: { isInCarousel: true }, take: 50, orderBy: { createdAt: 'desc' } }),
+            prisma.product.findMany({ where: { isBestSeller: true }, take: 50, orderBy: { createdAt: 'desc' } }),
+            prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
+            prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } })
+        ]);
 
-        // -1. Fetch Hero Products
-        heroProducts = await prisma.product.findMany({
-            where: { isInHero: true },
-            take: 5,
-            orderBy: { createdAt: 'desc' }
-        });
-
-        // 0. Fetch Carousel Products
-        carouselProducts = await prisma.product.findMany({
-            where: { isInCarousel: true },
-            take: 50,
-            orderBy: { createdAt: 'desc' }
-        });
-        // 1. Fetch Best Sellers
-        bestSellers = await prisma.product.findMany({
-            where: { isBestSeller: true },
-            take: 50,
-            orderBy: { createdAt: 'desc' }
-        });
-
-        // 2. Fetch Premium Category & Products
-        premiumProducts = await prisma.product.findMany({
-            where: { category: 'Premium' },
-            take: 50,
-            orderBy: { createdAt: 'desc' }
-        });
-
-        // 3. Fetch Luxury Category & Products
-        luxuryProducts = await prisma.product.findMany({
-            where: { category: 'Luxury' },
-            take: 50,
-            orderBy: { createdAt: 'desc' }
-        });
+        offerBanners = fetchedBanners;
+        heroProducts = fetchedHero;
+        carouselProducts = fetchedCarousel;
+        bestSellers = fetchedBestSellers;
+        premiumProducts = fetchedPremium;
+        luxuryProducts = fetchedLuxury;
 
     } catch (error) {
-        console.error("Failed to fetch products during build:", error);
+        console.error("Failed to fetch products:", error);
     }
 
-    // Fallback to empty arrays if undefined (though initialized above, good for safety)
+    // Deduplicate
     bestSellers = deduplicateVariants(bestSellers || []);
     carouselProducts = deduplicateVariants(carouselProducts || []);
     premiumProducts = deduplicateVariants(premiumProducts || []);
     luxuryProducts = deduplicateVariants(luxuryProducts || []);
     heroProducts = deduplicateVariants(heroProducts || []);
     offerBanners = offerBanners || [];
-
-    // Removed dummy banner injection as per user request to show video if no banners exist.
 
     return (
         <>
@@ -128,11 +110,12 @@ export default async function Home() {
                     <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
                         <div style={{ position: 'relative', padding: '1rem' }}>
                             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.3 }}></div>
-                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)' }}>
-                                <img 
+                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', height: '500px' }}>
+                                <Image 
                                     src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800" 
                                     alt="Luxury Fragrance Crafting" 
-                                    style={{ width: '100%', display: 'block', transition: 'transform 0.6s ease' }} 
+                                    fill
+                                    style={{ objectFit: 'cover', transition: 'transform 0.6s ease' }} 
                                 />
                             </div>
                             <div style={{ position: 'absolute', bottom: '20px', left: '-30px', background: 'var(--color-gold)', color: 'var(--color-bg-main)', padding: '1.5rem 2.5rem', borderRadius: '40px 4px 40px 4px', fontWeight: '800', zIndex: 3, boxShadow: '10px 10px 30px rgba(0,0,0,0.3)', letterSpacing: '1px' }}>
@@ -176,14 +159,14 @@ export default async function Home() {
                 </section>
 
                 {/* Moving Carousel (Featured) */}
-                <MovingCarousel products={JSON.parse(JSON.stringify(carouselProducts))} />
+                <MovingCarousel products={carouselProducts} />
 
                 {/* 1. Best Sellers */}
                 {bestSellers.length > 0 && (
                     <section style={{ padding: '4rem 0' }}>
                         <FeaturedCarousel
                             title="Best Sellers"
-                            initialProducts={JSON.parse(JSON.stringify(bestSellers))}
+                            initialProducts={bestSellers}
                         />
                     </section>
                 )}

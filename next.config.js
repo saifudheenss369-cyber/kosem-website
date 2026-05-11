@@ -1,12 +1,14 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'images.unsplash.com'],
   },
   eslint: {
     ignoreDuringBuilds: true,
   },
-  serverExternalPackages: ['firebase-admin'],
+  experimental: {
+    serverExternalPackages: ['firebase-admin'],
+  },
 };
 
 module.exports = nextConfig;

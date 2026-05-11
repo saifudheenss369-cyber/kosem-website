@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { FiShoppingBag, FiHeart } from 'react-icons/fi';
@@ -69,17 +70,15 @@ export default function Navbar() {
                 boxShadow: scrolled || !isHome ? '0 4px 6px -1px rgba(0,0,0,0.2)' : 'none'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', height: '100%' }}>
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center' }}>
-                        {/* The logo naturally centers in the flex container */}
-                        <img
+                    <Link href="/" style={{ display: 'flex', alignItems: 'center', position: 'relative', height: '100px', width: '150px' }}>
+                        <Image
                             src="/logo.png"
                             alt="Kosem Logo"
+                            fill
+                            priority
                             className="navbar-logo logo-breathe"
                             style={{
-                                height: '100px',
-                                width: 'auto',
                                 objectFit: 'contain',
-                                filter: 'none',
                                 transition: 'all 0.3s ease'
                             }}
                         />

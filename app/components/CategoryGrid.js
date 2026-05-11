@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 const categories = [
     {
@@ -44,7 +45,14 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                         style={{ gridArea: cat.gridArea }}
                         onClick={() => onSelectCategory ? onSelectCategory(cat.id) : window.location.href = '/shop?category=' + encodeURIComponent(cat.id)}
                     >
-                        <div className="bg-img" style={{ backgroundImage: `url(${cat.image})` }} />
+                        <Image 
+                            src={cat.image} 
+                            alt={cat.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, 50vw"
+                            className="bg-img"
+                            style={{ objectFit: 'cover', transition: 'transform 1.2s ease' }}
+                        />
                         <div className="overlay" />
                         <div className="content">
                             <h3>{cat.title}</h3>
@@ -94,10 +102,6 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                 }
 
                 .bg-img {
-                    position: absolute;
-                    top: 0; left: 0; right: 0; bottom: 0;
-                    background-size: cover;
-                    background-position: center;
                     transition: transform 1.2s ease;
                 }
 
