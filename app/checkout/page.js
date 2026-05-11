@@ -233,8 +233,8 @@ export default function Checkout() {
             setInlineAuthStep(2); // Show OTP input
             setResendTimer(30); // 30 second timer
         } catch (error) {
-            console.error("OTP Error:", error);
-            const errMsg = error.message || 'Failed to send OTP. Please write a valid regular mobile number.';
+            console.error("OTP Error Object:", error);
+            const errMsg = error.code ? `Firebase Error: ${error.code} - ${error.message}` : error.message || 'Failed to send OTP. Please check your number.';
             setPopupConfig({ isOpen: true, title: 'Error', message: errMsg, type: 'error' });
             setInlineAuthStep(0);
         }
