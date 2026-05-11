@@ -802,6 +802,7 @@ export default function Checkout() {
                     }
                 `}</style>
                 <div id="recaptcha-container"></div>
+                <div style={{ textAlign: 'center', fontSize: '0.7rem', color: '#ccc', marginTop: '2rem' }}>v1.2</div>
             </main>
         </>
     );
