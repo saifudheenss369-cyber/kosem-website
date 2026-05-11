@@ -1,43 +1,38 @@
 import { NextResponse } from 'next/server';
-import { getPaymentStatus } from '@/lib/instamojo';
+import { verifySignature } from '@/lib/razorpay';
 import prisma from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 
-export async function GET(req) {
+export async function POST(req) {
     try {
-        const url = new URL(req.url);
-        const orderId = url.searchParams.get('orderId');
-        const paymentId = url.searchParams.get('payment_id');
-        const paymentStatus = url.searchParams.get('payment_status');
-        const paymentRequestId = url.searchParams.get('payment_request_id');
+        const { orderId, razorpayOrderId, razorpayPaymentId, razorpaySignature } = await req.json();
 
-        if (!paymentId || !orderId || !paymentRequestId) {
-            return NextResponse.redirect(new URL('/checkout?error=MissingPaymentDetails', req.url));
+        if (!razorpayOrderId || !razorpayPaymentId || !razorpaySignature) {
+            return NextResponse.json({ error: 'Missing payment details' }, { status: 400 });
         }
 
-        // 1. Verify Payment via Instamojo API to prevent tampering
-        const statusApi = await getPaymentStatus(paymentRequestId, paymentId);
+        // 1. Verify Signature
+        const isValid = verifySignature(razorpayOrderId, razorpayPaymentId, razorpaySignature);
 
-        if (statusApi.success && (statusApi.status === 'Credit' || statusApi.status === 'Successful')) {
+        if (isValid) {
             // 2. Update Database Order Status
             await prisma.order.update({
                 where: { id: parseInt(orderId) },
                 data: {
-                    status: 'PAID', // or processing
+                    status: 'PAID',
                     paymentMethod: 'ONLINE'
                 }
             });
 
-            // Redirect to success view
-            return NextResponse.redirect(new URL(`/my-orders?success=true&order_id=${orderId}`, req.url));
+            return NextResponse.json({ success: true });
         } else {
-            console.error('Payment Verification Failed:', statusApi);
-            return NextResponse.redirect(new URL('/checkout?error=PaymentFailed', req.url));
+            console.error('Razorpay Signature Verification Failed');
+            return NextResponse.json({ error: 'Invalid signature' }, { status: 400 });
         }
 
     } catch (error) {
         console.error('Payment Verification Error:', error);
-        return NextResponse.redirect(new URL('/checkout?error=PaymentVerificationError', req.url));
+        return NextResponse.json({ error: 'Verification failed' }, { status: 500 });
     }
 }

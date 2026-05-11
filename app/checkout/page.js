@@ -298,7 +298,14 @@ export default function Checkout() {
                 const order = await res.json();
 
                 if (paymentMethod === 'ONLINE') {
-                    // 1. Initiate Instamojo Payment
+                    // Load Razorpay Script
+                    const resLoader = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+                    if (!resLoader) {
+                        setPopupConfig({ isOpen: true, title: 'Network Error', message: 'Razorpay SDK failed to load. Are you online?', type: 'error' });
+                        return;
+                    }
+
+                    // 1. Initiate Razorpay Payment
                     try {
                         const payRes = await fetch('/api/payment/initiate', {
                             method: 'POST',
@@ -306,17 +313,54 @@ export default function Checkout() {
                             body: JSON.stringify({
                                 amount: finalTotal,
                                 mobileNumber: verifiedUser?.phone || formData.phone || '9999999999',
-                                orderId: order.id,
-                                name: formData.name,
-                                email: verifiedUser?.email || 'guest@kosemperfume.com'
+                                orderId: order.id
                             })
                         });
 
                         const orderData = await payRes.json();
 
-                        if (orderData.longurl) {
-                            // Redirect user to Instamojo hosted secure payment page
-                            window.location.href = orderData.longurl;
+                        if (orderData.id) {
+                            const options = {
+                                key: orderData.keyId,
+                                amount: orderData.amount,
+                                currency: orderData.currency,
+                                name: "Kosem Perfumes",
+                                description: "Checkout Payment",
+                                image: "/logo.png",
+                                order_id: orderData.id,
+                                handler: async function (response) {
+                                    // 2. Verify Payment
+                                    const verifyRes = await fetch('/api/payment/verify', {
+                                        method: 'POST',
+                                        headers: { 'Content-Type': 'application/json' },
+                                        body: JSON.stringify({
+                                            orderId: order.id,
+                                            razorpayOrderId: response.razorpay_order_id,
+                                            razorpayPaymentId: response.razorpay_payment_id,
+                                            razorpaySignature: response.razorpay_signature,
+                                        })
+                                    });
+
+                                    const verifyData = await verifyRes.json();
+                                    if (verifyData.success) {
+                                        setOrderData(order);
+                                        setOrderPlaced(true);
+                                        clearCart();
+                                    } else {
+                                        setPopupConfig({ isOpen: true, title: 'Verification Failed', message: verifyData.error || 'Payment verification failed.', type: 'error' });
+                                    }
+                                },
+                                prefill: {
+                                    name: formData.name,
+                                    email: verifiedUser?.email || 'guest@kosemperfume.com',
+                                    contact: verifiedUser?.phone || formData.phone
+                                },
+                                theme: { color: "#D4AF37" }
+                            };
+
+                            const paymentObject = new window.Razorpay(options);
+                            paymentObject.open();
+
                         } else {
                             setPopupConfig({ isOpen: true, title: 'Payment Error', message: orderData.error || 'Failed to generate payment link.', type: 'error' });
                         }
