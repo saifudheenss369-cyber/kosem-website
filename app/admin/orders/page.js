@@ -47,7 +47,7 @@ Team Kosem 🕊️`;
 };
 
 const firebaseConfig = {
-    apiKey: "AIzaSyB4CSA4s7u3XGdmeiQDAPy9h-zzM790thC",
+    apiKey: "AIzaSyB4CSA4s7u3XGdmeiQDAPy9h-zzM790tHc",
     authDomain: "kosem-website.firebaseapp.com",
     projectId: "kosem-website",
     storageBucket: "kosem-website.firebasestorage.app",
