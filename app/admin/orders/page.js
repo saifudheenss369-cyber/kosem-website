@@ -47,12 +47,13 @@ Team Kosem 🕊️`;
 };
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDkab-90ZJK6OdgD64JcCrdH9KGgLoCUW0",
-    authDomain: "aljuman-a1a29.firebaseapp.com",
-    projectId: "aljuman-a1a29",
-    storageBucket: "aljuman-a1a29.firebasestorage.app",
-    messagingSenderId: "810420529037",
-    appId: "1:810420529037:web:384834839fd467b435bfc4"
+    apiKey: "AIzaSyB4CSA4s7u3XGdmeiQDAPy9h-zzM790thC",
+    authDomain: "kosem-website.firebaseapp.com",
+    projectId: "kosem-website",
+    storageBucket: "kosem-website.firebasestorage.app",
+    messagingSenderId: "340088532228",
+    appId: "1:340088532228:web:ef21148aaf979c090eb451",
+    measurementId: "G-FB9PJ8VJC5"
 };
 
 export default function AdminOrders() {
