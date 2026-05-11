@@ -222,6 +222,11 @@ export default function Checkout() {
 
         try {
             const appVerifier = window.recaptchaVerifier;
+            if (!appVerifier) {
+                setPopupConfig({ isOpen: true, title: 'Error', message: 'Recaptcha not initialized. Please refresh.', type: 'error' });
+                setInlineAuthStep(0);
+                return;
+            }
             const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
             setConfirmationResult(confirmation);
             setPopupConfig({ isOpen: true, title: 'OTP Sent', message: `OTP sent to ${phoneToVerify}`, type: 'success' });
@@ -229,7 +234,8 @@ export default function Checkout() {
             setResendTimer(30); // 30 second timer
         } catch (error) {
             console.error("OTP Error:", error);
-            setPopupConfig({ isOpen: true, title: 'Error', message: 'Failed to send OTP. Please write a valid regular mobile number.', type: 'error' });
+            const errMsg = error.message || 'Failed to send OTP. Please write a valid regular mobile number.';
+            setPopupConfig({ isOpen: true, title: 'Error', message: errMsg, type: 'error' });
             setInlineAuthStep(0);
         }
     };
