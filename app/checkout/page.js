@@ -235,7 +235,7 @@ export default function Checkout() {
             setResendTimer(30); // 30 second timer
         } catch (error) {
             console.error("OTP Error Object:", error);
-            let errMsg = 'Failed to send OTP. Please try again.';
+            let errMsg = `Failed to send OTP. Error: ${error.code || error.message || 'unknown'}. Please try again.`;
             if (error.code === 'auth/too-many-requests') {
                 errMsg = 'Too many attempts. Please wait a few minutes and try again.';
             } else if (error.code === 'auth/invalid-phone-number') {
@@ -244,8 +244,10 @@ export default function Checkout() {
                 errMsg = 'reCAPTCHA verification failed. Please refresh the page and try again.';
             } else if (error.code === 'auth/network-request-failed') {
                 errMsg = 'Network error. Check your internet connection and try again.';
-            } else if (error.code) {
-                errMsg = `Error: ${error.code}. Please refresh and try again.`;
+            } else if (error.code === 'auth/unauthorized-domain') {
+                errMsg = 'This website domain is not authorized in Firebase. Please contact support.';
+            } else if (error.code === 'auth/quota-exceeded') {
+                errMsg = 'SMS quota exceeded. Please try again later.';
             }
             setPopupConfig({ isOpen: true, title: 'OTP Error', message: errMsg, type: 'error' });
             // Reset recaptcha on error
