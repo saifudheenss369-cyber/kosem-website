@@ -221,21 +221,38 @@ export default function Checkout() {
         const formattedPhone = phoneToVerify.startsWith('+91') ? phoneToVerify : `+91${phoneToVerify}`;
 
         try {
-            const appVerifier = window.recaptchaVerifier;
+            // Re-initialize recaptcha fresh each time (fixes resend bug)
+            const appVerifier = setupRecaptcha('recaptcha-container');
             if (!appVerifier) {
-                setPopupConfig({ isOpen: true, title: 'Error', message: 'Recaptcha not initialized. Please refresh.', type: 'error' });
+                setPopupConfig({ isOpen: true, title: 'Error', message: 'reCAPTCHA setup failed. Please refresh the page.', type: 'error' });
                 setInlineAuthStep(0);
                 return;
             }
             const confirmation = await signInWithPhoneNumber(auth, formattedPhone, appVerifier);
             setConfirmationResult(confirmation);
-            setPopupConfig({ isOpen: true, title: 'OTP Sent', message: `OTP sent to ${phoneToVerify}`, type: 'success' });
+            setPopupConfig({ isOpen: true, title: 'OTP Sent ✅', message: `OTP sent to +91-${phoneToVerify}. Check your SMS.`, type: 'success' });
             setInlineAuthStep(2); // Show OTP input
             setResendTimer(30); // 30 second timer
         } catch (error) {
             console.error("OTP Error Object:", error);
-            const errMsg = error.code ? `Firebase Error: ${error.code} - ${error.message}` : error.message || 'Failed to send OTP. Please check your number.';
-            setPopupConfig({ isOpen: true, title: 'Error', message: errMsg, type: 'error' });
+            let errMsg = 'Failed to send OTP. Please try again.';
+            if (error.code === 'auth/too-many-requests') {
+                errMsg = 'Too many attempts. Please wait a few minutes and try again.';
+            } else if (error.code === 'auth/invalid-phone-number') {
+                errMsg = 'Invalid phone number. Please enter a valid 10-digit Indian mobile number.';
+            } else if (error.code === 'auth/captcha-check-failed') {
+                errMsg = 'reCAPTCHA verification failed. Please refresh the page and try again.';
+            } else if (error.code === 'auth/network-request-failed') {
+                errMsg = 'Network error. Check your internet connection and try again.';
+            } else if (error.code) {
+                errMsg = `Error: ${error.code}. Please refresh and try again.`;
+            }
+            setPopupConfig({ isOpen: true, title: 'OTP Error', message: errMsg, type: 'error' });
+            // Reset recaptcha on error
+            if (window.recaptchaVerifier) {
+                try { window.recaptchaVerifier.clear(); } catch(e) {}
+                window.recaptchaVerifier = null;
+            }
             setInlineAuthStep(0);
         }
     };
