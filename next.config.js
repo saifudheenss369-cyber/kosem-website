@@ -7,7 +7,8 @@ const nextConfig = {
     ignoreDuringBuilds: true,
   },
   experimental: {
-    serverExternalPackages: ['firebase-admin'],
+    // Correct key for Next.js 13.x (serverExternalPackages was being ignored)
+    serverComponentsExternalPackages: ['firebase-admin', 'razorpay', '@prisma/client', 'prisma'],
   },
 };
 
