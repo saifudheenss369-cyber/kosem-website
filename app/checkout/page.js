@@ -221,8 +221,11 @@ export default function Checkout() {
         const formattedPhone = phoneToVerify.startsWith('+91') ? phoneToVerify : `+91${phoneToVerify}`;
 
         try {
-            // Re-initialize recaptcha fresh each time (fixes resend bug)
-            const appVerifier = setupRecaptcha('recaptcha-container');
+            // Use existing recaptcha if available, otherwise initialize it
+            let appVerifier = window.recaptchaVerifier;
+            if (!appVerifier) {
+                appVerifier = setupRecaptcha('recaptcha-container');
+            }
             if (!appVerifier) {
                 setPopupConfig({ isOpen: true, title: 'Error', message: 'reCAPTCHA setup failed. Please refresh the page.', type: 'error' });
                 setInlineAuthStep(0);
@@ -250,11 +253,6 @@ export default function Checkout() {
                 errMsg = 'SMS quota exceeded. Please try again later.';
             }
             setPopupConfig({ isOpen: true, title: 'OTP Error', message: errMsg, type: 'error' });
-            // Reset recaptcha on error
-            if (window.recaptchaVerifier) {
-                try { window.recaptchaVerifier.clear(); } catch(e) {}
-                window.recaptchaVerifier = null;
-            }
             setInlineAuthStep(0);
         }
     };
