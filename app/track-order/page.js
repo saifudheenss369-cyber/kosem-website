@@ -58,13 +58,32 @@ export default function TrackOrder() {
                         padding-top: 150px;
                         min-height: 60vh;
                         padding-bottom: 4rem;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        width: 100%;
                     }
                     @media (max-width: 768px) {
                         .track-main {
                             padding-top: 100px;
                         }
                     }
+                    .track-input-box {
+                        width: 100%;
+                        max-width: 500px;
+                        margin: 0 auto;
+                        background: #1a1a1a;
+                        padding: 2rem;
+                        border-radius: 12px;
+                        border: 1px solid #333;
+                    }
+                    @media (max-width: 480px) {
+                        .track-input-box {
+                            padding: 1.5rem 1rem;
+                        }
+                    }
                     .track-card {
+                        width: 100%;
                         max-width: 1000px;
                         margin: 3rem auto;
                         text-align: left;
@@ -77,32 +96,29 @@ export default function TrackOrder() {
                     @media (max-width: 768px) {
                         .track-card {
                             padding: 1.25rem;
-                            margin: 1rem auto;
+                            margin: 1.5rem 0;
                         }
                     }
                 `}</style>
                 {!order && (
-                    <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-                        {/* Track Order Section */}
-                        <div style={{ background: '#1a1a1a', padding: '2rem', borderRadius: '12px', border: '1px solid #333' }}>
-                            <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1.5rem', textAlign: 'center' }}>Track Your Order</h2>
-                            <form onSubmit={handleTrack} style={{ margin: '0 auto' }}>
-                                <div style={{ display: 'flex', gap: '8px' }}>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter Tracking ID (e.g. KS123456)"
-                                        value={orderId}
-                                        onChange={e => setOrderId(e.target.value)}
-                                        required
-                                        style={{ flex: 1, padding: '0.8rem', border: '1px solid #444', background: '#111', color: 'white', borderRadius: '4px' }}
-                                    />
-                                    <button type="submit" className="btn-primary" disabled={loading}>
-                                        {loading ? '...' : 'Track'}
-                                    </button>
-                                </div>
-                            </form>
-                            {error && <p style={{ color: '#ff4444', marginTop: '1rem', textAlign: 'center' }}>{error}</p>}
-                        </div>
+                    <div className="track-input-box">
+                        <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1.5rem', textAlign: 'center', fontSize: '1.8rem' }}>Track Your Order</h2>
+                        <form onSubmit={handleTrack}>
+                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                                <input
+                                    type="text"
+                                    placeholder="Enter Tracking ID (e.g. KS123456)"
+                                    value={orderId}
+                                    onChange={e => setOrderId(e.target.value)}
+                                    required
+                                    style={{ flex: '1', minWidth: '200px', padding: '0.8rem', border: '1px solid #444', background: '#111', color: 'white', borderRadius: '4px' }}
+                                />
+                                <button type="submit" className="btn-primary" disabled={loading} style={{ flex: '1', minWidth: '100px' }}>
+                                    {loading ? '...' : 'Track'}
+                                </button>
+                            </div>
+                        </form>
+                        {error && <p style={{ color: '#ff4444', marginTop: '1rem', textAlign: 'center' }}>{error}</p>}
                     </div>
                 )}
 
