@@ -123,7 +123,8 @@ export async function POST(req) {
                 console.error('User update background error:', e);
             }
 
-            // 2. Shiprocket Integration
+            // 2. Shiprocket Integration (DISABLED as per user request)
+            /*
             try {
                 const shiprocketResult = await createShiprocketOrder(order);
                 if (shiprocketResult.success) {
@@ -138,6 +139,7 @@ export async function POST(req) {
             } catch (e) {
                 console.error('Shiprocket background error:', e);
             }
+            */
 
             // 3. WhatsApp Alert
             try {
