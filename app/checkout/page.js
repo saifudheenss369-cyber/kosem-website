@@ -221,11 +221,8 @@ export default function Checkout() {
         const formattedPhone = phoneToVerify.startsWith('+91') ? phoneToVerify : `+91${phoneToVerify}`;
 
         try {
-            // Use existing recaptcha if available, otherwise initialize it
-            let appVerifier = window.recaptchaVerifier;
-            if (!appVerifier) {
-                appVerifier = setupRecaptcha('recaptcha-container');
-            }
+            // Re-initialize recaptcha fresh each time (fixes resend bug)
+            const appVerifier = setupRecaptcha('recaptcha-container');
             if (!appVerifier) {
                 setPopupConfig({ isOpen: true, title: 'Error', message: 'reCAPTCHA setup failed. Please refresh the page.', type: 'error' });
                 setInlineAuthStep(0);
@@ -253,6 +250,11 @@ export default function Checkout() {
                 errMsg = 'SMS quota exceeded. Please try again later.';
             }
             setPopupConfig({ isOpen: true, title: 'OTP Error', message: errMsg, type: 'error' });
+            // Reset recaptcha on error
+            if (window.recaptchaVerifier) {
+                try { window.recaptchaVerifier.clear(); } catch (e) { }
+                window.recaptchaVerifier = null;
+            }
             setInlineAuthStep(0);
         }
     };
@@ -437,7 +439,7 @@ export default function Checkout() {
                                     value={formData.name}
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     required
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem' }}
+                                    className="checkout-input"
                                 />
                             </div>
 
@@ -459,50 +461,49 @@ export default function Checkout() {
                                             }
                                         }
                                     }}
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
+                                    className="checkout-input"
                                 />
                                 {user && user.isVerified && user.phone === formData.phone && (
-                                    <div style={{ color: 'green', fontSize: '0.85rem', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                                        <span style={{ fontSize: '1.2rem' }}>✅</span> Number Verified
+                                    <div className="verified-badge">
+                                        <span className="verified-tick">✓</span> Number Verified
                                     </div>
                                 )}
 
                                 {inlineAuthStep === 2 && (
-                                    <div style={{ marginBottom: '1.5rem', background: '#D4AF3715', padding: '1rem', borderRadius: '8px', border: '1px dashed #D4AF37' }}>
-                                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                                            <h4 style={{ margin: 0, fontSize: '0.9rem' }}>Enter Verification Code</h4>
+                                    <div className="otp-container">
+                                        <div className="otp-header">
+                                            <h4>Enter Verification Code</h4>
                                             {resendTimer > 0 ? (
-                                                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Resend in {resendTimer}s</span>
+                                                <span className="resend-text">Resend in {resendTimer}s</span>
                                             ) : (
-                                                <button 
-                                                    type="button" 
+                                                <button
+                                                    type="button"
                                                     onClick={() => handleSendOtp(formData.phone)}
-                                                    style={{ background: 'none', border: 'none', color: 'var(--color-gold)', fontSize: '0.8rem', fontWeight: 'bold', cursor: 'pointer', padding: 0 }}
+                                                    className="resend-btn"
                                                 >
                                                     Resend OTP
                                                 </button>
                                             )}
                                         </div>
-                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                        <div className="otp-input-wrapper">
                                             <input
                                                 type="text"
                                                 maxLength="6"
                                                 value={inlineOtp}
                                                 onChange={e => setInlineOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                                                placeholder="123456"
-                                                style={{ flex: 1, padding: '0.8rem', fontSize: '1.2rem', textAlign: 'center', letterSpacing: '4px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
+                                                placeholder="••••••"
+                                                className="otp-input"
                                             />
                                             <button
                                                 type="button"
                                                 onClick={handleVerifyOtp}
-                                                className="btn-primary"
+                                                className="btn-primary otp-verify-btn"
                                                 disabled={inlineAuthStep === 1}
-                                                style={{ padding: '0 1.5rem', opacity: inlineAuthStep === 1 ? 0.5 : 1 }}
                                             >
                                                 {inlineAuthStep === 1 ? '...' : 'Verify'}
                                             </button>
                                         </div>
-                                        <button type="button" onClick={() => setInlineAuthStep(0)} style={{ background: 'none', border: 'none', color: 'var(--color-text-muted)', fontSize: '0.7rem', marginTop: '0.5rem', cursor: 'pointer', textDecoration: 'underline' }}>Wrong number? Change</button>
+                                        <button type="button" onClick={() => setInlineAuthStep(0)} className="change-num-btn">Wrong number? Change</button>
                                     </div>
                                 )}
                             </div>
@@ -516,7 +517,7 @@ export default function Checkout() {
                                     maxLength="6"
                                     required
                                     placeholder="Enter 6-digit Pincode"
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
+                                    className="checkout-input"
                                 />
                             </div>
 
@@ -528,7 +529,7 @@ export default function Checkout() {
                                         value={formData.district}
                                         onChange={e => setFormData({ ...formData, district: e.target.value })}
                                         required
-                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}
+                                        className="checkout-input"
                                     />
                                 </div>
                                 <div className="form-group">
@@ -538,7 +539,7 @@ export default function Checkout() {
                                         value={formData.state}
                                         onChange={e => setFormData({ ...formData, state: e.target.value })}
                                         required
-                                        style={{ width: '100%', padding: '0.8rem', borderRadius: '4px', border: '1px solid var(--color-border)', background: 'var(--color-bg-secondary)' }}
+                                        className="checkout-input"
                                     />
                                 </div>
                             </div>
@@ -550,16 +551,15 @@ export default function Checkout() {
                                     onChange={e => setFormData({ ...formData, address: e.target.value })}
                                     required
                                     rows="2"
-                                    style={{ width: '100%', padding: '0.8rem', marginBottom: '1rem', borderRadius: '4px', border: '1px solid var(--color-border)' }}
+                                    className="checkout-input"
                                 />
                             </div>
 
-                            {/* Shipping Method */}
-                            <div style={{ marginBottom: '1.5rem' }}>
+                            <div className="method-section">
                                 <h3>Shipping Method</h3>
-                                <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'STANDARD' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'STANDARD' ? 'var(--color-gold)' : '#ddd' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <div className="method-grid">
+                                    <label className={`method-card ${shippingMethod === 'STANDARD' ? 'active' : ''}`}>
+                                        <div className="method-info">
                                             <input
                                                 type="radio"
                                                 name="shipping"
@@ -567,18 +567,18 @@ export default function Checkout() {
                                                 checked={shippingMethod === 'STANDARD'}
                                                 onChange={() => setShippingMethod('STANDARD')}
                                             />
-                                            <div>
-                                                <span style={{ display: 'block', fontWeight: 'bold' }}>Standard Delivery</span>
-                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>3-5 Business Days</span>
+                                            <div className="method-details">
+                                                <span className="method-name">Standard Delivery</span>
+                                                <span className="method-desc">3-5 Business Days</span>
                                             </div>
                                         </div>
-                                        <span style={{ fontWeight: 'bold', color: subtotal >= 500 ? 'green' : '#333' }}>
+                                        <span className={`method-price ${subtotal >= 500 ? 'free' : ''}`}>
                                             {subtotal >= 500 ? 'FREE' : '₹50'}
                                         </span>
                                     </label>
 
-                                    <label style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: shippingMethod === 'EXPRESS' ? '#fcf9eb' : 'white', borderColor: shippingMethod === 'EXPRESS' ? 'var(--color-gold)' : '#ddd' }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                    <label className={`method-card ${shippingMethod === 'EXPRESS' ? 'active' : ''}`}>
+                                        <div className="method-info">
                                             <input
                                                 type="radio"
                                                 name="shipping"
@@ -586,12 +586,12 @@ export default function Checkout() {
                                                 checked={shippingMethod === 'EXPRESS'}
                                                 onChange={() => setShippingMethod('EXPRESS')}
                                             />
-                                            <div>
-                                                <span style={{ display: 'block', fontWeight: 'bold' }}>EXPRESS Shipping</span>
-                                                <span style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>1-2 Business Days</span>
+                                            <div className="method-details">
+                                                <span className="method-name">EXPRESS Shipping</span>
+                                                <span className="method-desc">1-2 Business Days</span>
                                             </div>
                                         </div>
-                                        <span style={{ fontWeight: 'bold' }}>₹99</span>
+                                        <span className="method-price">₹99</span>
                                     </label>
                                 </div>
                             </div>
@@ -601,7 +601,7 @@ export default function Checkout() {
                                 <h3>Payment Method</h3>
                                 <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
                                     {isCodAvailable ? (
-                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer' }}>
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer,' }}>
                                             <input
                                                 type="radio"
                                                 name="payment"
@@ -612,12 +612,12 @@ export default function Checkout() {
                                             <span>Cash on Delivery</span>
                                         </label>
                                     ) : (
-                                        <div style={{ padding: '1rem', border: '1px solid #ffccdd', borderRadius: '8px', background: '#ffe6ee', color: '#c00' }}>
+                                        <div style={{ padding: '1rem', border: '1px solid #1e293b', borderRadius: '8px', background: '#1e293b', color: '#c00' }}>
                                             <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>⚠️ COD Not Available</span>
                                             <div style={{ fontSize: '0.8rem', marginTop: '4px' }}>Cash on Delivery is not supported for this PIN Code. Please pay online.</div>
                                         </div>
                                     )}
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: '#f9f9ff' }}>
+                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: '#1e293b' }}>
                                         <input
                                             type="radio"
                                             name="payment"
@@ -626,94 +626,95 @@ export default function Checkout() {
                                             onChange={() => setPaymentMethod('ONLINE')}
                                         />
                                         <span>Pay Online (UPI / Card)</span>
-                                        <span style={{ fontSize: '0.8rem', background: '#e0e0e0', padding: '2px 5px', borderRadius: '4px' }}>Fast</span>
+                                        <span style={{ fontSize: '0.8rem', background: '#1e293b', padding: '2px 5px', borderRadius: '4px' }}>Fast</span>
                                     </label>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    {/* Coupon Section */}
-                    <div style={{ marginTop: '1.5rem', marginBottom: '1.5rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', padding: '1rem', borderRadius: '8px' }}>
-                        <h4 style={{ marginBottom: '1rem', fontSize: '1rem' }}>Have a promo code?</h4>
-
-                        {!appliedCoupon ? (
-                            <form onSubmit={handleApplyCoupon} style={{ display: 'flex', gap: '0.5rem' }}>
-                                <input
-                                    type="text"
-                                    placeholder="Enter code"
-                                    value={couponCodeInput}
-                                    onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
-                                    style={{ flex: 1, padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '4px', textTransform: 'uppercase' }}
-                                />
-                                <button
-                                    type="submit"
-                                    disabled={isApplyingCoupon || !couponCodeInput.trim()}
-                                    style={{ background: '#333', color: 'white', border: 'none', padding: '0 1.5rem', borderRadius: '4px', cursor: isApplyingCoupon || !couponCodeInput.trim() ? 'not-allowed' : 'pointer', opacity: isApplyingCoupon || !couponCodeInput.trim() ? 0.7 : 1 }}
-                                >
-                                    {isApplyingCoupon ? '...' : 'Apply'}
-                                </button>
-                            </form>
-                        ) : (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#D4AF3715', border: '1px dashed #D4AF37', padding: '0.8rem', borderRadius: '4px' }}>
-                                <div>
-                                    <span style={{ fontWeight: 'bold', color: '#B38B22', fontSize: '0.9rem' }}>{appliedCoupon.code}</span>
-                                    <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'block' }}>Discount applied!</span>
+                    <div className="summary-card">
+                        <div className="coupon-section">
+                            <h3>Promo Code</h3>
+                            {!appliedCoupon ? (
+                                <form onSubmit={handleApplyCoupon} className="coupon-form">
+                                    <input
+                                        type="text"
+                                        placeholder="ENTER CODE"
+                                        value={couponCodeInput}
+                                        onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
+                                        className="checkout-input coupon-input"
+                                    />
+                                    <button
+                                        type="submit"
+                                        className="btn-primary apply-btn"
+                                        disabled={isApplyingCoupon || !couponCodeInput.trim()}
+                                    >
+                                        {isApplyingCoupon ? '...' : 'Apply'}
+                                    </button>
+                                </form>
+                            ) : (
+                                <div className="applied-coupon-box">
+                                    <div className="coupon-info">
+                                        <span className="coupon-code">{appliedCoupon.code}</span>
+                                        <span className="coupon-status">Discount Applied</span>
+                                    </div>
+                                    <button type="button" onClick={removeCoupon} className="remove-coupon">
+                                        Remove
+                                    </button>
                                 </div>
-                                <button
-                                    type="button"
-                                    onClick={removeCoupon}
-                                    style={{ background: 'none', border: 'none', color: 'red', fontSize: '0.8rem', cursor: 'pointer', textDecoration: 'underline' }}
-                                >
-                                    Remove
-                                </button>
-                            </div>
-                        )}
-
-                        {couponError && <p style={{ color: 'red', fontSize: '0.85rem', marginTop: '0.5rem', margin: 0 }}>{couponError}</p>}
-                    </div>
-
-                    <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', height: 'fit-content' }}>
-                        <h3>Order Summary</h3>
-                        {cart.map(item => (
-                            <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
-                                <span>{item.name} x {item.quantity}</span>
-                                <span>₹{item.price * item.quantity}</span>
-                            </div>
-                        ))}
-                        <hr style={{ margin: '0.5rem 0' }} />
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: 'var(--color-text-muted)' }}>
-                            <span>Subtotal</span>
-                            <span>₹{subtotal}</span>
-                        </div>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: 'var(--color-text-muted)' }}>
-                            <span>Shipping</span>
-                            <span>{shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}</span>
+                            )}
+                            {couponError && <p className="coupon-error">{couponError}</p>}
                         </div>
 
-                        {appliedCoupon && (
-                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem', color: '#B38B22', fontWeight: 'bold' }}>
-                                <span>Discount ({appliedCoupon.code})</span>
-                                <span>- ₹{appliedCoupon.discountAmount}</span>
+                        <div className="order-summary-content">
+                            <h3>Order Summary</h3>
+                            <div className="summary-items">
+                                {cart.map(item => (
+                                    <div key={item.id} className="summary-item">
+                                        <span className="item-name">{item.name} x {item.quantity}</span>
+                                        <span className="item-price">₹{item.price * item.quantity}</span>
+                                    </div>
+                                ))}
                             </div>
-                        )}
+                            
+                            <div className="summary-divider" />
+                            
+                            <div className="summary-row">
+                                <span>Subtotal</span>
+                                <span>₹{subtotal}</span>
+                            </div>
+                            <div className="summary-row">
+                                <span>Shipping</span>
+                                <span className={shippingCost === 0 ? 'free' : ''}>
+                                    {shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}
+                                </span>
+                            </div>
 
-                        <hr style={{ margin: '1rem 0' }} />
-                        <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: 'bold', fontSize: '1.2rem' }}>
-                            <span>Total</span>
-                            <span>₹{finalTotal}</span>
+                            {appliedCoupon && (
+                                <div className="summary-row discount">
+                                    <span>Discount ({appliedCoupon.code})</span>
+                                    <span>- ₹{appliedCoupon.discountAmount}</span>
+                                </div>
+                            )}
+
+                            <div className="summary-divider" />
+                            
+                            <div className="summary-total">
+                                <span>Total Amount</span>
+                                <span>₹{finalTotal}</span>
+                            </div>
+
+                            <button
+                                type="submit"
+                                form="checkout-form"
+                                className="btn-primary checkout-submit-btn hide-mobile"
+                                disabled={inlineAuthStep === 1 || isPlacingOrder}
+                            >
+                                {(user && user.isVerified && user.phone === formData.phone)
+                                    ? (isPlacingOrder ? 'Processing...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order'))
+                                    : (inlineAuthStep === 0 ? 'Verify & Continue' : 'Verifying...')}
+                            </button>
                         </div>
-
-                        <button
-                            type="submit"
-                            form="checkout-form"
-                            className="btn-primary hide-mobile"
-                            style={{ width: '100%', marginTop: '1.5rem', opacity: (inlineAuthStep === 1 || isPlacingOrder) ? 0.5 : 1, cursor: (inlineAuthStep === 1 || isPlacingOrder) ? 'not-allowed' : 'pointer' }}
-                            disabled={inlineAuthStep === 1 || isPlacingOrder}
-                        >
-                            {(user && user.isVerified && user.phone === formData.phone) 
-                                ? (isPlacingOrder ? 'Placing Order...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order'))
-                                : (inlineAuthStep === 0 ? 'Continue to Verification' : 'Verifying...')}
-                        </button>
                     </div>
                 </div>
 
@@ -731,7 +732,7 @@ export default function Checkout() {
                             disabled={inlineAuthStep === 1 || isPlacingOrder}
                             style={{ padding: '0.8rem 1.5rem', minWidth: '140px' }}
                         >
-                            {(user && user.isVerified && user.phone === formData.phone) 
+                            {(user && user.isVerified && user.phone === formData.phone)
                                 ? (isPlacingOrder ? '...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Order Now'))
                                 : (inlineAuthStep === 0 ? 'Verify' : '...')}
                         </button>
@@ -739,25 +740,278 @@ export default function Checkout() {
                 </div>
 
                 <style jsx>{`
+                    .checkout-container {
+                        padding-top: 120px;
+                        padding-bottom: 5rem;
+                        background: var(--color-bg-main);
+                        min-height: 100vh;
+                    }
+
+                    h1 {
+                        font-family: var(--font-serif);
+                        font-size: 2.5rem;
+                        margin-bottom: 2rem;
+                        color: var(--color-text-main);
+                        text-align: center;
+                    }
+
+                    h3 {
+                        font-family: var(--font-serif);
+                        font-size: 1.5rem;
+                        color: var(--color-gold);
+                        margin-bottom: 1.5rem;
+                        border-bottom: 1px solid rgba(184, 134, 11, 0.2);
+                        padding-bottom: 0.5rem;
+                    }
+
+                    .checkout-grid {
+                        display: grid;
+                        grid-template-columns: 1.5fr 1fr;
+                        gap: 3rem;
+                        align-items: start;
+                    }
+
+                    .form-group {
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .form-group label {
+                        display: block;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        color: var(--color-text-muted);
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                    }
+
+                    .checkout-input {
+                        width: 100%;
+                        padding: 1rem;
+                        background: var(--color-bg-secondary);
+                        border: 1px solid var(--color-border);
+                        border-radius: 4px;
+                        color: var(--color-text-main);
+                        font-family: var(--font-sans);
+                        transition: all 0.3s ease;
+                    }
+
+                    .checkout-input:focus {
+                        outline: none;
+                        border-color: var(--color-gold);
+                        box-shadow: 0 0 0 2px rgba(184, 134, 11, 0.1);
+                        background: var(--color-black);
+                    }
+
+                    .city-state-grid {
+                        display: grid;
+                        grid-template-columns: 1fr 1fr;
+                        gap: 1.5rem;
+                    }
+
+                    /* Method Cards (Shipping/Payment) */
+                    .method-section {
+                        margin-top: 2.5rem;
+                        margin-bottom: 2rem;
+                    }
+
+                    .method-grid {
+                        display: grid;
+                        grid-template-columns: 1fr;
+                        gap: 1rem;
+                    }
+
+                    .method-card {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        padding: 1.2rem;
+                        background: var(--color-bg-secondary);
+                        border: 1px solid var(--color-border);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                    }
+
+                    .method-card:hover {
+                        border-color: rgba(184, 134, 11, 0.5);
+                        background: var(--color-black);
+                    }
+
+                    .method-card.active {
+                        border-color: var(--color-gold);
+                        background: rgba(184, 134, 11, 0.05);
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+                    }
+
+                    .method-info {
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                    }
+
+                    .method-details {
+                        display: flex;
+                        flex-direction: column;
+                    }
+
+                    .method-name {
+                        font-weight: 700;
+                        color: var(--color-text-main);
+                        font-size: 1rem;
+                    }
+
+                    .method-desc {
+                        font-size: 0.8rem;
+                        color: var(--color-text-muted);
+                    }
+
+                    .method-price, .method-icon {
+                        font-weight: 700;
+                        color: var(--color-gold);
+                    }
+
+                    .method-price.free {
+                        color: #10B981; /* Emerald 500 */
+                    }
+
+                    /* Summary Card */
+                    .summary-card {
+                        background: var(--color-bg-secondary);
+                        padding: 2rem;
+                        border-radius: 12px;
+                        border: 1px solid var(--color-border);
+                        position: sticky;
+                        top: 120px;
+                    }
+
+                    .summary-item {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 1rem;
+                        color: var(--color-text-muted);
+                    }
+
+                    .summary-divider {
+                        height: 1px;
+                        background: var(--color-border);
+                        margin: 1.5rem 0;
+                    }
+
+                    .summary-total {
+                        display: flex;
+                        justify-content: space-between;
+                        font-size: 1.4rem;
+                        font-weight: 800;
+                        color: var(--color-gold);
+                        font-family: var(--font-serif);
+                    }
+
+                    /* OTP Container */
+                    .otp-container {
+                        margin-top: 1rem;
+                        margin-bottom: 2rem;
+                        padding: 1.5rem;
+                        background: rgba(184, 134, 11, 0.05);
+                        border: 1px dashed var(--color-gold);
+                        border-radius: 8px;
+                    }
+
+                    .otp-header {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        margin-bottom: 1rem;
+                    }
+
+                    .otp-header h4 {
+                        margin: 0;
+                        font-size: 0.95rem;
+                        color: var(--color-text-main);
+                    }
+
+                    .resend-text {
+                        font-size: 0.8rem;
+                        color: var(--color-text-muted);
+                    }
+
+                    .resend-btn {
+                        background: none;
+                        border: none;
+                        color: var(--color-gold);
+                        font-size: 0.8rem;
+                        font-weight: 700;
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+
+                    .otp-input-wrapper {
+                        display: flex;
+                        gap: 1rem;
+                    }
+
+                    .otp-input {
+                        flex: 1;
+                        padding: 1rem;
+                        background: var(--color-black);
+                        border: 1px solid var(--color-gold);
+                        border-radius: 4px;
+                        color: var(--color-gold);
+                        font-size: 1.5rem;
+                        text-align: center;
+                        letter-spacing: 8px;
+                    }
+
+                    .otp-verify-btn {
+                        padding: 0 2rem;
+                    }
+
+                    .change-num-btn {
+                        background: none;
+                        border: none;
+                        color: var(--color-text-muted);
+                        font-size: 0.75rem;
+                        margin-top: 1rem;
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+
+                    .verified-badge {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.5rem;
+                        color: #10B981;
+                        font-size: 0.9rem;
+                        font-weight: 600;
+                        margin-bottom: 1.5rem;
+                        padding: 0.5rem 1rem;
+                        background: rgba(16, 185, 129, 0.1);
+                        border-radius: 4px;
+                        width: fit-content;
+                    }
+
+                    .verified-tick {
+                        font-size: 1.2rem;
+                    }
+
+                    /* Mobile Sticky Footer */
                     .mobile-checkout-sticky {
                         display: none;
                         position: fixed;
                         bottom: 0;
                         left: 0;
                         right: 0;
-                        background: white;
-                        box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-                        padding: 1rem 1.5rem;
+                        background: var(--color-bg-secondary);
+                        box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+                        padding: 1.2rem 1.5rem;
                         z-index: 1000;
-                        border-top-left-radius: 20px;
-                        border-top-right-radius: 20px;
+                        border-top: 1px solid var(--color-gold);
                     }
 
                     .sticky-content {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
-                        gap: 1.5rem;
                     }
 
                     .price-info {
@@ -766,56 +1020,34 @@ export default function Checkout() {
                     }
 
                     .total-label {
-                        font-size: 0.7rem;
-                        color: #666;
+                        font-size: 0.75rem;
+                        color: var(--color-text-muted);
                         text-transform: uppercase;
-                        letter-spacing: 0.5px;
-                        font-weight: bold;
+                        letter-spacing: 1px;
                     }
 
                     .total-value {
-                        font-size: 1.3rem;
-                        font-weight: 900;
-                        color: #000;
+                        font-size: 1.5rem;
+                        font-weight: 800;
+                        color: var(--color-gold);
+                        font-family: var(--font-serif);
                     }
 
                     @media (max-width: 768px) {
-                        .mobile-checkout-sticky {
-                            display: block;
-                        }
-                        .hide-mobile {
-                            display: none !important;
-                        }
                         .checkout-grid {
                             grid-template-columns: 1fr;
-                        }
-                        .city-state-grid {
-                            grid-template-columns: 1fr;
-                        }
-                    }
-                    @media (min-width: 769px) {
-                        .checkout-grid {
-                            display: grid;
-                            grid-template-columns: 1.5fr 1fr;
                             gap: 2rem;
                         }
                         .city-state-grid {
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 1rem;
+                            grid-template-columns: 1fr;
                         }
-                    }
-                    .checkout-container {
-                        padding-top: 100px;
-                        padding-bottom: 3rem;
-                    }
-                    .checkout-grid {
-                        margin-top: 2rem;
-                        gap: 2rem;
-                    }
-                    .city-state-grid {
-                        margin-bottom: 1rem;
-                        gap: 1rem;
+                        .mobile-checkout-sticky {
+                            display: block;
+                        }
+                        .summary-card {
+                            margin-bottom: 2rem;
+                            position: static;
+                        }
                     }
                 `}</style>
                 <div id="recaptcha-container"></div>
