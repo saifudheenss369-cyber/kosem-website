@@ -16,6 +16,7 @@ export default function AdminLayoutClient({ children }) {
                     <a href="/admin" className="admin-nav-link">Dashboard</a>
                     <a href="/admin/products" className="admin-nav-link">Products</a>
                     <a href="/admin/categories" className="admin-nav-link">Categories</a>
+                    <a href="/admin/occasions" className="admin-nav-link">Occasions</a>
                     <a href="/admin/orders" className="admin-nav-link">Orders</a>
                     <a href="/admin/expenses" className="admin-nav-link">Expenses</a>
                     <a href="/admin/banners" className="admin-nav-link">Banners</a>

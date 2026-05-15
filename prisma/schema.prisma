@@ -192,6 +192,12 @@ model Coupon {
   updatedAt     DateTime @updatedAt
 }
 
+model Occasion {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  createdAt DateTime @default(now())
+}
+
 model Setting {
   id        Int      @id @default(autoincrement())
   key       String   @unique

@@ -12,6 +12,7 @@ function ShopContent() {
 
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
+    const [occasions, setOccasions] = useState([]);
     const [search, setSearch] = useState('');
 
     // Filters
@@ -20,17 +21,10 @@ function ShopContent() {
     const [sortBy, setSortBy] = useState('price_asc'); // Default Ajmal-style
     const [loading, setLoading] = useState(true);
 
-    const occasionOptions = [
-        "12 Hours", "Daily Wear", "Date Night", "Home Fragrance",
-        "Luxury Gifting", "Office", "Summer", "Wedding", "Winter"
-    ];
-
-    useEffect(() => {
-        fetchCategories();
-    }, []);
-
     useEffect(() => {
         fetchProducts();
+        fetchCategories();
+        fetchOccasions();
     }, [selectedCategories, selectedOccasions, sortBy]);
 
     const fetchCategories = async () => {
@@ -39,6 +33,15 @@ function ShopContent() {
             if (res.ok) setCategories(await res.json());
         } catch (e) {
             console.error("Failed to fetch categories", e);
+        }
+    };
+
+    const fetchOccasions = async () => {
+        try {
+            const res = await fetch('/api/occasions');
+            if (res.ok) setOccasions(await res.json());
+        } catch (e) {
+            console.error("Failed to fetch occasions", e);
         }
     };
 
@@ -291,15 +294,15 @@ function ShopContent() {
                             <div style={{ marginBottom: '2.5rem' }}>
                                 <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: '1.2rem' }}>Occasion</h3>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                    {occasionOptions.map(occ => (
-                                        <label key={occ} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', fontSize: '0.95rem' }}>
+                                    {occasions.map(occ => (
+                                        <label key={occ.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', fontSize: '0.95rem' }}>
                                             <input
                                                 type="checkbox"
-                                                checked={selectedOccasions.includes(occ)}
-                                                onChange={() => toggleOccasion(occ)}
+                                                checked={selectedOccasions.includes(occ.name)}
+                                                onChange={() => toggleOccasion(occ.name)}
                                                 style={{ width: '18px', height: '18px', accentColor: 'var(--color-gold)' }}
                                             />
-                                            {occ}
+                                            {occ.name}
                                         </label>
                                     ))}
                                 </div>
@@ -386,20 +389,20 @@ function ShopContent() {
                             <div style={{ marginBottom: '2rem' }}>
                                 <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>Occasion</h3>
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                                    {occasionOptions.map(occ => (
+                                    {occasions.map(occ => (
                                         <button 
-                                            key={occ}
-                                            onClick={() => toggleOccasion(occ)}
+                                            key={occ.id}
+                                            onClick={() => toggleOccasion(occ.name)}
                                             style={{
                                                 padding: '0.6rem 1.2rem',
                                                 borderRadius: '10px',
-                                                border: '1px solid ' + (selectedOccasions.includes(occ) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
-                                                background: selectedOccasions.includes(occ) ? 'rgba(184, 134, 11, 0.1)' : 'transparent',
-                                                color: selectedOccasions.includes(occ) ? 'var(--color-gold)' : 'white',
+                                                border: '1px solid ' + (selectedOccasions.includes(occ.name) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                                background: selectedOccasions.includes(occ.name) ? 'rgba(184, 134, 11, 0.1)' : 'transparent',
+                                                color: selectedOccasions.includes(occ.name) ? 'var(--color-gold)' : 'white',
                                                 fontSize: '0.85rem'
                                             }}
                                         >
-                                            {occ}
+                                            {occ.name}
                                         </button>
                                     ))}
                                 </div>

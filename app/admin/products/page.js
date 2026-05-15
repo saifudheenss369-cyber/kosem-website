@@ -15,16 +15,24 @@ export default function AdminProducts() {
     const [searchTerm, setSearchTerm] = useState('');
     const [filterCategory, setFilterCategory] = useState('ALL');
 
+    const [occasions, setOccasions] = useState([]);
+
     const uniqueVariantGroups = Array.from(new Set(products.map(p => p.variantGroupId).filter(Boolean)));
 
     useEffect(() => {
         fetchProducts();
         fetchCategories();
+        fetchOccasions();
     }, []);
 
     const fetchCategories = async () => {
         const res = await fetch('/api/categories');
         if (res.ok) setCategories(await res.json());
+    };
+
+    const fetchOccasions = async () => {
+        const res = await fetch('/api/occasions');
+        if (res.ok) setOccasions(await res.json());
     };
 
     const fetchProducts = async () => {
@@ -61,22 +69,17 @@ export default function AdminProducts() {
     };
 
     const handleCreate = () => {
-        setFormData({ name: '', description: '', price: '', originalPrice: '', stock: '', category: 'Attar', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false });
+        setFormData({ name: '', description: '', price: '', originalPrice: '', stock: '', category: categories[0]?.name || '', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false });
         setEditingId(null);
         setIsEditing(true);
     };
 
-    const occasionOptions = [
-        "12 Hours", "Daily Wear", "Date Night", "Home Fragrance",
-        "Luxury Gifting", "Office", "Summer", "Wedding", "Winter"
-    ];
-
-    const handleOccasionChange = (occ) => {
+    const handleOccasionChange = (occName) => {
         let currentOccasions = formData.occasions ? formData.occasions.split(',').map(s => s.trim()).filter(Boolean) : [];
-        if (currentOccasions.includes(occ)) {
-            currentOccasions = currentOccasions.filter(o => o !== occ);
+        if (currentOccasions.includes(occName)) {
+            currentOccasions = currentOccasions.filter(o => o !== occName);
         } else {
-            currentOccasions.push(occ);
+            currentOccasions.push(occName);
         }
         setFormData({ ...formData, occasions: currentOccasions.join(', ') });
     };
@@ -394,25 +397,25 @@ export default function AdminProducts() {
                                     </div>
 
                                     <div className="form-group">
-                                        <label>Occasions</label>
+                                        <label>Occasions (Filter Keywords)</label>
                                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '0.5rem', background: 'var(--color-bg-secondary)', padding: '1rem', borderRadius: '8px', border: '1px solid #e0e0e0' }}>
-                                            {occasionOptions.map(occ => {
+                                            {occasions.map(occ => {
                                                 const currentOccs = formData.occasions ? formData.occasions.split(',').map(s => s.trim()) : [];
-                                                const isChecked = currentOccs.includes(occ);
+                                                const isChecked = currentOccs.includes(occ.name);
                                                 return (
-                                                    <label key={occ} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'normal', fontSize: '0.9rem', cursor: 'pointer' }}>
+                                                    <label key={occ.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: 'normal', fontSize: '0.9rem', cursor: 'pointer' }}>
                                                         <input
                                                             type="checkbox"
                                                             checked={isChecked}
-                                                            onChange={() => handleOccasionChange(occ)}
+                                                            onChange={() => handleOccasionChange(occ.name)}
                                                             style={{ width: 'auto' }}
                                                         />
-                                                        {occ}
+                                                        {occ.name}
                                                     </label>
                                                 );
                                             })}
                                         </div>
-                                        <small style={{ color: 'var(--color-text-muted)' }}>Select all that apply.</small>
+                                        <small style={{ color: 'var(--color-text-muted)' }}>Select all that apply. Managed in 'Occasions' section.</small>
                                     </div>
 
                                     <div style={{ padding: '1.5rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
