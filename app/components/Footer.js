@@ -171,24 +171,28 @@ export default function Footer() {
 
                 @media (max-width: 768px) {
                     .main-footer {
-                        text-align: center;
+                        text-align: left;
                     }
                     .container {
                         display: flex;
                         flex-direction: column;
-                        align-items: center;
-                        gap: 2rem !important;
+                        align-items: flex-start;
+                        gap: 2.5rem !important;
                     }
                     .footer-heading::after {
-                        left: 50%;
-                        transform: translateX(-50%);
+                        left: 0;
+                        transform: none;
                     }
                     .social-icon {
-                        margin: 0 auto;
+                        margin: 0;
                     }
                     .footer-logo-link {
-                        margin: 0 auto 1.5rem !important;
+                        margin: 0 0 1.5rem !important;
                         display: block;
+                    }
+                    /* Ensure bottom copy is also left aligned on mobile */
+                    .main-footer > div:last-child {
+                        text-align: left !important;
                     }
                 }
             `}</style>

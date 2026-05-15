@@ -180,7 +180,6 @@ export default async function Home() {
                     `}} />
                 </section>
 
-                {/* Shop by Category - Redesigned */}
                 <section className="section-padding">
                     <div className="container">
                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
@@ -193,9 +192,6 @@ export default async function Home() {
                         <CategoryGrid activeCategory="All" />
                     </div>
                 </section>
-
-                {/* Moving Carousel (Featured) */}
-                <MovingCarousel products={carouselProducts} />
 
                 {/* 1. Best Sellers */}
                 {bestSellers.length > 0 && (
