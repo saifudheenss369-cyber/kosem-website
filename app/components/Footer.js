@@ -109,7 +109,7 @@ export default function Footer() {
                 <p>&copy; {year} KOSEM LUXURY FRAGRANCES. ALL RIGHTS RESERVED.</p>
             </div>
 
-            <style>{`
+            <style dangerouslySetInnerHTML={{ __html: `
                 .footer-heading {
                     color: #fff;
                     font-family: var(--font-serif);
@@ -195,7 +195,7 @@ export default function Footer() {
                         text-align: left !important;
                     }
                 }
-            `}</style>
+            `}} />
         </footer>
     );
 }
