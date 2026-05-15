@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-this';
 
 export async function POST(req) {
     try {
-        const { name, address, district, state, pincode, phone, email, items, total, paymentMethod, shippingMethod, couponCode, discountAmount } = await req.json();
+        const { name, address, district, state, pincode, phone, email, items, total, paymentMethod, shippingMethod, couponCode, discountAmount, landmark } = await req.json();
 
         // Try to get userId from token
         const cookieStore = cookies();
@@ -113,12 +113,19 @@ export async function POST(req) {
 
         // --- BACKGROUND TASKS (Non-Blocking) ---
         (async () => {
-            // 1. Update User Profile
+            // 1. Update User Profile (Sync with shipping details)
             try {
                 if (userId && userId !== 1) {
                     await prisma.user.update({
                         where: { id: userId },
-                        data: { address, phone }
+                        data: { 
+                            address, 
+                            phone,
+                            city: district,
+                            state,
+                            zip: pincode,
+                            landmark
+                        }
                     });
                 }
             } catch (e) {

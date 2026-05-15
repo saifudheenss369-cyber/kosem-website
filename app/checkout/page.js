@@ -10,7 +10,7 @@ import { auth, setupRecaptcha, signInWithPhoneNumber } from '../../lib/firebase'
 
 export default function Checkout() {
     const { cart, cartTotal, clearCart } = useCart();
-    const [formData, setFormData] = useState({ name: '', email: '', address: '', district: '', state: '', pincode: '', phone: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', address: '', district: '', state: '', pincode: '', phone: '', landmark: '' });
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [popupConfig, setPopupConfig] = useState({ isOpen: false, title: '', message: '', type: 'info', redirectUrl: null });
@@ -66,7 +66,9 @@ export default function Checkout() {
                     district: userData.city || '',
                     state: userData.state || '',
                     pincode: userData.zip || '',
-                    phone: userData.phone || ''
+                    phone: userData.phone || '',
+                    landmark: userData.landmark || '',
+                    email: userData.email || ''
                 });
             }
         } catch (e) {
@@ -317,6 +319,7 @@ export default function Checkout() {
                     shippingMethod: shippingMethod, // 'STANDARD' or 'EXPRESS'
                     couponCode: appliedCoupon?.code || null,
                     discountAmount: appliedCoupon?.discountAmount || null,
+                    landmark: formData.landmark || null,
                 })
             });
 
