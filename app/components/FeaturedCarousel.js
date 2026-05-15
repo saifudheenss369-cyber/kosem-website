@@ -72,7 +72,7 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
     return (
         <section style={{ padding: '2px 0', background: bg || 'transparent', position: 'relative' }}>
             <div className="container">
-                <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+                <div className="carousel-header" style={{ textAlign: 'center', marginBottom: '1.5rem', width: '100%' }}>
                     <h2 style={{
                         fontFamily: 'var(--font-serif)',
                         fontSize: '2rem',
@@ -155,7 +155,7 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                     →
                 </button>
 
-                <div style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '2rem' }}>
+                <div className="carousel-footer" style={{ textAlign: 'center', marginTop: '2rem', marginBottom: '2rem', width: '100%' }}>
                     <Link href="/shop" className="hover-link">
                         View All Collections &rarr;
                     </Link>
@@ -227,10 +227,19 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                         flex: 0 0 46% !important;
                    }
                    .carousel-nav-btn {
-                       display: none;
+                        display: none;
                    }
                    .product-carousel {
-                       gap: 12px !important;
+                        gap: 12px !important;
+                   }
+                   .carousel-header, .carousel-footer {
+                       text-align: center !important;
+                       display: flex !important;
+                       flex-direction: column !important;
+                       align-items: center !important;
+                   }
+                   .carousel-header h2 {
+                       font-size: 1.8rem !important;
                    }
                 }
             `}</style>
