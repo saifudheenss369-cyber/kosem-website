@@ -71,7 +71,7 @@ export default function CategoryGrid() {
                             position: 'absolute',
                             bottom: 0, left: 0, width: '100%',
                             padding: '1.5rem',
-                            z-index: 2,
+                            zIndex: 2,
                             color: 'white'
                         }}>
                             <h3 style={{ 
