@@ -28,7 +28,7 @@
 
 @media (max-width: 768px) {
   :root {
-    --section-padding: 4rem;
+    --section-padding: 25px;
     --container-padding: 1.2rem;
   }
 }

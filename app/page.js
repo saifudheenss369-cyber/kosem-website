@@ -197,7 +197,7 @@ export default async function Home() {
 
                 {/* 1. Best Sellers */}
                 {bestSellers.length > 0 && (
-                    <section style={{ padding: '4rem 0' }}>
+                    <section className="section-padding">
                         <FeaturedCarousel
                             title="Best Sellers"
                             initialProducts={bestSellers}
