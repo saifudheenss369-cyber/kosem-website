@@ -24,14 +24,20 @@ export async function GET(req) {
 export async function POST(req) {
     // Only admins can update settings
     const cookieStore = cookies();
-    const token = cookieStore.get('adminToken');
+    const token = cookieStore.get('token');
 
     if (!token) {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     try {
-        jwt.verify(token.value, JWT_SECRET);
+        const decoded = jwt.verify(token.value, JWT_SECRET);
+        
+        // Strict role check
+        if (decoded.role !== 'ADMIN') {
+            return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
+        }
+
         const { key, value } = await req.json();
 
         const setting = await prisma.setting.upsert({
