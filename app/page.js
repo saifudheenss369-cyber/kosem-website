@@ -109,60 +109,60 @@ export default async function Home() {
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
                     
                     <div className="container responsive-grid-2" style={{ alignItems: 'center', position: 'relative', zIndex: 2 }}>
-                        <div className="heritage-image-wrapper" style={{ position: 'relative', padding: '1rem' }}>
-                            {/* Decorative Frame */}
-                            <div className="heritage-frame" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.3 }}></div>
+                        <div className="heritage-image-wrapper" style={{ position: 'relative' }}>
+                            {/* Decorative Frame - Hidden on small mobile to avoid clutter */}
+                            <div className="heritage-frame hide-mobile" style={{ position: 'absolute', top: -15, left: -15, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.2 }}></div>
                             
-                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)', height: 'clamp(350px, 60vh, 550px)' }}>
+                            <div className="heritage-image-box" style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)' }}>
                                 <Image 
                                     src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800" 
                                     alt="Luxury Fragrance Crafting" 
-                                    fill
-                                    style={{ objectFit: 'cover', transition: 'transform 0.8s ease' }} 
-                                    className="hover-zoom"
+                                    width={800}
+                                    height={1000}
+                                    style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} 
                                 />
-                            </div>
-                            
-                            {/* Floating Badge */}
-                            <div style={{ 
-                                position: 'absolute', 
-                                bottom: '15px', 
-                                left: '-15px', 
-                                background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))', 
-                                color: 'var(--color-bg-main)', 
-                                padding: '1.2rem 2rem', 
-                                borderRadius: '40px 4px 40px 4px', 
-                                fontWeight: '900', 
-                                zIndex: 3, 
-                                boxShadow: '0 15px 30px rgba(184, 134, 11, 0.4)',
-                                border: '1px solid rgba(255,255,255,0.1)'
-                            }}>
-                                <span style={{ fontSize: '1.8rem', display: 'block', lineHeight: '1' }}>100%</span>
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', letterSpacing: '2px', marginTop: '2px' }}>Pure Essence</span>
+                                {/* Floating Badge */}
+                                <div style={{ 
+                                    position: 'absolute', 
+                                    bottom: '20px', 
+                                    left: '20px', 
+                                    background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))', 
+                                    color: 'var(--color-bg-main)', 
+                                    padding: '1rem 1.5rem', 
+                                    borderRadius: '12px 4px 12px 4px', 
+                                    fontWeight: '900', 
+                                    zIndex: 3, 
+                                    boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    textAlign: 'center'
+                                }}>
+                                    <span style={{ fontSize: '1.4rem', display: 'block', lineHeight: '1' }}>100%</span>
+                                    <span style={{ fontSize: '0.6rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px', marginTop: '2px' }}>Pure Essence</span>
+                                </div>
                             </div>
                         </div>
 
                         <div className="heritage-content" style={{ position: 'relative' }}>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1.5rem' }}>
-                                <div style={{ width: '40px', height: '1px', background: 'var(--color-gold)' }}></div>
-                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '800' }}>The Heritage</span>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }} className="heritage-header-wrap">
+                                <div style={{ width: '30px', height: '1px', background: 'var(--color-gold)' }}></div>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '800' }}>The Heritage</span>
                             </div>
                             
-                            <h2 style={{ marginBottom: '2rem', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>Crafted with Absolute <br/><span className="text-gradient-gold">Purity</span></h2>
+                            <h2 style={{ marginBottom: '1.5rem', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
                             
-                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.9', marginBottom: '3rem', fontSize: '1.1rem', opacity: 0.9, fontStyle: 'italic', borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
-                                "Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
-                                avoiding alcohol to bring you the raw soul of nature."
+                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
+                                Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
+                                avoiding alcohol to bring you the raw soul of nature.
                             </p>
                             
-                            <div className="responsive-grid-2" style={{ gap: '2.5rem' }}>
+                            <div className="responsive-grid-2" style={{ gap: '1.5rem' }}>
                                 {[
                                     { title: 'Long Lasting', desc: 'Stays for 12+ hours.' },
                                     { title: 'Skin Friendly', desc: 'Gentle natural oils.' }
                                 ].map((item, idx) => (
-                                    <div key={idx} style={{ position: 'relative' }}>
-                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.5rem', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{item.title}</h4>
-                                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.5' }}>{item.desc}</p>
+                                    <div key={idx} style={{ position: 'relative', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.3rem', fontSize: '1rem', textTransform: 'uppercase' }}>{item.title}</h4>
+                                        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -170,12 +170,12 @@ export default async function Home() {
                     </div>
                     <style dangerouslySetInnerHTML={{ __html: `
                         @media (max-width: 768px) {
-                            .heritage-content { text-align: center; }
-                            .heritage-content div { justify-content: center; }
-                            .heritage-content p { border-left: none; padding-left: 0; border-top: 1px solid var(--color-gold); padding-top: 1.5rem; }
-                            .heritage-image-wrapper { margin-bottom: 3rem; }
+                            .heritage-content { text-align: center; margin-top: 2rem; }
+                            .heritage-header-wrap { justify-content: center; }
+                            .heritage-p { border-left: none; padding-left: 0; border-top: 1px solid rgba(184, 134, 11, 0.3); padding-top: 1.5rem; }
+                            .heritage-image-wrapper { max-width: 90%; margin: 0 auto; }
+                            .hide-mobile { display: none !important; }
                         }
-                        .hover-zoom:hover { transform: scale(1.05); }
                     `}} />
                 </section>
 
