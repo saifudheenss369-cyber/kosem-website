@@ -52,7 +52,35 @@ export default function TrackOrder() {
     return (
         <>
             <Navbar />
-            <main className="container" style={{ paddingTop: '120px', minHeight: '60vh', paddingBottom: '4rem' }}>
+            <main className="container track-main">
+                <style>{`
+                    .track-main {
+                        padding-top: 150px;
+                        min-height: 60vh;
+                        padding-bottom: 4rem;
+                    }
+                    @media (max-width: 768px) {
+                        .track-main {
+                            padding-top: 100px;
+                        }
+                    }
+                    .track-card {
+                        max-width: 1000px;
+                        margin: 3rem auto;
+                        text-align: left;
+                        background: #121212;
+                        padding: 2.5rem;
+                        border-radius: 12px;
+                        border: 1px solid #333;
+                        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+                    }
+                    @media (max-width: 768px) {
+                        .track-card {
+                            padding: 1.25rem;
+                            margin: 1rem auto;
+                        }
+                    }
+                `}</style>
                 {!order && (
                     <div style={{ maxWidth: '500px', margin: '0 auto' }}>
                         {/* Track Order Section */}
@@ -79,7 +107,7 @@ export default function TrackOrder() {
                 )}
 
                 {order && (
-                    <div style={{ maxWidth: '1000px', margin: '3rem auto', textAlign: 'left', background: '#121212', padding: '2.5rem', borderRadius: '12px', border: '1px solid #333', boxShadow: '0 4px 20px rgba(0,0,0,0.5)' }}>
+                    <div className="track-card">
                         <div style={{ borderBottom: '1px solid #333', paddingBottom: '1.5rem', marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
                             <div>
                                 <h3 style={{ fontSize: '1.8rem', marginBottom: '0.25rem' }}>Order #{getSmartId(order)}</h3>
