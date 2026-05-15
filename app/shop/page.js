@@ -68,9 +68,12 @@ export default function Shop() {
         fetchProducts();
     };
 
+    const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
+
     const toggleCategory = (catName) => {
+        // Switch to single selection for a cleaner 'Shop by Category' feel
         setSelectedCategories(prev =>
-            prev.includes(catName) ? prev.filter(c => c !== catName) : [...prev, catName]
+            prev.includes(catName) ? [] : [catName]
         );
     };
 
@@ -84,7 +87,6 @@ export default function Shop() {
         setSelectedCategories([]);
         setSelectedOccasions([]);
         setSearch('');
-        // fetchProducts will run due to useEffect
     };
 
     return (
@@ -147,6 +149,24 @@ export default function Shop() {
                             </div>
 
                             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <button 
+                                    className="show-mobile"
+                                    onClick={() => setIsFilterDrawerOpen(true)}
+                                    style={{
+                                        padding: '0.8rem 1.2rem',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(184, 134, 11, 0.5)',
+                                        borderRadius: '12px',
+                                        color: 'var(--color-gold)',
+                                        cursor: 'pointer',
+                                        fontSize: '0.9rem',
+                                        fontWeight: '600',
+                                        display: 'none'
+                                    }}
+                                >
+                                    Filters
+                                </button>
+
                                 <select
                                     value={sortBy}
                                     onChange={e => setSortBy(e.target.value)}
@@ -190,7 +210,7 @@ export default function Shop() {
                                         transition: 'all 0.3s ease'
                                     }}
                                 >
-                                    All Products
+                                    All
                                 </button>
                                 {categories.map(cat => (
                                     <button 
@@ -255,7 +275,7 @@ export default function Shop() {
                                 cursor: 'pointer',
                                 fontWeight: '600'
                             }}>
-                                Clear All Filters
+                                Clear All
                             </button>
                         </aside>
 
@@ -295,6 +315,71 @@ export default function Shop() {
                         </div>
                     </div>
                 </div>
+
+                {/* Mobile Filter Drawer */}
+                {isFilterDrawerOpen && (
+                    <div style={{
+                        position: 'fixed',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'rgba(0,0,0,0.8)',
+                        zIndex: 1000,
+                        display: 'flex',
+                        alignItems: 'flex-end'
+                    }} onClick={() => setIsFilterDrawerOpen(false)}>
+                        <div style={{
+                            background: 'var(--color-bg-secondary)',
+                            width: '100%',
+                            maxHeight: '80vh',
+                            borderTopLeftRadius: '30px',
+                            borderTopRightRadius: '30px',
+                            padding: '2.5rem 1.5rem',
+                            overflowY: 'auto'
+                        }} onClick={e => e.stopPropagation()}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
+                                <h2 style={{ fontSize: '1.5rem', fontFamily: 'var(--font-serif)' }}>Filters</h2>
+                                <button onClick={() => setIsFilterDrawerOpen(false)} style={{ background: 'none', border: 'none', color: 'white', fontSize: '1.5rem' }}>✕</button>
+                            </div>
+
+                            <div style={{ marginBottom: '2rem' }}>
+                                <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: '1.5rem' }}>Occasion</h3>
+                                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                    {occasionOptions.map(occ => (
+                                        <button 
+                                            key={occ}
+                                            onClick={() => toggleOccasion(occ)}
+                                            style={{
+                                                padding: '0.6rem 1.2rem',
+                                                borderRadius: '10px',
+                                                border: '1px solid ' + (selectedOccasions.includes(occ) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                                background: selectedOccasions.includes(occ) ? 'rgba(184, 134, 11, 0.1)' : 'transparent',
+                                                color: selectedOccasions.includes(occ) ? 'var(--color-gold)' : 'white',
+                                                fontSize: '0.85rem'
+                                            }}
+                                        >
+                                            {occ}
+                                        </button>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button 
+                                onClick={() => { clearAllFilters(); setIsFilterDrawerOpen(false); }}
+                                style={{ width: '100%', padding: '1rem', background: 'transparent', border: '1px solid var(--color-gold)', color: 'var(--color-gold)', borderRadius: '15px', fontWeight: '700', marginBottom: '1rem' }}
+                            >
+                                Clear All
+                            </button>
+                            <button 
+                                onClick={() => setIsFilterDrawerOpen(false)}
+                                style={{ width: '100%', padding: '1rem', background: 'var(--color-gold)', border: 'none', color: 'black', borderRadius: '15px', fontWeight: '700' }}
+                            >
+                                Apply Filters
+                            </button>
+                        </div>
+                    </div>
+                )}
 
                 <style dangerouslySetInnerHTML={{ __html: `
                     .category-scroll-container::-webkit-scrollbar { display: none; }
