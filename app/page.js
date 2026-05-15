@@ -107,31 +107,31 @@ export default async function Home() {
                     {/* Artistic Background Accents */}
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
-                    
+
                     <div className="container responsive-grid-2" style={{ alignItems: 'center', position: 'relative', zIndex: 2 }}>
                         <div className="heritage-image-wrapper" style={{ position: 'relative' }}>
                             {/* Decorative Frame - Hidden on small mobile to avoid clutter */}
                             <div className="heritage-frame hide-mobile" style={{ position: 'absolute', top: -15, left: -15, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.2 }}></div>
-                            
+
                             <div className="heritage-image-box" style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)' }}>
-                                <Image 
-                                    src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800" 
-                                    alt="Luxury Fragrance Crafting" 
+                                <Image
+                                    src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800"
+                                    alt="Luxury Fragrance Crafting"
                                     width={800}
                                     height={1000}
-                                    style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }} 
+                                    style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
                                 />
                                 {/* Floating Badge */}
-                                <div style={{ 
-                                    position: 'absolute', 
-                                    bottom: '20px', 
-                                    left: '20px', 
-                                    background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))', 
-                                    color: 'var(--color-bg-main)', 
-                                    padding: '1rem 1.5rem', 
-                                    borderRadius: '12px 4px 12px 4px', 
-                                    fontWeight: '900', 
-                                    zIndex: 3, 
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: '20px',
+                                    left: '20px',
+                                    background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))',
+                                    color: 'var(--color-bg-main)',
+                                    padding: '1rem 1.5rem',
+                                    borderRadius: '12px 4px 12px 4px',
+                                    fontWeight: '900',
+                                    zIndex: 3,
                                     boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
                                     border: '1px solid rgba(255,255,255,0.1)',
                                     textAlign: 'center'
@@ -147,14 +147,14 @@ export default async function Home() {
                                 <div style={{ width: '30px', height: '1px', background: 'var(--color-gold)' }}></div>
                                 <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '800' }}>The Heritage</span>
                             </div>
-                            
+
                             <h2 style={{ marginBottom: '1.5rem', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
-                            
+
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
-                                Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
+                                Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery,
                                 avoiding alcohol to bring you the raw soul of nature.
                             </p>
-                            
+
                             <div className="responsive-grid-2" style={{ gap: '1.5rem' }}>
                                 {[
                                     { title: 'Long Lasting', desc: 'Stays for 12+ hours.' },
@@ -168,11 +168,12 @@ export default async function Home() {
                             </div>
                         </div>
                     </div>
-                    <style dangerouslySetInnerHTML={{ __html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                         @media (max-width: 768px) {
-                            .heritage-content { text-align: center; margin-top: 2rem; }
+                            .heritage-content { text-align: center; margin-top: 1rem; }
                             .heritage-header-wrap { justify-content: center; }
-                            .heritage-p { border-left: none; padding-left: 0; border-top: 1px solid rgba(184, 134, 11, 0.3); padding-top: 1.5rem; }
+                            .heritage-p { border-left: none !important; padding-left: 0 !important; border-top: 1px solid rgba(184, 134, 11, 0.3) !important; padding-top: 1.5rem !important; }
                             .heritage-image-wrapper { max-width: 90%; margin: 0 auto; }
                             .hide-mobile { display: none !important; }
                         }
