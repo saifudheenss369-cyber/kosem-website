@@ -550,7 +550,7 @@ export default function AdminOrders() {
                                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1rem', marginTop: '0.5rem', fontSize: '0.9rem' }}>
                                     <div>
                                         <p style={{ margin: '0 0 0.25rem 0' }}><strong>Name:</strong> {order.shippingName || order.user?.name || 'N/A'}</p>
-                                        <p style={{ margin: '0 0 0.25rem 0' }}><strong>Email:</strong> <a href={`mailto:${order.user?.email}`}>{order.user?.email || 'N/A'}</a></p>
+                                        <p style={{ margin: '0 0 0.25rem 0' }}><strong>Email:</strong> <a href={`mailto:${order.shippingEmail || order.user?.email}`}>{order.shippingEmail || order.user?.email || 'N/A'}</a></p>
                                         <p style={{ margin: 0 }}><strong>User ID:</strong> {order.userId}</p>
                                     </div>
                                     <div>
