@@ -10,7 +10,7 @@ import { auth, setupRecaptcha, signInWithPhoneNumber } from '../../lib/firebase'
 
 export default function Checkout() {
     const { cart, cartTotal, clearCart } = useCart();
-    const [formData, setFormData] = useState({ name: '', address: '', district: '', state: '', pincode: '', phone: '' });
+    const [formData, setFormData] = useState({ name: '', email: '', address: '', district: '', state: '', pincode: '', phone: '' });
     const [user, setUser] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [popupConfig, setPopupConfig] = useState({ isOpen: false, title: '', message: '', type: 'info', redirectUrl: null });
@@ -310,7 +310,7 @@ export default function Checkout() {
                     state: formData.state,
                     pincode: formData.pincode,
                     phone: formData.phone || verifiedUser?.phone || '9999999999',
-                    email: verifiedUser?.email,
+                    email: formData.email || verifiedUser?.email || '',
                     items: cart.map(item => ({ productId: item.id, quantity: item.quantity, price: item.price })),
                     total: finalTotal,
                     paymentMethod: paymentMethod, // 'COD' or 'ONLINE'
@@ -441,6 +441,18 @@ export default function Checkout() {
                                     onChange={e => setFormData({ ...formData, name: e.target.value })}
                                     required
                                     className="checkout-input"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label>Email Address</label>
+                                <input
+                                    type="email"
+                                    value={formData.email}
+                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                    required
+                                    className="checkout-input"
+                                    placeholder="email@example.com"
                                 />
                             </div>
 
