@@ -104,11 +104,12 @@ export default function Checkout() {
                     body: JSON.stringify({ pincode: value })
                 });
                 const data = await res.json();
-                if (res.ok && data.deliverable && data.codAvailable) {
+                if (res.ok && data.deliverable) {
+                    // COD is now always allowed as per user request
                     setIsCodAvailable(true);
                 } else {
-                    setIsCodAvailable(false);
-                    if (paymentMethod === 'COD') setPaymentMethod('ONLINE');
+                    // We still check for deliverability if needed, but for now we keep COD on
+                    setIsCodAvailable(true);
                 }
             } catch (err) {
                 console.error("COD check error:", err);
