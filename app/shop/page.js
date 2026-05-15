@@ -1,17 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Navbar from '../components/Navbar';
 import ProductCard from '../components/ProductCard';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-export default function Shop() {
+function ShopContent() {
+    const searchParams = useSearchParams();
+    const initialCategory = searchParams.get('category');
+
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
     const [search, setSearch] = useState('');
 
     // Filters
-    const [selectedCategories, setSelectedCategories] = useState([]);
+    const [selectedCategories, setSelectedCategories] = useState(initialCategory ? [initialCategory] : []);
     const [selectedOccasions, setSelectedOccasions] = useState([]);
     const [sortBy, setSortBy] = useState('price_asc'); // Default Ajmal-style
     const [loading, setLoading] = useState(true);
@@ -453,5 +457,13 @@ export default function Shop() {
                 `}} />
             </main>
         </>
+    );
+}
+
+export default function Shop() {
+    return (
+        <Suspense fallback={<div style={{ padding: '100px', textAlign: 'center', color: 'white' }}>Loading Shop...</div>}>
+            <ShopContent />
+        </Suspense>
     );
 }

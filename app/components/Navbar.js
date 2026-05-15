@@ -17,6 +17,19 @@ export default function Navbar() {
     const { cartCount, setIsCartOpen } = useCart();
     const { wishlistCount } = useWishlist();
     const { user, logout } = useAuth();
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const res = await fetch('/api/categories');
+                if (res.ok) setCategories(await res.json());
+            } catch (e) {
+                console.error("Failed to fetch categories", e);
+            }
+        };
+        fetchCategories();
+    }, []);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -274,10 +287,16 @@ export default function Navbar() {
                                 <h4 style={{ fontSize: '0.8rem', color: 'var(--color-gold)', textTransform: 'uppercase', marginBottom: '1rem', letterSpacing: '2px', fontWeight: 'bold', marginTop: 0 }}>Shop Collection</h4>
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">All Products</Link>
-                                    <Link href="/shop?category=Unisex" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">Unisex Blends</Link>
-                                    <Link href="/shop?category=Men" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">For Him</Link>
-                                    <Link href="/shop?category=Women" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">For Her</Link>
-                                    <Link href="/shop?category=Gift%20Sets" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">Luxury Gift Sets</Link>
+                                    {categories.map(cat => (
+                                        <Link 
+                                            key={cat.id} 
+                                            href={`/shop?category=${encodeURIComponent(cat.name)}`} 
+                                            onClick={() => setMobileMenuOpen(false)} 
+                                            className="mobile-sub-link"
+                                        >
+                                            {cat.name}
+                                        </Link>
+                                    ))}
                                 </div>
                             </div>
 
