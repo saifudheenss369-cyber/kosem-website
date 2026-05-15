@@ -171,7 +171,7 @@ export default function Profile() {
                     `}</style>
 
                     <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <a href="/my-orders" className="btn-outline" style={{ textAlign: 'center', textDecoration: 'none', color: 'var(--color-gold)', borderColor: 'var(--color-gold)' }}>
+                        <a href="/my-orders" className="btn-outline" style={{ textAlign: 'center', display: 'block', width: '100%' }}>
                             View My Orders
                         </a>
                         <button type="submit" className="btn-primary" style={{ width: '100%' }}>Save Changes</button>
