@@ -78,13 +78,14 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
 
                 @media (max-width: 900px) {
                     .ajmal-grid {
-                        grid-template-areas: 
-                            "perfume"
-                            "attar"
-                            "oudh"
-                            "gifts";
-                        grid-template-columns: 1fr;
-                        grid-template-rows: repeat(4, 250px);
+                        display: flex !important;
+                        flex-direction: column !important;
+                        gap: 1.5rem !important;
+                        height: auto !important;
+                    }
+                    .ajmal-card {
+                        height: 250px !important;
+                        width: 100% !important;
                     }
                 }
 
@@ -169,29 +170,20 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                 }
 
                 @media (max-width: 768px) {
-                    .ajmal-grid {
-                        grid-template-areas: 
-                            "perfume"
-                            "attar"
-                            "oudh"
-                            "gifts";
-                        grid-template-columns: 1fr;
-                        grid-template-rows: repeat(4, 280px) !important;
-                        gap: 1rem;
-                    }
                     .content {
                         padding: 1.5rem !important;
-                        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent) !important;
+                        background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%) !important;
                     }
                     .content h3 {
-                        font-size: 1.6rem !important;
+                        font-size: 1.8rem !important;
                         margin-bottom: 0.2rem !important;
                     }
                     .content p {
                         display: block !important;
                         font-size: 0.85rem !important;
-                        margin-bottom: 1rem !important;
-                        opacity: 0.8;
+                        margin-bottom: 0.8rem !important;
+                        opacity: 0.9;
+                        max-width: 100% !important;
                     }
                     .shop-link {
                         opacity: 1 !important;
