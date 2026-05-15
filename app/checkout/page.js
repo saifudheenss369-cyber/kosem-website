@@ -696,11 +696,11 @@ export default function Checkout() {
                                  <div className="summary-divider" />
                                  
                                  <div className="summary-row">
-                                     <span>Subtotal</span>
+                                     <span>Subtotal:</span>
                                      <span>₹{subtotal}</span>
                                  </div>
                                  <div className="summary-row">
-                                     <span>Shipping</span>
+                                     <span>Shipping:</span>
                                      <span className={shippingCost === 0 ? 'free' : ''}>
                                          {shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}
                                      </span>
@@ -708,7 +708,7 @@ export default function Checkout() {
 
                                  {appliedCoupon && (
                                      <div className="summary-row discount">
-                                         <span>Discount ({appliedCoupon.code})</span>
+                                         <span>Discount ({appliedCoupon.code}):</span>
                                          <span>- ₹{appliedCoupon.discountAmount}</span>
                                      </div>
                                  )}
@@ -909,6 +909,13 @@ export default function Checkout() {
                         border-style: dashed;
                     }
 
+                    .summary-row {
+                        display: flex;
+                        justify-content: space-between;
+                        margin-bottom: 0.5rem;
+                        font-size: 0.95rem;
+                    }
+
                     .summary-item {
                         display: flex;
                         justify-content: space-between;
@@ -922,13 +929,42 @@ export default function Checkout() {
                         margin: 1.5rem 0;
                     }
 
-                    .summary-total {
+                     .summary-total {
                         display: flex;
                         justify-content: space-between;
-                        font-size: 1.4rem;
+                        align-items: baseline;
+                        font-size: 1.6rem;
                         font-weight: 800;
                         color: var(--color-gold);
                         font-family: var(--font-serif);
+                        margin-bottom: 2rem;
+                    }
+
+                    .checkout-submit-btn {
+                        width: 100%;
+                        padding: 1.2rem;
+                        font-size: 1.1rem;
+                        font-weight: 700;
+                        text-transform: uppercase;
+                        letter-spacing: 2px;
+                        background: linear-gradient(135deg, var(--color-gold), #8B6914);
+                        border: none;
+                        border-radius: 8px;
+                        color: white;
+                        cursor: pointer;
+                        transition: all 0.3s ease;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                    }
+
+                    .checkout-submit-btn:hover:not(:disabled) {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(184, 134, 11, 0.3);
+                        filter: brightness(1.1);
+                    }
+
+                    .checkout-submit-btn:disabled {
+                        opacity: 0.5;
+                        cursor: not-allowed;
                     }
 
                     /* OTP Container */
@@ -1075,7 +1111,6 @@ export default function Checkout() {
                     }
                 `}</style>
                 <div id="recaptcha-container"></div>
-                <div style={{ textAlign: 'center', fontSize: '0.7rem', color: '#ccc', marginTop: '2rem' }}>v1.2</div>
             </main>
         </>
     );
