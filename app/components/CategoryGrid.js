@@ -27,7 +27,7 @@ const categories = [
         id: 'Gift Sets',
         title: 'Luxury Gifts',
         subtitle: 'Elegantly curated boxes for your loved ones.',
-        image: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1543363363-f09b30746ebf?auto=format&fit=crop&q=80&w=800'
     }
 ];
 
