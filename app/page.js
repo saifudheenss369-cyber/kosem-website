@@ -109,19 +109,16 @@ export default async function Home() {
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
 
                     <div className="container responsive-grid-2" style={{ alignItems: 'center', position: 'relative', zIndex: 2 }}>
-                        <div className="heritage-image-wrapper" style={{ position: 'relative' }}>
-                            {/* Decorative Frame - Hidden on small mobile to avoid clutter */}
-                            <div className="heritage-frame hide-mobile" style={{ position: 'absolute', top: -15, left: -15, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.2 }}></div>
-
-                            <div className="heritage-image-box" style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)' }}>
+                        
+                        {/* Heritage Image */}
+                        <div className="col-md-5 heritage-image-wrapper" style={{ flex: '0 0 450px', maxWidth: '450px', position: 'relative' }}>
+                            <div style={{ position: 'relative', height: '450px', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 25px 50px rgba(0,0,0,0.5)', border: '1px solid rgba(184, 134, 11, 0.2)' }}>
                                 <Image
-                                    src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800"
-                                    alt="Luxury Fragrance Crafting"
-                                    width={800}
-                                    height={1000}
-                                    style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
+                                    src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800"
+                                    alt="Heritage"
+                                    fill
+                                    style={{ objectFit: 'cover' }}
                                 />
-                                {/* Floating Badge */}
                                 <div style={{
                                     position: 'absolute',
                                     bottom: '20px',
