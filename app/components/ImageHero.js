@@ -13,7 +13,7 @@ export default function ImageHero({ title = 'Kosem Perfumes', subtitle = 'Premiu
             minHeight: '400px',
             overflow: 'hidden',
             background: '#0a0a0a',
-            marginTop: '0'
+            marginTop: '152px' // 32px top banner + 120px nav
         }}>
             {/* Background Image */}
             <div
@@ -113,6 +113,12 @@ export default function ImageHero({ title = 'Kosem Perfumes', subtitle = 'Premiu
                 @keyframes fadeInUp {
                     0% { opacity: 0; transform: translateY(40px); }
                     100% { opacity: 1; transform: translateY(0); }
+                }
+                @media (max-width: 768px) {
+                    section {
+                        min-height: 600px !important;
+                        margin-top: 102px !important; /* 32px top banner + 70px mobile nav */
+                    }
                 }
             `}</style>
         </section>
