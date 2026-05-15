@@ -117,7 +117,8 @@ export default function ImageHero({ title = 'Kosem Perfumes', subtitle = 'Premiu
                 @media (max-width: 768px) {
                     section {
                         min-height: 600px !important;
-                        margin-top: 102px !important; /* 32px top banner + 70px mobile nav */
+                        margin-top: 0 !important;
+                        padding-top: 50px !important;
                     }
                 }
             `}</style>

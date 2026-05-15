@@ -205,7 +205,16 @@ export default function MainBannerCarousel({ banners }) {
 
                 @media (max-width: 768px) {
                     .main-banner-carousel {
-                        margin-top: 102px; /* 32px top banner + 70px nav */
+                        margin-top: 0 !important;
+                        padding-top: 50px !important;
+                        min-height: 600px !important;
+                    }
+                    .carousel-inner, .carousel-inner > div {
+                        min-height: 600px !important;
+                    }
+                    .carousel-inner img {
+                        height: 600px !important;
+                        object-fit: cover !important;
                     }
                     .carousel-nav-btn {
                         padding: 0.5rem;
