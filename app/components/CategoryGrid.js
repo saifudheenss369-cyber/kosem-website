@@ -82,10 +82,13 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                         flex-direction: column !important;
                         gap: 1.5rem !important;
                         height: auto !important;
+                        grid-template-areas: none !important;
                     }
                     .ajmal-card {
-                        height: 250px !important;
+                        height: 280px !important;
+                        min-height: 280px !important;
                         width: 100% !important;
+                        grid-area: auto !important;
                     }
                 }
 
