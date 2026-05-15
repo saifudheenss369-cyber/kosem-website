@@ -452,15 +452,6 @@ export default function Checkout() {
                                     onChange={e => {
                                         const val = e.target.value.replace(/\D/g, '').slice(0, 10);
                                         setFormData({ ...formData, phone: val });
-                                        // Auto-send OTP if 10 digits and verification needed
-                                        if (val.length === 10) {
-                                            const isVerifiedUser = user && user.isVerified;
-                                            const phoneMatches = user && user.phone === val;
-                                            if (!isVerifiedUser || !phoneMatches) {
-                                                // Small delay to ensure state is updated or just call it
-                                                setTimeout(() => handleSendOtp(val), 100);
-                                            }
-                                        }
                                     }}
                                     className="checkout-input"
                                 />
