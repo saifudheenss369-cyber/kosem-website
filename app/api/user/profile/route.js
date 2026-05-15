@@ -56,7 +56,7 @@ export async function PUT(req) {
 
     try {
         const decoded = jwt.verify(token.value, JWT_SECRET);
-        const { name, phone, altPhone, address, city, state, zip, landmark } = await req.json();
+        const { name, email, phone, altPhone, address, city, state, zip, landmark } = await req.json();
 
         // Check if phone is changed to reset verification
         const currentUser = await prisma.user.findUnique({ where: { id: decoded.userId } });
@@ -66,6 +66,7 @@ export async function PUT(req) {
             where: { id: decoded.userId },
             data: { 
                 name,
+                email,
                 phone, 
                 altPhone, 
                 address, 

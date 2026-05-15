@@ -82,7 +82,7 @@ export default function Profile() {
                 message={popupConfig.message}
                 type={popupConfig.type}
             />
-            <main className="container" style={{ paddingTop: '120px', paddingBottom: '4rem', maxWidth: '600px' }}>
+            <main className="container profile-main">
                 <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '2rem' }}>My Account</h1>
 
                 {msg && <p style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>{msg}</p>}
@@ -97,8 +97,9 @@ export default function Profile() {
                             <small style={{ color: 'var(--color-text-muted)' }}>This name will appear on your orders and welcome messages.</small>
                         </div>
                         <div className="form-group">
-                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Email</label>
-                            <input type="email" value={formData.email || ''} disabled style={disabledInput} />
+                            <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Email Address</label>
+                            <input name="email" type="email" value={formData.email || ''} onChange={handleChange} style={inputStyle} />
+                            <small style={{ color: 'var(--color-text-muted)' }}>Required for order updates and receipts.</small>
                         </div>
 
                         <div className="form-group">
@@ -146,6 +147,17 @@ export default function Profile() {
                     </div>
 
                     <style>{`
+                        .profile-main {
+                            padding-top: 180px; 
+                            padding-bottom: 4rem; 
+                            maxWidth: 600px;
+                            margin: 0 auto;
+                        }
+                        @media (max-width: 768px) {
+                            .profile-main {
+                                padding-top: 100px;
+                            }
+                        }
                         .address-grid {
                             display: grid;
                             grid-template-columns: 1fr 1fr 1fr;
