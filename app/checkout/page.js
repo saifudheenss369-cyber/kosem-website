@@ -460,44 +460,6 @@ export default function Checkout() {
                                         <span className="verified-tick">✓</span> Number Verified
                                     </div>
                                 )}
-
-                                {inlineAuthStep === 2 && (
-                                    <div className="otp-container">
-                                        <div className="otp-header">
-                                            <h4>Enter Verification Code</h4>
-                                            {resendTimer > 0 ? (
-                                                <span className="resend-text">Resend in {resendTimer}s</span>
-                                            ) : (
-                                                <button
-                                                    type="button"
-                                                    onClick={() => handleSendOtp(formData.phone)}
-                                                    className="resend-btn"
-                                                >
-                                                    Resend OTP
-                                                </button>
-                                            )}
-                                        </div>
-                                        <div className="otp-input-wrapper">
-                                            <input
-                                                type="text"
-                                                maxLength="6"
-                                                value={inlineOtp}
-                                                onChange={e => setInlineOtp(e.target.value.replace(/[^0-9]/g, ''))}
-                                                placeholder="••••••"
-                                                className="otp-input"
-                                            />
-                                            <button
-                                                type="button"
-                                                onClick={handleVerifyOtp}
-                                                className="btn-primary otp-verify-btn"
-                                                disabled={inlineAuthStep === 1}
-                                            >
-                                                {inlineAuthStep === 1 ? '...' : 'Verify'}
-                                            </button>
-                                        </div>
-                                        <button type="button" onClick={() => setInlineAuthStep(0)} className="change-num-btn">Wrong number? Change</button>
-                                    </div>
-                                )}
                             </div>
 
                             <div className="form-group">
@@ -730,6 +692,53 @@ export default function Checkout() {
                      </div>
                 </div>
 
+                 {/* OTP Modal Overlay */}
+                 {inlineAuthStep === 2 && (
+                     <div className="otp-modal-overlay">
+                         <div className="otp-modal-card">
+                             <div className="otp-modal-header">
+                                 <div className="otp-icon">📱</div>
+                                 <h2>Verify Phone</h2>
+                                 <p>We&apos;ve sent a 6-digit code to <strong>+91 {formData.phone}</strong></p>
+                             </div>
+                             
+                             <div className="otp-modal-body">
+                                 <input
+                                     type="text"
+                                     maxLength="6"
+                                     value={inlineOtp}
+                                     onChange={e => setInlineOtp(e.target.value.replace(/[^0-9]/g, ''))}
+                                     placeholder="••••••"
+                                     className="otp-modal-input"
+                                     autoFocus
+                                 />
+                                 
+                                 <button
+                                     type="button"
+                                     onClick={handleVerifyOtp}
+                                     className="btn-primary verify-submit-btn"
+                                     disabled={inlineAuthStep === 1}
+                                 >
+                                     {inlineAuthStep === 1 ? 'Verifying...' : 'Confirm OTP'}
+                                 </button>
+                             </div>
+
+                             <div className="otp-modal-footer">
+                                 {resendTimer > 0 ? (
+                                     <p className="resend-wait">Resend code in <span>{resendTimer}s</span></p>
+                                 ) : (
+                                     <button type="button" onClick={() => handleSendOtp(formData.phone)} className="resend-link-btn">
+                                         Resend Code
+                                     </button>
+                                 )}
+                                 <button type="button" onClick={() => setInlineAuthStep(0)} className="close-modal-btn">
+                                     Change Number
+                                 </button>
+                             </div>
+                         </div>
+                     </div>
+                 )}
+
                 {/* Mobile Sticky Footer */}
                 <div className="mobile-checkout-sticky">
                     <div className="sticky-content">
@@ -959,73 +968,123 @@ export default function Checkout() {
                         cursor: not-allowed;
                     }
 
-                    /* OTP Container */
-                    .otp-container {
-                        margin-top: 1rem;
-                        margin-bottom: 2rem;
-                        padding: 1.5rem;
-                        background: rgba(184, 134, 11, 0.05);
-                        border: 1px dashed var(--color-gold);
-                        border-radius: 8px;
-                    }
-
-                    .otp-header {
+                    /* OTP Modal Styles */
+                    .otp-modal-overlay {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        background: rgba(0, 0, 0, 0.85);
+                        backdrop-filter: blur(8px);
                         display: flex;
-                        justify-content: space-between;
                         align-items: center;
-                        margin-bottom: 1rem;
+                        justify-content: center;
+                        z-index: 10000;
+                        padding: 1.5rem;
+                        animation: fadeIn 0.3s ease;
                     }
 
-                    .otp-header h4 {
-                        margin: 0;
-                        font-size: 0.95rem;
-                        color: var(--color-text-main);
+                    .otp-modal-card {
+                        background: var(--color-bg-secondary);
+                        border: 1px solid var(--color-gold);
+                        border-radius: 20px;
+                        width: 100%;
+                        maxWidth: 400px;
+                        padding: 2.5rem 2rem;
+                        text-align: center;
+                        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+                        animation: modalScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
                     }
 
-                    .resend-text {
-                        font-size: 0.8rem;
-                        color: var(--color-text-muted);
+                    @keyframes modalScale {
+                        from { transform: scale(0.8); opacity: 0; }
+                        to { transform: scale(1); opacity: 1; }
                     }
 
-                    .resend-btn {
-                        background: none;
-                        border: none;
+                    .otp-icon {
+                        font-size: 3rem;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .otp-modal-header h2 {
+                        font-family: var(--font-serif);
                         color: var(--color-gold);
-                        font-size: 0.8rem;
-                        font-weight: 700;
-                        cursor: pointer;
-                        text-decoration: underline;
+                        font-size: 2rem;
+                        margin-bottom: 0.5rem;
                     }
 
-                    .otp-input-wrapper {
+                    .otp-modal-header p {
+                        color: var(--color-text-muted);
+                        font-size: 0.95rem;
+                        line-height: 1.5;
+                        margin-bottom: 2rem;
+                    }
+
+                    .otp-modal-input {
+                        width: 100%;
+                        background: #111;
+                        border: 2px solid #333;
+                        border-radius: 12px;
+                        padding: 1.2rem;
+                        font-size: 2rem;
+                        text-align: center;
+                        letter-spacing: 12px;
+                        color: var(--color-gold);
+                        margin-bottom: 1.5rem;
+                        outline: none;
+                        transition: border-color 0.3s;
+                    }
+
+                    .otp-modal-input:focus {
+                        border-color: var(--color-gold);
+                    }
+
+                    .verify-submit-btn {
+                        width: 100%;
+                        padding: 1.2rem;
+                        font-size: 1.1rem;
+                        font-weight: 700;
+                        border-radius: 12px;
+                        margin-bottom: 1.5rem;
+                    }
+
+                    .otp-modal-footer {
                         display: flex;
+                        flex-direction: column;
                         gap: 1rem;
                     }
 
-                    .otp-input {
-                        flex: 1;
-                        padding: 1rem;
-                        background: var(--color-black);
-                        border: 1px solid var(--color-gold);
-                        border-radius: 4px;
+                    .resend-wait {
+                        font-size: 0.9rem;
+                        color: var(--color-text-muted);
+                    }
+
+                    .resend-wait span {
                         color: var(--color-gold);
-                        font-size: 1.5rem;
-                        text-align: center;
-                        letter-spacing: 8px;
+                        font-weight: bold;
                     }
 
-                    .otp-verify-btn {
-                        padding: 0 2rem;
+                    .resend-link-btn {
+                        background: none;
+                        border: none;
+                        color: var(--color-gold);
+                        font-weight: bold;
+                        cursor: pointer;
+                        font-size: 0.95rem;
+                        text-decoration: underline;
                     }
 
-                    .change-num-btn {
+                    .close-modal-btn {
                         background: none;
                         border: none;
                         color: var(--color-text-muted);
-                        font-size: 0.75rem;
-                        margin-top: 1rem;
                         cursor: pointer;
-                        text-decoration: underline;
+                        font-size: 0.85rem;
+                    }
+
+                    .close-modal-btn:hover {
+                        color: #ef4444;
                     }
 
                     .verified-badge {
