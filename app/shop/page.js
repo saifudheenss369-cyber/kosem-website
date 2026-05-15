@@ -187,50 +187,86 @@ export default function Shop() {
                             </div>
                         </div>
 
-                        {/* Category Horizontal Scroll (Mobile & Desktop) */}
-                        <div className="category-scroll-container" style={{ 
-                            overflowX: 'auto', 
-                            whiteSpace: 'nowrap', 
-                            padding: '0.5rem 0',
-                            msOverflowStyle: 'none',
-                            scrollbarWidth: 'none'
-                        }}>
-                            <div style={{ display: 'inline-flex', gap: '10px' }}>
-                                <button 
-                                    onClick={() => setSelectedCategories([])}
+                        {/* Category Filter: Dropdown on Mobile, Chips on Desktop */}
+                        <div className="category-filter-wrap" style={{ padding: '0.5rem 0' }}>
+                            {/* Mobile Dropdown */}
+                            <div className="show-mobile" style={{ display: 'none' }}>
+                                <select
+                                    value={selectedCategories[0] || ''}
+                                    onChange={(e) => {
+                                        const val = e.target.value;
+                                        setSelectedCategories(val ? [val] : []);
+                                    }}
                                     style={{
-                                        padding: '0.6rem 1.5rem',
-                                        borderRadius: '30px',
-                                        border: '1px solid ' + (selectedCategories.length === 0 ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
-                                        background: selectedCategories.length === 0 ? 'var(--color-gold)' : 'transparent',
-                                        color: selectedCategories.length === 0 ? 'black' : 'white',
-                                        fontSize: '0.85rem',
-                                        fontWeight: '600',
+                                        width: '100%',
+                                        padding: '0.8rem 1.2rem',
+                                        background: 'rgba(255,255,255,0.05)',
+                                        border: '1px solid rgba(184, 134, 11, 0.4)',
+                                        borderRadius: '12px',
+                                        color: 'white',
+                                        fontSize: '0.9rem',
+                                        outline: 'none',
                                         cursor: 'pointer',
-                                        transition: 'all 0.3s ease'
+                                        appearance: 'none',
+                                        backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23B8860B%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
+                                        backgroundRepeat: 'no-repeat',
+                                        backgroundPosition: 'right 1.2rem top 50%',
+                                        backgroundSize: '0.65rem auto'
                                     }}
                                 >
-                                    All
-                                </button>
-                                {categories.map(cat => (
+                                    <option value="" style={{ background: 'var(--color-bg-secondary)' }}>All Categories</option>
+                                    {categories.map(cat => (
+                                        <option key={cat.id} value={cat.name} style={{ background: 'var(--color-bg-secondary)' }}>
+                                            {cat.name}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            {/* Desktop Horizontal Scroll */}
+                            <div className="category-scroll-container hide-mobile" style={{ 
+                                overflowX: 'auto', 
+                                whiteSpace: 'nowrap', 
+                                msOverflowStyle: 'none',
+                                scrollbarWidth: 'none'
+                            }}>
+                                <div style={{ display: 'inline-flex', gap: '10px' }}>
                                     <button 
-                                        key={cat.id}
-                                        onClick={() => toggleCategory(cat.name)}
+                                        onClick={() => setSelectedCategories([])}
                                         style={{
                                             padding: '0.6rem 1.5rem',
                                             borderRadius: '30px',
-                                            border: '1px solid ' + (selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
-                                            background: selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'transparent',
-                                            color: selectedCategories.includes(cat.name) ? 'black' : 'white',
+                                            border: '1px solid ' + (selectedCategories.length === 0 ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                            background: selectedCategories.length === 0 ? 'var(--color-gold)' : 'transparent',
+                                            color: selectedCategories.length === 0 ? 'black' : 'white',
                                             fontSize: '0.85rem',
                                             fontWeight: '600',
                                             cursor: 'pointer',
                                             transition: 'all 0.3s ease'
                                         }}
                                     >
-                                        {cat.name}
+                                        All Products
                                     </button>
-                                ))}
+                                    {categories.map(cat => (
+                                        <button 
+                                            key={cat.id}
+                                            onClick={() => toggleCategory(cat.name)}
+                                            style={{
+                                                padding: '0.6rem 1.5rem',
+                                                borderRadius: '30px',
+                                                border: '1px solid ' + (selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                                background: selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'transparent',
+                                                color: selectedCategories.includes(cat.name) ? 'black' : 'white',
+                                                fontSize: '0.85rem',
+                                                fontWeight: '600',
+                                                cursor: 'pointer',
+                                                transition: 'all 0.3s ease'
+                                            }}
+                                        >
+                                            {cat.name}
+                                        </button>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -390,6 +426,9 @@ export default function Shop() {
                         }
                         .hide-mobile {
                             display: none !important;
+                        }
+                        .show-mobile {
+                            display: block !important;
                         }
                         .product-grid-compact {
                             grid-template-columns: 1fr 1fr !important;
