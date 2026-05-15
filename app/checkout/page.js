@@ -990,8 +990,8 @@ export default function Checkout() {
                         border: 1px solid var(--color-gold);
                         border-radius: 20px;
                         width: 100%;
-                        maxWidth: 400px;
-                        padding: 2.5rem 2rem;
+                        max-width: 340px; /* Reduced from 400px */
+                        padding: 2rem 1.5rem; /* Reduced padding */
                         text-align: center;
                         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
                         animation: modalScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -1003,22 +1003,22 @@ export default function Checkout() {
                     }
 
                     .otp-icon {
-                        font-size: 3rem;
-                        margin-bottom: 1.5rem;
+                        font-size: 2.5rem; /* Reduced from 3rem */
+                        margin-bottom: 1rem;
                     }
 
                     .otp-modal-header h2 {
                         font-family: var(--font-serif);
                         color: var(--color-gold);
-                        font-size: 2rem;
+                        font-size: 1.6rem; /* Reduced from 2rem */
                         margin-bottom: 0.5rem;
                     }
 
                     .otp-modal-header p {
                         color: var(--color-text-muted);
-                        font-size: 0.95rem;
-                        line-height: 1.5;
-                        margin-bottom: 2rem;
+                        font-size: 0.85rem; /* Reduced from 0.95rem */
+                        line-height: 1.4;
+                        margin-bottom: 1.5rem;
                     }
 
                     .otp-modal-input {
@@ -1026,12 +1026,12 @@ export default function Checkout() {
                         background: #111;
                         border: 2px solid #333;
                         border-radius: 12px;
-                        padding: 1.2rem;
-                        font-size: 2rem;
+                        padding: 1rem;
+                        font-size: 1.8rem; /* Reduced from 2rem */
                         text-align: center;
-                        letter-spacing: 12px;
+                        letter-spacing: 10px;
                         color: var(--color-gold);
-                        margin-bottom: 1.5rem;
+                        margin-bottom: 1.2rem;
                         outline: none;
                         transition: border-color 0.3s;
                     }
