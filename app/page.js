@@ -208,21 +208,36 @@ export default async function Home() {
                 {/* Value Props - Redesigned Grid */}
                 <section className="section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
                     <div className="container">
-                        <div className="responsive-grid-4">
+                        <div style={{ 
+                            display: 'grid', 
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
+                            gap: '2rem' 
+                        }} className="props-grid">
                             {[
                                 { icon: '🌿', title: '100% Pure', desc: 'Alcohol-free, concentrated oils extracted from natural ingredients.' },
                                 { icon: '💎', title: 'Premium Quality', desc: 'Aged to perfection to ensure deep and lasting fragrance profiles.' },
                                 { icon: '🚚', title: 'Free Shipping', desc: 'Complimentary shipping on all prepaid orders across India.' },
                                 { icon: '🏆', title: 'Trusted Heritage', desc: 'Decades of experience in the art of Attar and Oudh making.' }
                             ].map((prop, i) => (
-                                <div key={i} className="glass-card hover-glow" style={{ padding: '3rem 2rem', textAlign: 'center' }}>
-                                    <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem' }}>{prop.icon}</div>
-                                    <h3 style={{ color: 'var(--color-gold)' }}>{prop.title}</h3>
-                                    <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>{prop.desc}</p>
+                                <div key={i} className="glass-card hover-glow" style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
+                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{prop.icon}</div>
+                                    <h3 style={{ color: 'var(--color-gold)', marginBottom: '0.8rem', fontSize: '1.2rem' }}>{prop.title}</h3>
+                                    <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6', fontSize: '0.9rem' }}>{prop.desc}</p>
                                 </div>
                             ))}
                         </div>
                     </div>
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        @media (max-width: 600px) {
+                            .props-grid {
+                                grid-template-columns: 1fr !important;
+                                gap: 1.5rem !important;
+                            }
+                            .glass-card {
+                                padding: 2rem 1rem !important;
+                            }
+                        }
+                    `}} />
                 </section>
             </main >
         </>
