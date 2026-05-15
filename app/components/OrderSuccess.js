@@ -82,19 +82,42 @@ export default function OrderSuccess({ order, onClose }) {
                     A confirmation email has been sent to you. You can track your order status using the ID above.
                 </p>
 
-                <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-                    <Link href="/track-order" onClick={onClose} style={{
-                        padding: '0.8rem 1.5rem',
+                <div style={{ display: 'flex', gap: '0.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <Link href={`/track-order?id=${order.id}`} onClick={onClose} style={{
+                        padding: '0.8rem 1.2rem',
                         border: '1px solid #333',
                         borderRadius: '4px',
                         color: '#fff',
-                        fontSize: '0.9rem',
-                        textDecoration: 'none'
+                        fontSize: '0.85rem',
+                        textDecoration: 'none',
+                        flex: 1,
+                        minWidth: '130px'
                     }}>
                         Track Order
                     </Link>
-                    <button onClick={onClose} className="btn-primary" style={{ fontSize: '0.9rem' }}>
-                        Continue Shopping
+                    <a 
+                        href={`https://wa.me/918113944641?text=Hi, I just placed an order %23${order.id}. Please provide updates.`}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                            padding: '0.8rem 1.2rem',
+                            background: '#25D366',
+                            borderRadius: '4px',
+                            color: '#fff',
+                            fontSize: '0.85rem',
+                            textDecoration: 'none',
+                            fontWeight: 'bold',
+                            flex: 1,
+                            minWidth: '130px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}
+                    >
+                        WhatsApp Support
+                    </a>
+                    <button onClick={onClose} className="btn-primary" style={{ fontSize: '0.85rem', flex: 1, minWidth: '130px' }}>
+                        Back to Shop
                     </button>
                 </div>
             </div>
