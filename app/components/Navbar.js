@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { FiShoppingBag, FiHeart } from 'react-icons/fi';
+import { FiShoppingBag, FiHeart, FiMenu, FiX } from 'react-icons/fi';
 import { useCart } from '../context/CartContext';
 import { useWishlist } from '../context/WishlistContext';
 import { useAuth } from '../context/AuthContext';
@@ -127,7 +127,7 @@ export default function Navbar() {
                         {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                     </div>
                     <div className="nav-icon-wrapper" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-                        <div style={{ fontSize: '1.5rem', cursor: 'pointer' }}>☰</div>
+                        <FiMenu className="nav-icon" style={{ fontSize: '1.6rem' }} />
                     </div>
                 </div>
 
@@ -235,9 +235,14 @@ export default function Navbar() {
                         />
                         <div className="mobile-menu-drawer">
                             {/* Header */}
-                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', paddingBottom: '1rem', borderBottom: '1px solid var(--color-border)' }}>
-                                <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', fontWeight: 'bold', color: 'var(--color-text-main)' }}>MENU</span>
-                                <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', fontSize: '2rem', cursor: 'pointer', color: 'var(--color-text-main)', lineHeight: '1' }}>&times;</button>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', paddingBottom: '1rem', borderBottom: '1px solid var(--color-border)' }}>
+                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                    <div style={{ width: '3px', height: '24px', background: 'var(--color-gold)' }}></div>
+                                    <span style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', fontWeight: '700', color: 'var(--color-text-main)', letterSpacing: '1px' }}>EXPLORE</span>
+                                </div>
+                                <button onClick={() => setMobileMenuOpen(false)} style={{ background: 'none', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', color: 'var(--color-text-main)' }}>
+                                    <FiX size={28} />
+                                </button>
                             </div>
 
                             {/* Welcome Section (Moved to Top) */}

@@ -103,14 +103,14 @@ export default async function Home() {
                 )}
 
                 {/* Heritage Section - Enhanced Crafted with Purity */}
-                <section style={{ padding: '8rem 0', background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
+                <section className="section-padding" style={{ background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
                     {/* Subtle Background Accent */}
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.05, borderRadius: '50%' }}></div>
                     
-                    <div className="container" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+                    <div className="container responsive-grid-2" style={{ alignItems: 'center' }}>
                         <div style={{ position: 'relative', padding: '1rem' }}>
                             <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.3 }}></div>
-                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', height: '500px' }}>
+                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', height: 'clamp(300px, 50vh, 500px)' }}>
                                 <Image 
                                     src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800" 
                                     alt="Luxury Fragrance Crafting" 
@@ -118,25 +118,25 @@ export default async function Home() {
                                     style={{ objectFit: 'cover', transition: 'transform 0.6s ease' }} 
                                 />
                             </div>
-                            <div style={{ position: 'absolute', bottom: '20px', left: '-30px', background: 'var(--color-gold)', color: 'var(--color-bg-main)', padding: '1.5rem 2.5rem', borderRadius: '40px 4px 40px 4px', fontWeight: '800', zIndex: 3, boxShadow: '10px 10px 30px rgba(0,0,0,0.3)', letterSpacing: '1px' }}>
-                                <span style={{ fontSize: '1.8rem' }}>100%</span>
+                            <div style={{ position: 'absolute', bottom: '20px', left: 'clamp(-10px, -30px, -30px)', background: 'var(--color-gold)', color: 'var(--color-bg-main)', padding: 'clamp(1rem, 1.5rem, 1.5rem) clamp(1.5rem, 2.5rem, 2.5rem)', borderRadius: '40px 4px 40px 4px', fontWeight: '800', zIndex: 3, boxShadow: '10px 10px 30px rgba(0,0,0,0.3)', letterSpacing: '1px' }}>
+                                <span style={{ fontSize: 'clamp(1.2rem, 1.8rem, 1.8rem)' }}>100%</span>
                                 <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', marginTop: '-5px' }}>Pure Essence</span>
                             </div>
                         </div>
                         <div>
                             <span style={{ color: 'var(--color-gold)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: '700', display: 'block', marginBottom: '1rem' }}>The Kosem Standard</span>
-                            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '3rem', marginBottom: '1.5rem', color: 'var(--color-text-main)', lineHeight: 1.1 }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
-                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1.15rem', opacity: 0.85 }}>
+                            <h2 style={{ marginBottom: '1.5rem' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
+                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: 'clamp(1rem, 1.15rem, 1.15rem)', opacity: 0.85 }}>
                                 Each drop of Kosem Attar is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
                                 avoiding alcohol and synthetic fillers to bring you the raw, potent soul of nature's finest scents.
                             </p>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '2rem' }}>
+                            <div className="responsive-grid-2" style={{ gap: '2rem' }}>
                                 <div style={{ borderLeft: '3px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
-                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem', fontSize: '1.2rem' }}>Long Lasting</h4>
+                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Long Lasting</h4>
                                     <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Distilled for longevity, staying with you for 12+ hours.</p>
                                 </div>
                                 <div style={{ borderLeft: '3px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
-                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem', fontSize: '1.2rem' }}>Skin Friendly</h4>
+                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Skin Friendly</h4>
                                     <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Concentrated natural oils that are gentle on your skin.</p>
                                 </div>
                             </div>
@@ -145,14 +145,14 @@ export default async function Home() {
                 </section>
 
                 {/* Shop by Category - Redesigned */}
-                <section style={{ padding: '6rem 0' }}>
+                <section className="section-padding">
                     <div className="container">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
                             <div>
                                 <span style={{ color: 'var(--color-gold)', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '600' }}>Collections</span>
-                                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.8rem', color: 'var(--color-text-main)', marginTop: '0.5rem' }}>Shop by <span className="text-gradient-gold">Category</span></h2>
+                                <h2 style={{ marginTop: '0.5rem' }}>Shop by <span className="text-gradient-gold">Category</span></h2>
                             </div>
-                            <Link href="/shop" className="hover-link">View All Collections &rarr;</Link>
+                            <Link href="/shop" className="hover-link">View All &rarr;</Link>
                         </div>
                         <CategoryGrid activeCategory="All" />
                     </div>
@@ -172,9 +172,9 @@ export default async function Home() {
                 )}
 
                 {/* Value Props - Redesigned Grid */}
-                <section style={{ padding: '6rem 1rem', background: 'var(--color-black)', color: 'white', position: 'relative' }}>
+                <section className="section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
                     <div className="container">
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+                        <div className="responsive-grid-4">
                             {[
                                 { icon: '🌿', title: '100% Pure', desc: 'Alcohol-free, concentrated oils extracted from natural ingredients.' },
                                 { icon: '💎', title: 'Premium Quality', desc: 'Aged to perfection to ensure deep and lasting fragrance profiles.' },
@@ -183,7 +183,7 @@ export default async function Home() {
                             ].map((prop, i) => (
                                 <div key={i} className="glass-card hover-glow" style={{ padding: '3rem 2rem', textAlign: 'center' }}>
                                     <div style={{ fontSize: '3.5rem', marginBottom: '1.5rem' }}>{prop.icon}</div>
-                                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '1rem', color: 'var(--color-gold)' }}>{prop.title}</h3>
+                                    <h3 style={{ color: 'var(--color-gold)' }}>{prop.title}</h3>
                                     <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.6' }}>{prop.desc}</p>
                                 </div>
                             ))}

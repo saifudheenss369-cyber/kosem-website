@@ -191,11 +191,24 @@ export default function ProductCard({ product }) {
                 }
 
                 @media (max-width: 768px) {
+                    .product-card {
+                        border-radius: 80px 80px 15px 15px !important;
+                        padding-bottom: 1rem !important;
+                    }
                     .product-img-container {
-                        height: 200px !important;
+                        height: 180px !important;
+                        border-radius: 80px 80px 0 0 !important;
+                    }
+                    .card-content {
+                        padding: 1rem 0.5rem 0 !important;
                     }
                     .card-content h3 {
-                        font-size: 0.95rem !important;
+                        font-size: 0.9rem !important;
+                        height: 2.2rem !important;
+                    }
+                    .wishlist-btn {
+                        width: 36px !important;
+                        height: 36px !important;
                     }
                 }
             `}</style>
