@@ -282,6 +282,7 @@ export default function Navbar() {
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', marginBottom: '2rem' }}>
                                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Home</Link>
                                 <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Our Heritage</Link>
+                                <Link href="/track-order" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Track Order</Link>
                                 {user && <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">My Account</Link>}
                             </div>
 
