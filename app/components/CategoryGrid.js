@@ -9,25 +9,25 @@ const categories = [
         id: 'Perfume',
         title: 'Perfumes',
         subtitle: 'Signature scents crafted for the modern individual.',
-        image: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1541643600914-78b084683601?q=80&w=800'
     },
     {
         id: 'Attar',
         title: 'Pure Attars',
         subtitle: 'Traditional concentrated oils, zero alcohol.',
-        image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1605641772644-88404a390382?q=80&w=800'
     },
     {
         id: 'Oudh',
         title: 'Oudh & Bakhoor',
         subtitle: 'The royal essence of agarwood and incense.',
-        image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1502444330383-706789f2a404?q=80&w=800'
     },
     {
         id: 'Gift Sets',
         title: 'Luxury Gifts',
         subtitle: 'Elegantly curated boxes for your loved ones.',
-        image: 'https://images.unsplash.com/photo-1549462980-6a03471c146d?q=80&w=800'
+        image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800'
     }
 ];
 
