@@ -5,7 +5,7 @@ import AddToCartButton from '../../components/AddToCartButton';
 import Reviews from '../../components/Reviews';
 import ProductActions from '../../components/ProductActions';
 import ShareButton from '../../components/ShareButton';
-import PincodeChecker from '../../components/PincodeChecker';
+
 import VariantGallery from '../../components/VariantGallery';
 
 export const dynamic = 'force-dynamic';
@@ -168,7 +168,7 @@ export default async function ProductPage({ params }) {
                         <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
                             <ProductActions product={product} />
 
-                            <PincodeChecker />
+                            {/* Removed Pincode Checker as per user request */}
 
                             <div style={{ marginTop: '1rem' }}>
                                 <ShareButton title={`Check out ${product.name} on Kosem`} text={product.description} url={shareUrl} />
