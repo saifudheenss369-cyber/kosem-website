@@ -774,15 +774,15 @@ export default function Checkout() {
 
                 <style jsx>{`
                     .checkout-container {
-                        padding-top: 120px;
-                        padding-bottom: 5rem;
+                        padding-top: clamp(100px, 12vh, 140px);
+                        padding-bottom: 7rem;
                         background: var(--color-bg-main);
                         min-height: 100vh;
                     }
 
                     h1 {
                         font-family: var(--font-serif);
-                        font-size: 2.5rem;
+                        font-size: clamp(1.8rem, 5vw, 2.5rem);
                         margin-bottom: 2rem;
                         color: var(--color-text-main);
                         text-align: center;
@@ -1157,6 +1157,9 @@ export default function Checkout() {
                     }
 
                     @media (max-width: 768px) {
+                        .checkout-container {
+                            padding-top: 110px !important;
+                        }
                         .checkout-grid {
                             grid-template-columns: 1fr;
                             gap: 2rem;
@@ -1170,6 +1173,9 @@ export default function Checkout() {
                         .summary-card {
                             margin-bottom: 2rem;
                             position: static;
+                        }
+                        .hide-mobile {
+                            display: none !important;
                         }
                     }
                 `}</style>

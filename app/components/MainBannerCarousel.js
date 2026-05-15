@@ -205,7 +205,7 @@ export default function MainBannerCarousel({ banners }) {
 
                 @media (max-width: 768px) {
                     .main-banner-carousel {
-                        margin-top: 80px; 
+                        margin-top: 102px; /* 32px top banner + 70px nav */
                     }
                     .carousel-nav-btn {
                         padding: 0.5rem;

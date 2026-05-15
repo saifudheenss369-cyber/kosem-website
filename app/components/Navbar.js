@@ -51,12 +51,12 @@ export default function Navbar() {
                 ⚡ FLAT 5% DISCOUNT ON PREPAID ORDERS
             </div>
 
-            <nav style={{
+            <nav className="main-nav" style={{
                 position: 'fixed',
                 top: '32px',
                 left: 0,
                 right: 0,
-                height: '120px', // Standardized height
+                height: '120px',
                 padding: '0 2rem',
                 display: 'flex',
                 justifyContent: 'space-between',
@@ -70,7 +70,7 @@ export default function Navbar() {
                 boxShadow: scrolled || !isHome ? '0 4px 6px -1px rgba(0,0,0,0.2)' : 'none'
             }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', height: '100%' }}>
-                    <Link href="/" style={{ display: 'flex', alignItems: 'center', position: 'relative', height: '100px', width: '150px' }}>
+                    <Link href="/" className="navbar-logo-container" style={{ display: 'flex', alignItems: 'center', position: 'relative', height: '100px', width: '150px' }}>
                         <Image
                             src="/logo.png"
                             alt="Kosem Logo"
@@ -216,10 +216,12 @@ export default function Navbar() {
         }
 
         @media (max-width: 768px) {
+            .main-nav { height: 70px !important; padding: 0 1rem !important; }
             .nav-link { font-size: 0.75rem; }
             .desktop-menu { display: none !important; }
             .mobile-icons { display: flex !important; }
-            .navbar-logo { height: 60px !important; }
+            .navbar-logo { height: 45px !important; }
+            .navbar-logo-container { height: 60px !important; width: 100px !important; }
         }
       `}} />
             </nav>

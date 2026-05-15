@@ -90,7 +90,7 @@ export default function Shop() {
     return (
         <>
             <Navbar />
-            <main className="container" style={{ paddingTop: '120px', paddingBottom: '8rem' }}>
+            <main className="container" style={{ paddingTop: '110px', paddingBottom: '8rem' }}>
                 {/* Prepaid Filter/Banner */}
                 <div style={{
                     background: '#e8f5e9',
@@ -254,7 +254,7 @@ export default function Shop() {
                                 `}</style>
                             </div>
                         ) : (
-                            <div className="product-layout" style={{ gap: '2rem' }}>
+                            <div className="responsive-grid-2" style={{ gap: '15px' }}>
                                 {products.length === 0 ? (
                                     <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
                                         <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '1rem' }}>No products found</h3>
@@ -305,6 +305,11 @@ export default function Shop() {
                         border-radius: 25px;
                         border: 1px solid var(--color-border);
                         white-space: nowrap;
+                        display: flex !important;
+                        align-items: center;
+                    }
+                    .filter-label input {
+                        margin: 0 !important;
                     }
                     .filter-label:has(input:checked) {
                         background: rgba(184, 134, 11, 0.1);
@@ -314,24 +319,34 @@ export default function Shop() {
                     .shop-top-controls {
                         flex-direction: column !important;
                         align-items: flex-start !important;
-                        gap: 1.5rem !important;
+                        gap: 1rem !important;
+                    }
+                    .shop-top-controls h1 {
+                        font-size: 1.5rem !important;
                     }
                     .search-sort-container {
                         width: 100%;
                         flex-direction: column !important;
                         align-items: stretch !important;
-                        gap: 1rem !important;
+                        gap: 0.8rem !important;
                     }
                     .search-form input {
                         width: 100% !important;
+                        padding: 0.8rem !important;
                     }
                     .sort-container {
                         justify-content: space-between;
                         width: 100%;
                         background: var(--color-bg-secondary);
-                        padding: 0.5rem 1rem;
+                        padding: 0.2rem 1rem;
                         border-radius: 4px;
                         border: 1px solid var(--color-border);
+                    }
+                    .sort-container select {
+                        border: none !important;
+                        padding: 0.8rem 0 !important;
+                        flex: 1;
+                        text-align: right;
                     }
                 }
             `}</style>

@@ -169,18 +169,34 @@ export default function CategoryGrid({ activeCategory, onSelectCategory }) {
                 }
 
                 @media (max-width: 768px) {
+                    .ajmal-grid {
+                        grid-template-areas: 
+                            "perfume"
+                            "attar"
+                            "oudh"
+                            "gifts";
+                        grid-template-columns: 1fr;
+                        grid-template-rows: repeat(4, 280px) !important;
+                        gap: 1rem;
+                    }
                     .content {
-                        padding: 1.5rem;
+                        padding: 1.5rem !important;
+                        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent) !important;
                     }
                     .content h3 {
-                        font-size: 1.8rem;
+                        font-size: 1.6rem !important;
+                        margin-bottom: 0.2rem !important;
                     }
                     .content p {
-                        display: none;
+                        display: block !important;
+                        font-size: 0.85rem !important;
+                        margin-bottom: 1rem !important;
+                        opacity: 0.8;
                     }
                     .shop-link {
-                        opacity: 1;
-                        transform: none;
+                        opacity: 1 !important;
+                        transform: none !important;
+                        font-size: 0.75rem !important;
                     }
                 }
             `}</style>

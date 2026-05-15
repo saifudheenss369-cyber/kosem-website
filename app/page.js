@@ -104,44 +104,79 @@ export default async function Home() {
 
                 {/* Heritage Section - Enhanced Crafted with Purity */}
                 <section className="section-padding" style={{ background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
-                    {/* Subtle Background Accent */}
-                    <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.05, borderRadius: '50%' }}></div>
+                    {/* Artistic Background Accents */}
+                    <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
+                    <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
                     
-                    <div className="container responsive-grid-2" style={{ alignItems: 'center' }}>
-                        <div style={{ position: 'relative', padding: '1rem' }}>
-                            <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.3 }}></div>
-                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)', height: 'clamp(300px, 50vh, 500px)' }}>
+                    <div className="container responsive-grid-2" style={{ alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                        <div className="heritage-image-wrapper" style={{ position: 'relative', padding: '1rem' }}>
+                            {/* Decorative Frame */}
+                            <div className="heritage-frame" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: '1px solid var(--color-gold)', borderRadius: '20px', transform: 'rotate(-2deg)', zIndex: 1, opacity: 0.3 }}></div>
+                            
+                            <div style={{ position: 'relative', zIndex: 2, overflow: 'hidden', borderRadius: '15px', boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.6)', height: 'clamp(350px, 60vh, 550px)' }}>
                                 <Image 
                                     src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=800" 
                                     alt="Luxury Fragrance Crafting" 
                                     fill
-                                    style={{ objectFit: 'cover', transition: 'transform 0.6s ease' }} 
+                                    style={{ objectFit: 'cover', transition: 'transform 0.8s ease' }} 
+                                    className="hover-zoom"
                                 />
                             </div>
-                            <div style={{ position: 'absolute', bottom: '20px', left: 'clamp(-10px, -30px, -30px)', background: 'var(--color-gold)', color: 'var(--color-bg-main)', padding: 'clamp(1rem, 1.5rem, 1.5rem) clamp(1.5rem, 2.5rem, 2.5rem)', borderRadius: '40px 4px 40px 4px', fontWeight: '800', zIndex: 3, boxShadow: '10px 10px 30px rgba(0,0,0,0.3)', letterSpacing: '1px' }}>
-                                <span style={{ fontSize: 'clamp(1.2rem, 1.8rem, 1.8rem)' }}>100%</span>
-                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', marginTop: '-5px' }}>Pure Essence</span>
+                            
+                            {/* Floating Badge */}
+                            <div style={{ 
+                                position: 'absolute', 
+                                bottom: '15px', 
+                                left: '-15px', 
+                                background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))', 
+                                color: 'var(--color-bg-main)', 
+                                padding: '1.2rem 2rem', 
+                                borderRadius: '40px 4px 40px 4px', 
+                                fontWeight: '900', 
+                                zIndex: 3, 
+                                boxShadow: '0 15px 30px rgba(184, 134, 11, 0.4)',
+                                border: '1px solid rgba(255,255,255,0.1)'
+                            }}>
+                                <span style={{ fontSize: '1.8rem', display: 'block', lineHeight: '1' }}>100%</span>
+                                <span style={{ fontSize: '0.7rem', textTransform: 'uppercase', display: 'block', letterSpacing: '2px', marginTop: '2px' }}>Pure Essence</span>
                             </div>
                         </div>
-                        <div>
-                            <span style={{ color: 'var(--color-gold)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.85rem', fontWeight: '700', display: 'block', marginBottom: '1rem' }}>The Kosem Standard</span>
-                            <h2 style={{ marginBottom: '1.5rem' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
-                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: 'clamp(1rem, 1.15rem, 1.15rem)', opacity: 0.85 }}>
-                                Each drop of Kosem Attar is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
-                                avoiding alcohol and synthetic fillers to bring you the raw, potent soul of nature's finest scents.
+
+                        <div className="heritage-content" style={{ position: 'relative' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1.5rem' }}>
+                                <div style={{ width: '40px', height: '1px', background: 'var(--color-gold)' }}></div>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '800' }}>The Heritage</span>
+                            </div>
+                            
+                            <h2 style={{ marginBottom: '2rem', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>Crafted with Absolute <br/><span className="text-gradient-gold">Purity</span></h2>
+                            
+                            <p style={{ color: 'var(--color-text-main)', lineHeight: '1.9', marginBottom: '3rem', fontSize: '1.1rem', opacity: 0.9, fontStyle: 'italic', borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
+                                "Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery, 
+                                avoiding alcohol to bring you the raw soul of nature."
                             </p>
-                            <div className="responsive-grid-2" style={{ gap: '2rem' }}>
-                                <div style={{ borderLeft: '3px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
-                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Long Lasting</h4>
-                                    <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Distilled for longevity, staying with you for 12+ hours.</p>
-                                </div>
-                                <div style={{ borderLeft: '3px solid var(--color-gold)', paddingLeft: '1.5rem' }}>
-                                    <h4 style={{ color: 'var(--color-text-main)', marginBottom: '0.5rem' }}>Skin Friendly</h4>
-                                    <p style={{ fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>Concentrated natural oils that are gentle on your skin.</p>
-                                </div>
+                            
+                            <div className="responsive-grid-2" style={{ gap: '2.5rem' }}>
+                                {[
+                                    { title: 'Long Lasting', desc: 'Stays for 12+ hours.' },
+                                    { title: 'Skin Friendly', desc: 'Gentle natural oils.' }
+                                ].map((item, idx) => (
+                                    <div key={idx} style={{ position: 'relative' }}>
+                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.5rem', fontSize: '1.1rem', textTransform: 'uppercase', letterSpacing: '1px' }}>{item.title}</h4>
+                                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', lineHeight: '1.5' }}>{item.desc}</p>
+                                    </div>
+                                ))}
                             </div>
                         </div>
                     </div>
+                    <style dangerouslySetInnerHTML={{ __html: `
+                        @media (max-width: 768px) {
+                            .heritage-content { text-align: center; }
+                            .heritage-content div { justify-content: center; }
+                            .heritage-content p { border-left: none; padding-left: 0; border-top: 1px solid var(--color-gold); padding-top: 1.5rem; }
+                            .heritage-image-wrapper { margin-bottom: 3rem; }
+                        }
+                        .hover-zoom:hover { transform: scale(1.05); }
+                    `}} />
                 </section>
 
                 {/* Shop by Category - Redesigned */}

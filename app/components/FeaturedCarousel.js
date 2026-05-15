@@ -222,12 +222,15 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                 
                 @media (max-width: 768px) {
                    .carousel-item {
-                        min-width: 160px !important;
-                        width: 160px !important;
-                        flex: 0 0 160px !important;
+                        min-width: 46% !important; /* Shows 2.1 items roughly */
+                        width: 46% !important;
+                        flex: 0 0 46% !important;
                    }
                    .carousel-nav-btn {
                        display: none;
+                   }
+                   .product-carousel {
+                       gap: 12px !important;
                    }
                 }
             `}</style>
