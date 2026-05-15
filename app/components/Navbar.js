@@ -99,31 +99,34 @@ export default function Navbar() {
                 </div>
 
                 {/* Desktop Menu */}
-                <div className="desktop-menu" style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                <div className="desktop-menu" style={{ display: 'flex', gap: '2.5rem', alignItems: 'center', marginLeft: 'auto' }}>
                     {user && (
-                        <span style={{ color: 'var(--color-gold)', fontSize: '0.9rem', fontWeight: '500' }}>Hello, {user.name?.split(' ')[0]}</span>
+                        <span style={{ color: 'var(--color-gold)', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '1px', textTransform: 'uppercase', marginRight: '1rem' }}>
+                            Hello, {user.name?.split(' ')[0]}
+                        </span>
                     )}
 
                     <Link href="/" className="nav-link">Home</Link>
                     <Link href="/shop" className="nav-link">Collection</Link>
 
                     {user ? (
-                        <Link href="/profile" className="nav-link">My Account</Link>
+                        <Link href="/profile" className="nav-link">Account</Link>
                     ) : (
                         <Link href="/login" className="nav-link">Login</Link>
                     )}
 
                     <Link href="/about" className="nav-link">Our Story</Link>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.2rem', marginLeft: '1rem', flexShrink: 0 }}>
+                    
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: '1.5rem' }}>
                         {/* Wishlist Icon */}
-                        <div className="nav-icon-wrapper" onClick={() => router.push('/wishlist')}>
-                            <FiHeart className="nav-icon" />
+                        <div className="nav-icon-wrapper" onClick={() => router.push('/wishlist')} style={{ cursor: 'pointer' }}>
+                            <FiHeart className="nav-icon" style={{ fontSize: '1.3rem' }} />
                             {wishlistCount > 0 && <span className="cart-badge">{wishlistCount}</span>}
                         </div>
 
                         {/* Cart Icon */}
-                        <div className="nav-icon-wrapper" onClick={() => setIsCartOpen(true)}>
-                            <FiShoppingBag className="nav-icon" />
+                        <div className="nav-icon-wrapper" onClick={() => setIsCartOpen(true)} style={{ cursor: 'pointer' }}>
+                            <FiShoppingBag className="nav-icon" style={{ fontSize: '1.3rem' }} />
                             {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
                         </div>
                     </div>

@@ -99,7 +99,7 @@ function ShopContent() {
     return (
         <>
             <Navbar />
-            <main style={{ paddingTop: '90px', paddingBottom: '6rem', minHeight: '100vh', background: 'var(--color-bg-main)' }}>
+            <main className="shop-main-container" style={{ paddingBottom: '6rem', minHeight: '100vh', background: 'var(--color-bg-main)' }}>
                 {/* 1. Header Section */}
                 <div className="container" style={{ marginBottom: '2rem' }}>
                     <div style={{
@@ -425,9 +425,15 @@ function ShopContent() {
                 )}
 
                 <style dangerouslySetInnerHTML={{ __html: `
+                    .shop-main-container {
+                        padding-top: 152px;
+                    }
                     .category-scroll-container::-webkit-scrollbar { display: none; }
                     
                     @media (max-width: 900px) {
+                        .shop-main-container {
+                            padding-top: 102px;
+                        }
                         .shop-layout {
                             grid-template-columns: 1fr !important;
                         }
