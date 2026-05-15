@@ -596,126 +596,146 @@ export default function Checkout() {
                                 </div>
                             </div>
 
-                            {/* Payment Method */}
-                            <div style={{ marginBottom: '1rem' }}>
-                                <h3>Payment Method</h3>
-                                <div style={{ display: 'flex', gap: '1rem', flexDirection: 'column' }}>
-                                    {isCodAvailable ? (
-                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer,' }}>
-                                            <input
-                                                type="radio"
-                                                name="payment"
-                                                value="COD"
-                                                checked={paymentMethod === 'COD'}
-                                                onChange={() => setPaymentMethod('COD')}
-                                            />
-                                            <span>Cash on Delivery</span>
-                                        </label>
-                                    ) : (
-                                        <div style={{ padding: '1rem', border: '1px solid #1e293b', borderRadius: '8px', background: '#1e293b', color: '#c00' }}>
-                                            <span style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>⚠️ COD Not Available</span>
-                                            <div style={{ fontSize: '0.8rem', marginTop: '4px' }}>Cash on Delivery is not supported for this PIN Code. Please pay online.</div>
-                                        </div>
-                                    )}
-                                    <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', border: '1px solid var(--color-border)', borderRadius: '8px', cursor: 'pointer', background: '#1e293b' }}>
-                                        <input
-                                            type="radio"
-                                            name="payment"
-                                            value="ONLINE"
-                                            checked={paymentMethod === 'ONLINE'}
-                                            onChange={() => setPaymentMethod('ONLINE')}
-                                        />
-                                        <span>Pay Online (UPI / Card)</span>
-                                        <span style={{ fontSize: '0.8rem', background: '#1e293b', padding: '2px 5px', borderRadius: '4px' }}>Fast</span>
-                                    </label>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div className="summary-card">
-                        <div className="coupon-section">
-                            <h3>Promo Code</h3>
-                            {!appliedCoupon ? (
-                                <form onSubmit={handleApplyCoupon} className="coupon-form">
-                                    <input
-                                        type="text"
-                                        placeholder="ENTER CODE"
-                                        value={couponCodeInput}
-                                        onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
-                                        className="checkout-input coupon-input"
-                                    />
-                                    <button
-                                        type="submit"
-                                        className="btn-primary apply-btn"
-                                        disabled={isApplyingCoupon || !couponCodeInput.trim()}
-                                    >
-                                        {isApplyingCoupon ? '...' : 'Apply'}
-                                    </button>
-                                </form>
-                            ) : (
-                                <div className="applied-coupon-box">
-                                    <div className="coupon-info">
-                                        <span className="coupon-code">{appliedCoupon.code}</span>
-                                        <span className="coupon-status">Discount Applied</span>
-                                    </div>
-                                    <button type="button" onClick={removeCoupon} className="remove-coupon">
-                                        Remove
-                                    </button>
-                                </div>
-                            )}
-                            {couponError && <p className="coupon-error">{couponError}</p>}
-                        </div>
+                             <div className="method-section">
+                                 <h3>Payment Method</h3>
+                                 <div className="method-grid">
+                                     {isCodAvailable ? (
+                                         <label className={`method-card ${paymentMethod === 'COD' ? 'active' : ''}`}>
+                                             <div className="method-info">
+                                                 <input
+                                                     type="radio"
+                                                     name="payment"
+                                                     value="COD"
+                                                     checked={paymentMethod === 'COD'}
+                                                     onChange={() => setPaymentMethod('COD')}
+                                                 />
+                                                 <div className="method-details">
+                                                     <span className="method-name">Cash on Delivery</span>
+                                                     <span className="method-desc">Pay when you receive</span>
+                                                 </div>
+                                             </div>
+                                             <span className="method-icon">💵</span>
+                                         </label>
+                                     ) : (
+                                         <div className="method-card disabled">
+                                             <div className="method-info">
+                                                 <span className="method-icon">⚠️</span>
+                                                 <div className="method-details">
+                                                     <span className="method-name" style={{ color: '#ef4444' }}>COD Not Available</span>
+                                                     <span className="method-desc">Not supported for this PIN Code</span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     )}
 
-                        <div className="order-summary-content">
-                            <h3>Order Summary</h3>
-                            <div className="summary-items">
-                                {cart.map(item => (
-                                    <div key={item.id} className="summary-item">
-                                        <span className="item-name">{item.name} x {item.quantity}</span>
-                                        <span className="item-price">₹{item.price * item.quantity}</span>
-                                    </div>
-                                ))}
-                            </div>
-                            
-                            <div className="summary-divider" />
-                            
-                            <div className="summary-row">
-                                <span>Subtotal</span>
-                                <span>₹{subtotal}</span>
-                            </div>
-                            <div className="summary-row">
-                                <span>Shipping</span>
-                                <span className={shippingCost === 0 ? 'free' : ''}>
-                                    {shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}
-                                </span>
-                            </div>
+                                     <label className={`method-card ${paymentMethod === 'ONLINE' ? 'active' : ''}`}>
+                                         <div className="method-info">
+                                             <input
+                                                 type="radio"
+                                                 name="payment"
+                                                 value="ONLINE"
+                                                 checked={paymentMethod === 'ONLINE'}
+                                                 onChange={() => setPaymentMethod('ONLINE')}
+                                             />
+                                             <div className="method-details">
+                                                 <span className="method-name">Pay Online (UPI / Card)</span>
+                                                 <span className="method-desc">Fast and secure checkout</span>
+                                             </div>
+                                         </div>
+                                         <span className="method-icon">💳</span>
+                                     </label>
+                                 </div>
+                             </div>
+                         </form>
 
-                            {appliedCoupon && (
-                                <div className="summary-row discount">
-                                    <span>Discount ({appliedCoupon.code})</span>
-                                    <span>- ₹{appliedCoupon.discountAmount}</span>
-                                </div>
-                            )}
+                         <div className="summary-card">
+                             <div className="coupon-section">
+                                 <h3>Promo Code</h3>
+                                 {!appliedCoupon ? (
+                                     <form onSubmit={handleApplyCoupon} className="coupon-form">
+                                         <input
+                                             type="text"
+                                             placeholder="ENTER CODE"
+                                             value={couponCodeInput}
+                                             onChange={(e) => setCouponCodeInput(e.target.value.toUpperCase())}
+                                             className="checkout-input coupon-input"
+                                         />
+                                         <button
+                                             type="submit"
+                                             className="btn-primary apply-btn"
+                                             disabled={isApplyingCoupon || !couponCodeInput.trim()}
+                                         >
+                                             {isApplyingCoupon ? '...' : 'Apply'}
+                                         </button>
+                                     </form>
+                                 ) : (
+                                     <div className="applied-coupon-box">
+                                         <div className="coupon-info">
+                                             <span className="coupon-code">{appliedCoupon.code}</span>
+                                             <span className="coupon-status">Discount Applied</span>
+                                         </div>
+                                         <button type="button" onClick={removeCoupon} className="remove-coupon">
+                                             Remove
+                                         </button>
+                                     </div>
+                                 )}
+                                 {couponError && <p className="coupon-error">{couponError}</p>}
+                             </div>
 
-                            <div className="summary-divider" />
-                            
-                            <div className="summary-total">
-                                <span>Total Amount</span>
-                                <span>₹{finalTotal}</span>
-                            </div>
+                             <div className="order-summary-content">
+                                 <h3>Order Summary</h3>
+                                 <div className="summary-items">
+                                     {cart.map(item => (
+                                         <div key={item.id} className="summary-item">
+                                             <span className="item-name">{item.name} x {item.quantity}</span>
+                                             <span className="item-price">₹{item.price * item.quantity}</span>
+                                         </div>
+                                     ))}
+                                 </div>
+                                 
+                                 <div className="summary-divider" />
+                                 
+                                 <div className="summary-row">
+                                     <span>Subtotal</span>
+                                     <span>₹{subtotal}</span>
+                                 </div>
+                                 <div className="summary-row">
+                                     <span>Shipping</span>
+                                     <span className={shippingCost === 0 ? 'free' : ''}>
+                                         {shippingCost === 0 ? 'FREE' : `₹${shippingCost}`}
+                                     </span>
+                                 </div>
 
-                            <button
-                                type="submit"
-                                form="checkout-form"
-                                className="btn-primary checkout-submit-btn hide-mobile"
-                                disabled={inlineAuthStep === 1 || isPlacingOrder}
-                            >
-                                {(user && user.isVerified && user.phone === formData.phone)
-                                    ? (isPlacingOrder ? 'Processing...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order'))
-                                    : (inlineAuthStep === 0 ? 'Verify & Continue' : 'Verifying...')}
-                            </button>
-                        </div>
-                    </div>
+                                 {appliedCoupon && (
+                                     <div className="summary-row discount">
+                                         <span>Discount ({appliedCoupon.code})</span>
+                                         <span>- ₹{appliedCoupon.discountAmount}</span>
+                                     </div>
+                                 )}
+
+                                 <div className="summary-divider" />
+                                 
+                                 <div className="summary-total">
+                                     <span>Total Amount</span>
+                                     <span>₹{finalTotal}</span>
+                                 </div>
+
+                                 <button
+                                     type="submit"
+                                     form="checkout-form"
+                                     className="btn-primary checkout-submit-btn hide-mobile"
+                                     disabled={inlineAuthStep === 1 || isPlacingOrder}
+                                 >
+                                     {(user && user.isVerified && user.phone === formData.phone)
+                                         ? (isPlacingOrder ? 'Processing...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order'))
+                                         : (inlineAuthStep === 0 ? 'Verify & Continue' : 'Verifying...')}
+                                 </button>
+                             </div>
+                         </div>
+                     </div>
+                     <div>
+                         {/* Empty column or space for extra info later */}
+                     </div>
                 </div>
 
                 {/* Mobile Sticky Footer */}
@@ -875,14 +895,18 @@ export default function Checkout() {
                         color: #10B981; /* Emerald 500 */
                     }
 
-                    /* Summary Card */
                     .summary-card {
                         background: var(--color-bg-secondary);
                         padding: 2rem;
                         border-radius: 12px;
                         border: 1px solid var(--color-border);
-                        position: sticky;
-                        top: 120px;
+                        margin-top: 2rem; /* Spacing from the form */
+                    }
+
+                    .method-card.disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                        border-style: dashed;
                     }
 
                     .summary-item {
