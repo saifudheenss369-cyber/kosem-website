@@ -108,10 +108,17 @@ export default async function Home() {
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
 
-                    <div className="container responsive-grid-2" style={{ alignItems: 'center', position: 'relative', zIndex: 2 }}>
+                    <div className="container" style={{ 
+                        display: 'flex', 
+                        flexWrap: 'wrap', 
+                        alignItems: 'center', 
+                        gap: '3rem',
+                        position: 'relative', 
+                        zIndex: 2 
+                    }}>
                         
                         {/* Heritage Image */}
-                        <div className="col-md-5 heritage-image-wrapper" style={{ flex: '0 0 450px', maxWidth: '450px', position: 'relative' }}>
+                        <div className="heritage-image-wrapper" style={{ flex: '1', minWidth: '300px', maxWidth: '500px' }}>
                             <div style={{ position: 'relative', height: '450px', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 25px 50px rgba(0,0,0,0.5)', border: '1px solid rgba(184, 134, 11, 0.2)' }}>
                                 <Image
                                     src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800"
@@ -125,21 +132,20 @@ export default async function Home() {
                                     left: '20px',
                                     background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dim))',
                                     color: 'var(--color-bg-main)',
-                                    padding: '1rem 1.5rem',
+                                    padding: '0.8rem 1.2rem',
                                     borderRadius: '12px 4px 12px 4px',
                                     fontWeight: '900',
                                     zIndex: 3,
                                     boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
-                                    border: '1px solid rgba(255,255,255,0.1)',
                                     textAlign: 'center'
                                 }}>
-                                    <span style={{ fontSize: '1.4rem', display: 'block', lineHeight: '1' }}>100%</span>
-                                    <span style={{ fontSize: '0.6rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px', marginTop: '2px' }}>Pure Essence</span>
+                                    <span style={{ fontSize: '1.2rem', display: 'block', lineHeight: '1' }}>100%</span>
+                                    <span style={{ fontSize: '0.5rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px' }}>Pure Essence</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="heritage-content" style={{ position: 'relative' }}>
+                        <div className="heritage-content" style={{ flex: '1', minWidth: '300px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }} className="heritage-header-wrap">
                                 <div style={{ width: '30px', height: '1px', background: 'var(--color-gold)' }}></div>
                                 <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '800' }}>The Heritage</span>
@@ -152,14 +158,14 @@ export default async function Home() {
                                 avoiding alcohol to bring you the raw soul of nature.
                             </p>
 
-                            <div className="responsive-grid-2" style={{ gap: '1.5rem' }}>
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
                                 {[
                                     { title: 'Long Lasting', desc: 'Stays for 12+ hours.' },
                                     { title: 'Skin Friendly', desc: 'Gentle natural oils.' }
                                 ].map((item, idx) => (
-                                    <div key={idx} style={{ position: 'relative', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.3rem', fontSize: '1rem', textTransform: 'uppercase' }}>{item.title}</h4>
-                                        <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>{item.desc}</p>
+                                    <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.3rem', fontSize: '0.9rem', textTransform: 'uppercase' }}>{item.title}</h4>
+                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>{item.desc}</p>
                                     </div>
                                 ))}
                             </div>
@@ -168,11 +174,10 @@ export default async function Home() {
                     <style dangerouslySetInnerHTML={{
                         __html: `
                         @media (max-width: 768px) {
-                            .heritage-content { text-align: center; margin-top: 1rem; }
+                            .heritage-content { text-align: center; margin-top: 2rem; }
                             .heritage-header-wrap { justify-content: center; }
                             .heritage-p { border-left: none !important; padding-left: 0 !important; border-top: 1px solid rgba(184, 134, 11, 0.3) !important; padding-top: 1.5rem !important; }
-                            .heritage-image-wrapper { max-width: 90%; margin: 0 auto; }
-                            .hide-mobile { display: none !important; }
+                            .heritage-image-wrapper { max-width: 90% !important; margin: 0 auto; flex: none !important; width: 100% !important; }
                         }
                     `}} />
                 </section>
