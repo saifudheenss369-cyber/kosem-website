@@ -90,266 +90,244 @@ export default function Shop() {
     return (
         <>
             <Navbar />
-            <main className="container" style={{ paddingTop: '110px', paddingBottom: '8rem' }}>
-                {/* Prepaid Filter/Banner */}
-                <div style={{
-                    background: '#e8f5e9',
-                    border: '1px solid #c8e6c9',
-                    color: '#2e7d32',
-                    padding: '1rem',
-                    textAlign: 'center',
-                    marginBottom: '2rem',
-                    borderRadius: '8px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '10px',
-                    fontWeight: '600',
-                    fontSize: '1rem',
-                    letterSpacing: '1px'
-                }}>
-                    <span style={{ fontSize: '1.4rem' }}>💎</span>
-                    <span>FLAT 5% DISCOUNT ON PREPAID ORDERS</span>
-                </div>
-
-                <div className="shop-layout" style={{
-                    display: 'grid',
-                    gridTemplateColumns: '250px 1fr',
-                    gap: '2rem',
-                    alignItems: 'start'
-                }}>
-                    {/* SIDEBAR FILTERS */}
-                    <aside className="shop-sidebar" style={{
-                        background: 'var(--color-bg-secondary)',
-                        padding: '1.5rem',
-                        borderRadius: '12px',
-                        boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
-                        position: 'sticky',
-                        top: '100px'
+            <main style={{ paddingTop: '90px', paddingBottom: '6rem', minHeight: '100vh', background: 'var(--color-bg-main)' }}>
+                {/* 1. Header Section */}
+                <div className="container" style={{ marginBottom: '2rem' }}>
+                    <div style={{
+                        background: 'linear-gradient(135deg, rgba(184, 134, 11, 0.1), transparent)',
+                        padding: '2rem',
+                        borderRadius: '20px',
+                        border: '1px solid rgba(184, 134, 11, 0.2)',
+                        textAlign: 'center',
+                        marginBottom: '3rem'
                     }}>
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--color-border)', paddingBottom: '1rem' }}>
-                            <h2 style={{ fontSize: '1.2rem', margin: 0, display: 'flex', alignItems: 'center', gap: '10px', fontFamily: 'var(--font-serif)' }}>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
-                                Filters
-                            </h2>
-                            {(selectedCategories.length > 0 || selectedOccasions.length > 0) && (
-                                <button onClick={clearAllFilters} style={{ background: 'none', border: 'none', color: 'var(--color-gold)', fontSize: '0.85rem', cursor: 'pointer', textDecoration: 'underline' }}>Clear All</button>
-                            )}
-                        </div>
+                        <h1 style={{ fontSize: 'clamp(2rem, 5vw, 3rem)', fontFamily: 'var(--font-serif)', marginBottom: '0.5rem' }}>
+                            Our <span className="text-gradient-gold">Collection</span>
+                        </h1>
+                        <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', maxWidth: '600px', margin: '0 auto' }}>
+                            Discover the essence of luxury through our curated selection of fine attars and perfumes.
+                        </p>
+                    </div>
 
-                        {/* Occasion Filter */}
-                        <div style={{ marginBottom: '2rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-text-main)', display: 'flex', justifyContent: 'space-between' }}>
-                                Occasion
-                            </h3>
-                            <div className="filter-group">
-                                {occasionOptions.map(occ => (
-                                    <label key={occ} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedOccasions.includes(occ)}
-                                            onChange={() => toggleOccasion(occ)}
-                                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#111' }}
-                                        />
-                                        {occ}
-                                    </label>
-                                ))}
-                            </div>
-                        </div>
-
-                        <hr style={{ border: 'none', borderTop: '1px solid var(--color-border)', margin: '1.5rem 0' }} />
-
-                        {/* Category Filter */}
-                        <div style={{ marginBottom: '1rem' }}>
-                            <h3 style={{ fontSize: '1.1rem', marginBottom: '1rem', color: 'var(--color-text-main)', display: 'flex', justifyContent: 'space-between' }}>
-                                Category/Type
-                            </h3>
-                            <div className="filter-group">
-                                {categories.map(cat => (
-                                    <label key={cat.id} className="filter-label" style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer', fontSize: '0.95rem', color: 'var(--color-text-muted)' }}>
-                                        <input
-                                            type="checkbox"
-                                            checked={selectedCategories.includes(cat.name)}
-                                            onChange={() => toggleCategory(cat.name)}
-                                            style={{ width: '18px', height: '18px', cursor: 'pointer', accentColor: '#111' }}
-                                        />
-                                        {cat.name}
-                                    </label>
-                                ))}
-                                {categories.length === 0 && <p style={{ color: 'var(--color-text-muted)', fontSize: '0.85rem' }}>Loading categories...</p>}
-                            </div>
-                        </div>
-                    </aside>
-
-                    {/* MAIN CONTENT AREA */}
-                    <div className="shop-main">
-                        {/* Top Controls (Sort & Search) */}
-                        <div className="shop-top-controls" style={{
-                            display: 'flex',
-                            flexWrap: 'wrap',
-                            justifyContent: 'space-between',
+                    {/* 2. Top Bar: Search & Sort (Desktop) / Category Scroll (Mobile) */}
+                    <div className="shop-controls" style={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        gap: '1.5rem',
+                        marginBottom: '3rem'
+                    }}>
+                        {/* Search & Sort Container */}
+                        <div style={{ 
+                            display: 'flex', 
+                            justifyContent: 'space-between', 
                             alignItems: 'center',
-                            marginBottom: '2rem',
+                            flexWrap: 'wrap',
                             gap: '1rem'
                         }}>
-                            <h1 style={{ fontSize: '1.8rem', fontFamily: 'var(--font-serif)', margin: 0 }}>
-                                Collection <span style={{ fontSize: '1rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-sans)', fontWeight: 'normal' }}>({products.length} Items)</span>
-                            </h1>
+                            <div className="search-wrap" style={{ position: 'relative', flex: '1', maxWidth: '400px' }}>
+                                <input
+                                    type="text"
+                                    placeholder="Search products..."
+                                    value={search}
+                                    onChange={e => setSearch(e.target.value)}
+                                    onKeyUp={e => e.key === 'Enter' && fetchProducts()}
+                                    style={{ 
+                                        width: '100%', 
+                                        padding: '0.8rem 1.2rem', 
+                                        paddingLeft: '3rem',
+                                        background: 'rgba(255,255,255,0.03)', 
+                                        border: '1px solid rgba(184, 134, 11, 0.3)', 
+                                        borderRadius: '12px',
+                                        color: 'white',
+                                        outline: 'none',
+                                        fontSize: '0.9rem'
+                                    }}
+                                />
+                                <span style={{ position: 'absolute', left: '1.2rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.5 }}>🔍</span>
+                            </div>
 
-                            <div className="search-sort-container" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                                <form className="search-form" onSubmit={handleSearch} style={{ display: 'flex', gap: '0.5rem' }}>
-                                    <input
-                                        type="text"
-                                        placeholder="Search..."
-                                        value={search}
-                                        onChange={e => setSearch(e.target.value)}
-                                        style={{ padding: '0.5rem 1rem', border: '1px solid var(--color-border)', borderRadius: '4px', outline: 'none', width: '200px' }}
-                                    />
-                                </form>
-
-                                <div className="sort-container" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <span style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>Sort by:</span>
-                                    <select
-                                        value={sortBy}
-                                        onChange={e => setSortBy(e.target.value)}
-                                        style={{ padding: '0.5rem 1rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: 'transparent', outline: 'none', cursor: 'pointer', fontWeight: '500' }}
-                                    >
-                                        <option value="price_asc">Price - Low to High</option>
-                                        <option value="price_desc">Price - High to Low</option>
-                                    </select>
-                                </div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                                <select
+                                    value={sortBy}
+                                    onChange={e => setSortBy(e.target.value)}
+                                    style={{ 
+                                        padding: '0.8rem 1.2rem', 
+                                        background: 'rgba(255,255,255,0.03)', 
+                                        border: '1px solid rgba(184, 134, 11, 0.3)', 
+                                        borderRadius: '12px',
+                                        color: 'white',
+                                        outline: 'none',
+                                        cursor: 'pointer',
+                                        fontSize: '0.9rem'
+                                    }}
+                                >
+                                    <option value="price_asc">Price: Low to High</option>
+                                    <option value="price_desc">Price: High to Low</option>
+                                </select>
                             </div>
                         </div>
 
-                        {/* Product Grid */}
-                        {loading ? (
-                            <div className="product-layout" style={{ gap: '2rem' }}>
-                                {[1, 2, 3, 4, 5, 6, 7, 8].map(n => (
-                                    <div key={n} style={{ border: '1px solid var(--color-border)', borderRadius: '8px', overflow: 'hidden', background: 'var(--color-bg-secondary)' }}>
-                                        <div className="shimmer-box" style={{ height: '300px', width: '100%' }}></div>
-                                        <div style={{ padding: '1rem' }}>
-                                            <div className="shimmer-box" style={{ height: '20px', width: '60%', marginBottom: '10px' }}></div>
-                                            <div className="shimmer-box" style={{ height: '15px', width: '80%', marginBottom: '10px' }}></div>
-                                            <div className="shimmer-box" style={{ height: '20px', width: '40%', marginBottom: '15px' }}></div>
-                                            <div className="shimmer-box" style={{ height: '40px', width: '100%', borderRadius: '4px' }}></div>
-                                        </div>
-                                    </div>
+                        {/* Category Horizontal Scroll (Mobile & Desktop) */}
+                        <div className="category-scroll-container" style={{ 
+                            overflowX: 'auto', 
+                            whiteSpace: 'nowrap', 
+                            padding: '0.5rem 0',
+                            msOverflowStyle: 'none',
+                            scrollbarWidth: 'none'
+                        }}>
+                            <div style={{ display: 'inline-flex', gap: '10px' }}>
+                                <button 
+                                    onClick={() => setSelectedCategories([])}
+                                    style={{
+                                        padding: '0.6rem 1.5rem',
+                                        borderRadius: '30px',
+                                        border: '1px solid ' + (selectedCategories.length === 0 ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                        background: selectedCategories.length === 0 ? 'var(--color-gold)' : 'transparent',
+                                        color: selectedCategories.length === 0 ? 'black' : 'white',
+                                        fontSize: '0.85rem',
+                                        fontWeight: '600',
+                                        cursor: 'pointer',
+                                        transition: 'all 0.3s ease'
+                                    }}
+                                >
+                                    All Products
+                                </button>
+                                {categories.map(cat => (
+                                    <button 
+                                        key={cat.id}
+                                        onClick={() => toggleCategory(cat.name)}
+                                        style={{
+                                            padding: '0.6rem 1.5rem',
+                                            borderRadius: '30px',
+                                            border: '1px solid ' + (selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'rgba(255,255,255,0.1)'),
+                                            background: selectedCategories.includes(cat.name) ? 'var(--color-gold)' : 'transparent',
+                                            color: selectedCategories.includes(cat.name) ? 'black' : 'white',
+                                            fontSize: '0.85rem',
+                                            fontWeight: '600',
+                                            cursor: 'pointer',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                    >
+                                        {cat.name}
+                                    </button>
                                 ))}
-                                <style>{`
-                                    .shimmer-box {
-                                        background: #f6f7f8;
-                                        background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
-                                        background-repeat: no-repeat;
-                                        background-size: 800px 100%; 
-                                        animation-duration: 1.5s;
-                                        animation-fill-mode: forwards; 
-                                        animation-iteration-count: infinite;
-                                        animation-name: placeholderShimmer;
-                                        animation-timing-function: linear;
-                                    }
-                                    @keyframes placeholderShimmer {
-                                        0% { background-position: -468px 0; }
-                                        100% { background-position: 468px 0; }
-                                    }
-                                `}</style>
                             </div>
-                        ) : (
-                            <div className="responsive-grid-2" style={{ gap: '15px' }}>
-                                {products.length === 0 ? (
-                                    <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '4rem', background: 'var(--color-bg-secondary)', borderRadius: '8px' }}>
-                                        <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', marginBottom: '1rem' }}>No products found</h3>
-                                        <p style={{ color: 'var(--color-text-muted)' }}>Try adjusting your filters or search term to find what you're looking for.</p>
-                                        <button onClick={clearAllFilters} className="btn-primary" style={{ marginTop: '1.5rem', padding: '0.8rem 2rem' }}>Clear All Filters</button>
-                                    </div>
-                                ) : (
-                                    products.map((product, index) => (
-                                        <div key={product.id} className="animate-fade-up" style={{ animationDelay: `${index * 50}ms` }}>
-                                            <ProductCard product={product} />
+                        </div>
+                    </div>
+
+                    <div className="shop-layout" style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: '3rem' }}>
+                        {/* SIDEBAR FILTERS (Desktop) */}
+                        <aside className="shop-sidebar hide-mobile" style={{
+                            background: 'rgba(255,255,255,0.02)',
+                            padding: '2rem',
+                            borderRadius: '20px',
+                            border: '1px solid rgba(255,255,255,0.05)',
+                            position: 'sticky',
+                            top: '120px',
+                            height: 'fit-content'
+                        }}>
+                            <h2 style={{ fontSize: '1.2rem', marginBottom: '2rem', fontFamily: 'var(--font-serif)', color: 'var(--color-gold)' }}>Filter By</h2>
+                            
+                            <div style={{ marginBottom: '2.5rem' }}>
+                                <h3 style={{ fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-text-muted)', marginBottom: '1.2rem' }}>Occasion</h3>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {occasionOptions.map(occ => (
+                                        <label key={occ} style={{ display: 'flex', alignItems: 'center', gap: '12px', cursor: 'pointer', fontSize: '0.95rem' }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedOccasions.includes(occ)}
+                                                onChange={() => toggleOccasion(occ)}
+                                                style={{ width: '18px', height: '18px', accentColor: 'var(--color-gold)' }}
+                                            />
+                                            {occ}
+                                        </label>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <button onClick={clearAllFilters} style={{ 
+                                width: '100%', 
+                                padding: '0.8rem', 
+                                background: 'transparent', 
+                                border: '1px solid rgba(184, 134, 11, 0.3)', 
+                                color: 'var(--color-gold)', 
+                                borderRadius: '10px',
+                                cursor: 'pointer',
+                                fontWeight: '600'
+                            }}>
+                                Clear All Filters
+                            </button>
+                        </aside>
+
+                        {/* PRODUCT GRID */}
+                        <div className="shop-main">
+                            {loading ? (
+                                <div className="product-grid-compact" style={{ 
+                                    display: 'grid', 
+                                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', 
+                                    gap: '1.5rem' 
+                                }}>
+                                    {[1, 2, 3, 4, 5, 6].map(n => (
+                                        <div key={n} style={{ height: '400px', background: 'rgba(255,255,255,0.03)', borderRadius: '20px', animation: 'pulse 1.5s infinite' }}></div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="product-grid-compact" style={{ 
+                                    display: 'grid', 
+                                    gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', 
+                                    gap: '1.5rem' 
+                                }}>
+                                    {products.length === 0 ? (
+                                        <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '5rem 2rem' }}>
+                                            <span style={{ fontSize: '4rem' }}>🕯️</span>
+                                            <h2 style={{ marginTop: '1.5rem' }}>No products found</h2>
+                                            <p style={{ color: 'var(--color-text-muted)' }}>Try adjusting your filters or search terms.</p>
                                         </div>
-                                    ))
-                                )}
-                            </div>
-                        )}
+                                    ) : (
+                                        products.map((product, index) => (
+                                            <div key={product.id} className="animate-fade-up" style={{ animationDelay: `${index * 50}ms` }}>
+                                                <ProductCard product={product} />
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </div>
                 </div>
-            </main >
 
-            <style>{`
-                /* Base Filter Styles */
-                .filter-group {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 0.8rem;
-                }
+                <style dangerouslySetInnerHTML={{ __html: `
+                    .category-scroll-container::-webkit-scrollbar { display: none; }
+                    
+                    @media (max-width: 900px) {
+                        .shop-layout {
+                            grid-template-columns: 1fr !important;
+                        }
+                        .hide-mobile {
+                            display: none !important;
+                        }
+                        .product-grid-compact {
+                            grid-template-columns: 1fr 1fr !important;
+                            gap: 12px !important;
+                        }
+                        .shop-controls {
+                            margin-bottom: 2rem !important;
+                        }
+                    }
 
-                /* Responsive layout for shop */
-                @media (max-width: 900px) {
-                    .shop-layout {
-                        display: flex !important;
-                        flex-direction: column !important;
+                    @media (max-width: 480px) {
+                        .product-grid-compact {
+                            gap: 10px !important;
+                        }
                     }
-                    .shop-sidebar {
-                        position: static !important;
-                        margin-bottom: 2rem;
-                        padding: 1.5rem !important;
+
+                    @keyframes pulse {
+                        0% { opacity: 0.3; }
+                        50% { opacity: 0.6; }
+                        100% { opacity: 0.3; }
                     }
-                    /* Transform filters into horizontal scrollable chips or wrapped flex on mobile */
-                    .filter-group {
-                        flex-direction: row !important;
-                        flex-wrap: wrap !important;
-                        gap: 0.8rem !important;
-                    }
-                    .filter-label {
-                        background: var(--color-bg-secondary);
-                        padding: 0.6rem 1rem !important;
-                        border-radius: 25px;
-                        border: 1px solid var(--color-border);
-                        white-space: nowrap;
-                        display: flex !important;
-                        align-items: center;
-                    }
-                    .filter-label input {
-                        margin: 0 !important;
-                    }
-                    .filter-label:has(input:checked) {
-                        background: rgba(184, 134, 11, 0.1);
-                        border-color: var(--color-gold);
-                    }
-                    /* Top Controls Responsive */
-                    .shop-top-controls {
-                        flex-direction: column !important;
-                        align-items: flex-start !important;
-                        gap: 1rem !important;
-                    }
-                    .shop-top-controls h1 {
-                        font-size: 1.5rem !important;
-                    }
-                    .search-sort-container {
-                        width: 100%;
-                        flex-direction: column !important;
-                        align-items: stretch !important;
-                        gap: 0.8rem !important;
-                    }
-                    .search-form input {
-                        width: 100% !important;
-                        padding: 0.8rem !important;
-                    }
-                    .sort-container {
-                        justify-content: space-between;
-                        width: 100%;
-                        background: var(--color-bg-secondary);
-                        padding: 0.2rem 1rem;
-                        border-radius: 4px;
-                        border: 1px solid var(--color-border);
-                    }
-                    .sort-container select {
-                        border: none !important;
-                        padding: 0.8rem 0 !important;
-                        flex: 1;
-                        text-align: right;
-                    }
-                }
-            `}</style>
+                `}} />
+            </main>
         </>
     );
 }

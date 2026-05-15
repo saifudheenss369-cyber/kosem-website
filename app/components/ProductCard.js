@@ -95,19 +95,20 @@ export default function ProductCard({ product }) {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    padding: '1.5rem 1rem 0'
+                    padding: '1.2rem 0.8rem 0'
                 }}>
                     <h3 style={{
                         fontFamily: 'var(--font-serif)',
-                        fontSize: '1.1rem',
-                        marginBottom: '0.5rem',
+                        fontSize: '1rem',
+                        marginBottom: '0.4rem',
                         color: 'var(--color-gold)',
                         fontWeight: '700',
                         height: '2.4rem',
                         overflow: 'hidden',
                         display: '-webkit-box',
                         WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical'
+                        WebkitBoxOrient: 'vertical',
+                        lineHeight: '1.2'
                     }}>
                         {product.name}
                     </h3>
@@ -116,45 +117,37 @@ export default function ProductCard({ product }) {
                     <div style={{
                         background: 'black',
                         color: 'white',
-                        padding: '4px 20px',
+                        padding: '4px 15px',
                         borderRadius: '30px',
                         fontWeight: '600',
-                        fontSize: '0.9rem',
-                        marginBottom: '0.8rem',
+                        fontSize: '0.85rem',
+                        marginBottom: '0.6rem',
                         display: 'inline-block'
                     }}>
                         ₹{product.price}
                     </div>
  
-                    {/* Star Rating */}
-                    <div style={{ marginBottom: '0.5rem', color: '#FFD700', fontSize: '0.9rem' }}>
+                    {/* Star Rating - Compact */}
+                    <div style={{ marginBottom: '0.4rem', color: '#FFD700', fontSize: '0.8rem' }}>
                         {'★'.repeat(Math.round(ratingValue))}
-                        {'☆'.repeat(5 - Math.round(ratingValue))}
-                        <span style={{ color: 'var(--color-text-main)', fontSize: '0.75rem', marginLeft: '5px' }}>
-                            ({ratingValue.toFixed(1)})
-                        </span>
-                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.75rem', marginLeft: '4px' }}>
+                        <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem', marginLeft: '4px' }}>
                             ({reviewCount})
                         </span>
                     </div>
  
-                    <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '1.5rem', lineHeight: '1.4' }}>
-                        Luxury concentrated perfume oil.
-                    </p>
- 
                     {/* Action Row */}
-                    <div style={{ marginTop: 'auto', width: '100%', display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
+                    <div style={{ marginTop: 'auto', width: '100%', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
                         <button
                             className="btn-outline-gold"
                             style={{
                                 flex: 1,
-                                padding: '0.7rem',
+                                padding: '0.6rem',
                                 borderRadius: '8px',
-                                fontSize: '0.8rem',
+                                fontSize: '0.75rem',
                                 fontWeight: '600'
                             }}
                         >
-                            Shop Now
+                            Shop
                         </button>
  
                         <button
@@ -164,10 +157,10 @@ export default function ProductCard({ product }) {
                                 toggleWishlist(product);
                             }}
                             style={{
-                                width: '42px',
-                                height: '42px',
+                                width: '36px',
+                                height: '36px',
                                 borderRadius: '8px',
-                                background: isSaved ? 'var(--color-gold)' : 'var(--color-gold)',
+                                background: 'var(--color-gold)',
                                 color: 'white',
                                 border: 'none',
                                 display: 'flex',
@@ -175,7 +168,7 @@ export default function ProductCard({ product }) {
                                 justifyContent: 'center'
                             }}
                         >
-                            <FiHeart size={20} fill="white" />
+                            <FiHeart size={18} fill="white" />
                         </button>
                     </div>
                 </div>
@@ -183,36 +176,40 @@ export default function ProductCard({ product }) {
 
             <style>{`
                 .product-card:hover {
-                    transform: translateY(-10px);
+                    transform: translateY(-8px);
                     box-shadow: 0 20px 40px rgba(0,0,0,0.3) !important;
                 }
                 .product-card:hover .product-img {
-                    transform: scale(1.1);
+                    transform: scale(1.05);
                 }
 
                 @media (max-width: 768px) {
                     .product-card {
-                        border-radius: 80px 80px 15px 15px !important;
-                        padding-bottom: 1rem !important;
+                        border-radius: 60px 60px 15px 15px !important;
+                        padding-bottom: 0.8rem !important;
                     }
                     .product-img-container {
-                        height: 180px !important;
-                        border-radius: 80px 80px 0 0 !important;
+                        height: 150px !important;
+                        border-radius: 60px 60px 0 0 !important;
                     }
                     .card-content {
-                        padding: 1rem 0.5rem 0 !important;
+                        padding: 0.8rem 0.5rem 0 !important;
                     }
                     .card-content h3 {
-                        font-size: 0.9rem !important;
-                        height: 2.2rem !important;
+                        font-size: 0.85rem !important;
+                        height: 2rem !important;
+                        margin-bottom: 0.3rem !important;
                     }
                     .wishlist-btn {
-                        width: 36px !important;
-                        height: 36px !important;
+                        width: 32px !important;
+                        height: 32px !important;
+                    }
+                    .btn-outline-gold {
+                        padding: 0.5rem !important;
+                        font-size: 0.7rem !important;
                     }
                 }
             `}</style>
-
         </Link>
     );
 }
