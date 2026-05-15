@@ -114,6 +114,7 @@ model Order {
   total     Float
   paymentMethod String  @default("COD") // COD, ONLINE
   shippingMethod String @default("STANDARD") // STANDARD, EXPRESS
+  trackingId     String?     @unique
   
   // Shipping Details
   shippingName    String?

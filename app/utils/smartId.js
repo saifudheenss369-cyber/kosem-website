@@ -1,5 +1,7 @@
 export function getSmartId(order) {
     if (!order) return '';
+    if (order.trackingId) return order.trackingId;
+    
     const dateStr = new Date(order.createdAt);
     const yy = String(dateStr.getFullYear()).slice(-2);
     const dd = String(dateStr.getDate()).padStart(2, '0');

@@ -14,19 +14,22 @@ export async function GET(req) {
     }
 
     try {
-        const parsedId = parseSmartId(orderId);
-        if (isNaN(parsedId) || !parsedId) {
-            return NextResponse.json({ error: 'Invalid Order ID' }, { status: 400 });
-        }
-
-        const order = await prisma.order.findUnique({
-            where: { id: parsedId },
-            include: {
-                items: {
-                    include: { product: true }
-                }
-            }
+        // 1. Try finding by trackingId (e.g. KS123456)
+        let order = await prisma.order.findUnique({
+            where: { trackingId: orderId },
+            include: { items: { include: { product: true } } }
         });
+
+        // 2. Fallback to smart ID parsing (legacy or numeric)
+        if (!order) {
+            const parsedId = parseSmartId(orderId);
+            if (!isNaN(parsedId) && parsedId) {
+                order = await prisma.order.findUnique({
+                    where: { id: parsedId },
+                    include: { items: { include: { product: true } } }
+                });
+            }
+        }
 
         if (!order) {
             return NextResponse.json({ error: 'Order not found' }, { status: 404 });

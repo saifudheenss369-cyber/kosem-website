@@ -62,7 +62,7 @@ export default function TrackOrder() {
                                 <div style={{ display: 'flex', gap: '8px' }}>
                                     <input
                                         type="text"
-                                        placeholder="Enter Order ID (e.g. 35)"
+                                        placeholder="Enter Tracking ID (e.g. KS123456)"
                                         value={orderId}
                                         onChange={e => setOrderId(e.target.value)}
                                         required

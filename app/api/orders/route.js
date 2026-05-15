@@ -68,11 +68,13 @@ export async function POST(req) {
             }
 
             // 3. Create Order
+            const trackingId = 'KS' + Math.floor(100000 + Math.random() * 900000);
             const newOrder = await tx.order.create({
                 data: {
                     userId,
                     total: parseFloat(finalTotal),
                     status: 'PENDING',
+                    trackingId,
                     paymentMethod: paymentMethod || 'COD',
                     shippingMethod: shippingMethod || 'STANDARD',
                     couponCode: couponCode || null,
