@@ -22,6 +22,7 @@ export default function AdminLayoutClient({ children }) {
                     <a href="/admin/banners" className="admin-nav-link">Banners</a>
                     <a href="/admin/customers" className="admin-nav-link">Customers</a>
                     <a href="/admin/coupons" className="admin-nav-link">Coupons</a>
+                    <a href="/admin/settings" className="admin-nav-link">Settings</a>
                     <a href="/admin/audit" className="admin-nav-link">Audit</a>
                     <a href="/" style={{ color: '#888', fontSize: '0.85rem' }}>View Shop</a>
                     <button onClick={handleLogout} style={{ marginLeft: 'auto', background: '#c00', color: 'white', border: 'none', padding: '0.5rem 1.2rem', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>Logout</button>

@@ -18,6 +18,22 @@ export default function Navbar() {
     const { wishlistCount } = useWishlist();
     const { user, logout } = useAuth();
     const [categories, setCategories] = useState([]);
+    const [announcement, setAnnouncement] = useState('⚡ FLAT 5% DISCOUNT ON PREPAID ORDERS');
+
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                const res = await fetch('/api/settings');
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.announcement) setAnnouncement(data.announcement);
+                }
+            } catch (e) {
+                console.error("Failed to fetch settings", e);
+            }
+        };
+        fetchSettings();
+    }, []);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -61,7 +77,7 @@ export default function Navbar() {
                 zIndex: 1001,
                 textTransform: 'uppercase'
             }}>
-                ⚡ FLAT 5% DISCOUNT ON PREPAID ORDERS
+                {announcement}
             </div>
 
             <nav className="main-nav" style={{
