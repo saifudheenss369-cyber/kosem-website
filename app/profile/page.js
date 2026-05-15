@@ -93,8 +93,8 @@ export default function Profile() {
 
                         <div className="form-group">
                             <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Full Name</label>
-                            <input type="text" value={formData.name || ''} disabled style={disabledInput} />
-                            <small style={{ color: 'var(--color-text-muted)' }}>Cannot change name/email directly.</small>
+                            <input name="name" type="text" value={formData.name || ''} onChange={handleChange} style={inputStyle} />
+                            <small style={{ color: 'var(--color-text-muted)' }}>This name will appear on your orders and welcome messages.</small>
                         </div>
                         <div className="form-group">
                             <label style={{ color: 'var(--color-text-main)', fontWeight: '500' }}>Email</label>

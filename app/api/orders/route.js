@@ -119,6 +119,7 @@ export async function POST(req) {
                     await prisma.user.update({
                         where: { id: userId },
                         data: { 
+                            name,
                             address, 
                             phone,
                             city: district,
