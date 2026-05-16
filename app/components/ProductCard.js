@@ -66,26 +66,6 @@ export default function ProductCard({ product }) {
                         <div style={{ color: 'var(--color-text-muted)' }}>No Image</div>
                     )}
  
-                    {/* NEW Badge */}
-                    {product.isBestSeller && (
-                        <span style={{
-                            position: 'absolute',
-                            top: '30px',
-                            left: '50%',
-                            transform: 'translateX(-50%)',
-                            background: 'rgba(15, 23, 42, 0.8)',
-                            backdropFilter: 'blur(4px)',
-                            color: 'var(--color-gold)',
-                            padding: '5px 15px',
-                            borderRadius: '20px',
-                            fontSize: '0.75rem',
-                            fontWeight: 'bold',
-                            letterSpacing: '1px',
-                            zIndex: 3
-                        }}>
-                            NEW
-                        </span>
-                    )}
                 </div>
  
                 {/* Content Section */}
