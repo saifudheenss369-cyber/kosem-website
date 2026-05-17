@@ -92,17 +92,63 @@ export default async function Home() {
     heroProducts = deduplicateVariants(heroProducts || []);
     offerBanners = offerBanners || [];
 
+    const defaultBanners = [
+        {
+            id: 'default-1',
+            imageUrl: 'https://images.unsplash.com/photo-1547887537-6158d64c35b3?q=80&w=1600&auto=format&fit=crop',
+            title: 'Kosem Luxury Collection',
+            link: '/shop',
+            isActive: true
+        },
+        {
+            id: 'default-2',
+            imageUrl: 'https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=1600&auto=format&fit=crop',
+            title: 'Purity in Every Drop',
+            link: '/shop',
+            isActive: true
+        },
+        {
+            id: 'default-3',
+            imageUrl: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=1600&auto=format&fit=crop',
+            title: 'Exclusive Attar & Oudh',
+            link: '/shop',
+            isActive: true
+        }
+    ];
+
+    const displayBanners = offerBanners.length > 0 ? offerBanners : defaultBanners;
+
     return (
         <>
             <Navbar />
             <main style={{ background: 'var(--color-bg-main)' }}>
-                {offerBanners && offerBanners.length > 0 ? (
-                    <MainBannerCarousel banners={offerBanners} />
-                ) : (
-                    <ImageHero />
+                <MainBannerCarousel banners={displayBanners} />
+
+                {/* 1. Best Sellers - Positioned immediately below Hero */}
+                {bestSellers.length > 0 && (
+                    <section className="section-padding">
+                        <FeaturedCarousel
+                            title="Best Sellers"
+                            initialProducts={bestSellers}
+                        />
+                    </section>
                 )}
 
-                {/* Heritage Section - Enhanced Crafted with Purity */}
+                {/* 2. Shop by Category */}
+                <section className="section-padding">
+                    <div className="container">
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
+                            <div>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '600' }}>Collections</span>
+                                <h2 style={{ marginTop: '0.5rem' }}>Shop by <span className="text-gradient-gold">Category</span></h2>
+                            </div>
+                            <Link href="/shop" className="hover-link">View All &rarr;</Link>
+                        </div>
+                        <CategoryGrid activeCategory="All" />
+                    </div>
+                </section>
+
+                {/* 3. Heritage / About Section - Positioned below categories / best products */}
                 <section className="section-padding" style={{ background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
                     {/* Artistic Background Accents */}
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
@@ -182,29 +228,6 @@ export default async function Home() {
                     `}} />
                 </section>
 
-                <section className="section-padding">
-                    <div className="container">
-                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '3rem', flexWrap: 'wrap', gap: '1rem' }}>
-                            <div>
-                                <span style={{ color: 'var(--color-gold)', letterSpacing: '2px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '600' }}>Collections</span>
-                                <h2 style={{ marginTop: '0.5rem' }}>Shop by <span className="text-gradient-gold">Category</span></h2>
-                            </div>
-                            <Link href="/shop" className="hover-link">View All &rarr;</Link>
-                        </div>
-                        <CategoryGrid activeCategory="All" />
-                    </div>
-                </section>
-
-                {/* 1. Best Sellers */}
-                {bestSellers.length > 0 && (
-                    <section className="section-padding">
-                        <FeaturedCarousel
-                            title="Best Sellers"
-                            initialProducts={bestSellers}
-                        />
-                    </section>
-                )}
-
                 {/* Value Props - Redesigned Grid */}
                 <section className="section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
                     <div className="container">
@@ -242,4 +265,5 @@ export default async function Home() {
             </main >
         </>
     );
+
 }
