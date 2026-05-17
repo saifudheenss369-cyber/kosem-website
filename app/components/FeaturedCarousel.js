@@ -222,7 +222,7 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                 
                 @media (max-width: 768px) {
                    .carousel-item {
-                        min-width: 46% !important; /* Shows 2.1 items roughly */
+                        
                         width: 46% !important;
                         flex: 0 0 46% !important;
                    }
@@ -230,6 +230,7 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                         display: none;
                    }
                    .product-carousel {
+                   width:100% !important;
                         gap: 12px !important;
                    }
                    .carousel-header, .carousel-footer {
@@ -237,6 +238,9 @@ export default function FeaturedCarousel({ category, title, subtitle, bg, initia
                        display: flex !important;
                        flex-direction: column !important;
                        align-items: center !important;
+                   }
+                       .carousel-header {
+                       margin-bottom:0rem !important;
                    }
                    .carousel-header h2 {
                        font-size: 1.8rem !important;

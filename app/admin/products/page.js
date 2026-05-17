@@ -157,9 +157,9 @@ export default function AdminProducts() {
     const handleGalleryUpload = async (e) => {
         const files = Array.from(e.target.files);
         if (!files.length) return;
-        
+
         let currentGallery = [];
-        try { if (formData.gallery) currentGallery = JSON.parse(formData.gallery); } 
+        try { if (formData.gallery) currentGallery = JSON.parse(formData.gallery); }
         catch { if (formData.gallery) currentGallery = [formData.gallery]; }
 
         for (const file of files) {
@@ -190,7 +190,7 @@ export default function AdminProducts() {
     return (
         <div style={{ padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', alignItems: 'center', marginBottom: '1.5rem' }}>
-                <h1 style={{ fontSize: '2rem', fontFamily: 'var(--font-serif)', color: 'var(--color-black)', margin: 0 }}>Product Inventory</h1>
+                <h1 style={{ fontSize: '2rem', fontFamily: 'var(--font-serif)', color: '#fff', margin: 0 }}>Product Inventory</h1>
                 <button
                     onClick={handleCreate}
                     className="btn-primary"
@@ -272,7 +272,7 @@ export default function AdminProducts() {
                                     ⭐ {p.rating} ({p.fakeRatingCount})
                                 </td>
                                 <td style={{ padding: '1.2rem', textAlign: 'right' }}>
-                                    <button onClick={() => handleEdit(p)} style={{ marginRight: '1rem', color: 'var(--color-black)', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>Edit</button>
+                                    <button onClick={() => handleEdit(p)} style={{ marginRight: '1rem', color: '#fff', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 'bold' }}>Edit</button>
                                     <button
                                         onClick={() => handleDelete(p.id)}
                                         disabled={deletingId === p.id}
@@ -446,9 +446,9 @@ export default function AdminProducts() {
                                                         const isLinked = currentSimilars.includes(p.id.toString());
                                                         return (
                                                             <label key={p.id} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '4px 0', borderBottom: '1px solid #f5f5f5', cursor: 'pointer' }}>
-                                                                <input 
-                                                                    type="checkbox" 
-                                                                    checked={isLinked} 
+                                                                <input
+                                                                    type="checkbox"
+                                                                    checked={isLinked}
                                                                     onChange={() => {
                                                                         let newSimilars = [...currentSimilars];
                                                                         if (isLinked) newSimilars = newSimilars.filter(id => id !== p.id.toString());
