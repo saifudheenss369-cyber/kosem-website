@@ -12,6 +12,7 @@ export default function BannersAdmin() {
     const [editingId, setEditingId] = useState(null);
     const [title, setTitle] = useState('');
     const [imageUrl, setImageUrl] = useState('');
+    const [mobileImageUrl, setMobileImageUrl] = useState('');
     const [link, setLink] = useState('');
     const [order, setOrder] = useState(0);
     const [isActive, setIsActive] = useState(true);
@@ -49,7 +50,7 @@ export default function BannersAdmin() {
             const res = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, imageUrl, link, order: parseInt(order), isActive })
+                body: JSON.stringify({ title, imageUrl, mobileImageUrl, link, order: parseInt(order), isActive })
             });
 
             if (!res.ok) throw new Error(`Failed to ${editingId ? 'update' : 'add'} banner`);
@@ -67,6 +68,7 @@ export default function BannersAdmin() {
         setEditingId(null);
         setTitle('');
         setImageUrl('');
+        setMobileImageUrl('');
         setLink('');
         setOrder(banners.length + 1);
         setIsActive(true);
@@ -76,6 +78,7 @@ export default function BannersAdmin() {
         setEditingId(banner.id);
         setTitle(banner.title || '');
         setImageUrl(banner.imageUrl || '');
+        setMobileImageUrl(banner.mobileImageUrl || '');
         setLink(banner.link || '');
         setOrder(banner.order || 0);
         setIsActive(banner.isActive);
@@ -115,6 +118,17 @@ export default function BannersAdmin() {
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImageUrl(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleMobileImageUpload = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setMobileImageUrl(reader.result);
             };
             reader.readAsDataURL(file);
         }
@@ -201,16 +215,16 @@ export default function BannersAdmin() {
                 <form onSubmit={handleAddOrUpdateBanner} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '500' }}>Banner Image *</label>
-                        <div style={{ display: 'flex', gap: '10px' }}>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Desktop Banner Image * (16:9 ratio recommended)</label>
+                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                             <input
                                 type="text"
-                                placeholder="Paste Image URL or Base64"
+                                placeholder="Paste Desktop Image URL or Base64"
                                 value={imageUrl}
                                 onChange={(e) => setImageUrl(e.target.value)}
-                                style={{ flex: 1, padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
+                                style={{ flex: 1, minWidth: '250px', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
                             />
-                            <span style={{ padding: '10px' }}>OR</span>
+                            <span style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>OR</span>
                             <input
                                 type="file"
                                 accept="image/*"
@@ -219,7 +233,30 @@ export default function BannersAdmin() {
                             />
                         </div>
                         {imageUrl && (
-                            <img src={imageUrl} alt="Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px' }} />
+                            <img src={imageUrl} alt="Desktop Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
+                        )}
+                    </div>
+
+                    <div style={{ gridColumn: 'span 2' }}>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Mobile Banner Image (Optional - falls back to desktop if empty)</label>
+                        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                            <input
+                                type="text"
+                                placeholder="Paste Mobile Image URL or Base64"
+                                value={mobileImageUrl}
+                                onChange={(e) => setMobileImageUrl(e.target.value)}
+                                style={{ flex: 1, minWidth: '250px', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
+                            />
+                            <span style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>OR</span>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleMobileImageUpload}
+                                style={{ padding: '8px' }}
+                            />
+                        </div>
+                        {mobileImageUrl && (
+                            <img src={mobileImageUrl} alt="Mobile Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
                         )}
                     </div>
 
@@ -327,11 +364,27 @@ export default function BannersAdmin() {
                                             <FaGripVertical />
                                         </td>
                                         <td style={{ padding: '12px' }}>
-                                            <img src={banner.imageUrl} alt={banner.title || 'Banner'} style={{ width: '120px', height: '60px', objectFit: 'cover', borderRadius: '4px' }} />
+                                            <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Desktop</span>
+                                                    <img src={banner.imageUrl} alt={banner.title || 'Banner'} style={{ width: '100px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
+                                                </div>
+                                                {banner.mobileImageUrl && (
+                                                    <div style={{ textAlign: 'center' }}>
+                                                        <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Mobile</span>
+                                                        <img src={banner.mobileImageUrl} alt={banner.title || 'Mobile Banner'} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
+                                                    </div>
+                                                )}
+                                            </div>
                                         </td>
                                         <td style={{ padding: '12px' }}>
                                             <div style={{ fontWeight: 'bold' }}>{banner.title || 'No Title'}</div>
                                             {banner.link && <div style={{ fontSize: '12px', color: '#0066cc', marginTop: '4px' }}>🔗 {banner.link}</div>}
+                                            {banner.mobileImageUrl ? (
+                                                <div style={{ fontSize: '11px', color: '#28a745', marginTop: '4px' }}>✓ Has Mobile Image</div>
+                                            ) : (
+                                                <div style={{ fontSize: '11px', color: '#6c757d', marginTop: '4px' }}>⚠️ Using Desktop for Mobile</div>
+                                            )}
                                         </td>
                                         <td style={{ padding: '12px', textAlign: 'center' }}>{banner.order}</td>
                                         <td style={{ padding: '12px', textAlign: 'center' }}>

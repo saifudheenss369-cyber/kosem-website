@@ -35,7 +35,7 @@ export async function POST(request) {
 
     try {
         const body = await request.json();
-        const { title, imageUrl, link, isActive, order } = body;
+        const { title, imageUrl, mobileImageUrl, link, isActive, order } = body;
 
         if (!imageUrl) {
             return NextResponse.json({ error: 'Image URL is required' }, { status: 400 });
@@ -45,6 +45,7 @@ export async function POST(request) {
             data: {
                 title: title || null,
                 imageUrl,
+                mobileImageUrl: mobileImageUrl || null,
                 link: link || null,
                 isActive: isActive !== undefined ? isActive : true,
                 order: order || 0

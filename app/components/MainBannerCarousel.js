@@ -78,16 +78,26 @@ export default function MainBannerCarousel({ banners }) {
                     >
                         {banner.link ? (
                             <Link href={banner.link} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
+                                <picture style={{ display: 'block', width: '100%', height: '100%' }}>
+                                    {banner.mobileImageUrl && (
+                                        <source media="(max-width: 768px)" srcSet={banner.mobileImageUrl} />
+                                    )}
+                                    <img 
+                                        src={banner.imageUrl} 
+                                        alt={banner.title || 'Kosem Banner'} 
+                                    />
+                                </picture>
+                            </Link>
+                        ) : (
+                            <picture style={{ display: 'block', width: '100%', height: '100%' }}>
+                                {banner.mobileImageUrl && (
+                                    <source media="(max-width: 768px)" srcSet={banner.mobileImageUrl} />
+                                )}
                                 <img 
                                     src={banner.imageUrl} 
                                     alt={banner.title || 'Kosem Banner'} 
                                 />
-                            </Link>
-                        ) : (
-                            <img 
-                                src={banner.imageUrl} 
-                                alt={banner.title || 'Kosem Banner'} 
-                            />
+                            </picture>
                         )}
                     </div>
                 ))}
@@ -128,7 +138,7 @@ export default function MainBannerCarousel({ banners }) {
                 .main-banner-carousel {
                     /* Margin to sit below navbar if navbar is fixed */
                     margin-top: 130px; 
-                    height: 420px;
+                    height: 500px;
                     width: 100%;
                     position: relative;
                     overflow: hidden;
@@ -143,6 +153,12 @@ export default function MainBannerCarousel({ banners }) {
                     min-width: 100%;
                     height: 100%;
                     position: relative;
+                }
+
+                .carousel-item picture {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
                 }
 
                 .carousel-item img {
