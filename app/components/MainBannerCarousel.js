@@ -66,6 +66,7 @@ export default function MainBannerCarousel({ banners }) {
                 style={{
                     display: 'flex',
                     width: '100%',
+                    height: '100%',
                     transition: 'transform 0.5s ease-in-out',
                     transform: `translateX(-${currentIndex * 100}%)`
                 }}
@@ -73,38 +74,19 @@ export default function MainBannerCarousel({ banners }) {
                 {activeBanners.map(banner => (
                     <div 
                         key={banner.id} 
-                        style={{ 
-                            minWidth: '100%', 
-                            position: 'relative',
-                            // We use flex to ensure the image centers nicely if it's a bit smaller
-                            display: 'flex',
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}
+                        className="carousel-item"
                     >
                         {banner.link ? (
-                            <Link href={banner.link} style={{ display: 'block', width: '100%', textDecoration: 'none' }}>
+                            <Link href={banner.link} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
                                 <img 
                                     src={banner.imageUrl} 
                                     alt={banner.title || 'Kosem Banner'} 
-                                    style={{ 
-                                        width: '100%', 
-                                        height: 'auto', 
-                                        display: 'block',
-                                        objectFit: 'contain' 
-                                    }} 
                                 />
                             </Link>
                         ) : (
                             <img 
                                 src={banner.imageUrl} 
                                 alt={banner.title || 'Kosem Banner'} 
-                                style={{ 
-                                    width: '100%', 
-                                    height: 'auto', 
-                                    display: 'block',
-                                    objectFit: 'contain' 
-                                }} 
                             />
                         )}
                     </div>
@@ -145,22 +127,44 @@ export default function MainBannerCarousel({ banners }) {
             <style>{`
                 .main-banner-carousel {
                     /* Margin to sit below navbar if navbar is fixed */
-                    margin-top: 100px; 
+                    margin-top: 130px; 
+                    height: 420px;
+                    width: 100%;
+                    position: relative;
+                    overflow: hidden;
+                    background: #000;
+                }
+                
+                .carousel-inner {
+                    height: 100%;
+                }
+
+                .carousel-item {
+                    min-width: 100%;
+                    height: 100%;
+                    position: relative;
+                }
+
+                .carousel-item img {
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    object-position: center !important;
                 }
                 
                 .carousel-nav-btn {
                     position: absolute;
                     top: 50%;
                     transform: translateY(-50%);
-                    background: rgba(255, 255, 255, 0.7);
-                    border: none;
-                    color: #333;
+                    background: rgba(0, 0, 0, 0.5);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    color: #fff;
                     font-size: 1.2rem;
                     padding: 0.8rem;
                     cursor: pointer;
                     z-index: 10;
                     border-radius: 50%;
-                    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
                     transition: all 0.3s;
                     display: flex;
                     align-items: center;
@@ -168,8 +172,9 @@ export default function MainBannerCarousel({ banners }) {
                 }
                 
                 .carousel-nav-btn:hover {
-                    background: #fff;
-                    color: var(--color-gold, #d4af37);
+                    background: var(--color-gold, #d4af37);
+                    color: #000;
+                    border-color: var(--color-gold, #d4af37);
                 }
 
                 .prev-btn { left: 20px; }
@@ -183,42 +188,35 @@ export default function MainBannerCarousel({ banners }) {
                     display: flex;
                     gap: 10px;
                     z-index: 10;
-                    background: rgba(0,0,0,0.3);
+                    background: rgba(0,0,0,0.4);
                     padding: 5px 10px;
                     border-radius: 20px;
+                    backdrop-filter: blur(4px);
                 }
 
                 .carousel-dot {
-                    width: 10px;
-                    height: 10px;
+                    width: 8px;
+                    height: 8px;
                     border-radius: 50%;
-                    background: rgba(255, 255, 255, 0.5);
+                    background: rgba(255, 255, 255, 0.4);
                     cursor: pointer;
                     transition: all 0.3s ease;
                 }
 
                 .carousel-dot.active {
-                    background: #fff;
-                    width: 25px;
-                    border-radius: 5px;
+                    background: var(--color-gold, #d4af37);
+                    width: 22px;
+                    border-radius: 4px;
                 }
 
                 @media (max-width: 768px) {
                     .main-banner-carousel {
-                        margin-top: 0 !important;
-                        padding-top: 50px !important;
-                        min-height: 600px !important;
-                    }
-                    .carousel-inner, .carousel-inner > div {
-                        min-height: 600px !important;
-                    }
-                    .carousel-inner img {
-                        height: 600px !important;
-                        object-fit: cover !important;
+                        margin-top: 100px !important;
+                        height: 250px !important;
                     }
                     .carousel-nav-btn {
                         padding: 0.5rem;
-                        font-size: 1rem;
+                        font-size: 0.9rem;
                     }
                     .prev-btn { left: 10px; }
                     .next-btn { right: 10px; }
@@ -228,11 +226,11 @@ export default function MainBannerCarousel({ banners }) {
                         gap: 6px;
                     }
                     .carousel-dot {
-                        width: 8px;
-                        height: 8px;
+                        width: 6px;
+                        height: 6px;
                     }
                     .carousel-dot.active {
-                        width: 20px;
+                        width: 16px;
                     }
                 }
             `}</style>
