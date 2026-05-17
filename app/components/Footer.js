@@ -84,7 +84,7 @@ export default function Footer() {
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ color: 'var(--color-gold)' }}>✉</span>
-                            <span style={{ fontSize: '0.9rem' }}>support@kosemperfume.com</span>
+                            <span style={{ fontSize: '0.9rem' }}>info@kosemperfumes.com</span>
                         </div>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ color: 'var(--color-gold)' }}>📞</span>
