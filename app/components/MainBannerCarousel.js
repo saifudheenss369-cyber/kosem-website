@@ -138,7 +138,7 @@ export default function MainBannerCarousel({ banners }) {
                 .main-banner-carousel {
                     /* Margin to sit below navbar if navbar is fixed */
                     margin-top: 130px; 
-                    height: 500px;
+                    height: 600px;
                     width: 100%;
                     position: relative;
                     overflow: hidden;
@@ -228,7 +228,7 @@ export default function MainBannerCarousel({ banners }) {
                 @media (max-width: 768px) {
                     .main-banner-carousel {
                         margin-top: 100px !important;
-                        height: 250px !important;
+                        height: 400px !important;
                     }
                     .carousel-nav-btn {
                         padding: 0.5rem;
