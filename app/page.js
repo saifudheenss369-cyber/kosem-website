@@ -168,8 +168,8 @@ export default async function Home() {
                             </div>
 
                             <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
-                                <Link href="/shop" className="btn-primary" style={{ display: 'inline-block', padding: '1rem 3.5rem', borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', fontSize: '0.9rem' }}>
-                                    See All Products
+                                <Link href="/shop" className="hover-link">
+                                    See All Products &rarr;
                                 </Link>
                             </div>
                         </div>
