@@ -518,3 +518,134 @@ input:focus, textarea:focus, select:focus {
 .hover-link:hover {
   color: var(--color-gold-light);
 }
+
+/* ==========================================================================
+   LUXURY SECTION DIVIDERS & SEPARATORS
+   ========================================================================== */
+.luxury-divider-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 4.5rem auto;
+  padding: 0 var(--container-padding);
+  user-select: none;
+  z-index: 10;
+}
+
+.luxury-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(184, 134, 11, 0.3) 30%, rgba(184, 134, 11, 0.7) 100%);
+}
+
+.luxury-divider-line.right {
+  background: linear-gradient(90deg, rgba(184, 134, 11, 0.7) 0%, rgba(184, 134, 11, 0.3) 70%, transparent 100%);
+}
+
+.luxury-divider-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin: 0 20px;
+}
+
+.luxury-divider-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--color-gold-dim);
+  transform: rotate(45deg);
+  opacity: 0.5;
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-divider-wrap:hover .luxury-divider-dot {
+  background-color: var(--color-gold-light);
+  transform: rotate(225deg) scale(1.35);
+  opacity: 0.9;
+}
+
+.luxury-divider-emblem {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  background: radial-gradient(circle, var(--color-bg-secondary) 40%, rgba(15, 23, 42, 0.95) 100%);
+  border: 1px solid rgba(184, 134, 11, 0.35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-gold);
+  font-size: 1.15rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), inset 0 0 8px rgba(184, 134, 11, 0.08);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-divider-emblem::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 50%;
+  border: 1px dashed rgba(184, 134, 11, 0.2);
+  transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-divider-emblem-icon {
+  display: inline-block;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  text-shadow: 0 0 8px rgba(184, 134, 11, 0.4);
+  animation: luxuryBreathe 4s ease-in-out infinite alternate;
+}
+
+.luxury-divider-wrap:hover .luxury-divider-emblem {
+  border-color: var(--color-gold-light);
+  box-shadow: 0 10px 25px rgba(184, 134, 11, 0.25), inset 0 0 12px rgba(184, 134, 11, 0.2);
+  transform: translateY(-2px);
+}
+
+.luxury-divider-wrap:hover .luxury-divider-emblem::before {
+  transform: rotate(90deg);
+  border-color: rgba(184, 134, 11, 0.55);
+}
+
+.luxury-divider-wrap:hover .luxury-divider-emblem-icon {
+  transform: scale(1.18) rotate(5deg);
+  color: var(--color-gold-light);
+  text-shadow: 0 0 15px rgba(214, 158, 11, 0.85);
+}
+
+@keyframes luxuryBreathe {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(1.06);
+    opacity: 1;
+    filter: drop-shadow(0 0 4px rgba(184, 134, 11, 0.45));
+  }
+}
+
+@media (max-width: 600px) {
+  .luxury-divider-wrap {
+    margin: 3rem auto;
+  }
+  .luxury-divider-center {
+    gap: 8px;
+    margin: 0 10px;
+  }
+  .luxury-divider-emblem {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+  .luxury-divider-line {
+    opacity: 0.7;
+  }
+}

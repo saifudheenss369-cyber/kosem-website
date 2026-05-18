@@ -146,6 +146,19 @@ export default async function Home() {
                     </section>
                 )}
 
+                {/* Luxury Section Divider */}
+                <div className="luxury-divider-wrap">
+                    <div className="luxury-divider-line"></div>
+                    <div className="luxury-divider-center">
+                        <div className="luxury-divider-dot"></div>
+                        <div className="luxury-divider-emblem">
+                            <span className="luxury-divider-emblem-icon">✨</span>
+                        </div>
+                        <div className="luxury-divider-dot"></div>
+                    </div>
+                    <div className="luxury-divider-line right"></div>
+                </div>
+
                 {/* New Arrivals Section - Positioned right below Best Sellers */}
                 {newArrivals.length > 0 && (
                     <section className="section-padding">
@@ -201,6 +214,19 @@ export default async function Home() {
                         `}} />
                     </section>
                 )}
+
+                {/* Luxury Section Divider */}
+                <div className="luxury-divider-wrap">
+                    <div className="luxury-divider-line"></div>
+                    <div className="luxury-divider-center">
+                        <div className="luxury-divider-dot"></div>
+                        <div className="luxury-divider-emblem">
+                            <span className="luxury-divider-emblem-icon">✨</span>
+                        </div>
+                        <div className="luxury-divider-dot"></div>
+                    </div>
+                    <div className="luxury-divider-line right"></div>
+                </div>
 
                 {/* 2. Shop by Category */}
                 <section className="section-padding">
