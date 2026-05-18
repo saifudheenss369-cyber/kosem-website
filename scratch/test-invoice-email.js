@@ -1,7 +1,5 @@
 require('dotenv').config();
 const nodemailer = require('nodemailer');
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
 
 const emailUser = process.env.EMAIL_USER;
 const emailPass = process.env.EMAIL_PASS;
@@ -16,18 +14,21 @@ async function testInvoiceEmail() {
     }
 
     try {
-        console.log('Fetching Order #24...');
-        const order = await prisma.order.findUnique({
-            where: { id: 24 },
-            include: {
-                items: { include: { product: true } }
-            }
-        });
-
-        if (!order) {
-            console.error('Order not found!');
-            return;
-        }
+        const order = {
+            id: 24,
+            trackingId: 'KP024OD0518', // New Format
+            shippingName: 'Saifudheen S',
+            shippingPhone: '7736791961',
+            shippingEmail: 'saifudheenss369@gmail.com',
+            total: 500,
+            items: [
+                {
+                    quantity: 1,
+                    price: 500,
+                    product: { name: 'test05' }
+                }
+            ]
+        };
 
         console.log('Setting up SMTP Transporter...');
         const transporter = nodemailer.createTransport({
@@ -42,17 +43,17 @@ async function testInvoiceEmail() {
             greetingTimeout: 5000,
         });
 
-        const customerEmail = order.shippingEmail || 'saifudheenss369@gmail.com';
+        const customerEmail = order.shippingEmail;
         console.log('Sending invoice email to:', customerEmail);
 
         const info = await transporter.sendMail({
-            from: `"Kosem Store" <${emailUser}>`,
+            from: `"Kosem Perfumes" <${emailUser}>`, // Updated Name
             to: customerEmail,
             subject: `Order Confirmation #${order.id} - Kosem`,
             html: `
                 <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
                     <div style="text-align: center; margin-bottom: 20px;">
-                        <img src="https://kosemperfume.com/logo.png" alt="Kosem Logo" style="max-width: 150px;">
+                        <img src="https://kosemperfumes.com/logo.png" alt="Kosem Logo" style="max-width: 150px;">
                     </div>
                     <h1 style="color: #000;">Order Confirmed!</h1>
                     <p>Hi ${order.shippingName || 'Customer'},</p>
@@ -76,7 +77,7 @@ async function testInvoiceEmail() {
                     
                     <h3 style="text-align: right;">Total: ₹${order.total}</h3>
                     <div style="text-align: center; margin: 30px 0;">
-                        <a href="https://kosemperfume.com/track-order?id=${order.id}" 
+                        <a href="https://kosemperfumes.com/track-order?id=${order.id}" 
                            style="background: #D4AF37; color: #fff; padding: 15px 30px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block;">
                            Track Your Order
                         </a>
@@ -88,30 +89,8 @@ async function testInvoiceEmail() {
 
         console.log('Invoice email sent successfully to customer!', info.messageId);
 
-        // Send to Admin too
-        const adminEmail = emailUser;
-        const adminInfo = await transporter.sendMail({
-            from: `"System Alert" <${emailUser}>`,
-            to: adminEmail,
-            subject: `🔔 New Order #${order.id} (₹${order.total})`,
-            html: `
-                <h2>New Order Received</h2>
-                <p><strong>Order ID:</strong> ${order.id}</p>
-                <p><strong>Customer:</strong> ${order.shippingName} (${order.shippingPhone})</p>
-                <p><strong>Email:</strong> ${customerEmail}</p>
-                <p><strong>Amount:</strong> ₹${order.total}</p>
-                <p><strong>Items:</strong></p>
-                <ul>
-                    ${order.items.map(item => `<li>${item.product?.name} x ${item.quantity}</li>`).join('')}
-                </ul>
-            `
-        });
-        console.log('Admin notification email sent successfully!', adminInfo.messageId);
-
     } catch (err) {
         console.error('Error in testInvoiceEmail:', err);
-    } finally {
-        await prisma.$disconnect();
     }
 }
 

@@ -39,6 +39,11 @@ export async function GET(req) {
             }
         }
 
+        // Filter out dummy email addresses
+        if (user && user.email && user.email.includes('attarstore.local')) {
+            user.email = '';
+        }
+
         return NextResponse.json(user);
     } catch (error) {
         console.error("Profile GET error:", error);

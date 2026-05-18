@@ -27,6 +27,11 @@ export async function GET(req) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
+        // Filter out dummy email addresses
+        if (user.email && user.email.includes('attarstore.local')) {
+            user.email = '';
+        }
+
         return NextResponse.json(user);
     } catch (error) {
         return NextResponse.json({ error: 'Invalid token' }, { status: 401 });

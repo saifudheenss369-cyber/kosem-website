@@ -67,8 +67,17 @@ export async function POST(req) {
                 });
             }
 
-            // 3. Create Order
-            const trackingId = 'KS' + Math.floor(100000 + Math.random() * 900000);
+            // 3. Create Order with custom Tracking ID: KP001ODMonthDate (e.g. KP025OD0518)
+            const lastOrder = await tx.order.findFirst({ orderBy: { id: 'desc' } });
+            const nextSeq = lastOrder ? lastOrder.id + 1 : 1;
+            const seqStr = nextSeq.toString().padStart(3, '0');
+            
+            const now = new Date();
+            const monthStr = (now.getMonth() + 1).toString().padStart(2, '0');
+            const dateStr = now.getDate().toString().padStart(2, '0');
+            
+            const trackingId = `KP${seqStr}OD${monthStr}${dateStr}`;
+            
             const newOrder = await tx.order.create({
                 data: {
                     userId,
@@ -113,20 +122,26 @@ export async function POST(req) {
 
         // --- BACKGROUND TASKS (Non-Blocking) ---
         (async () => {
-            // 1. Update User Profile (Sync with shipping details)
+            // 1. Update User Profile (Sync with shipping details, including email)
             try {
                 if (userId && userId !== 1) {
+                    const updateData = { 
+                        name,
+                        address, 
+                        phone,
+                        city: district,
+                        state,
+                        zip: pincode,
+                        landmark
+                    };
+
+                    if (email && !email.includes('attarstore.local')) {
+                        updateData.email = email;
+                    }
+
                     await prisma.user.update({
                         where: { id: userId },
-                        data: { 
-                            name,
-                            address, 
-                            phone,
-                            city: district,
-                            state,
-                            zip: pincode,
-                            landmark
-                        }
+                        data: updateData
                     });
                 }
             } catch (e) {
