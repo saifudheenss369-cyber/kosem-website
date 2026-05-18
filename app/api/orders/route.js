@@ -120,79 +120,59 @@ export async function POST(req) {
             return newOrder;
         });
 
-        // --- BACKGROUND TASKS (Non-Blocking) ---
-        (async () => {
-            // 1. Update User Profile (Sync with shipping details, including email)
-            try {
-                if (userId && userId !== 1) {
-                    const updateData = { 
-                        name,
-                        address, 
-                        phone,
-                        city: district,
-                        state,
-                        zip: pincode,
-                        landmark
-                    };
+        // --- PROCESS BACKEND ALERTS & UPDATES (Awaited for Serverless Compatibility) ---
+        // 1. Update User Profile (Sync with shipping details, including email)
+        try {
+            if (userId && userId !== 1) {
+                const updateData = { 
+                    name,
+                    address, 
+                    phone,
+                    city: district,
+                    state,
+                    zip: pincode,
+                    landmark
+                };
 
-                    if (email && !email.includes('attarstore.local')) {
-                        updateData.email = email;
-                    }
-
-                    await prisma.user.update({
-                        where: { id: userId },
-                        data: updateData
-                    });
+                if (email && !email.includes('attarstore.local')) {
+                    updateData.email = email;
                 }
-            } catch (e) {
-                console.error('User update background error:', e);
-            }
 
-            // 2. Shiprocket Integration (DISABLED as per user request)
-            /*
-            try {
-                const shiprocketResult = await createShiprocketOrder(order);
-                if (shiprocketResult.success) {
-                    await prisma.order.update({
-                        where: { id: order.id },
-                        data: {
-                            shiprocketOrderId: shiprocketResult.shiprocketOrderId.toString(),
-                            shiprocketShipmentId: shiprocketResult.shipmentId ? shiprocketResult.shipmentId.toString() : null
-                        }
-                    });
-                }
-            } catch (e) {
-                console.error('Shiprocket background error:', e);
+                await prisma.user.update({
+                    where: { id: userId },
+                    data: updateData
+                });
             }
-            */
+        } catch (e) {
+            console.error('User update background error:', e);
+        }
 
-            // 3. WhatsApp Alert
-            try {
-                const alertMsg = buildOrderAlertMessage(order);
-                await sendWhatsAppAlert(alertMsg);
-            } catch (e) {
-                console.error('WhatsApp background error:', e);
-            }
+        // 3. WhatsApp Alert
+        try {
+            const alertMsg = buildOrderAlertMessage(order);
+            await sendWhatsAppAlert(alertMsg);
+        } catch (e) {
+            console.error('WhatsApp background error:', e);
+        }
 
-            // 4. Push Notification
-            try {
-                const tokenSetting = await prisma.setting.findUnique({ where: { key: 'admin_fcm_token' } });
-                if (tokenSetting?.value) {
-                    await sendPushNotification({ ...buildOrderPushPayload(order), token: tokenSetting.value });
-                }
-            } catch (e) {
-                console.error('Push Notification background error:', e);
+        // 4. Push Notification
+        try {
+            const tokenSetting = await prisma.setting.findUnique({ where: { key: 'admin_fcm_token' } });
+            if (tokenSetting?.value) {
+                await sendPushNotification({ ...buildOrderPushPayload(order), token: tokenSetting.value });
             }
+        } catch (e) {
+            console.error('Push Notification background error:', e);
+        }
 
-            // 5. Invoice Email (For COD immediately; for ONLINE it will be sent after successful payment verification)
-            try {
-                if (order.paymentMethod === 'COD') {
-                    await sendInvoiceEmail(order);
-                }
-            } catch (e) {
-                console.error('Email background error:', e);
+        // 5. Invoice Email (For COD immediately; for ONLINE it will be sent after successful payment verification)
+        try {
+            if (order.paymentMethod === 'COD') {
+                await sendInvoiceEmail(order);
             }
-        })();
+        } catch (e) {
+            console.error('Email background error:', e);
+        }
 
         return NextResponse.json(order, { status: 201 });
     } catch (error) {

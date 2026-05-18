@@ -30,14 +30,12 @@ export async function POST(req) {
                 }
             });
 
-            // 3. Send Invoice Email (Background/Non-blocking)
-            (async () => {
-                try {
-                    await sendInvoiceEmail(updatedOrder);
-                } catch (e) {
-                    console.error('Payment confirmation email error:', e);
-                }
-            })();
+            // 3. Send Invoice Email (Awaited for Serverless Compatibility)
+            try {
+                await sendInvoiceEmail(updatedOrder);
+            } catch (e) {
+                console.error('Payment confirmation email error:', e);
+            }
 
             return NextResponse.json({ success: true });
         } else {
