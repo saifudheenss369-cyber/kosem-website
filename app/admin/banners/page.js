@@ -44,16 +44,30 @@ export default function BannersAdmin() {
 
         setSubmitting(true);
         try {
+            // Compress both images right before submitting to be absolutely safe against pasted or uploaded raw high-res images
+            const compressedImageUrl = await compressBase64Image(imageUrl, false);
+            const compressedMobileImageUrl = await compressBase64Image(mobileImageUrl, true);
+
             const method = editingId ? 'PUT' : 'POST';
             const url = editingId ? `/api/admin/banners/${editingId}` : '/api/admin/banners';
 
             const res = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title, imageUrl, mobileImageUrl, link, order: parseInt(order), isActive })
+                body: JSON.stringify({ 
+                    title, 
+                    imageUrl: compressedImageUrl, 
+                    mobileImageUrl: compressedMobileImageUrl, 
+                    link, 
+                    order: parseInt(order) || 0, 
+                    isActive 
+                })
             });
 
-            if (!res.ok) throw new Error(`Failed to ${editingId ? 'update' : 'add'} banner`);
+            if (!res.ok) {
+                const errorData = await res.json().catch(() => ({}));
+                throw new Error(errorData.error || `Failed to ${editingId ? 'update' : 'add'} banner`);
+            }
 
             resetForm();
             fetchBanners();
@@ -135,6 +149,33 @@ export default function BannersAdmin() {
             img.src = event.target.result;
         };
         reader.readAsDataURL(file);
+    });
+
+    const compressBase64Image = (base64Str, isMobile = false) => new Promise((resolve) => {
+        if (!base64Str || !base64Str.startsWith('data:image/')) {
+            return resolve(base64Str);
+        }
+        const img = new Image();
+        img.onload = () => {
+            const canvas = document.createElement('canvas');
+            const TARGET_WIDTH = isMobile ? 800 : 1600;
+            
+            // Calculate dynamic height to maintain aspect ratio perfectly
+            const scale = TARGET_WIDTH / img.width;
+            canvas.width = TARGET_WIDTH;
+            canvas.height = img.height * scale;
+            
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+            
+            resolve(canvas.toDataURL('image/jpeg', 0.85));
+        };
+        img.onerror = () => {
+            resolve(base64Str);
+        };
+        img.src = base64Str;
     });
 
     const handleImageUpload = async (e) => {
