@@ -158,11 +158,11 @@ export default async function Home() {
                                 <div style={{ width: '40px', height: '2px', background: 'var(--color-gold)', margin: '1rem auto' }}></div>
                             </div>
 
-                            {/* Responsive 3x2 Grid for Desktop, 2x3 Grid for Mobile */}
+                            {/* Responsive 6 in a row for Desktop, 3x2 Grid for Tablet, 2x3 Grid for Mobile */}
                             <div className="new-arrivals-grid">
                                 {newArrivals.map((product) => (
                                     <div key={product.id} className="new-arrival-item">
-                                        <ProductCard product={product} />
+                                        <ProductCard product={product} isRectangle={true} />
                                     </div>
                                 ))}
                             </div>
@@ -177,12 +177,12 @@ export default async function Home() {
                         <style dangerouslySetInnerHTML={{ __html: `
                             .new-arrivals-grid {
                                 display: grid;
-                                grid-template-columns: repeat(3, 1fr);
-                                gap: 30px;
+                                grid-template-columns: repeat(6, 1fr);
+                                gap: 15px;
                             }
-                            @media (max-width: 1024px) {
+                            @media (max-width: 1200px) {
                                 .new-arrivals-grid {
-                                    grid-template-columns: repeat(2, 1fr) !important;
+                                    grid-template-columns: repeat(3, 1fr) !important;
                                     gap: 20px !important;
                                 }
                             }

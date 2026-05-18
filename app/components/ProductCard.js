@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useWishlist } from '../context/WishlistContext';
 import { FiHeart } from 'react-icons/fi';
 
-export default function ProductCard({ product }) {
+export default function ProductCard({ product, isRectangle = false }) {
     const { toggleWishlist, isInWishlist } = useWishlist();
     if (!product) return null;
 
@@ -25,9 +25,9 @@ export default function ProductCard({ product }) {
 
     return (
         <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
-            <div className="product-card" style={{
+            <div className={`product-card ${isRectangle ? 'rect-card' : ''}`} style={{
                 background: 'var(--color-bg-secondary)',
-                borderRadius: '150px 150px 20px 20px', 
+                borderRadius: isRectangle ? '12px' : '150px 150px 20px 20px', 
                 boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
                 transition: 'all 0.3s ease',
                 position: 'relative',
@@ -35,20 +35,20 @@ export default function ProductCard({ product }) {
                 display: 'flex',
                 flexDirection: 'column',
                 overflow: 'hidden',
-                paddingBottom: '1.5rem',
+                paddingBottom: isRectangle ? '1rem' : '1.5rem',
                 border: '1px solid var(--color-border)'
             }}>
-                {/* Image Section with Arch */}
+                {/* Image Section */}
                 <div className="product-img-container" style={{
                     width: '100%',
                     position: 'relative',
                     background: 'var(--color-bg-secondary)',
-                    borderRadius: '150px 150px 0 0',
+                    borderRadius: isRectangle ? '12px 12px 0 0' : '150px 150px 0 0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     overflow: 'hidden',
-                    height: '260px'
+                    height: isRectangle ? '180px' : '260px'
                 }}>
                     {product.images ? (
                         <img
@@ -163,14 +163,30 @@ export default function ProductCard({ product }) {
                     transform: scale(1.05);
                 }
 
+                .rect-card {
+                    border-radius: 12px !important;
+                }
+                .rect-card .product-img-container {
+                    border-radius: 12px 12px 0 0 !important;
+                    height: 180px !important;
+                }
+
                 @media (max-width: 768px) {
                     .product-card {
                         border-radius: 60px 60px 15px 15px !important;
                         padding-bottom: 0.8rem !important;
                     }
+                    .rect-card {
+                        border-radius: 12px !important;
+                        padding-bottom: 0.8rem !important;
+                    }
                     .product-img-container {
                         height: 150px !important;
                         border-radius: 60px 60px 0 0 !important;
+                    }
+                    .rect-card .product-img-container {
+                        height: 120px !important;
+                        border-radius: 12px 12px 0 0 !important;
                     }
                     .card-content {
                         padding: 0.8rem 0.5rem 0 !important;
