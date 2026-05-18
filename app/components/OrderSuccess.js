@@ -61,7 +61,7 @@ export default function OrderSuccess({ order, onClose }) {
                 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
                         <span style={{ color: 'var(--color-text-muted)' }}>Order ID (Tracking):</span>
-                        <strong style={{ color: 'var(--color-white)', letterSpacing: '1px' }}>{order.id}</strong>
+                        <strong style={{ color: 'var(--color-white)', letterSpacing: '1px' }}>{order.trackingId || order.id}</strong>
                     </div>
                     {order.paymentMethod !== 'COD' && (
                         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
