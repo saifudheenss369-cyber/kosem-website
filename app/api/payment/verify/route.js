@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { verifySignature } from '@/lib/razorpay';
 import prisma from '@/lib/prisma';
+import { sendInvoiceEmail } from '@/lib/email';
 
 export const dynamic = 'force-dynamic';
 
@@ -16,14 +17,27 @@ export async function POST(req) {
         const isValid = verifySignature(razorpayOrderId, razorpayPaymentId, razorpaySignature);
 
         if (isValid) {
-            // 2. Update Database Order Status
-            await prisma.order.update({
+            // 2. Update Database Order Status (including items & user info for the invoice)
+            const updatedOrder = await prisma.order.update({
                 where: { id: parseInt(orderId) },
                 data: {
                     status: 'PAID',
                     paymentMethod: 'ONLINE'
+                },
+                include: {
+                    user: true,
+                    items: { include: { product: true } }
                 }
             });
+
+            // 3. Send Invoice Email (Background/Non-blocking)
+            (async () => {
+                try {
+                    await sendInvoiceEmail(updatedOrder);
+                } catch (e) {
+                    console.error('Payment confirmation email error:', e);
+                }
+            })();
 
             return NextResponse.json({ success: true });
         } else {

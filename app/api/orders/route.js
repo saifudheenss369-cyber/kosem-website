@@ -169,9 +169,11 @@ export async function POST(req) {
                 console.error('Push Notification background error:', e);
             }
 
-            // 5. Invoice Email
+            // 5. Invoice Email (For COD immediately; for ONLINE it will be sent after successful payment verification)
             try {
-                await sendInvoiceEmail(order);
+                if (order.paymentMethod === 'COD') {
+                    await sendInvoiceEmail(order);
+                }
             } catch (e) {
                 console.error('Email background error:', e);
             }
