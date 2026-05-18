@@ -6,6 +6,7 @@ import MovingCarousel from './components/MovingCarousel';
 import MainBannerCarousel from './components/MainBannerCarousel';
 import ImageHero from './components/ImageHero';
 import CategoryGrid from './components/CategoryGrid';
+import ProductCard from './components/ProductCard';
 import prisma from '@/lib/prisma';
 
 // Force dynamic rendering to skip build-time DB checks
@@ -54,6 +55,7 @@ export default async function Home() {
     let luxuryProducts = [];
     let heroProducts = [];
     let offerBanners = [];
+    let newArrivals = [];
 
     try {
         // Parallelize all data fetching
@@ -63,14 +65,16 @@ export default async function Home() {
             fetchedCarousel,
             fetchedBestSellers,
             fetchedPremium,
-            fetchedLuxury
+            fetchedLuxury,
+            fetchedNewArrivals
         ] = await Promise.all([
             prisma.offerBanner.findMany({ where: { isActive: true }, orderBy: { order: 'asc' } }),
             prisma.product.findMany({ where: { isInHero: true }, take: 5, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { isInCarousel: true }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { isBestSeller: true }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
-            prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } })
+            prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
+            prisma.product.findMany({ take: 30, orderBy: { createdAt: 'desc' } })
         ]);
 
         offerBanners = fetchedBanners;
@@ -79,6 +83,7 @@ export default async function Home() {
         bestSellers = fetchedBestSellers;
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
+        newArrivals = fetchedNewArrivals;
 
     } catch (error) {
         console.error("Failed to fetch products:", error);
@@ -90,6 +95,7 @@ export default async function Home() {
     premiumProducts = deduplicateVariants(premiumProducts || []);
     luxuryProducts = deduplicateVariants(luxuryProducts || []);
     heroProducts = deduplicateVariants(heroProducts || []);
+    newArrivals = deduplicateVariants(newArrivals || []).slice(0, 6); // Exactly 6 products
     offerBanners = offerBanners || [];
 
     const defaultBanners = [
@@ -126,11 +132,67 @@ export default async function Home() {
 
                 {/* 1. Best Sellers - Positioned immediately below Hero */}
                 {bestSellers.length > 0 && (
-                    <section className="section-padding">
+                    <section className="section-padding" style={{ paddingBottom: '0rem' }}>
                         <FeaturedCarousel
                             title="Best Sellers"
                             initialProducts={bestSellers}
                         />
+                    </section>
+                )}
+
+                {/* New Arrivals Section - Positioned right below Best Sellers */}
+                {newArrivals.length > 0 && (
+                    <section className="section-padding">
+                        <div className="container">
+                            <div className="carousel-header" style={{ textAlign: 'center', marginBottom: '3rem', width: '100%' }}>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '700' }}>Discover Latest</span>
+                                <h2 style={{
+                                    fontFamily: 'var(--font-serif)',
+                                    fontSize: '2.5rem',
+                                    color: 'var(--color-text-main)',
+                                    marginTop: '0.5rem',
+                                    marginBottom: '0.25rem'
+                                }}>
+                                    New <span className="text-gradient-gold">Arrivals</span>
+                                </h2>
+                                <div style={{ width: '40px', height: '2px', background: 'var(--color-gold)', margin: '1rem auto' }}></div>
+                            </div>
+
+                            {/* Responsive 3x2 Grid for Desktop, 2x3 Grid for Mobile */}
+                            <div className="new-arrivals-grid">
+                                {newArrivals.map((product) => (
+                                    <div key={product.id} className="new-arrival-item">
+                                        <ProductCard product={product} />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <div style={{ textAlign: 'center', marginTop: '3.5rem' }}>
+                                <Link href="/shop" className="btn-primary" style={{ display: 'inline-block', padding: '1rem 3.5rem', borderRadius: '30px', textTransform: 'uppercase', letterSpacing: '1px', fontWeight: 'bold', fontSize: '0.9rem' }}>
+                                    See All Products
+                                </Link>
+                            </div>
+                        </div>
+
+                        <style dangerouslySetInnerHTML={{ __html: `
+                            .new-arrivals-grid {
+                                display: grid;
+                                grid-template-columns: repeat(3, 1fr);
+                                gap: 30px;
+                            }
+                            @media (max-width: 1024px) {
+                                .new-arrivals-grid {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                    gap: 20px !important;
+                                }
+                            }
+                            @media (max-width: 600px) {
+                                .new-arrivals-grid {
+                                    grid-template-columns: repeat(2, 1fr) !important;
+                                    gap: 12px !important;
+                                }
+                            }
+                        `}} />
                     </section>
                 )}
 
