@@ -66,7 +66,7 @@ export default async function Home() {
             fetchedBestSellers,
             fetchedPremium,
             fetchedLuxury,
-            fetchedNewArrivals
+            fetchedNewArrivalsTemp
         ] = await Promise.all([
             prisma.offerBanner.findMany({ where: { isActive: true }, orderBy: { order: 'asc' } }),
             prisma.product.findMany({ where: { isInHero: true }, take: 5, orderBy: { createdAt: 'desc' } }),
@@ -74,7 +74,7 @@ export default async function Home() {
             prisma.product.findMany({ where: { isBestSeller: true }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
-            prisma.product.findMany({ take: 30, orderBy: { createdAt: 'desc' } })
+            prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } })
         ]);
 
         offerBanners = fetchedBanners;
@@ -83,7 +83,13 @@ export default async function Home() {
         bestSellers = fetchedBestSellers;
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
-        newArrivals = fetchedNewArrivals;
+
+        // Fallback: If no products are marked as New Arrival, show the newest 30 products in the database
+        if (fetchedNewArrivalsTemp && fetchedNewArrivalsTemp.length > 0) {
+            newArrivals = fetchedNewArrivalsTemp;
+        } else {
+            newArrivals = await prisma.product.findMany({ take: 30, orderBy: { createdAt: 'desc' } });
+        }
 
     } catch (error) {
         console.error("Failed to fetch products:", error);

@@ -7,7 +7,7 @@ export default function AdminProducts() {
     const [categories, setCategories] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
-        name: '', description: '', price: '', originalPrice: '', stock: '', category: '', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false
+        name: '', description: '', price: '', originalPrice: '', stock: '', category: '', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, isInHero: false, isNewArrival: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [deletingId, setDeletingId] = useState(null);
@@ -57,6 +57,8 @@ export default function AdminProducts() {
             fakeRatingCount: product.fakeRatingCount || 0,
             isBestSeller: product.isBestSeller,
             isInCarousel: product.isInCarousel || false,
+            isInHero: product.isInHero || false,
+            isNewArrival: product.isNewArrival || false,
             showStockCount: product.showStockCount !== false,
             size: product.size || '',
             variantGroupId: product.variantGroupId || '',
@@ -69,7 +71,7 @@ export default function AdminProducts() {
     };
 
     const handleCreate = () => {
-        setFormData({ name: '', description: '', price: '', originalPrice: '', stock: '', category: categories[0]?.name || '', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false });
+        setFormData({ name: '', description: '', price: '', originalPrice: '', stock: '', category: categories[0]?.name || '', occasions: '', images: '', rating: '5.0', fakeRatingCount: 0, isBestSeller: false, isInCarousel: false, isInHero: false, isNewArrival: false, showStockCount: true, size: '', variantGroupId: '', similarProductIds: '', gallery: '', isMainVariant: false });
         setEditingId(null);
         setIsEditing(true);
     };
@@ -251,7 +253,8 @@ export default function AdminProducts() {
                                             <div style={{ width: '40px', height: '40px', background: '#eee', borderRadius: '4px' }}></div>
                                         )}
                                         {p.name}
-                                        {p.isBestSeller && <span style={{ fontSize: '0.6rem', background: 'var(--color-gold)', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>BEST</span>}
+                                        {p.isBestSeller && <span style={{ fontSize: '0.6rem', background: 'var(--color-gold)', color: 'white', padding: '2px 6px', borderRadius: '4px', marginRight: '4px' }}>BEST</span>}
+                                        {p.isNewArrival && <span style={{ fontSize: '0.6rem', background: '#0ea5e9', color: 'white', padding: '2px 6px', borderRadius: '4px' }}>NEW</span>}
                                     </div>
                                 </td>
                                 <td style={{ padding: '1.2rem', color: 'var(--color-text-muted)' }}>{p.category}</td>
@@ -362,6 +365,10 @@ export default function AdminProducts() {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <input type="checkbox" checked={formData.isInHero} onChange={e => setFormData({ ...formData, isInHero: e.target.checked })} id="inHero" style={{ width: '20px', height: '20px' }} />
                                         <label htmlFor="inHero" style={{ fontWeight: 'bold', cursor: 'pointer' }}>Show in Main Hero Slider</label>
+                                    </div>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                                        <input type="checkbox" checked={formData.isNewArrival} onChange={e => setFormData({ ...formData, isNewArrival: e.target.checked })} id="newArrival" style={{ width: '20px', height: '20px' }} />
+                                        <label htmlFor="newArrival" style={{ fontWeight: 'bold', cursor: 'pointer' }}>Mark as New Arrival (Newly Added)</label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <input type="checkbox" checked={formData.showStockCount} onChange={e => setFormData({ ...formData, showStockCount: e.target.checked })} id="showStock" style={{ width: '20px', height: '20px' }} />

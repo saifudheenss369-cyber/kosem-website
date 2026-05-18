@@ -87,6 +87,7 @@ model Product {
   fakeRatingCount   Int         @default(0)
   isInCarousel      Boolean     @default(false)
   isInHero          Boolean     @default(false)
+  isNewArrival      Boolean     @default(false)
   size              String?
   variantGroupId    String?
   isMainVariant     Boolean     @default(false)

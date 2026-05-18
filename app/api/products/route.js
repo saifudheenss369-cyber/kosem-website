@@ -29,6 +29,7 @@ async function isAdmin() {
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
     const isBestSeller = searchParams.get('bestSeller') === 'true';
+    const isNewArrival = searchParams.get('newArrival') === 'true';
     const query = searchParams.get('q');
     const category = searchParams.get('category'); // Can be comma-separated
     const occasionsParam = searchParams.get('occasions'); // Comma-separated
@@ -39,6 +40,7 @@ export async function GET(req) {
     try {
         const where = {};
         if (isBestSeller) where.isBestSeller = true;
+        if (isNewArrival) where.isNewArrival = true;
 
         if (category && category !== 'All') {
             const catArray = category.split(',').map(c => c.trim()).filter(c => c);
@@ -137,7 +139,7 @@ export async function POST(req) {
 
     try {
         const body = await req.json();
-        const { name, description, price, stock, category, occasions, images, rating, isBestSeller, originalPrice, fakeRatingCount, isInCarousel, isInHero, showStockCount, size, variantGroupId, similarProductIds, gallery, isMainVariant } = body;
+        const { name, description, price, stock, category, occasions, images, rating, isBestSeller, originalPrice, fakeRatingCount, isInCarousel, isInHero, isNewArrival, showStockCount, size, variantGroupId, similarProductIds, gallery, isMainVariant } = body;
 
         // Validation for required fields
         if (!name || !price || !stock || !category) {
@@ -164,7 +166,8 @@ export async function POST(req) {
                 originalPrice: originalPrice ? parseFloat(originalPrice) : null,
                 fakeRatingCount: fakeRatingCount ? parseInt(fakeRatingCount) : 0,
                 isInCarousel: Boolean(isInCarousel),
-                isInHero: Boolean(isInHero)
+                isInHero: Boolean(isInHero),
+                isNewArrival: Boolean(isNewArrival)
             }
         });
 
@@ -186,7 +189,7 @@ export async function PUT(req) {
 
     try {
         const body = await req.json();
-        const { name, description, price, stock, category, occasions, images, rating, isBestSeller, originalPrice, fakeRatingCount, isInCarousel, isInHero, showStockCount, size, variantGroupId, similarProductIds, gallery, isMainVariant } = body;
+        const { name, description, price, stock, category, occasions, images, rating, isBestSeller, originalPrice, fakeRatingCount, isInCarousel, isInHero, isNewArrival, showStockCount, size, variantGroupId, similarProductIds, gallery, isMainVariant } = body;
 
         // Use id from body if provided, otherwise fallback to id from searchParams
         const productId = idFromParams || body.id;
@@ -215,7 +218,8 @@ export async function PUT(req) {
                 ...(originalPrice !== undefined && { originalPrice: originalPrice ? parseFloat(originalPrice) : null }),
                 ...(fakeRatingCount !== undefined && { fakeRatingCount: parseInt(fakeRatingCount) }),
                 ...(isInCarousel !== undefined && { isInCarousel: Boolean(isInCarousel) }),
-                ...(isInHero !== undefined && { isInHero: Boolean(isInHero) })
+                ...(isInHero !== undefined && { isInHero: Boolean(isInHero) }),
+                ...(isNewArrival !== undefined && { isNewArrival: Boolean(isNewArrival) })
             }
         });
         await logAudit('UPDATE_PRODUCT', `Updated product ID ${productId}: ${name}`);
