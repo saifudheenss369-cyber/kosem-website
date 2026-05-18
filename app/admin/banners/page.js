@@ -112,25 +112,54 @@ export default function BannersAdmin() {
         }
     };
 
-    const handleImageUpload = (e) => {
+    const processBannerImage = (file, isMobile = false) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const TARGET_WIDTH = isMobile ? 800 : 1600;
+                
+                // Calculate dynamic height to maintain aspect ratio perfectly
+                const scale = TARGET_WIDTH / img.width;
+                canvas.width = TARGET_WIDTH;
+                canvas.height = img.height * scale;
+                
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.drawImage(img, 0, 0, img.width, img.height, 0, 0, canvas.width, canvas.height);
+                
+                resolve(canvas.toDataURL('image/jpeg', 0.85));
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            try {
+                const b64 = await processBannerImage(file, false);
+                setImageUrl(b64);
+            } catch (err) {
+                console.error('Error compressing desktop banner:', err);
+                alert('Failed to process image');
+            }
         }
     };
 
-    const handleMobileImageUpload = (e) => {
+    const handleMobileImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setMobileImageUrl(reader.result);
-            };
-            reader.readAsDataURL(file);
+            try {
+                const b64 = await processBannerImage(file, true);
+                setMobileImageUrl(b64);
+            } catch (err) {
+                console.error('Error compressing mobile banner:', err);
+                alert('Failed to process image');
+            }
         }
     };
 
