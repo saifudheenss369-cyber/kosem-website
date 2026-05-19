@@ -26,7 +26,7 @@ export default function ProductCard({ product, isRectangle = false }) {
     return (
         <Link href={`/product/${product.id}`} style={{ textDecoration: 'none', color: 'inherit', display: 'block', height: '100%' }}>
             <div className="product-card" style={{
-                background: 'var(--color-bg-secondary)',
+                background: 'rgba(255, 255, 255, 0.015)',
                 borderRadius: '16px', 
                 boxShadow: '0 12px 30px rgba(0,0,0,0.25)',
                 transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
@@ -35,7 +35,7 @@ export default function ProductCard({ product, isRectangle = false }) {
                 display: 'flex',
                 flexDirection: 'column',
                 overflow: 'hidden',
-                border: '1px solid rgba(255, 255, 255, 0.05)'
+                border: '1px solid rgba(255, 255, 255, 0.03)'
             }}>
                 {/* Floating Glass Wishlist Button */}
                 <button
@@ -67,17 +67,17 @@ export default function ProductCard({ product, isRectangle = false }) {
                     <FiHeart size={16} fill={isSaved ? "var(--color-gold)" : "none"} />
                 </button>
 
-                {/* Image Section */}
+                {/* Image Section - Perfect 1:1 Square */}
                 <div className="product-img-container" style={{
                     width: '100%',
+                    aspectRatio: '1 / 1',
                     position: 'relative',
                     background: 'var(--color-bg-secondary)',
                     borderRadius: '16px 16px 0 0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    overflow: 'hidden',
-                    height: '240px'
+                    overflow: 'hidden'
                 }}>
                     {product.images ? (
                         <img
@@ -103,49 +103,48 @@ export default function ProductCard({ product, isRectangle = false }) {
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    background: 'var(--color-bg-secondary)'
+                    background: 'transparent'
                 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', width: '100%', gap: '10px' }}>
-                        {/* Left Side: Product Name & Rating */}
-                        <div style={{ textAlign: 'left', flex: 1 }}>
+                    <div>
+                        {/* First Row: Product Name & Price perfectly aligned */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', width: '100%', gap: '10px' }}>
                             <h3 style={{
                                 fontFamily: 'var(--font-sans)',
                                 textTransform: 'uppercase',
                                 letterSpacing: '1px',
-                                fontSize: '0.9rem',
+                                fontSize: '0.85rem',
                                 color: '#ffffff',
                                 fontWeight: '700',
-                                marginBottom: '0.4rem',
-                                lineHeight: '1.3',
+                                margin: 0,
+                                lineHeight: '1.4',
                                 overflow: 'hidden',
                                 display: '-webkit-box',
                                 WebkitLineClamp: 2,
                                 WebkitBoxOrient: 'vertical',
-                                height: '2.4rem'
+                                height: '2.4rem',
+                                flex: 1
                             }}>
                                 {product.name}
                             </h3>
-                            
-                            {/* Star Rating - Clean, minimal */}
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-gold)', fontSize: '0.75rem' }}>
-                                <span>{'★'.repeat(Math.round(ratingValue))}</span>
-                                <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>
-                                    ({reviewCount})
-                                </span>
-                            </div>
-                        </div>
 
-                        {/* Right Side: Price */}
-                        <div style={{ textAlign: 'right', display: 'flex', flexDirection: 'column', alignItems: 'flex-end', flexShrink: 0 }}>
-                            <span style={{ fontSize: '0.65rem', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '1px' }}>From</span>
-                            <span style={{
-                                fontSize: '1.05rem',
+                            <div style={{
+                                fontSize: '0.85rem',
                                 fontWeight: '600',
                                 color: 'var(--color-gold)',
                                 fontFamily: 'var(--font-sans)',
-                                marginTop: '1px'
+                                whiteSpace: 'nowrap',
+                                flexShrink: 0
                             }}>
+                                <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginRight: '4px', textTransform: 'uppercase', fontWeight: 'normal' }}>From</span>
                                 ₹{product.price}
+                            </div>
+                        </div>
+                        
+                        {/* Second Row: Star Rating - Clean, minimal */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', color: 'var(--color-gold)', fontSize: '0.75rem', marginTop: '0.5rem' }}>
+                            <span>{'★'.repeat(Math.round(ratingValue))}</span>
+                            <span style={{ color: 'var(--color-text-muted)', fontSize: '0.7rem' }}>
+                                ({reviewCount})
                             </span>
                         </div>
                     </div>
@@ -157,6 +156,7 @@ export default function ProductCard({ product, isRectangle = false }) {
                     transform: translateY(-6px);
                     box-shadow: 0 20px 40px rgba(0,0,0,0.35) !important;
                     border-color: rgba(184, 134, 11, 0.3) !important;
+                    background: rgba(255, 255, 255, 0.03) !important;
                 }
                 .product-card:hover .product-img {
                     transform: scale(1.06);
@@ -172,7 +172,6 @@ export default function ProductCard({ product, isRectangle = false }) {
                         border-radius: 12px !important;
                     }
                     .product-img-container {
-                        height: 150px !important;
                         border-radius: 12px 12px 0 0 !important;
                     }
                     .card-content {
@@ -180,11 +179,11 @@ export default function ProductCard({ product, isRectangle = false }) {
                     }
                     .card-content h3 {
                         font-size: 0.8rem !important;
-                        height: 2.1rem !important;
+                        height: 2.2rem !important;
                         letter-spacing: 0.5px !important;
                     }
                     .card-content span {
-                        font-size: 0.9rem !important;
+                        font-size: 0.8rem !important;
                     }
                     .wishlist-btn-floating {
                         width: 32px !important;
