@@ -179,6 +179,10 @@ export default function Footer() {
                         align-items: flex-start;
                         gap: 0rem !important;
                     }
+                    .footer-heading {
+                        margin-bottom: 0.5rem !important;
+                        margin-top: 1rem !important;
+                    }
                     .footer-heading::after {
                         left: 0;
                         transform: none;
