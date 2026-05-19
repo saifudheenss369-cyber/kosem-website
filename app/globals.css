@@ -632,20 +632,89 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 1.5rem !important;
+    --container-padding: 1rem !important;
+  }
+
+  .section-padding {
+    padding: 1.5rem 0 !important;
+  }
+
   .luxury-divider-wrap {
-    margin: 3rem auto;
+    margin: 1.5rem auto !important;
   }
+
   .luxury-divider-center {
-    gap: 8px;
-    margin: 0 10px;
+    gap: 8px !important;
+    margin: 0 10px !important;
   }
+
   .luxury-divider-emblem {
-    width: 36px;
-    height: 36px;
-    font-size: 0.95rem;
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 0.95rem !important;
   }
+
   .luxury-divider-line {
-    opacity: 0.7;
+    opacity: 0.7 !important;
+  }
+
+  /* Tighten space below heading titles inside sections */
+  .carousel-header {
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Target carousel headers with inline margins on homepage */
+  div[style*="marginBottom: '3rem'"],
+  div[style*="marginBottom: 3rem"],
+  div[style*="margin-bottom: 3rem"],
+  .carousel-header[style*="marginBottom"] {
+    margin-bottom: 1.25rem !important;
+  }
+
+  /* Tighten category header layout spacing */
+  div[style*="justifyContent: 'space-between'"][style*="marginBottom: '3rem'"] {
+    margin-bottom: 1.5rem !important;
+  }
+
+  /* See all buttons and footers margins */
+  div[style*="marginTop: '3.5rem'"],
+  div[style*="margin-top: 3.5rem"] {
+    margin-top: 1.5rem !important;
+  }
+
+  .carousel-footer,
+  div[style*="marginTop: '2rem'"] {
+    margin-top: 1.25rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  /* Heritage / About Section mobile layout spacing and size improvements */
+  .heritage-image-wrapper {
+    height: 300px !important;
+    max-width: 100% !important;
+  }
+  .heritage-image-wrapper > div {
+    height: 300px !important;
+  }
+  .heritage-content {
+    margin-top: 1.25rem !important;
+  }
+  .heritage-content h2 {
+    margin-bottom: 0.8rem !important;
+  }
+  .heritage-p {
+    margin-bottom: 1.5rem !important;
+    padding-top: 0.75rem !important;
+  }
+
+  /* Value Props mobile space compression */
+  .glass-card {
+    padding: 1.75rem 1rem !important;
+  }
+  .props-grid {
+    gap: 1rem !important;
   }
 }
