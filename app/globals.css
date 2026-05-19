@@ -732,4 +732,21 @@ input:focus, textarea:focus, select:focus {
   .home-main {
     padding-top: 102px !important; /* 70px mobile nav height + 32px top announcement bar */
   }
+
+  /* Custom precise mobile spacings requested by user */
+  .best-sellers-section {
+    margin-top: 50px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .heritage-section {
+    margin-top: 50px !important;
+    margin-bottom: 50px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+  .props-section {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+  }
 }

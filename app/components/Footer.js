@@ -98,7 +98,7 @@ export default function Footer() {
                 </div>
             </div>
 
-            <div style={{
+            <div className="footer-copyright" style={{
                 textAlign: 'center',
                 borderTop: '1px solid rgba(255,255,255,0.05)',
                 paddingTop: '2.5rem',
@@ -177,15 +177,21 @@ export default function Footer() {
                     transform: translateY(-3px);
                 }
 
-                @media (max-width: 768px) {
+                 @media (max-width: 768px) {
                     .main-footer {
                         text-align: left;
+                        padding-top: 3rem !important;
+                        padding-bottom: 1.5rem !important;
                     }
                     .container {
                         display: flex;
                         flex-direction: column;
                         align-items: flex-start;
                         gap: 0rem !important;
+                        margin-bottom: 1.5rem !important;
+                    }
+                    .footer-copyright {
+                        padding-top: 1.5rem !important;
                     }
                     .footer-heading {
                         margin-bottom: 0.5rem !important;

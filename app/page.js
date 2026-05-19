@@ -138,7 +138,7 @@ export default async function Home() {
 
                 {/* 1. Best Sellers - Positioned immediately below Hero */}
                 {bestSellers.length > 0 && (
-                    <section className="section-padding" style={{ paddingBottom: '0rem' }}>
+                    <section className="best-sellers-section section-padding" style={{ paddingBottom: '0rem' }}>
                         <FeaturedCarousel
                             title="Best Sellers"
                             initialProducts={bestSellers}
@@ -243,7 +243,7 @@ export default async function Home() {
                 </section>
 
                 {/* 3. Heritage / About Section - Positioned below categories / best products */}
-                <section className="section-padding" style={{ background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
+                <section className="heritage-section section-padding" style={{ background: 'var(--color-bg-secondary)', position: 'relative', overflow: 'hidden' }}>
                     {/* Artistic Background Accents */}
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
@@ -323,7 +323,7 @@ export default async function Home() {
                 </section>
 
                 {/* Value Props - Redesigned Grid */}
-                <section className="section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
+                <section className="props-section section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
                     <div className="container">
                         <div style={{ 
                             display: 'grid', 
