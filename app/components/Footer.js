@@ -177,7 +177,7 @@ export default function Footer() {
                         display: flex;
                         flex-direction: column;
                         align-items: flex-start;
-                        gap: 2.5rem !important;
+                        gap: 0rem !important;
                     }
                     .footer-heading::after {
                         left: 0;
