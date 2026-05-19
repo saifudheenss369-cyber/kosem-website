@@ -28,7 +28,6 @@ export default function ProductCard({ product, isRectangle = false }) {
             <div className="product-card" style={{
                 background: 'rgba(255, 255, 255, 0.015)',
                 borderRadius: '16px', 
-                boxShadow: '0 12px 30px rgba(0,0,0,0.25)',
                 transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
                 position: 'relative',
                 height: '100%',
@@ -135,7 +134,6 @@ export default function ProductCard({ product, isRectangle = false }) {
                                 whiteSpace: 'nowrap',
                                 flexShrink: 0
                             }}>
-                                <span style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', marginRight: '4px', textTransform: 'uppercase', fontWeight: 'normal' }}>From</span>
                                 ₹{product.price}
                             </div>
                         </div>
@@ -154,7 +152,6 @@ export default function ProductCard({ product, isRectangle = false }) {
             <style>{`
                 .product-card:hover {
                     transform: translateY(-6px);
-                    box-shadow: 0 20px 40px rgba(0,0,0,0.35) !important;
                     border-color: rgba(184, 134, 11, 0.3) !important;
                     background: rgba(255, 255, 255, 0.03) !important;
                 }

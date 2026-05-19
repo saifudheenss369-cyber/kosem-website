@@ -82,14 +82,14 @@ export default function Footer() {
                 <div>
                     <h4 className="footer-heading">Contact Us</h4>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <a href="mailto:info@kosemperfumes.com" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit' }} className="footer-contact-link">
                             <span style={{ color: 'var(--color-gold)' }}>✉</span>
                             <span style={{ fontSize: '0.9rem' }}>info@kosemperfumes.com</span>
-                        </div>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        </a>
+                        <a href="tel:+919656867773" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none', color: 'inherit' }} className="footer-contact-link">
                             <span style={{ color: 'var(--color-gold)' }}>📞</span>
                             <span style={{ fontSize: '0.9rem' }}>+91 96568 67773</span>
-                        </div>
+                        </a>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                             <span style={{ color: 'var(--color-gold)' }}>📍</span>
                             <span style={{ fontSize: '0.9rem' }}>Kottayam, Kerala, India</span>
@@ -140,6 +140,14 @@ export default function Footer() {
                 .footer-link:hover {
                     color: var(--color-gold);
                     transform: translateX(8px);
+                }
+
+                .footer-contact-link {
+                    transition: all 0.3s ease;
+                }
+                .footer-contact-link:hover {
+                    color: var(--color-gold) !important;
+                    transform: translateX(4px);
                 }
                 
                 .footer-logo-link:hover img {
