@@ -717,4 +717,14 @@ input:focus, textarea:focus, select:focus {
   .props-grid {
     gap: 1rem !important;
   }
+
+  /* Right-align See All and View All buttons/links on mobile */
+  div[style*="textAlign: 'center'"] {
+    text-align: right !important;
+    padding-right: 0.5rem;
+  }
+  
+  div[style*="justifyContent: 'space-between'"] > .hover-link {
+    margin-left: auto !important;
+  }
 }
