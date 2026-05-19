@@ -71,71 +71,36 @@ export default function MainBannerCarousel({ banners }) {
                     transform: `translateX(-${currentIndex * 100}%)`
                 }}
             >
-                {activeBanners.map(banner => {
-                    const isVideo = (url) => {
-                        if (!url) return false;
-                        const cleanUrl = url.toLowerCase().split('?')[0].split('#')[0];
-                        return cleanUrl.endsWith('.mp4') || cleanUrl.endsWith('.webm') || cleanUrl.endsWith('.ogg') || url.startsWith('data:video/');
-                    };
-
-                    const hasMobileVideo = isVideo(banner.mobileImageUrl);
-                    const hasDesktopVideo = isVideo(banner.imageUrl);
-
-                    return (
-                        <div 
-                            key={banner.id} 
-                            className={`carousel-item ${banner.mobileImageUrl ? 'has-mobile-banner' : ''}`}
-                        >
-                            {banner.link ? (
-                                <Link href={banner.link} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
-                                    <div className="desktop-banner-media" style={{ width: '100%', height: '100%' }}>
-                                        {hasDesktopVideo ? (
-                                            <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-                                                <source src={banner.imageUrl} />
-                                            </video>
-                                        ) : (
-                                            <img src={banner.imageUrl} alt={banner.title || 'Kosem Banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                        )}
-                                    </div>
+                {activeBanners.map(banner => (
+                    <div 
+                        key={banner.id} 
+                        className="carousel-item"
+                    >
+                        {banner.link ? (
+                            <Link href={banner.link} style={{ display: 'block', width: '100%', height: '100%', textDecoration: 'none' }}>
+                                <picture style={{ display: 'block', width: '100%', height: '100%' }}>
                                     {banner.mobileImageUrl && (
-                                        <div className="mobile-banner-media" style={{ width: '100%', height: '100%' }}>
-                                            {hasMobileVideo ? (
-                                                <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-                                                    <source src={banner.mobileImageUrl} />
-                                                </video>
-                                            ) : (
-                                                <img src={banner.mobileImageUrl} alt={banner.title || 'Kosem Mobile Banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                            )}
-                                        </div>
+                                        <source media="(max-width: 768px)" srcSet={banner.mobileImageUrl} />
                                     )}
-                                </Link>
-                            ) : (
-                                <div style={{ width: '100%', height: '100%' }}>
-                                    <div className="desktop-banner-media" style={{ width: '100%', height: '100%' }}>
-                                        {hasDesktopVideo ? (
-                                            <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-                                                <source src={banner.imageUrl} />
-                                            </video>
-                                        ) : (
-                                            <img src={banner.imageUrl} alt={banner.title || 'Kosem Banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                        )}
-                                    </div>
-                                    {banner.mobileImageUrl && (
-                                        <div className="mobile-banner-media" style={{ width: '100%', height: '100%' }}>
-                                            {hasMobileVideo ? (
-                                                <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover' }}>
-                                                    <source src={banner.mobileImageUrl} />
-                                                </video>
-                                            ) : (
-                                                <img src={banner.mobileImageUrl} alt={banner.title || 'Kosem Mobile Banner'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                            )}
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
-                    );
-                })}
+                                    <img 
+                                        src={banner.imageUrl} 
+                                        alt={banner.title || 'Kosem Banner'} 
+                                    />
+                                </picture>
+                            </Link>
+                        ) : (
+                            <picture style={{ display: 'block', width: '100%', height: '100%' }}>
+                                {banner.mobileImageUrl && (
+                                    <source media="(max-width: 768px)" srcSet={banner.mobileImageUrl} />
+                                )}
+                                <img 
+                                    src={banner.imageUrl} 
+                                    alt={banner.title || 'Kosem Banner'} 
+                                />
+                            </picture>
+                        )}
+                    </div>
+                ))}
             </div>
 
             {/* Navigation Arrows */}
@@ -190,16 +155,17 @@ export default function MainBannerCarousel({ banners }) {
                     position: relative;
                 }
 
-                .desktop-banner-media {
+                .carousel-item picture {
                     display: block;
                     width: 100%;
                     height: 100%;
                 }
 
-                .mobile-banner-media {
-                    display: none;
-                    width: 100%;
-                    height: 100%;
+                .carousel-item img {
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    object-position: center !important;
                 }
                 
                 .carousel-nav-btn {
@@ -261,15 +227,8 @@ export default function MainBannerCarousel({ banners }) {
 
                 @media (max-width: 768px) {
                     .main-banner-carousel {
-                        margin-top: 50px !important;
-                        margin-bottom: 50px !important;
+                        margin-top: 100px !important;
                         height: 400px !important;
-                    }
-                    .has-mobile-banner .desktop-banner-media {
-                        display: none !important;
-                    }
-                    .has-mobile-banner .mobile-banner-media {
-                        display: block !important;
                     }
                     .carousel-nav-btn {
                         padding: 0.5rem;

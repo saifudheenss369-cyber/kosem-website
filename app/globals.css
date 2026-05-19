@@ -727,4 +727,9 @@ input:focus, textarea:focus, select:focus {
   div[style*="justifyContent: 'space-between'"] > .hover-link {
     margin-left: auto !important;
   }
+
+  /* Push home banner below fixed nav on mobile */
+  .home-main {
+    padding-top: 102px !important; /* 70px mobile nav height + 32px top announcement bar */
+  }
 }

@@ -181,24 +181,12 @@ export default function BannersAdmin() {
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            if (file.type.startsWith('video/')) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('Video file is too large! Please upload a video under 2MB or paste a public video URL instead to keep page loads fast.');
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    setImageUrl(event.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                try {
-                    const b64 = await processBannerImage(file, false);
-                    setImageUrl(b64);
-                } catch (err) {
-                    console.error('Error compressing desktop banner:', err);
-                    alert('Failed to process image');
-                }
+            try {
+                const b64 = await processBannerImage(file, false);
+                setImageUrl(b64);
+            } catch (err) {
+                console.error('Error compressing desktop banner:', err);
+                alert('Failed to process image');
             }
         }
     };
@@ -206,24 +194,12 @@ export default function BannersAdmin() {
     const handleMobileImageUpload = async (e) => {
         const file = e.target.files[0];
         if (file) {
-            if (file.type.startsWith('video/')) {
-                if (file.size > 2 * 1024 * 1024) {
-                    alert('Video file is too large! Please upload a video under 2MB or paste a public video URL instead.');
-                    return;
-                }
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    setMobileImageUrl(event.target.result);
-                };
-                reader.readAsDataURL(file);
-            } else {
-                try {
-                    const b64 = await processBannerImage(file, true);
-                    setMobileImageUrl(b64);
-                } catch (err) {
-                    console.error('Error compressing mobile banner:', err);
-                    alert('Failed to process image');
-                }
+            try {
+                const b64 = await processBannerImage(file, true);
+                setMobileImageUrl(b64);
+            } catch (err) {
+                console.error('Error compressing mobile banner:', err);
+                alert('Failed to process image');
             }
         }
     };
@@ -309,11 +285,11 @@ export default function BannersAdmin() {
                 <form onSubmit={handleAddOrUpdateBanner} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Desktop Banner Image / Video * (16:9 ratio recommended)</label>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Desktop Banner Image * (16:9 ratio recommended)</label>
                         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                             <input
                                 type="text"
-                                placeholder="Paste Image/Video URL or Base64"
+                                placeholder="Paste Desktop Image URL or Base64"
                                 value={imageUrl}
                                 onChange={(e) => setImageUrl(e.target.value)}
                                 style={{ flex: 1, minWidth: '250px', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
@@ -321,26 +297,22 @@ export default function BannersAdmin() {
                             <span style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>OR</span>
                             <input
                                 type="file"
-                                accept="image/*,video/*"
+                                accept="image/*"
                                 onChange={handleImageUpload}
                                 style={{ padding: '8px' }}
                             />
                         </div>
                         {imageUrl && (
-                            imageUrl.toLowerCase().split('?')[0].split('#')[0].endsWith('.mp4') || imageUrl.startsWith('data:video/') ? (
-                                <video src={imageUrl} controls muted style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                            ) : (
-                                <img src={imageUrl} alt="Desktop Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                            )
+                            <img src={imageUrl} alt="Desktop Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
                         )}
                     </div>
 
                     <div style={{ gridColumn: 'span 2' }}>
-                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Mobile Banner Image / Video (Optional - falls back to desktop if empty)</label>
+                        <label style={{ display: 'block', marginBottom: '5px', fontWeight: '600', color: 'var(--color-gold)' }}>Mobile Banner Image (Optional - falls back to desktop if empty)</label>
                         <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                             <input
                                 type="text"
-                                placeholder="Paste Mobile Image/Video URL or Base64"
+                                placeholder="Paste Mobile Image URL or Base64"
                                 value={mobileImageUrl}
                                 onChange={(e) => setMobileImageUrl(e.target.value)}
                                 style={{ flex: 1, minWidth: '250px', padding: '10px', border: '1px solid var(--color-border)', borderRadius: '4px' }}
@@ -348,17 +320,13 @@ export default function BannersAdmin() {
                             <span style={{ padding: '10px', display: 'flex', alignItems: 'center' }}>OR</span>
                             <input
                                 type="file"
-                                accept="image/*,video/*"
+                                accept="image/*"
                                 onChange={handleMobileImageUpload}
                                 style={{ padding: '8px' }}
                             />
                         </div>
                         {mobileImageUrl && (
-                            mobileImageUrl.toLowerCase().split('?')[0].split('#')[0].endsWith('.mp4') || mobileImageUrl.startsWith('data:video/') ? (
-                                <video src={mobileImageUrl} controls muted style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                            ) : (
-                                <img src={mobileImageUrl} alt="Mobile Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
-                            )
+                            <img src={mobileImageUrl} alt="Mobile Preview" style={{ marginTop: '10px', maxHeight: '100px', borderRadius: '4px', border: '1px solid #ccc' }} />
                         )}
                     </div>
 
@@ -467,39 +435,16 @@ export default function BannersAdmin() {
                                         </td>
                                         <td style={{ padding: '12px' }}>
                                             <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-                                                {(() => {
-                                                    const isVideo = (url) => {
-                                                        if (!url) return false;
-                                                        const cleanUrl = url.toLowerCase().split('?')[0].split('#')[0];
-                                                        return cleanUrl.endsWith('.mp4') || cleanUrl.endsWith('.webm') || cleanUrl.endsWith('.ogg') || url.startsWith('data:video/');
-                                                    };
-                                                    
-                                                    const desktopIsVideo = isVideo(banner.imageUrl);
-                                                    const mobileIsVideo = isVideo(banner.mobileImageUrl);
-
-                                                    return (
-                                                        <>
-                                                            <div style={{ textAlign: 'center' }}>
-                                                                <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Desktop</span>
-                                                                {desktopIsVideo ? (
-                                                                    <video src={banner.imageUrl} muted style={{ width: '100px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
-                                                                ) : (
-                                                                    <img src={banner.imageUrl} alt={banner.title || 'Banner'} style={{ width: '100px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
-                                                                )}
-                                                            </div>
-                                                            {banner.mobileImageUrl && (
-                                                                <div style={{ textAlign: 'center' }}>
-                                                                    <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Mobile</span>
-                                                                    {mobileIsVideo ? (
-                                                                        <video src={banner.mobileImageUrl} muted style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
-                                                                    ) : (
-                                                                        <img src={banner.mobileImageUrl} alt={banner.title || 'Mobile Banner'} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
-                                                                    )}
-                                                                </div>
-                                                            )}
-                                                        </>
-                                                    );
-                                                })()}
+                                                <div style={{ textAlign: 'center' }}>
+                                                    <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Desktop</span>
+                                                    <img src={banner.imageUrl} alt={banner.title || 'Banner'} style={{ width: '100px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
+                                                </div>
+                                                {banner.mobileImageUrl && (
+                                                    <div style={{ textAlign: 'center' }}>
+                                                        <span style={{ fontSize: '10px', display: 'block', color: 'var(--color-text-muted)', marginBottom: '2px' }}>Mobile</span>
+                                                        <img src={banner.mobileImageUrl} alt={banner.title || 'Mobile Banner'} style={{ width: '50px', height: '50px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #eee' }} />
+                                                    </div>
+                                                )}
                                             </div>
                                         </td>
                                         <td style={{ padding: '12px' }}>

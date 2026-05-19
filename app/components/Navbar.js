@@ -248,7 +248,14 @@ export default function Navbar() {
         }
 
         @media (max-width: 768px) {
-            .main-nav { height: 70px !important; padding: 0 1rem !important; }
+            .main-nav {
+                height: 70px !important;
+                padding: 0 1rem !important;
+                background-color: var(--color-bg-main) !important;
+                backdrop-filter: blur(10px) !important;
+                border-bottom: 1px solid var(--color-border) !important;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2) !important;
+            }
             .nav-link { font-size: 0.75rem; }
             .desktop-menu { display: none !important; }
             .mobile-icons { display: flex !important; }

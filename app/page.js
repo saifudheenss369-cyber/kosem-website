@@ -133,7 +133,7 @@ export default async function Home() {
     return (
         <>
             <Navbar />
-            <main style={{ background: 'var(--color-bg-main)' }}>
+            <main className="home-main" style={{ background: 'var(--color-bg-main)' }}>
                 <MainBannerCarousel banners={displayBanners} />
 
                 {/* 1. Best Sellers - Positioned immediately below Hero */}
