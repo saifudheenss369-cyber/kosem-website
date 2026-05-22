@@ -18,6 +18,7 @@ export default function Checkout() {
     const [inlineOtp, setInlineOtp] = useState('');
     const [confirmationResult, setConfirmationResult] = useState(null);
     const [resendTimer, setResendTimer] = useState(0);
+    const [onlineDiscountPercentage, setOnlineDiscountPercentage] = useState(0);
 
     const router = useRouter();
 
@@ -51,6 +52,15 @@ export default function Checkout() {
                 clearCart();
             }
         }
+
+        fetch('/api/settings')
+            .then(res => res.json())
+            .then(data => {
+                if (data.onlineDiscountPercentage) {
+                    setOnlineDiscountPercentage(Number(data.onlineDiscountPercentage));
+                }
+            })
+            .catch(console.error);
     }, []);
 
     const checkAuth = async () => {
@@ -138,7 +148,14 @@ export default function Checkout() {
     const subtotal = cartTotal;
     const shippingCost = shippingMethod === 'EXPRESS' ? 99 : (subtotal >= 500 ? 0 : 50);
     const totalBeforeDiscount = subtotal + shippingCost;
-    const finalTotal = appliedCoupon ? totalBeforeDiscount - appliedCoupon.discountAmount : totalBeforeDiscount;
+    
+    let finalTotal = appliedCoupon ? totalBeforeDiscount - appliedCoupon.discountAmount : totalBeforeDiscount;
+    let onlineDiscountAmount = 0;
+    
+    if (paymentMethod === 'ONLINE' && onlineDiscountPercentage > 0) {
+        onlineDiscountAmount = Math.round((finalTotal * onlineDiscountPercentage) / 100);
+        finalTotal = finalTotal - onlineDiscountAmount;
+    }
 
     const handleApplyCoupon = async (e) => {
         e.preventDefault();
@@ -317,8 +334,8 @@ export default function Checkout() {
                     total: finalTotal,
                     paymentMethod: paymentMethod, // 'COD' or 'ONLINE'
                     shippingMethod: shippingMethod, // 'STANDARD' or 'EXPRESS'
-                    couponCode: appliedCoupon?.code || null,
-                    discountAmount: appliedCoupon?.discountAmount || null,
+                    couponCode: appliedCoupon?.code ? (onlineDiscountAmount > 0 ? `${appliedCoupon.code} + ONLINE` : appliedCoupon.code) : (onlineDiscountAmount > 0 ? `ONLINE_${onlineDiscountPercentage}%` : null),
+                    discountAmount: (appliedCoupon?.discountAmount || 0) + onlineDiscountAmount,
                     landmark: formData.landmark || null,
                 })
             });
@@ -679,6 +696,13 @@ export default function Checkout() {
                                      <div className="summary-row discount">
                                          <span>Discount ({appliedCoupon.code}):</span>
                                          <span>- ₹{appliedCoupon.discountAmount}</span>
+                                     </div>
+                                 )}
+
+                                 {onlineDiscountAmount > 0 && paymentMethod === 'ONLINE' && (
+                                     <div className="summary-row discount">
+                                         <span>Online Discount ({onlineDiscountPercentage}%):</span>
+                                         <span>- ₹{onlineDiscountAmount}</span>
                                      </div>
                                  )}
 

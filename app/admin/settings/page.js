@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 export default function AdminSettings() {
-    const [settings, setSettings] = useState({ announcement: '' });
+    const [settings, setSettings] = useState({ announcement: '', onlineDiscountPercentage: '0' });
     const [isLoading, setIsLoading] = useState(true);
     const [msg, setMsg] = useState('');
 
@@ -81,6 +81,36 @@ export default function AdminSettings() {
                         style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
                     >
                         Save Announcement
+                    </button>
+                </div>
+            </div>
+
+            <div style={{ marginTop: '2rem', background: '#151515', padding: '2rem', borderRadius: '12px', border: '1px solid #222' }}>
+                <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-gold)' }}>Online Payment Discount</h3>
+                
+                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                    <div className="form-group">
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Discount Percentage (%)</label>
+                        <input 
+                            type="number"
+                            min="0"
+                            max="100"
+                            value={settings.onlineDiscountPercentage || ''}
+                            onChange={(e) => setSettings({ ...settings, onlineDiscountPercentage: e.target.value })}
+                            placeholder="e.g. 5"
+                            style={{ width: '100%', padding: '0.8rem', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '4px' }}
+                        />
+                        <small style={{ display: 'block', marginTop: '0.5rem', color: '#888' }}>
+                            Customers will automatically get this percentage off when they select Online Payment. Set to 0 to disable.
+                        </small>
+                    </div>
+
+                    <button 
+                        onClick={() => handleSave('onlineDiscountPercentage', settings.onlineDiscountPercentage)}
+                        className="btn-primary"
+                        style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
+                    >
+                        Save Discount
                     </button>
                 </div>
             </div>

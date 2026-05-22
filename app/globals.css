@@ -740,9 +740,9 @@ input:focus, textarea:focus, select:focus {
     padding-bottom: 0 !important;
   }
   .heritage-section {
-    margin-top: 50px !important;
-    margin-bottom: 50px !important;
-    padding-top: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 50px !important;
     padding-bottom: 0 !important;
   }
   .props-section {
