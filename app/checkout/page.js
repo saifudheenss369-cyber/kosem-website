@@ -117,11 +117,13 @@ export default function Checkout() {
                 });
                 const data = await res.json();
                 if (res.ok && data.deliverable) {
-                    // COD is now always allowed as per user request
-                    setIsCodAvailable(true);
+                    setIsCodAvailable(data.codAvailable);
+                    if (!data.codAvailable) {
+                        setPaymentMethod(prev => prev === 'COD' ? 'ONLINE' : prev);
+                    }
                 } else {
-                    // We still check for deliverability if needed, but for now we keep COD on
-                    setIsCodAvailable(true);
+                    setIsCodAvailable(false);
+                    setPaymentMethod(prev => prev === 'COD' ? 'ONLINE' : prev);
                 }
             } catch (err) {
                 console.error("COD check error:", err);
