@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 export default function AdminSettings() {
-    const [settings, setSettings] = useState({ announcement: '', onlineDiscountPercentage: '0' });
+    const [settings, setSettings] = useState({ announcement: '', onlineDiscountPercentage: '0', heritageMedia: '' });
     const [isLoading, setIsLoading] = useState(true);
     const [msg, setMsg] = useState('');
 
@@ -36,6 +36,47 @@ export default function AdminSettings() {
             }
         } catch (e) {
             setMsg('Error saving.');
+        }
+    };
+
+    const handleMediaUpload = (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const isVideo = file.type.startsWith('video/');
+        const reader = new FileReader();
+        
+        if (isVideo) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert("Video is too large. Please upload a video smaller than 5MB.");
+                return;
+            }
+            reader.onload = (event) => {
+                setSettings({ ...settings, heritageMedia: event.target.result });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_WIDTH = 1200;
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    setSettings({ ...settings, heritageMedia: canvas.toDataURL('image/jpeg', 0.8) });
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -111,6 +152,44 @@ export default function AdminSettings() {
                         style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
                     >
                         Save Discount
+                    </button>
+                </div>
+            </div>
+
+            <div style={{ marginTop: '2rem', background: '#151515', padding: '2rem', borderRadius: '12px', border: '1px solid #222' }}>
+                <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-gold)' }}>Heritage Section Media</h3>
+                
+                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                    <div className="form-group">
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Upload Photo or Video</label>
+                        <input 
+                            type="file"
+                            accept="image/*,video/mp4,video/webm"
+                            onChange={handleMediaUpload}
+                            style={{ width: '100%', padding: '0.8rem', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '4px' }}
+                        />
+                        <small style={{ display: 'block', marginTop: '0.5rem', color: '#888' }}>
+                            Upload an image or a short video (max 5MB) for the Heritage section. It will automatically crop to fit the container.
+                        </small>
+                    </div>
+
+                    {settings.heritageMedia && (
+                        <div style={{ marginTop: '1rem', border: '1px solid #333', padding: '1rem', borderRadius: '8px', background: '#0a0a0a' }}>
+                            <p style={{ marginBottom: '1rem', color: '#aaa', fontSize: '0.9rem' }}>Preview:</p>
+                            {settings.heritageMedia.startsWith('data:video') ? (
+                                <video src={settings.heritageMedia} autoPlay loop muted playsInline style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '12px' }} />
+                            ) : (
+                                <img src={settings.heritageMedia} alt="Heritage Preview" style={{ maxWidth: '100%', maxHeight: '300px', objectFit: 'cover', borderRadius: '12px' }} />
+                            )}
+                        </div>
+                    )}
+
+                    <button 
+                        onClick={() => handleSave('heritageMedia', settings.heritageMedia)}
+                        className="btn-primary"
+                        style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
+                    >
+                        Save Media
                     </button>
                 </div>
             </div>

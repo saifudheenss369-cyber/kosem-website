@@ -56,6 +56,7 @@ export default async function Home() {
     let heroProducts = [];
     let offerBanners = [];
     let newArrivals = [];
+    let heritageMedia = null;
 
     try {
         // Parallelize all data fetching
@@ -74,7 +75,8 @@ export default async function Home() {
             prisma.product.findMany({ where: { isBestSeller: true }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
-            prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } })
+            prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } }),
+            prisma.setting.findUnique({ where: { key: 'heritageMedia' } })
         ]);
 
         offerBanners = fetchedBanners;
@@ -83,6 +85,7 @@ export default async function Home() {
         bestSellers = fetchedBestSellers;
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
+        heritageMedia = heritageSetting?.value || null;
 
         // Fallback: If no products are marked as New Arrival, show the newest 30 products in the database
         if (fetchedNewArrivalsTemp && fetchedNewArrivalsTemp.length > 0) {
@@ -260,12 +263,22 @@ export default async function Home() {
                         {/* Heritage Image */}
                         <div className="heritage-image-wrapper" style={{ flex: '1', minWidth: '300px', maxWidth: '500px' }}>
                             <div style={{ position: 'relative', height: '450px', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 25px 50px rgba(0,0,0,0.5)', border: '1px solid rgba(184, 134, 11, 0.2)' }}>
-                                <Image
-                                    src="https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800"
-                                    alt="Heritage"
-                                    fill
-                                    style={{ objectFit: 'cover' }}
-                                />
+                                {heritageMedia && heritageMedia.startsWith('data:video') ? (
+                                    <video
+                                        src={heritageMedia}
+                                        autoPlay
+                                        loop
+                                        muted
+                                        playsInline
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
+                                    />
+                                ) : (
+                                    <img
+                                        src={heritageMedia || "https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800"}
+                                        alt="Heritage"
+                                        style={{ width: '100%', height: '100%', objectFit: 'cover', position: 'absolute', top: 0, left: 0 }}
+                                    />
+                                )}
                                 <div style={{
                                     position: 'absolute',
                                     bottom: '20px',
