@@ -41,7 +41,7 @@ export default function Footer() {
                         />
                     </Link>
                     <p style={{ lineHeight: '1.8', fontSize: '0.95rem', marginBottom: '2rem' }}>
-                        Defining the pinnacle of Indian luxury fragrance. We craft timeless Attars and Oudh for the modern connoisseur.
+                        Defining the pinnacle of Indian luxury fragrance. We craft timeless Perfumes, Attars and Oudh for the modern connoisseur.
                     </p>
                     <div style={{ display: 'flex', gap: '15px' }}>
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">
@@ -109,7 +109,8 @@ export default function Footer() {
                 <p>&copy; {year} KOSEM LUXURY FRAGRANCES. ALL RIGHTS RESERVED.</p>
             </div>
 
-            <style dangerouslySetInnerHTML={{ __html: `
+            <style dangerouslySetInnerHTML={{
+                __html: `
                 .footer-heading {
                     color: #fff;
                     font-family: var(--font-serif);

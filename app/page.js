@@ -67,7 +67,8 @@ export default async function Home() {
             fetchedBestSellers,
             fetchedPremium,
             fetchedLuxury,
-            fetchedNewArrivalsTemp
+            fetchedNewArrivalsTemp,
+            heritageSetting
         ] = await Promise.all([
             prisma.offerBanner.findMany({ where: { isActive: true }, orderBy: { order: 'asc' } }),
             prisma.product.findMany({ where: { isInHero: true }, take: 5, orderBy: { createdAt: 'desc' } }),

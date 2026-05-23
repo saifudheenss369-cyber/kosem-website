@@ -20,7 +20,7 @@ export default function AboutPage() {
                             About Kosem Perfume
                         </h1>
                         <p style={{ fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto', color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
-                            Crafting signature moments with the purest attars. Where tradition meets sophisticated elegance.
+                            Captivate your precious moments with our signature fragrances, in a place where tradition meets sophisticated elegance, Where tradition meets sophisticated elegance.
                         </p>
                     </div>
                 </section>
@@ -32,7 +32,7 @@ export default function AboutPage() {
                         <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--color-gold)' }}>Our Story</h2>
                         <div style={{ width: '60px', height: '3px', background: 'var(--color-gold)', margin: '0 auto 2rem auto' }}></div>
                         <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255, 255, 255, 0.85)', marginBottom: '1.5rem' }}>
-                            Kosem Perfume was born out of a profound passion for the timeless art of perfumery. We set out on a journey to revive the ancient, meticulous craft of making authentic attars, blending it with the modern desire for distinct, long-lasting aromas.
+                            Kosem Perfume was born out of a profound passion for the timeless art of perfumery. We set out on a journey to revive the ancient, meticulous craft of making breathtaking perfumes, blending it with the modern desire for distinct, long-lasting aromas.
                         </p>
                         <p style={{ fontSize: '1.1rem', lineHeight: '1.8', color: 'rgba(255, 255, 255, 0.85)' }}>
                             Starting with a vision to redefine luxury perfumery, we spent countless hours sourcing the rarest ingredients—from the majestic agarwood of the East to the delicate floral notes cultivated across the globe. Today, Kosem stands as a testament to pure, alcohol-free fragrance that speaks to the soul.
@@ -45,14 +45,14 @@ export default function AboutPage() {
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>👁️</div>
                             <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', marginBottom: '1rem', color: 'var(--color-gold)' }}>Our Vision</h3>
                             <p style={{ color: 'rgba(255, 255, 255, 0.85)', lineHeight: '1.7' }}>
-                                To become the ultimate destination for luxury attars globally, ensuring that every drop we create encapsulates an unforgettable experience of regal elegance and purity.
+                                To become the definitive signature of diverse modern lifestyles by blending the timeless artistry of traditional perfumery with uncompromising quality, creating an eco-conscious legacy where luxury and nature thrive in perfect harmony.
                             </p>
                         </div>
                         <div style={{ background: 'var(--color-bg-secondary)', padding: '3rem 2rem', borderRadius: '12px', border: '1px solid rgba(255, 255, 255, 0.05)', textAlign: 'center', borderTop: '4px solid var(--color-gold-dim)' }}>
                             <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎯</div>
                             <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', marginBottom: '1rem', color: 'var(--color-gold)' }}>Our Mission</h3>
                             <p style={{ color: 'rgba(255, 255, 255, 0.85)', lineHeight: '1.7' }}>
-                                To craft alcohol-free scents of uncompromising quality, uplifting the spirit of those who wear them, while honoring the rich heritage and artistry of traditional fragrance making.
+                                To craft scents of uncompromising quality, with accordance to diverse lifestyle of our customers while honouring the rich heritage and artistry of traditional fragrance making as well as sustaining the environmental roots
                             </p>
                         </div>
                     </section>
@@ -64,15 +64,15 @@ export default function AboutPage() {
                             <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                                 <span style={{ color: 'var(--color-gold)', fontSize: '1.5rem', lineHeight: '1' }}>✦</span>
                                 <div>
-                                    <strong style={{ display: 'block', marginBottom: '0.3rem', fontSize: '1.2rem', color: '#fff' }}>100% Alcohol-Free Purity</strong>
-                                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6' }}>We specialize in concentrated perfume oils that respect your skin and adhere strictly to faith-based purity standards.</span>
+                                    <strong style={{ display: 'block', marginBottom: '0.3rem', fontSize: '1.2rem', color: '#fff' }}>Signature Scents for Every Occasion</strong>
+                                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6' }}>From subtle daytime sophistication to bold evening statements, our curation is meticulously designed to match your mood, elevate your confidence, and seamlessly complement your lifestyle.</span>
                                 </div>
                             </li>
                             <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
                                 <span style={{ color: 'var(--color-gold)', fontSize: '1.5rem', lineHeight: '1' }}>✦</span>
                                 <div>
                                     <strong style={{ display: 'block', marginBottom: '0.3rem', fontSize: '1.2rem', color: '#fff' }}>Exceptional Longevity</strong>
-                                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6' }}>Every attar is richly formulated so that a single application envelopes you in a captivating aura all day long.</span>
+                                    <span style={{ color: 'rgba(255, 255, 255, 0.8)', lineHeight: '1.6' }}>Every fragrance is richly formulated so that a single application envelopes you in a captivating aura all day long.</span>
                                 </div>
                             </li>
                             <li style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
