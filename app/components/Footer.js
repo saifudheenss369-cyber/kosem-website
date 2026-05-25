@@ -44,10 +44,10 @@ export default function Footer() {
                         Defining the pinnacle of Indian luxury fragrance. We craft timeless Perfumes, Attars and Oudh for the modern connoisseur.
                     </p>
                     <div style={{ display: 'flex', gap: '15px' }}>
-                        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://www.facebook.com/share/18SzmtnohX/" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <FaFacebookF size={18} />
                         </a>
-                        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="social-icon">
+                        <a href="https://www.instagram.com/kosem_perfumes?utm_source=qr&igsh=b2hqdXR1MGp0OHB3" target="_blank" rel="noopener noreferrer" className="social-icon">
                             <FaInstagram size={18} />
                         </a>
                         <a href="https://wa.me/9656867773" target="_blank" rel="noopener noreferrer" className="social-icon">

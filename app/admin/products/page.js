@@ -138,10 +138,15 @@ export default function AdminProducts() {
                 const ctx = canvas.getContext('2d');
                 ctx.fillStyle = '#FFFFFF';
                 ctx.fillRect(0, 0, TARGET_SIZE, TARGET_SIZE);
-                const scale = Math.max(TARGET_SIZE / img.width, TARGET_SIZE / img.height);
-                const x = (TARGET_SIZE / scale - img.width) / 2;
-                const y = (TARGET_SIZE / scale - img.height) / 2;
-                ctx.drawImage(img, x, y, img.width, img.height, 0, 0, TARGET_SIZE, TARGET_SIZE);
+                
+                // Keep aspect ratio intact by scaling down to fit (contain) inside 800x800 white background
+                const scale = Math.min(TARGET_SIZE / img.width, TARGET_SIZE / img.height);
+                const w = img.width * scale;
+                const h = img.height * scale;
+                const x = (TARGET_SIZE - w) / 2;
+                const y = (TARGET_SIZE - h) / 2;
+                
+                ctx.drawImage(img, 0, 0, img.width, img.height, x, y, w, h);
                 resolve(canvas.toDataURL('image/jpeg', 0.85));
             };
             img.src = event.target.result;
@@ -307,7 +312,7 @@ export default function AdminProducts() {
                             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.5rem', margin: 0 }}>
                                 {editingId ? 'Edit Product Details' : 'Add New Product'}
                             </h2>
-                            <button onClick={() => setIsEditing(false)} style={{ background: 'none', border: 'none', fontSize: '2rem', lineHeight: '1', cursor: 'pointer' }}>&times;</button>
+                            <button onClick={() => setIsEditing(false)} style={{ background: 'none', border: 'none', fontSize: '2rem', lineHeight: '1', cursor: 'pointer', color: '#fff' }}>&times;</button>
                         </div>
 
                         {/* Form Body - Scrollable */}
@@ -357,14 +362,6 @@ export default function AdminProducts() {
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <input type="checkbox" checked={formData.isBestSeller} onChange={e => setFormData({ ...formData, isBestSeller: e.target.checked })} id="bestSeller" style={{ width: '20px', height: '20px' }} />
                                         <label htmlFor="bestSeller" style={{ fontWeight: 'bold', cursor: 'pointer' }}>Mark as Best Seller</label>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <input type="checkbox" checked={formData.isInCarousel} onChange={e => setFormData({ ...formData, isInCarousel: e.target.checked })} id="inCarousel" style={{ width: '20px', height: '20px' }} />
-                                        <label htmlFor="inCarousel" style={{ fontWeight: 'bold', cursor: 'pointer' }}>Show in Moving Carousel</label>
-                                    </div>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                                        <input type="checkbox" checked={formData.isInHero} onChange={e => setFormData({ ...formData, isInHero: e.target.checked })} id="inHero" style={{ width: '20px', height: '20px' }} />
-                                        <label htmlFor="inHero" style={{ fontWeight: 'bold', cursor: 'pointer' }}>Show in Main Hero Slider</label>
                                     </div>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                         <input type="checkbox" checked={formData.isNewArrival} onChange={e => setFormData({ ...formData, isNewArrival: e.target.checked })} id="newArrival" style={{ width: '20px', height: '20px' }} />
@@ -513,7 +510,8 @@ export default function AdminProducts() {
                         </div>
                     </div>
                     <style>{`
-                        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: #333; }
+                        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.9rem; color: #fff; }
+                        label { color: #fff; }
                         .form-group input, .form-group textarea, .form-group select {
                             width: 100%; padding: 0.8rem; border: 1px solid #e0e0e0; border-radius: 6px; font-size: 1rem; transition: all 0.2s;
                         }

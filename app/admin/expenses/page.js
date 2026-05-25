@@ -51,7 +51,7 @@ export default function AdminExpenses() {
                         </div>
                         <div>
                             <label style={{ fontSize: '0.9rem', display: 'block', marginBottom: '0.25rem' }}>Investor / Payer</label>
-                            <input type="text" required value={formData.investorName} onChange={e => setFormData({ ...formData, investorName: e.target.value })} placeholder="e.g. Faizy, Store Account" style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--color-border)', borderRadius: '4px' }} />
+                            <input type="text" required value={formData.investorName} onChange={e => setFormData({ ...formData, investorName: e.target.value })} placeholder="e.g. Name, Store Account" style={{ width: '100%', padding: '0.75rem', border: '1px solid var(--color-border)', borderRadius: '4px' }} />
                         </div>
                         <div>
                             <label style={{ fontSize: '0.9rem', display: 'block', marginBottom: '0.25rem' }}>Reason / Item</label>

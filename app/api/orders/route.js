@@ -17,7 +17,7 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-this';
 
 export async function POST(req) {
     try {
-        const { name, address, district, state, pincode, phone, email, items, total, paymentMethod, shippingMethod, couponCode, discountAmount, landmark } = await req.json();
+        const { name, address, district, state, pincode, phone, email, items, total, paymentMethod, shippingMethod, couponCode, discountAmount, landmark, paymentPending } = await req.json();
 
         // Try to get userId from token
         const cookieStore = cookies();
@@ -31,7 +31,11 @@ export async function POST(req) {
             } catch (e) { /* ignore invalid token */ }
         }
 
-        // Transaction: Check Stock -> Create Order -> Decrement Stock
+        // For online payments, create a PAYMENT_PENDING order WITHOUT decrementing stock
+        // Stock will be decremented only after successful payment verification
+        const isOnlinePending = paymentPending === true;
+
+        // Transaction: Check Stock -> Create Order -> (Decrement Stock only if not pending)
         const order = await prisma.$transaction(async (tx) => {
             // 1. Verify Stock (Batched)
             const productIds = items.map(item => parseInt(item.productId));
@@ -49,7 +53,7 @@ export async function POST(req) {
 
             // 2. Validate & Update Coupon (If provided)
             let finalTotal = total;
-            if (couponCode) {
+            if (couponCode && !isOnlinePending) {
                 const coupon = await tx.coupon.findUnique({ where: { code: couponCode } });
                 if (!coupon || !coupon.isActive) {
                     throw new Error('Invalid or inactive coupon code');
@@ -82,7 +86,7 @@ export async function POST(req) {
                 data: {
                     userId,
                     total: parseFloat(finalTotal),
-                    status: 'PENDING',
+                    status: isOnlinePending ? 'PAYMENT_PENDING' : 'PENDING',
                     trackingId,
                     paymentMethod: paymentMethod || 'COD',
                     shippingMethod: shippingMethod || 'STANDARD',
@@ -109,69 +113,73 @@ export async function POST(req) {
                 }
             });
 
-            // 4. Decrement Stock
-            for (const item of items) {
-                await tx.product.update({
-                    where: { id: parseInt(item.productId) },
-                    data: { stock: { decrement: parseInt(item.quantity) } }
-                });
+            // 4. Decrement Stock ONLY for COD orders (online orders decrement after payment verified)
+            if (!isOnlinePending) {
+                for (const item of items) {
+                    await tx.product.update({
+                        where: { id: parseInt(item.productId) },
+                        data: { stock: { decrement: parseInt(item.quantity) } }
+                    });
+                }
             }
 
             return newOrder;
         });
 
-        // --- PROCESS BACKEND ALERTS & UPDATES (Awaited for Serverless Compatibility) ---
-        // 1. Update User Profile (Sync with shipping details, including email)
-        try {
-            if (userId && userId !== 1) {
-                const updateData = { 
-                    name,
-                    address, 
-                    phone,
-                    city: district,
-                    state,
-                    zip: pincode,
-                    landmark
-                };
+        // --- PROCESS BACKEND ALERTS & UPDATES (skip for PAYMENT_PENDING orders) ---
+        if (!isOnlinePending) {
+            // 1. Update User Profile (Sync with shipping details, including email)
+            try {
+                if (userId && userId !== 1) {
+                    const updateData = { 
+                        name,
+                        address, 
+                        phone,
+                        city: district,
+                        state,
+                        zip: pincode,
+                        landmark
+                    };
 
-                if (email && !email.includes('attarstore.local')) {
-                    updateData.email = email;
+                    if (email && !email.includes('attarstore.local')) {
+                        updateData.email = email;
+                    }
+
+                    await prisma.user.update({
+                        where: { id: userId },
+                        data: updateData
+                    });
                 }
-
-                await prisma.user.update({
-                    where: { id: userId },
-                    data: updateData
-                });
+            } catch (e) {
+                console.error('User update background error:', e);
             }
-        } catch (e) {
-            console.error('User update background error:', e);
-        }
 
-        // 3. WhatsApp Alert
-        try {
-            const alertMsg = buildOrderAlertMessage(order);
-            await sendWhatsAppAlert(alertMsg);
-        } catch (e) {
-            console.error('WhatsApp background error:', e);
-        }
-
-        // 4. Push Notification
-        try {
-            const tokenSetting = await prisma.setting.findUnique({ where: { key: 'admin_fcm_token' } });
-            if (tokenSetting?.value) {
-                await sendPushNotification({ ...buildOrderPushPayload(order), token: tokenSetting.value });
+            // 3. WhatsApp Alert
+            try {
+                const alertMsg = buildOrderAlertMessage(order);
+                await sendWhatsAppAlert(alertMsg);
+            } catch (e) {
+                console.error('WhatsApp background error:', e);
             }
-        } catch (e) {
-            console.error('Push Notification background error:', e);
-        }
 
-        // 5. Invoice Email (For COD immediately; for ONLINE it will be sent after successful payment verification)
-        try {
-            if (order.paymentMethod === 'COD') {
-                await sendInvoiceEmail(order);
+            // 4. Push Notification
+            try {
+                const tokenSetting = await prisma.setting.findUnique({ where: { key: 'admin_fcm_token' } });
+                if (tokenSetting?.value) {
+                    await sendPushNotification({ ...buildOrderPushPayload(order), token: tokenSetting.value });
+                }
+            } catch (e) {
+                console.error('Push Notification background error:', e);
             }
-        } catch (e) {
-            console.error('Email background error:', e);
+
+            // 5. Invoice Email (For COD immediately; for ONLINE it will be sent after successful payment verification)
+            try {
+                if (order.paymentMethod === 'COD') {
+                    await sendInvoiceEmail(order);
+                }
+            } catch (e) {
+                console.error('Email background error:', e);
+            }
         }
 
         return NextResponse.json(order, { status: 201 });

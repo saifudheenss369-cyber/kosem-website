@@ -449,7 +449,7 @@ export default function AdminOrders() {
                     <div style={{ display: 'flex', gap: '5px' }}>
                         <input
                             type="text"
-                            placeholder="e.g. Faizy or 1234"
+                            placeholder="e.g. Name or 1234"
                             value={searchText}
                             onChange={(e) => setSearchText(e.target.value)}
                             onKeyPress={(e) => e.key === 'Enter' && setFilters({ ...filters, q: searchText, page: 1 })}

@@ -127,14 +127,33 @@ export default function ProductCard({ product, isRectangle = false }) {
                             </h3>
 
                             <div style={{
-                                fontSize: '0.85rem',
-                                fontWeight: '600',
-                                color: 'var(--color-gold)',
-                                fontFamily: 'var(--font-sans)',
-                                whiteSpace: 'nowrap',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'flex-end',
+                                gap: '2px',
                                 flexShrink: 0
                             }}>
-                                ₹{product.price}
+                                <div style={{
+                                    fontSize: '0.85rem',
+                                    fontWeight: '600',
+                                    color: 'var(--color-gold)',
+                                    fontFamily: 'var(--font-sans)',
+                                    whiteSpace: 'nowrap'
+                                }}>
+                                    ₹{product.price}
+                                </div>
+                                {product.originalPrice && Number(product.originalPrice) > Number(product.price) && (
+                                    <div style={{
+                                        fontSize: '0.75rem',
+                                        color: 'var(--color-text-muted)',
+                                        fontFamily: 'var(--font-sans)',
+                                        textDecoration: 'line-through',
+                                        whiteSpace: 'nowrap',
+                                        opacity: 0.7
+                                    }}>
+                                        ₹{product.originalPrice}
+                                    </div>
+                                )}
                             </div>
                         </div>
                         

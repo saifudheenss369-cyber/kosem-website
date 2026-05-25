@@ -165,7 +165,7 @@ export default function MainBannerCarousel({ banners }) {
                     width: 100% !important;
                     height: 100% !important;
                     object-fit: cover !important;
-                    object-position: center !important;
+                    object-position: center top !important;
                 }
                 
                 .carousel-nav-btn {

@@ -314,117 +314,158 @@ export default function Checkout() {
         }
     };
 
+    const cancelPendingOrder = async (orderId) => {
+        try {
+            await fetch(`/api/orders/cancel-pending?id=${orderId}`, { method: 'DELETE' });
+        } catch (e) {
+            console.error('Failed to cancel pending order:', e);
+        }
+    };
+
     const processOrder = async (verifiedUser) => {
         setIsPlacingOrder(true);
         // Format full address
         const fullAddress = `${formData.address}, ${formData.district}, ${formData.state} - ${formData.pincode}`;
 
-        // 1. Create Order (Status: PENDING)
+        const orderPayload = {
+            name: formData.name,
+            address: formData.address || fullAddress,
+            district: formData.district,
+            state: formData.state,
+            pincode: formData.pincode,
+            phone: formData.phone || verifiedUser?.phone || '9999999999',
+            email: formData.email || verifiedUser?.email || '',
+            items: cart.map(item => ({ productId: item.id, quantity: item.quantity, price: item.price })),
+            total: finalTotal,
+            paymentMethod: paymentMethod,
+            shippingMethod: shippingMethod,
+            couponCode: appliedCoupon?.code ? (onlineDiscountAmount > 0 ? `${appliedCoupon.code} + ONLINE` : appliedCoupon.code) : (onlineDiscountAmount > 0 ? `ONLINE_${onlineDiscountPercentage}%` : null),
+            discountAmount: (appliedCoupon?.discountAmount || 0) + onlineDiscountAmount,
+            landmark: formData.landmark || null,
+        };
+
         try {
-            const res = await fetch('/api/orders', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: formData.name,
-                    address: formData.address || fullAddress,
-                    district: formData.district,
-                    state: formData.state,
-                    pincode: formData.pincode,
-                    phone: formData.phone || verifiedUser?.phone || '9999999999',
-                    email: formData.email || verifiedUser?.email || '',
-                    items: cart.map(item => ({ productId: item.id, quantity: item.quantity, price: item.price })),
-                    total: finalTotal,
-                    paymentMethod: paymentMethod, // 'COD' or 'ONLINE'
-                    shippingMethod: shippingMethod, // 'STANDARD' or 'EXPRESS'
-                    couponCode: appliedCoupon?.code ? (onlineDiscountAmount > 0 ? `${appliedCoupon.code} + ONLINE` : appliedCoupon.code) : (onlineDiscountAmount > 0 ? `ONLINE_${onlineDiscountPercentage}%` : null),
-                    discountAmount: (appliedCoupon?.discountAmount || 0) + onlineDiscountAmount,
-                    landmark: formData.landmark || null,
-                })
-            });
+            if (paymentMethod === 'ONLINE') {
+                // ─── ONLINE PAYMENT FLOW ───
+                // Step 1: Load Razorpay SDK first
+                const resLoader = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
+                if (!resLoader) {
+                    setPopupConfig({ isOpen: true, title: 'Network Error', message: 'Razorpay SDK failed to load. Are you online?', type: 'error' });
+                    setIsPlacingOrder(false);
+                    return;
+                }
 
-            if (res.ok) {
-                const order = await res.json();
+                // Step 2: Create a PAYMENT_PENDING order (no stock decrement yet)
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...orderPayload, paymentPending: true })
+                });
 
-                if (paymentMethod === 'ONLINE') {
-                    // Load Razorpay Script
-                    const resLoader = await loadScript('https://checkout.razorpay.com/v1/checkout.js');
-                    if (!resLoader) {
-                        setPopupConfig({ isOpen: true, title: 'Network Error', message: 'Razorpay SDK failed to load. Are you online?', type: 'error' });
+                if (!res.ok) {
+                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: 'Failed to initiate order. Please try again.', type: 'error' });
+                    setIsPlacingOrder(false);
+                    return;
+                }
+
+                const pendingOrder = await res.json();
+
+                // Step 3: Create Razorpay order
+                try {
+                    const payRes = await fetch('/api/payment/initiate', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            amount: finalTotal,
+                            mobileNumber: verifiedUser?.phone || formData.phone || '9999999999',
+                            orderId: pendingOrder.id
+                        })
+                    });
+
+                    const razorpayData = await payRes.json();
+
+                    if (razorpayData.id) {
+                        const options = {
+                            key: razorpayData.keyId,
+                            amount: razorpayData.amount,
+                            currency: razorpayData.currency,
+                            name: "Kosem Perfumes",
+                            description: "Checkout Payment",
+                            image: "/logo.png",
+                            order_id: razorpayData.id,
+                            handler: async function (response) {
+                                // Step 4: Verify payment — this also confirms the order & decrements stock
+                                setIsPlacingOrder(true);
+                                const verifyRes = await fetch('/api/payment/verify', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        orderId: pendingOrder.id,
+                                        razorpayOrderId: response.razorpay_order_id,
+                                        razorpayPaymentId: response.razorpay_payment_id,
+                                        razorpaySignature: response.razorpay_signature,
+                                    })
+                                });
+
+                                const verifyData = await verifyRes.json();
+                                if (verifyData.success) {
+                                    setOrderData(pendingOrder);
+                                    setOrderPlaced(true);
+                                    clearCart();
+                                } else {
+                                    setPopupConfig({ isOpen: true, title: 'Verification Failed', message: verifyData.error || 'Payment verification failed. Please contact support.', type: 'error' });
+                                }
+                                setIsPlacingOrder(false);
+                            },
+                            modal: {
+                                ondismiss: async function () {
+                                    // User closed Razorpay without paying — cancel the pending order
+                                    await cancelPendingOrder(pendingOrder.id);
+                                    setPopupConfig({ isOpen: true, title: 'Payment Cancelled', message: 'You closed the payment window. Your order was not placed. Please try again.', type: 'info' });
+                                    setIsPlacingOrder(false);
+                                }
+                            },
+                            prefill: {
+                                name: formData.name,
+                                email: verifiedUser?.email || 'guest@kosemperfume.com',
+                                contact: verifiedUser?.phone || formData.phone
+                            },
+                            theme: { color: "#D4AF37" }
+                        };
+
+                        const paymentObject = new window.Razorpay(options);
+                        paymentObject.open();
+                        // Don't set isPlacingOrder(false) here — it's handled in handler/ondismiss
                         return;
+
+                    } else {
+                        // Razorpay order creation failed — cancel pending DB order
+                        await cancelPendingOrder(pendingOrder.id);
+                        setPopupConfig({ isOpen: true, title: 'Payment Error', message: razorpayData.error || 'Failed to generate payment link.', type: 'error' });
                     }
 
-                    // 1. Initiate Razorpay Payment
-                    try {
-                        const payRes = await fetch('/api/payment/initiate', {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                amount: finalTotal,
-                                mobileNumber: verifiedUser?.phone || formData.phone || '9999999999',
-                                orderId: order.id
-                            })
-                        });
+                } catch (payErr) {
+                    console.error('Payment initiation error:', payErr);
+                    await cancelPendingOrder(pendingOrder.id);
+                    setPopupConfig({ isOpen: true, title: 'Payment Error', message: 'Payment initiation failed. Please try again.', type: 'error' });
+                }
 
-                        const orderData = await payRes.json();
+            } else {
+                // ─── COD FLOW ───
+                const res = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(orderPayload)
+                });
 
-                        if (orderData.id) {
-                            const options = {
-                                key: orderData.keyId,
-                                amount: orderData.amount,
-                                currency: orderData.currency,
-                                name: "Kosem Perfumes",
-                                description: "Checkout Payment",
-                                image: "/logo.png",
-                                order_id: orderData.id,
-                                handler: async function (response) {
-                                    // 2. Verify Payment
-                                    const verifyRes = await fetch('/api/payment/verify', {
-                                        method: 'POST',
-                                        headers: { 'Content-Type': 'application/json' },
-                                        body: JSON.stringify({
-                                            orderId: order.id,
-                                            razorpayOrderId: response.razorpay_order_id,
-                                            razorpayPaymentId: response.razorpay_payment_id,
-                                            razorpaySignature: response.razorpay_signature,
-                                        })
-                                    });
-
-                                    const verifyData = await verifyRes.json();
-                                    if (verifyData.success) {
-                                        setOrderData(order);
-                                        setOrderPlaced(true);
-                                        clearCart();
-                                    } else {
-                                        setPopupConfig({ isOpen: true, title: 'Verification Failed', message: verifyData.error || 'Payment verification failed.', type: 'error' });
-                                    }
-                                },
-                                prefill: {
-                                    name: formData.name,
-                                    email: verifiedUser?.email || 'guest@kosemperfume.com',
-                                    contact: verifiedUser?.phone || formData.phone
-                                },
-                                theme: { color: "#D4AF37" }
-                            };
-
-                            const paymentObject = new window.Razorpay(options);
-                            paymentObject.open();
-
-                        } else {
-                            setPopupConfig({ isOpen: true, title: 'Payment Error', message: orderData.error || 'Failed to generate payment link.', type: 'error' });
-                        }
-
-                    } catch (payErr) {
-                        console.error('Payment initiation error:', payErr);
-                        setPopupConfig({ isOpen: true, title: 'Payment Error', message: 'Payment initiation failed. Please try again.', type: 'error' });
-                    }
-                } else {
-                    // COD Success
+                if (res.ok) {
+                    const order = await res.json();
                     setOrderData(order);
                     setOrderPlaced(true);
                     clearCart();
+                } else {
+                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: 'Failed to place order. Please check your details and try again.', type: 'error' });
                 }
-            } else {
-                setPopupConfig({ isOpen: true, title: 'Order Failed', message: 'Failed to place order. Please check your details and try again.', type: 'error' });
             }
         } catch (err) {
             console.error('Error placing order:', err);

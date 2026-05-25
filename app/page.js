@@ -57,6 +57,7 @@ export default async function Home() {
     let offerBanners = [];
     let newArrivals = [];
     let heritageMedia = null;
+    let heritageLink = null;
 
     try {
         // Parallelize all data fetching
@@ -68,7 +69,8 @@ export default async function Home() {
             fetchedPremium,
             fetchedLuxury,
             fetchedNewArrivalsTemp,
-            heritageSetting
+            heritageSetting,
+            heritageLinkSetting
         ] = await Promise.all([
             prisma.offerBanner.findMany({ where: { isActive: true }, orderBy: { order: 'asc' } }),
             prisma.product.findMany({ where: { isInHero: true }, take: 5, orderBy: { createdAt: 'desc' } }),
@@ -77,7 +79,8 @@ export default async function Home() {
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } }),
-            prisma.setting.findUnique({ where: { key: 'heritageMedia' } })
+            prisma.setting.findUnique({ where: { key: 'heritageMedia' } }),
+            prisma.setting.findUnique({ where: { key: 'heritageLink' } })
         ]);
 
         offerBanners = fetchedBanners;
@@ -87,6 +90,7 @@ export default async function Home() {
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
         heritageMedia = heritageSetting?.value || null;
+        heritageLink = heritageLinkSetting?.value || null;
 
         // Fallback: If no products are marked as New Arrival, show the newest 30 products in the database
         if (fetchedNewArrivalsTemp && fetchedNewArrivalsTemp.length > 0) {

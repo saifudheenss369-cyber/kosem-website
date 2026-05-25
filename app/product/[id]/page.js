@@ -106,7 +106,12 @@ export default async function ProductPage({ params }) {
                             </span>
                         </div>
 
-                        <p style={{ fontSize: '2rem', fontWeight: 'bold', marginBottom: '2rem', color: 'var(--color-gold-dim)' }}>₹{product.price}</p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '2rem' }}>
+                            <span style={{ fontSize: '2rem', fontWeight: 'bold', color: 'var(--color-gold-dim)' }}>₹{product.price}</span>
+                            {product.originalPrice && Number(product.originalPrice) > Number(product.price) && (
+                                <span style={{ fontSize: '1.4rem', color: 'var(--color-text-muted)', textDecoration: 'line-through', opacity: 0.7 }}>₹{product.originalPrice}</span>
+                            )}
+                        </div>
 
                         <div style={{ marginBottom: '2rem', lineHeight: '1.8', color: 'var(--color-text-muted)', fontSize: '1.05rem' }}>
                             {product.description}
