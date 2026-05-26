@@ -55,7 +55,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
             <head>
                 <meta name="theme-color" content='var(--color-gold)' />
-                <meta name="google-site-verification" content="EtwLRLWhorhsWB8v8OmtN2i0WI26Fp5MydCjiBXOpGI" />
+                <meta name="google-site-verification" content="gAlZUHoD0EWqt97OJPheU1WdY9E3DRORyvDARwG_EJo" />
                 <meta name="mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-capable" content="yes" />
                 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
