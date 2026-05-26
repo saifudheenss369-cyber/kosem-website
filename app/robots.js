@@ -9,6 +9,6 @@ export default function robots() {
                 '/api/'          // No need to index raw JSON backend routes
             ],
         },
-        sitemap: 'https://kosemperfume.com/sitemap.xml',
+        sitemap: 'https://kosemperfumes.com/sitemap.xml',
     }
 }

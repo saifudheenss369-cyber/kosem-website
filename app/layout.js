@@ -20,7 +20,7 @@ import CartDrawer from './components/CartDrawer';
 import Footer from './components/Footer';
 
 export const metadata = {
-    metadataBase: new URL('https://kosemperfume.com'),
+    metadataBase: new URL('https://kosemperfumes.com'),
     title: {
         default: 'Kosem | Premium Attar & Oudh',
         template: '%s | Kosem Perfume'
@@ -30,7 +30,7 @@ export const metadata = {
     openGraph: {
         title: 'Kosem | Premium Attar & Oudh',
         description: 'Authentic, alcohol-free premium attar and oudh.',
-        url: 'https://kosemperfume.com',
+        url: 'https://kosemperfumes.com',
         siteName: 'Kosem Perfume',
         locale: 'en_IN',
         type: 'website',

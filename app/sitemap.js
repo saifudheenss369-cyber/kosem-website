@@ -1,7 +1,7 @@
 import prisma from '@/lib/prisma';
 
 export default async function sitemap() {
-    const baseUrl = 'https://kosemperfume.com';
+    const baseUrl = 'https://kosemperfumes.com';
 
     // 1. Static Routes
     const staticRoutes = [
