@@ -30,7 +30,7 @@ export default function Contact() {
                         </p>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Email:</strong>
-                            <p style={{ color: 'var(--color-text-muted)' }}>support@kosemperfume.com</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>support@kosemperfumes.com</p>
                         </div>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Phone:</strong>

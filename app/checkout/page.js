@@ -427,7 +427,7 @@ export default function Checkout() {
                             },
                             prefill: {
                                 name: formData.name,
-                                email: verifiedUser?.email || 'guest@kosemperfume.com',
+                                email: verifiedUser?.email || 'guest@kosemperfumes.com',
                                 contact: verifiedUser?.phone || formData.phone
                             },
                             theme: { color: "#D4AF37" }

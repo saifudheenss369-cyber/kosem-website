@@ -12,7 +12,7 @@ export default function TermsAndConditions() {
                 <section style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>1. Introduction</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
-                        Welcome to Kosem. These terms and conditions outline the rules and regulations for the use of Kosem's Website, located at kosemperfume.com.
+                        Welcome to Kosem. These terms and conditions outline the rules and regulations for the use of Kosem's Website, located at kosemperfumes.com.
                         By accessing this website we assume you accept these terms and conditions. Do not continue to use Kosem if you do not agree to take all of the terms and conditions stated on this page.
                     </p>
                 </section>

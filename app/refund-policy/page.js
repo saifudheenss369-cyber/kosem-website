@@ -46,7 +46,7 @@ export default function RefundPolicy() {
                 <section style={{ marginBottom: '2rem', padding: '1.5rem', background: 'var(--color-bg-secondary)', borderLeft: '4px solid var(--color-gold)' }}>
                     <h2 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#111' }}>Contact Us for Claims</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.5', margin: 0 }}>
-                        If you received a damaged item, please email your unboxing video and order details to: <strong>support@kosemperfume.com</strong>
+                        If you received a damaged item, please email your unboxing video and order details to: <strong>support@kosemperfumes.com</strong>
                     </p>
                 </section>
 
