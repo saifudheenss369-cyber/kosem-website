@@ -43,7 +43,7 @@ model Category {
   id         Int      @id @default(autoincrement())
   name       String   @unique
   slug       String   @unique
-  image      String?
+  image      String?  @db.LongText
   showOnHome Boolean  @default(false)
   createdAt  DateTime @default(now())
 }
