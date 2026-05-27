@@ -36,7 +36,7 @@ export default function AdminProducts() {
     };
 
     const fetchProducts = async () => {
-        const res = await fetch('/api/products');
+        const res = await fetch(`/api/products?_t=${Date.now()}`, { cache: 'no-store' });
         if (res.ok) {
             const data = await res.json();
             setProducts(data);
