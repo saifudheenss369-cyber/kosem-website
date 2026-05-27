@@ -52,12 +52,10 @@ export default function CategoryGrid() {
                         }}
                     >
                         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
-                            <Image 
+                            <img 
                                 src={cat.image || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800'} 
                                 alt={cat.name}
-                                fill
-                                sizes="(max-width: 768px) 100vw, 50vw"
-                                style={{ objectFit: 'cover' }}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />
                             <div style={{ 
                                 position: 'absolute', 
