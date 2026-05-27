@@ -121,9 +121,20 @@ export default function AdminProducts() {
     const handleDelete = async (id) => {
         if (!confirm('Are you sure?')) return;
         setDeletingId(id);
-        const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
-        if (res.ok) fetchProducts();
-        setDeletingId(null);
+        try {
+            const res = await fetch(`/api/products?id=${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                fetchProducts();
+            } else {
+                const data = await res.json();
+                alert(`Delete failed: ${data.error || 'Unknown error'} ${data.details ? '- ' + data.details : ''}`);
+            }
+        } catch (err) {
+            console.error(err);
+            alert('An error occurred while deleting.');
+        } finally {
+            setDeletingId(null);
+        }
     };
 
     const processImage = (file) => new Promise((resolve) => {

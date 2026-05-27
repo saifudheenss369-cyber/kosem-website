@@ -236,10 +236,15 @@ export async function DELETE(req) {
     const id = searchParams.get('id');
 
     try {
+        // Manually cascade delete related records to avoid foreign key constraint errors
+        await prisma.review.deleteMany({ where: { productId: parseInt(id) } });
+        await prisma.orderItem.deleteMany({ where: { productId: parseInt(id) } });
+        
         await prisma.product.delete({ where: { id: parseInt(id) } });
         await logAudit('DELETE_PRODUCT', `Deleted product ID ${id}`);
         return NextResponse.json({ success: true });
     } catch (error) {
-        return NextResponse.json({ error: 'Delete failed' }, { status: 500 });
+        console.error('DELETE product error:', error);
+        return NextResponse.json({ error: 'Delete failed', details: error.message }, { status: 500 });
     }
 }
