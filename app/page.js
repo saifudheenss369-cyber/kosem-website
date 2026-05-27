@@ -201,7 +201,8 @@ export default async function Home() {
                             </div>
                         </div>
 
-                        <style dangerouslySetInnerHTML={{ __html: `
+                        <style dangerouslySetInnerHTML={{
+                            __html: `
                             .new-arrivals-grid {
                                 display: grid;
                                 grid-template-columns: repeat(6, 1fr);
@@ -256,15 +257,15 @@ export default async function Home() {
                     <div style={{ position: 'absolute', top: '-100px', right: '-100px', width: '400px', height: '400px', background: 'var(--color-gold)', filter: 'blur(150px)', opacity: 0.08, borderRadius: '50%' }}></div>
                     <div style={{ position: 'absolute', bottom: '-150px', left: '-150px', width: '500px', height: '500px', background: 'var(--color-gold)', filter: 'blur(180px)', opacity: 0.05, borderRadius: '50%' }}></div>
 
-                    <div className="container" style={{ 
-                        display: 'flex', 
-                        flexWrap: 'wrap', 
-                        alignItems: 'center', 
+                    <div className="container" style={{
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        alignItems: 'center',
                         gap: '3rem',
-                        position: 'relative', 
-                        zIndex: 2 
+                        position: 'relative',
+                        zIndex: 2
                     }}>
-                        
+
                         {/* Heritage Image */}
                         <div className="heritage-image-wrapper" style={{ flex: '1', minWidth: '300px', maxWidth: '500px' }}>
                             <div style={{ position: 'relative', height: '450px', borderRadius: '30px', overflow: 'hidden', boxShadow: '0 25px 50px rgba(0,0,0,0.5)', border: '1px solid rgba(184, 134, 11, 0.2)' }}>
@@ -343,13 +344,13 @@ export default async function Home() {
                 {/* Value Props - Redesigned Grid */}
                 <section className="props-section section-padding" style={{ background: 'var(--color-black)', color: 'white', position: 'relative' }}>
                     <div className="container">
-                        <div style={{ 
-                            display: 'grid', 
-                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', 
-                            gap: '2rem' 
+                        <div style={{
+                            display: 'grid',
+                            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                            gap: '2rem'
                         }} className="props-grid">
                             {[
-                                { icon: '🌿', title: '100% Pure', desc: 'Alcohol-free, concentrated oils extracted from natural ingredients.' },
+
                                 { icon: '💎', title: 'Premium Quality', desc: 'Aged to perfection to ensure deep and lasting fragrance profiles.' },
                                 { icon: '🚚', title: 'Free Shipping', desc: 'Complimentary shipping on all prepaid orders across India.' },
                                 { icon: '🏆', title: 'Trusted Heritage', desc: 'Decades of experience in the art of Attar and Oudh making.' }
@@ -362,7 +363,8 @@ export default async function Home() {
                             ))}
                         </div>
                     </div>
-                    <style dangerouslySetInnerHTML={{ __html: `
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
                         @media (max-width: 600px) {
                             .props-grid {
                                 grid-template-columns: 1fr !important;
