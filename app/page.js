@@ -313,14 +313,13 @@ export default async function Home() {
                             <h2 style={{ marginBottom: '1.5rem', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
 
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
-                                Each drop is a result of meticulous distillation. We bypass the shortcuts of modern perfumery,
-                                avoiding alcohol to bring you the raw soul of nature.
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fermentum pharetra ante ut auctor.
                             </p>
 
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
                                 {[
-                                    { title: 'Long Lasting', desc: 'Stays for 12+ hours.' },
-                                    { title: 'Skin Friendly', desc: 'Gentle natural oils.' }
+                                    { title: 'Long Lasting', desc: 'Stays for 6+ hours.' },
+
                                 ].map((item, idx) => (
                                     <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                                         <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.3rem', fontSize: '0.9rem', textTransform: 'uppercase' }}>{item.title}</h4>
@@ -352,7 +351,7 @@ export default async function Home() {
                             {[
 
                                 { icon: '💎', title: 'Premium Quality', desc: 'Aged to perfection to ensure deep and lasting fragrance profiles.' },
-                                { icon: '🚚', title: 'Free Shipping', desc: 'Complimentary shipping on all prepaid orders across India.' },
+
                                 { icon: '🏆', title: 'Trusted Heritage', desc: 'Decades of experience in the art of Attar and Oudh making.' }
                             ].map((prop, i) => (
                                 <div key={i} className="glass-card hover-glow" style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
