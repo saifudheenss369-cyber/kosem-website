@@ -69,6 +69,40 @@ export default function AdminCategories() {
         }
     };
 
+    const processImage = (file) => new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const TARGET_SIZE = 800; // Perfect Square
+                canvas.width = TARGET_SIZE;
+                canvas.height = TARGET_SIZE;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, TARGET_SIZE, TARGET_SIZE);
+                
+                const scale = Math.min(TARGET_SIZE / img.width, TARGET_SIZE / img.height);
+                const w = img.width * scale;
+                const h = img.height * scale;
+                const x = (TARGET_SIZE - w) / 2;
+                const y = (TARGET_SIZE - h) / 2;
+                
+                ctx.drawImage(img, 0, 0, img.width, img.height, x, y, w, h);
+                resolve(canvas.toDataURL('image/jpeg', 0.85));
+            };
+            img.src = event.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
+    const handleImageUpload = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        const b64 = await processImage(file);
+        setFormData(prev => ({ ...prev, image: b64 }));
+    };
+
     return (
         <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1.5rem' }}>Category Management</h1>
@@ -88,14 +122,18 @@ export default function AdminCategories() {
                         />
                     </div>
                     <div style={{ flex: 1, minWidth: '200px' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Image URL (Optional)</label>
-                        <input
-                            type="text"
-                            value={formData.image}
-                            onChange={e => setFormData({ ...formData, image: e.target.value })}
-                            placeholder="https://..."
-                            style={{ width: '100%', padding: '0.8rem', border: '1px solid var(--color-border)', borderRadius: '4px' }}
-                        />
+                        <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem' }}>Category Image</label>
+                        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                style={{ width: '100%', padding: '0.65rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: '#fff' }}
+                            />
+                            {formData.image && (
+                                <img src={formData.image} alt="Preview" style={{ width: '46px', height: '46px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ccc' }} />
+                            )}
+                        </div>
                     </div>
                     <div style={{ paddingBottom: '0.8rem' }}>
                         <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>

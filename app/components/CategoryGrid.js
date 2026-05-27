@@ -1,37 +1,35 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-const categories = [
-    {
-        id: 'Perfume',
-        title: 'Perfumes',
-        subtitle: 'Signature scents crafted for the modern individual.',
-        image: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?q=80&w=800'
-    },
-    {
-        id: 'Attar',
-        title: 'Pure Attars',
-        subtitle: 'Traditional concentrated oils, zero alcohol.',
-        image: 'https://images.unsplash.com/photo-1615529182904-14819c35db37?q=80&w=800'
-    },
-    {
-        id: 'Oudh',
-        title: 'Oudh & Bakhoor',
-        subtitle: 'The royal essence of agarwood and incense.',
-        image: 'https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?q=80&w=800'
-    },
-    {
-        id: 'Gift Sets',
-        title: 'Luxury Gifts',
-        subtitle: 'Elegantly curated boxes for your loved ones.',
-        image: 'https://images.unsplash.com/photo-1513201099705-a9746e1e201f?q=80&w=800'
-    }
-];
-
 export default function CategoryGrid() {
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                // Fetch categories from the database without caching
+                const res = await fetch(`/api/categories?_t=${Date.now()}`, { cache: 'no-store' });
+                if (res.ok) {
+                    const data = await res.json();
+                    // Optional: only show categories that are marked to show on home or have an image
+                    const visibleCategories = data.filter(c => c.showOnHome !== false);
+                    setCategories(visibleCategories);
+                }
+            } catch (err) {
+                console.error("Failed to fetch categories", err);
+            }
+        };
+        fetchCategories();
+    }, []);
+
+    // Show skeletons or nothing while loading
+    if (categories.length === 0) {
+        return <div style={{ height: '300px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Loading collections...</div>;
+    }
+
     return (
         <div style={{ width: '100%', marginBottom: '4rem' }}>
             <div style={{ 
@@ -41,8 +39,8 @@ export default function CategoryGrid() {
             }}>
                 {categories.map((cat) => (
                     <Link 
-                        key={cat.id}
-                        href={`/shop?category=${encodeURIComponent(cat.id)}`}
+                        key={cat.id || cat.name}
+                        href={`/shop?category=${encodeURIComponent(cat.name)}`}
                         style={{
                             position: 'relative',
                             height: '300px',
@@ -55,8 +53,8 @@ export default function CategoryGrid() {
                     >
                         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 1 }}>
                             <Image 
-                                src={cat.image} 
-                                alt={cat.title}
+                                src={cat.image || 'https://images.unsplash.com/photo-1594035910387-fea47794261f?q=80&w=800'} 
+                                alt={cat.name}
                                 fill
                                 sizes="(max-width: 768px) 100vw, 50vw"
                                 style={{ objectFit: 'cover' }}
@@ -79,13 +77,13 @@ export default function CategoryGrid() {
                                 fontSize: '1.5rem', 
                                 marginBottom: '0.3rem', 
                                 color: '#d4af37' 
-                            }}>{cat.title}</h3>
+                            }}>{cat.name}</h3>
                             <p style={{ 
                                 fontSize: '0.85rem', 
                                 color: '#eee', 
                                 marginBottom: '0.5rem', 
                                 opacity: 0.8 
-                            }}>{cat.subtitle}</p>
+                            }}>{cat.slug ? `Explore our ${cat.name} collection` : 'Premium Fragrances'}</p>
                             <span style={{ 
                                 fontSize: '0.7rem', 
                                 textTransform: 'uppercase', 
