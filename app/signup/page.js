@@ -188,7 +188,7 @@ export default function Signup() {
                                     onChange={e => setFormData({ ...formData, phone: e.target.value })}
                                     placeholder="9876543210"
                                     disabled={isVerified}
-                                    style={{ flex: 1, padding: '0.8rem', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: isVerified ? '#e9ecef' : 'white' }}
+                                    style={{ flex: 1, padding: '0.8rem', marginBottom: '1rem', border: '1px solid var(--color-border)', borderRadius: '4px', background: isVerified ? 'var(--color-bg-main)' : 'var(--color-bg-secondary)', color: isVerified ? 'var(--color-text-muted)' : 'var(--color-text-main)' }}
                                 />
                                 {!isVerified && (
                                     <button
