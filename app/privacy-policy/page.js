@@ -10,7 +10,7 @@ export default function PrivacyPolicy() {
                 <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>Last updated: {new Date().toLocaleDateString()}</p>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>1. Introduction</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>1. Introduction</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         Welcome to Kosem. We respect your privacy and are committed to protecting your personal data.
                         This privacy policy will inform you as to how we look after your personal data when you visit our website
@@ -19,7 +19,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>2. Data We Collect</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>2. Data We Collect</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         We may collect, use, store and transfer different kinds of personal data about you which we have grouped together as follows:
                         <ul style={{ paddingLeft: '20px', marginTop: '10px' }}>
@@ -32,7 +32,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>3. How We Use Your Data</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>3. How We Use Your Data</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:
                         <ul style={{ paddingLeft: '20px', marginTop: '10px' }}>
@@ -44,7 +44,7 @@ export default function PrivacyPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>4. Data Security</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>4. Data Security</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used, or accessed in an unauthorized way.
                         All payment transactions are encrypted using SSL technology.

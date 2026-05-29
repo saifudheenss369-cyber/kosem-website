@@ -10,7 +10,7 @@ export default function RefundPolicy() {
                 <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>Last updated: {new Date().toLocaleDateString()}</p>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>1. No General Returns or Refunds</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>1. No General Returns or Refunds</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         At Kosem, we deal in premium quality Attars and Oudh. Due to the personal care and hygienic nature of our products,
                         <strong> we do not accept returns or provide refunds if you simply did not like the fragrance.</strong>
@@ -20,7 +20,7 @@ export default function RefundPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>2. Exceptions: Damaged or Incorrect Items</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>2. Exceptions: Damaged or Incorrect Items</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         The only exception to our No Refund policy is in the rare case that you receive a defective, damaged, or incorrect item.
                         <br /><br />
@@ -35,7 +35,7 @@ export default function RefundPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
-                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#111' }}>3. Order Cancellation</h2>
+                    <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>3. Order Cancellation</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
                         Orders can only be cancelled <strong>before they are dispatched</strong> from our warehouse.
                         If you wish to cancel an order, please contact us immediately via WhatsApp or Email.
@@ -44,7 +44,7 @@ export default function RefundPolicy() {
                 </section>
 
                 <section style={{ marginBottom: '2rem', padding: '1.5rem', background: 'var(--color-bg-secondary)', borderLeft: '4px solid var(--color-gold)' }}>
-                    <h2 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#111' }}>Contact Us for Claims</h2>
+                    <h2 style={{ fontSize: '1.2rem', marginBottom: '0.5rem', color: '#fff' }}>Contact Us for Claims</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.5', margin: 0 }}>
                         If you received a damaged item, please email your unboxing video and order details to: <strong>support@kosemperfumes.com</strong>
                     </p>
