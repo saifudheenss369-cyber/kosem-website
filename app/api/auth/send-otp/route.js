@@ -38,7 +38,7 @@ export async function POST(req) {
             email,
             'Your Kosem Verification Code',
             `<div style="font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 30px; border: 1px solid #eaeaea; border-radius: 8px; text-align: center;">
-                <img src="https://kosemperfume.com/logo.png" alt="Kosem Logo" style="max-width: 150px; margin-bottom: 20px;">
+                <img src="https://kosemperfumes.com/logo.png" alt="Kosem Logo" style="max-width: 150px; margin-bottom: 20px;">
                 <h2 style="color: #333; font-size: 24px; margin-bottom: 20px;">Verify your identity</h2>
                 <p style="color: #555; font-size: 16px; line-height: 1.5; margin-bottom: 30px;">
                     To complete your request, please use the verification code below. This code is valid for the next 10 minutes.

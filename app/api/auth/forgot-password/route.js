@@ -35,7 +35,7 @@ export async function POST(req) {
         });
 
         // Send Email
-        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://kosemperfume.com';
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://kosemperfumes.com';
         const resetUrl = `${baseUrl}/reset-password?token=${resetToken}`;
         const logoUrl = `${baseUrl}/logo.png`; // Ensure you have a logo.png in public folder
 

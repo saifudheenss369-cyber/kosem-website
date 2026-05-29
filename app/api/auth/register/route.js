@@ -82,11 +82,11 @@ export async function POST(req) {
             email,
             'Welcome to Kosem!',
             `<div style="font-family: sans-serif; padding: 20px; text-align: center;">
-                <img src="https://kosemperfume.com/logo.png" alt="Kosem Logo" style="max-width: 150px; margin-bottom: 20px;">
+                <img src="https://kosemperfumes.com/logo.png" alt="Kosem Logo" style="max-width: 150px; margin-bottom: 20px;">
                 <h2>Welcome, ${name}!</h2>
                 <p>Thank you for creating an account with Kosem.</p>
                 <p>Explore our premium collection of Attar and Oudh.</p>
-                <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://kosemperfume.com'}/shop" style="display: inline-block; padding: 10px 20px; background: #d4af37; color: white; text-decoration: none; border-radius: 5px;">Shop Now</a>
+                <a href="${process.env.NEXT_PUBLIC_BASE_URL || 'https://kosemperfumes.com'}/shop" style="display: inline-block; padding: 10px 20px; background: #d4af37; color: white; text-decoration: none; border-radius: 5px;">Shop Now</a>
             </div>`
         );
 
