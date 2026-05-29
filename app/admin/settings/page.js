@@ -103,6 +103,42 @@ export default function AdminSettings() {
                 <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-gold)' }}>Announcement Bar</h3>
                 
                 <div style={{ display: 'grid', gap: '1.5rem' }}>
+                    {/* Enable/Disable Toggle */}
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '1rem', background: '#0d0d0d', borderRadius: '8px', border: '1px solid #333' }}>
+                        <div>
+                            <strong style={{ display: 'block', color: '#fff', marginBottom: '0.25rem' }}>Show Announcement Bar</strong>
+                            <small style={{ color: '#888' }}>Toggle to show or hide the announcement banner on all pages.</small>
+                        </div>
+                        <label style={{ position: 'relative', display: 'inline-block', width: '52px', height: '28px', cursor: 'pointer', flexShrink: 0 }}>
+                            <input
+                                type="checkbox"
+                                checked={settings.announcementEnabled !== 'false'}
+                                onChange={(e) => {
+                                    const val = e.target.checked ? 'true' : 'false';
+                                    setSettings({ ...settings, announcementEnabled: val });
+                                    handleSave('announcementEnabled', val);
+                                }}
+                                style={{ opacity: 0, width: 0, height: 0 }}
+                            />
+                            <span style={{
+                                position: 'absolute', top: 0, left: 0, right: 0, bottom: 0,
+                                background: settings.announcementEnabled !== 'false' ? 'var(--color-gold)' : '#444',
+                                borderRadius: '28px',
+                                transition: 'background 0.3s'
+                            }} />
+                            <span style={{
+                                position: 'absolute',
+                                top: '3px',
+                                left: settings.announcementEnabled !== 'false' ? '27px' : '3px',
+                                width: '22px', height: '22px',
+                                background: '#fff',
+                                borderRadius: '50%',
+                                transition: 'left 0.3s',
+                                boxShadow: '0 1px 4px rgba(0,0,0,0.3)'
+                            }} />
+                        </label>
+                    </div>
+
                     <div className="form-group">
                         <label style={{ display: 'block', marginBottom: '0.5rem' }}>Announcement Text</label>
                         <textarea 

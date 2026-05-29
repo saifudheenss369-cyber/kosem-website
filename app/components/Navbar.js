@@ -19,6 +19,7 @@ export default function Navbar() {
     const { user, logout } = useAuth();
     const [categories, setCategories] = useState([]);
     const [announcement, setAnnouncement] = useState('⚡ FLAT 5% DISCOUNT ON PREPAID ORDERS');
+    const [announcementEnabled, setAnnouncementEnabled] = useState(true);
 
     useEffect(() => {
         const fetchSettings = async () => {
@@ -27,6 +28,8 @@ export default function Navbar() {
                 if (res.ok) {
                     const data = await res.json();
                     if (data.announcement) setAnnouncement(data.announcement);
+                    if (data.announcementEnabled === 'false') setAnnouncementEnabled(false);
+                    else setAnnouncementEnabled(true);
                 }
             } catch (e) {
                 console.error("Failed to fetch settings", e);
@@ -60,6 +63,7 @@ export default function Navbar() {
     return (
         <>
             {/* Top Banner */}
+            {announcementEnabled && (
             <div style={{
                 position: 'fixed',
                 top: 0,
@@ -79,10 +83,11 @@ export default function Navbar() {
             }}>
                 {announcement}
             </div>
+            )}
 
             <nav className="main-nav" style={{
                 position: 'fixed',
-                top: '32px',
+                top: announcementEnabled ? '32px' : '0px',
                 left: 0,
                 right: 0,
                 height: '120px',
