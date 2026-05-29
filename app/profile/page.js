@@ -21,7 +21,18 @@ export default function Profile() {
                 throw new Error('Not logged in');
             })
             .then(data => {
-                setFormData(data);
+                // Only populate fields that actually have saved values
+                setFormData({
+                    name: data.name || '',
+                    email: data.email || '',
+                    phone: data.phone || '',
+                    altPhone: data.altPhone || '',
+                    address: data.address || '',
+                    city: data.city || '',
+                    state: data.state || '',
+                    zip: data.zip || '',
+                    landmark: data.landmark || ''
+                });
                 setLoading(false);
             })
             .catch(() => {
@@ -55,9 +66,6 @@ export default function Profile() {
         }
         navigator.geolocation.getCurrentPosition(async (position) => {
             const { latitude, longitude } = position.coords;
-            // Simulated reverse geocoding for demo (or use public API if allowed)
-            // For now, we'll just alert exact coords or mock city
-            // In real app: fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}`)
             setFormData(prev => ({
                 ...prev,
                 city: 'Auto-Detected City',
@@ -87,7 +95,7 @@ export default function Profile() {
 
                 {msg && <p style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>{msg}</p>}
 
-                <form onSubmit={handleSave} style={{ display: 'grid', gap: '1.5rem' }}>
+                <form onSubmit={handleSave} style={{ display: 'grid', gap: '1.5rem' }} autoComplete="off">
                     <div style={{ background: 'var(--color-bg-secondary)', padding: '1.5rem', borderRadius: '8px', border: '1px solid var(--color-border)', boxShadow: '0 2px 8px rgba(0,0,0,0.05)' }}>
                         <h3 style={{ borderBottom: '1px solid var(--color-border)', paddingBottom: '0.5rem', marginBottom: '1rem', color: 'var(--color-gold-dim)' }}>Contact Details</h3>
 
