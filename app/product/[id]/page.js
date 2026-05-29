@@ -180,10 +180,7 @@ export default async function ProductPage({ params }) {
                             </div>
                         </div>
 
-                        <div style={{ marginTop: '3rem', padding: '2rem', background: 'var(--color-bg-secondary)', borderTop: '1px solid var(--color-border)', fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-                            <strong style={{ color: 'var(--color-text-main)', display: 'block', marginBottom: '0.5rem' }}>Authenticity Guaranteed</strong>
-                            <p>All our Attars are 100% alcohol-free, long-lasting, and sourced from premium ingredients.</p>
-                        </div>
+
                     </div>
                 </div>
 
