@@ -74,7 +74,7 @@ model Review {
 model Product {
   id                Int         @id @default(autoincrement())
   name              String
-  description       String
+  description       String      @db.LongText
   price             Float
   stock             Int         @default(50)
   showStockCount    Boolean     @default(true)

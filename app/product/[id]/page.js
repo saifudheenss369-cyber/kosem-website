@@ -113,7 +113,7 @@ export default async function ProductPage({ params }) {
                             )}
                         </div>
 
-                        <div style={{ marginBottom: '2rem', lineHeight: '1.8', color: 'var(--color-text-muted)', fontSize: '1.05rem' }}>
+                        <div style={{ marginBottom: '2rem', lineHeight: '1.8', color: 'var(--color-text-muted)', fontSize: '1.05rem', whiteSpace: 'pre-wrap' }}>
                             {product.description}
                         </div>
 

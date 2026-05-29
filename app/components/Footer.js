@@ -9,9 +9,20 @@ import { useState, useEffect } from 'react';
 export default function Footer() {
     const pathname = usePathname();
     const [year, setYear] = useState(2024);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         setYear(new Date().getFullYear());
+        
+        // Fetch categories dynamically
+        fetch('/api/categories')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setCategories(data);
+                }
+            })
+            .catch(err => console.error('Error fetching categories for footer:', err));
     }, []);
 
     if (pathname.startsWith('/admin')) return null;
@@ -61,8 +72,13 @@ export default function Footer() {
                     <h4 className="footer-heading">Collections</h4>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         <li><Link href="/shop" className="footer-link">All Perfumes</Link></li>
-                        <li><Link href="/shop?category=Oudh" className="footer-link">Pure Oudh</Link></li>
-                        <li><Link href="/shop?category=Musk" className="footer-link">Royal Musk</Link></li>
+                        {categories.map((cat) => (
+                            <li key={cat.id || cat.name}>
+                                <Link href={`/shop?category=${encodeURIComponent(cat.name)}`} className="footer-link">
+                                    {cat.name}
+                                </Link>
+                            </li>
+                        ))}
                         <li><Link href="/track-order" className="footer-link">Track Your Order</Link></li>
                     </ul>
                 </div>
@@ -72,7 +88,7 @@ export default function Footer() {
                     <h4 className="footer-heading">Experience</h4>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
                         <li><Link href="/about" className="footer-link">Our Heritage</Link></li>
-                        <li><Link href="/contact" className="footer-link">Visit Boutique</Link></li>
+                        <li><Link href="/contact" className="footer-link">Visit Shop</Link></li>
                         <li><Link href="/shipping-policy" className="footer-link">Shipping & Delivery</Link></li>
                         <li><Link href="/refund-policy" className="footer-link">Returns Policy</Link></li>
                     </ul>
