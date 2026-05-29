@@ -17,7 +17,7 @@ export async function POST(req) {
             const userByPhone = await prisma.user.findFirst({
                 where: { phone: phone }
             });
-            if (userByPhone) {
+            if (userByPhone && userByPhone.password !== 'OTP_LOGIN') {
                 return NextResponse.json({ exists: true, field: 'phone', name: userByPhone.name });
             }
         }
@@ -27,7 +27,7 @@ export async function POST(req) {
             const userByEmail = await prisma.user.findUnique({
                 where: { email: email }
             });
-            if (userByEmail) {
+            if (userByEmail && userByEmail.password !== 'OTP_LOGIN') {
                 return NextResponse.json({ exists: true, field: 'email', name: userByEmail.name });
             }
         }

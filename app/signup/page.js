@@ -160,7 +160,7 @@ export default function Signup() {
                 message={popupConfig.message}
                 type={popupConfig.type}
             />
-            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)' }}>
+            <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-bg-secondary)', paddingTop: '160px', paddingBottom: '40px' }}>
                 <div style={{ background: 'var(--color-bg-secondary)', padding: '2rem', borderRadius: '8px', boxShadow: '0 4px 10px rgba(0,0,0,0.1)', width: '100%', maxWidth: '400px' }}>
                     <h2 style={{ textAlign: 'center', marginBottom: '1.5rem', fontFamily: 'var(--font-serif)' }}>Create Account</h2>
 

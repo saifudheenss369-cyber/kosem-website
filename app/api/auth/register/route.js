@@ -24,24 +24,55 @@ export async function POST(req) {
         //     return NextResponse.json({ error: 'Email not verified' }, { status: 400 });
         // }
 
-        // Check existing user
-        const existingUser = await prisma.user.findUnique({ where: { email } });
-        if (existingUser) {
-            return NextResponse.json({ error: 'User already exists' }, { status: 400 });
+        // Check existing user by email
+        const existingUserByEmail = await prisma.user.findUnique({ where: { email } });
+        if (existingUserByEmail && existingUserByEmail.password !== 'OTP_LOGIN') {
+            return NextResponse.json({ error: 'User already exists with this email' }, { status: 400 });
+        }
+
+        // Check existing user by phone
+        let userToUpdate = null;
+        if (phone) {
+            const existingUserByPhone = await prisma.user.findFirst({ where: { phone } });
+            if (existingUserByPhone) {
+                if (existingUserByPhone.password === 'OTP_LOGIN') {
+                    userToUpdate = existingUserByPhone;
+                } else {
+                    return NextResponse.json({ error: 'User already exists with this phone number' }, { status: 400 });
+                }
+            }
+        }
+
+        if (existingUserByEmail && existingUserByEmail.password === 'OTP_LOGIN') {
+            userToUpdate = existingUserByEmail;
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await prisma.user.create({
-            data: {
-                name,
-                email,
-                password: hashedPassword,
-                phone: phone || null,
-                role: 'CUSTOMER',
-                isVerified: true
-            },
-        });
+        let user;
+        if (userToUpdate) {
+            user = await prisma.user.update({
+                where: { id: userToUpdate.id },
+                data: {
+                    name,
+                    email,
+                    password: hashedPassword,
+                    phone: phone || userToUpdate.phone || null,
+                    isVerified: true
+                }
+            });
+        } else {
+            user = await prisma.user.create({
+                data: {
+                    name,
+                    email,
+                    password: hashedPassword,
+                    phone: phone || null,
+                    role: 'CUSTOMER',
+                    isVerified: true
+                },
+            });
+        }
 
         // Cleanup verification record (if any)
         await prisma.verification.deleteMany({ where: { identifier: email } });
