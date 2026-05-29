@@ -298,8 +298,8 @@ export default async function Home() {
                                     boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
                                     textAlign: 'center'
                                 }}>
-                                    <span style={{ fontSize: '1.2rem', display: 'block', lineHeight: '1' }}>100%</span>
-                                    <span style={{ fontSize: '0.5rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px' }}>Pure Essence</span>
+                                    {/* <span style={{ fontSize: '1.2rem', display: 'block', lineHeight: '1' }}>100%</span>
+                                    <span style={{ fontSize: '0.5rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px' }}>Pure Essence</span> */}
                                 </div>
                             </div>
                         </div>
@@ -310,13 +310,11 @@ export default async function Home() {
                                 <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '800' }}>The Heritage</span>
                             </div>
 
-                            <h2 style={{ marginBottom: '1.5rem', fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>Crafted with Absolute <span className="text-gradient-gold">Purity</span></h2>
-
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer fermentum pharetra ante ut auctor.
+                                We didn’t inherit a kingdom. We built a sanctuary of scent, drop by single drop, driven by nothing but the desire to connect one human being to another through the invisible language of perfume
                             </p>
 
-                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
+                            {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
                                 {[
                                     { title: 'Long Lasting', desc: 'Stays for 6+ hours.' },
 
@@ -326,7 +324,7 @@ export default async function Home() {
                                         <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>{item.desc}</p>
                                     </div>
                                 ))}
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <style dangerouslySetInnerHTML={{
@@ -350,9 +348,9 @@ export default async function Home() {
                         }} className="props-grid">
                             {[
 
-                                { icon: '💎', title: 'Premium Quality', desc: 'Aged to perfection to ensure deep and lasting fragrance profiles.' },
+                                { icon: '💎', title: 'Premium Quality', desc: 'The cost of the ingredients is not counted, only the depth of the impression they leave, is on our mind. Premium quality is our promise that what touches your skin is the absolute truest, richest expression of our art.' },
 
-                                { icon: '🏆', title: 'Trusted Heritage', desc: 'Decades of experience in the art of Attar and Oudh making.' }
+                                { icon: '🏆', title: 'Trusted Heritage', desc: 'When a perfume company is born entirely out of passion rather than business lineage, its heritage isnt measured in centuries-old ledgers or inherited formulas. Its heritage is built on intuition, experimentation, and raw emotion.' }
                             ].map((prop, i) => (
                                 <div key={i} className="glass-card hover-glow" style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{prop.icon}</div>

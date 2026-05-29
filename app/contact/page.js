@@ -26,7 +26,7 @@ export default function Contact() {
                     <div>
                         <h3 style={{ color: 'var(--color-gold)', marginBottom: '1rem' }}>Get in Touch</h3>
                         <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
-                            Have questions about our premium Attars? Need help with an order? We are here to assist you.
+                            Need Help with your order‽We are here to help you.
                         </p>
                         <div style={{ marginBottom: '1.5rem' }}>
                             <strong style={{ color: '#fff' }}>Email:</strong>
@@ -38,7 +38,10 @@ export default function Contact() {
                         </div>
                         <div>
                             <strong style={{ color: '#fff' }}>Address:</strong>
-                            <p style={{ color: 'var(--color-text-muted)' }}>Kosem Perfume, Kottayam, Kerala - 686016</p>
+                            <p style={{ color: 'var(--color-text-muted)' }}>Kosem Perfumes, Mangarakalungu
+                                Pala Road
+                                Ettumanoor
+                                Kottayam - 686631</p>
                         </div>
                     </div>
 

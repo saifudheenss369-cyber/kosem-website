@@ -12,7 +12,7 @@ export default function ShippingPolicy() {
                 <section style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>1. Order Processing Time</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
-                        All orders are processed within 1 to 2 business days (excluding weekends and holidays) after receiving your order confirmation email. You will receive another notification when your order has shipped, along with an AWB tracking number.
+                        All orders are processed within 2 to 3 business days (excluding weekends and holidays) after receiving your order confirmation email. You will receive another notification when your order is shipped, along with an AWB tracking number.
                     </p>
                 </section>
 
@@ -32,7 +32,7 @@ export default function ShippingPolicy() {
                 <section style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>3. How do I check the status of my order?</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
-                        When your order has shipped, you will receive an email and/or SMS notification from us which will include a tracking number you can use to check its status. Please allow 24 hours for the tracking information to become available.
+                        When your order is shipped, you will receive an email and/or SMS notification from us which will include a tracking number you can use to check its status. Please allow 24 hours for the tracking information to become available.
                         <br /><br />
                         You can also log into your account on our website and view your order history to track your package in real-time.
                     </p>

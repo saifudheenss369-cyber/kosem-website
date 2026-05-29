@@ -12,17 +12,17 @@ export default function RefundPolicy() {
                 <section style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>1. No General Returns or Refunds</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
+                        Perfumes are subjective to perception, we highly recommend ordering a sample pack (please contact for details) before committing to a larger purchase....once a product is shipped and delivered, the sale is considered as final.
+                        <br /><br />
                         At Kosem, we deal in premium quality Attars and Oudh. Due to the personal care and hygienic nature of our products,
                         <strong> we do not accept returns or provide refunds if you simply did not like the fragrance.</strong>
-                        <br /><br />
-                        Perfumes are subjective, and we highly recommend ordering smaller quantities or sample packs (if available) before committing to a larger purchase. Once a product is shipped and delivered, the sale is considered final.
                     </p>
                 </section>
 
                 <section style={{ marginBottom: '2rem' }}>
                     <h2 style={{ fontSize: '1.5rem', marginBottom: '1rem', color: '#fff' }}>2. Exceptions: Damaged or Incorrect Items</h2>
                     <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8' }}>
-                        The only exception to our No Refund policy is in the rare case that you receive a defective, damaged, or incorrect item.
+                        The only exception to our No Refund policy is in the rare case that you receive a defective, damaged (except logistics damage) , or incorrect item.
                         <br /><br />
                         To be eligible for a replacement or refund for a damaged/incorrect item, you MUST:
                         <ul style={{ paddingLeft: '20px', marginTop: '10px' }}>
