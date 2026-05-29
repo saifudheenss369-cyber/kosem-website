@@ -27,6 +27,10 @@ export async function GET(req) {
             return NextResponse.json({ error: 'User not found' }, { status: 404 });
         }
 
+        if (user.role === 'ADMIN') {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         // Filter out dummy email addresses
         if (user.email && user.email.includes('attarstore.local')) {
             user.email = '';

@@ -20,8 +20,12 @@ export async function GET(req) {
         const decoded = jwt.verify(token.value, JWT_SECRET);
         const user = await prisma.user.findUnique({
             where: { id: decoded.userId },
-            select: { name: true, email: true, phone: true, altPhone: true, address: true, landmark: true, city: true, state: true, zip: true }
+            select: { name: true, email: true, phone: true, altPhone: true, address: true, landmark: true, city: true, state: true, zip: true, role: true }
         });
+
+        if (user && user.role === 'ADMIN') {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
 
         // If profile is empty, try to fetch from last order
         if (user && !user.address && !user.phone) {
@@ -65,6 +69,11 @@ export async function PUT(req) {
 
         // Check if phone is changed to reset verification
         const currentUser = await prisma.user.findUnique({ where: { id: decoded.userId } });
+        
+        if (currentUser && currentUser.role === 'ADMIN') {
+            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+        }
+
         const phoneChanged = currentUser && phone && currentUser.phone !== phone;
 
         const updated = await prisma.user.update({
