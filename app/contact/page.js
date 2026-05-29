@@ -15,7 +15,7 @@ export default function Contact() {
     return (
         <>
             <Navbar />
-            <main className="container" style={{ paddingTop: '120px', paddingBottom: '4rem', maxWidth: '800px' }}>
+            <main className="container" style={{ paddingTop: '170px', paddingBottom: '4rem', maxWidth: '800px' }}>
                 <h1 style={{ fontFamily: 'var(--font-serif)', marginBottom: '2rem', textAlign: 'center' }}>Contact Us</h1>
 
                 {msg && <div style={{ background: 'rgba(212, 175, 55, 0.1)', border: '1px solid var(--color-gold)', padding: '1rem', marginBottom: '2rem', textAlign: 'center', color: 'var(--color-gold)' }}>{msg}</div>}
@@ -43,18 +43,18 @@ export default function Contact() {
                     </div>
 
                     {/* Form */}
-                    <form onSubmit={handleSubmit} style={{ background: 'var(--color-bg-secondary)', border: '1px solid #eaeaea', padding: '2rem', borderRadius: '8px' }}>
+                    <form onSubmit={handleSubmit} style={{ background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', padding: '2rem', borderRadius: '8px' }}>
                         <div className="form-group" style={{ marginBottom: '1rem' }}>
-                            <label style={{ color: '#111', fontWeight: 'bold' }}>Name</label>
-                            <input type="text" placeholder="Enter your name" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
+                            <label style={{ color: '#fff', fontWeight: 'bold' }}>Name</label>
+                            <input type="text" placeholder="Enter your name" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-main)', border: '1px solid var(--color-border)', color: '#fff', borderRadius: '4px', marginTop: '0.5rem' }} />
                         </div>
                         <div className="form-group" style={{ marginBottom: '1rem' }}>
-                            <label style={{ color: '#111', fontWeight: 'bold' }}>Email</label>
-                            <input type="email" placeholder="Enter your email address" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }} />
+                            <label style={{ color: '#fff', fontWeight: 'bold' }}>Email</label>
+                            <input type="email" placeholder="Enter your email address" required style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-main)', border: '1px solid var(--color-border)', color: '#fff', borderRadius: '4px', marginTop: '0.5rem' }} />
                         </div>
                         <div className="form-group" style={{ marginBottom: '1.5rem' }}>
-                            <label style={{ color: '#111', fontWeight: 'bold' }}>Message</label>
-                            <textarea placeholder="How can we help you?" required rows="4" style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-secondary)', border: '1px solid var(--color-border)', color: '#111', borderRadius: '4px', marginTop: '0.5rem' }}></textarea>
+                            <label style={{ color: '#fff', fontWeight: 'bold' }}>Message</label>
+                            <textarea placeholder="How can we help you?" required rows="4" style={{ width: '100%', padding: '0.8rem', background: 'var(--color-bg-main)', border: '1px solid var(--color-border)', color: '#fff', borderRadius: '4px', marginTop: '0.5rem' }}></textarea>
                         </div>
                         <button type="submit" className="btn-primary" style={{ width: '100%', padding: '0.8rem' }}>Send Message</button>
                     </form>
