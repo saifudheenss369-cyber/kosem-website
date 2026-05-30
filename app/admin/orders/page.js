@@ -267,122 +267,157 @@ export default function AdminOrders() {
                     <title>Bill #${order.id}</title>
                     <style>
                         @page { 
-                            margin: 0; 
-                            size: 80mm auto !important; 
+                            size: A4 portrait;
+                            margin: 15mm 20mm;
                         }
+                        * { box-sizing: border-box; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
                         body { 
-                            font-family: 'Courier New', Courier, monospace; 
-                            width: 72mm; 
-                            margin: 0; 
-                            padding: 2mm; 
+                            font-family: 'Arial', sans-serif;
+                            width: 100%;
+                            margin: 0;
+                            padding: 0;
                             color: #000; 
-                            font-size: 13px; 
-                            line-height: 1.3;
+                            font-size: 14px; 
+                            line-height: 1.5;
                             background: white;
                         }
-                        .header { text-align: center; margin-bottom: 3mm; }
-                        .header h1 { margin: 0; font-size: 20px; text-transform: uppercase; font-weight: 900; }
-                        .header p { margin: 1px 0; font-size: 13px; font-weight: bold; }
-                        
-                        .title { text-align: center; font-weight: 900; font-size: 15px; margin: 4mm 0; }
-                        
-                        .meta { margin-bottom: 2mm; }
-                        .meta p { margin: 1px 0; display: block; font-size: 13px; font-weight: bold; }
-                        
-                        .divider { border-top: 1px dashed #000; margin: 3mm 0; }
-                        
-                        table { width: 100%; border-collapse: collapse; margin-bottom: 2mm; }
-                        th { text-align: left; padding: 1mm 0; font-size: 13px; font-weight: 900; border-bottom: 1px dashed #000; }
-                        td { padding: 1.5mm 0; font-size: 13px; vertical-align: top; }
-                        .item-name { max-width: 40mm; overflow-wrap: break-word; font-weight: 600; }
-                        
-                        .totals { width: 100%; font-weight: bold; font-size: 13px; margin-top: 2mm; }
-                        .totals .row { display: flex; justify-content: space-between; margin-bottom: 1mm; }
-                        .totals .big-row { display: flex; justify-content: space-between; font-size: 16px; font-weight: 900; padding: 2mm 0; }
-                        
-                        .footer { text-align: right; margin-top: 4mm; font-size: 11px; font-weight: bold; }
-                        
-                        /* Ensure specific styles for thermal printing */
-                        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+                        .header { text-align: center; margin-bottom: 8mm; padding-bottom: 5mm; border-bottom: 2px solid #000; }
+                        .header h1 { margin: 0 0 2mm 0; font-size: 28px; text-transform: uppercase; font-weight: 900; letter-spacing: 3px; }
+                        .header .subtitle { margin: 1mm 0; font-size: 13px; font-weight: bold; color: #333; }
+                        .header .contact { margin: 1mm 0; font-size: 12px; color: #555; }
+
+                        .title { 
+                            text-align: center; font-weight: 900; font-size: 18px; 
+                            margin: 6mm 0; letter-spacing: 2px; text-transform: uppercase;
+                            background: #f5f5f5; padding: 3mm; border-radius: 3px;
+                        }
+
+                        .meta-grid {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 4mm;
+                            margin-bottom: 6mm;
+                        }
+                        .meta-box { padding: 4mm; background: #fafafa; border: 1px solid #ddd; border-radius: 3px; }
+                        .meta-box .label { font-size: 11px; color: #777; text-transform: uppercase; font-weight: bold; margin-bottom: 1mm; }
+                        .meta-box .value { font-size: 14px; font-weight: bold; color: #000; }
+                        .meta-box .value-sub { font-size: 12px; color: #444; margin-top: 1mm; }
+
+                        .divider { border-top: 1px solid #ccc; margin: 4mm 0; }
+                        .divider-bold { border-top: 2px solid #000; margin: 4mm 0; }
+
+                        table { width: 100%; border-collapse: collapse; margin-bottom: 4mm; }
+                        thead tr { background: #222; color: white; }
+                        th { text-align: left; padding: 3mm 4mm; font-size: 13px; font-weight: 700; }
+                        th:last-child, td:last-child { text-align: right; }
+                        th:nth-child(2), td:nth-child(2) { text-align: center; }
+                        tbody tr:nth-child(even) { background: #f9f9f9; }
+                        td { padding: 3mm 4mm; font-size: 14px; vertical-align: top; border-bottom: 1px solid #eee; }
+                        .item-name { font-weight: 600; }
+                        .item-size { font-size: 11px; color: #666; }
+
+                        .totals-section { margin-top: 4mm; }
+                        .totals-row { display: flex; justify-content: space-between; padding: 2mm 4mm; font-size: 14px; }
+                        .totals-row.subtotal { color: #555; }
+                        .totals-row.grand-total { 
+                            font-size: 18px; font-weight: 900; 
+                            background: #222; color: white; 
+                            padding: 4mm; border-radius: 3px; margin-top: 2mm;
+                        }
+                        .totals-row.payment { font-size: 14px; font-weight: bold; margin-top: 2mm; background: #f0f0f0; padding: 3mm 4mm; border-radius: 3px; }
+
+                        .footer { 
+                            margin-top: 10mm; padding-top: 5mm; 
+                            border-top: 1px solid #ccc; 
+                            display: flex; justify-content: space-between; align-items: flex-end;
+                            font-size: 11px; color: #777;
+                        }
+                        .footer .thank-you { font-size: 14px; font-weight: bold; color: #000; }
+                        .footer .eoe { text-align: right; }
                     </style>
                 </head>
                 <body>
                     <div class="header">
                         <h1>KOSEM</h1>
-                        <p>PREMIUM ATTAR & OUDH</p>
-                        <p>KERALA, INDIA.</p>
-                        <p>PHONE : 9656867773</p>
+                        <p class="subtitle">PREMIUM ATTAR &amp; OUDH</p>
+                        <p class="contact">KERALA, INDIA &nbsp;|&nbsp; PHONE: 9656867773</p>
                     </div>
                     
                     <div class="title">Retail Invoice</div>
-                    
-                    <div class="meta">
-                        <p>Date : ${new Date(order.createdAt).toLocaleDateString('en-GB')} ${new Date(order.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</p>
-                        <p style="margin-top: 3mm; font-size: 14px;">${order.shippingName || order.user?.name || 'Guest'}</p>
-                        <p style="font-weight: normal;">${order.shippingPhone || order.user?.phone || order.phone || ''}</p>
-                        <p style="margin-top: 3mm;">Bill No: ${getSmartId(order)}</p>
-                        <p>Payment Mode: ${order.paymentMethod === 'COD' ? 'Cash' : 'Online'}</p>
+
+                    <div class="meta-grid">
+                        <div class="meta-box">
+                            <div class="label">Bill To</div>
+                            <div class="value">${order.shippingName || order.user?.name || 'Guest'}</div>
+                            <div class="value-sub">${order.shippingPhone || order.user?.phone || order.phone || ''}</div>
+                            <div class="value-sub">${order.shippingAddress ? order.shippingAddress + ', ' + (order.shippingCity || '') + ', ' + (order.shippingState || '') + ' ' + (order.shippingPincode || '') : ''}</div>
+                        </div>
+                        <div class="meta-box" style="text-align: right;">
+                            <div class="label">Invoice Details</div>
+                            <div class="value">Bill No: ${getSmartId(order)}</div>
+                            <div class="value-sub">Date: ${new Date(order.createdAt).toLocaleDateString('en-GB')} ${new Date(order.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</div>
+                            <div class="value-sub">Payment: ${order.paymentMethod === 'COD' ? 'Cash on Delivery' : 'Online Payment'}</div>
+                        </div>
                     </div>
-                    
-                    <div class="divider"></div>
-                    
+
                     <table>
                         <thead>
                             <tr>
-                                <th>Item</th>
-                                <th style="text-align: right; width: 15%;">Qty</th>
-                                <th style="text-align: right; width: 25%;">Amt</th>
+                                <th style="width: 5%;">#</th>
+                                <th style="width: 55%;">Item Description</th>
+                                <th style="width: 15%; text-align: center;">Qty</th>
+                                <th style="width: 12%; text-align: right;">Unit Price</th>
+                                <th style="width: 13%; text-align: right;">Amount</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${order.items.map(item => `
+                            ${order.items.map((item, idx) => `
                                 <tr>
-                                    <td class="item-name">${item.product?.name || 'Product'} ${item.product?.size ? '('+item.product.size+')' : ''}</td>
-                                    <td style="text-align: right">${item.quantity}</td>
-                                    <td style="text-align: right">${(item.price * item.quantity).toFixed(2)}</td>
+                                    <td>${idx + 1}</td>
+                                    <td>
+                                        <div class="item-name">${item.product?.name || 'Product'}</div>
+                                        ${item.product?.size ? `<div class="item-size">Size: ${item.product.size}</div>` : ''}
+                                    </td>
+                                    <td style="text-align: center;">${item.quantity}</td>
+                                    <td style="text-align: right;">Rs ${(item.price).toFixed(2)}</td>
+                                    <td style="text-align: right;">Rs ${(item.price * item.quantity).toFixed(2)}</td>
                                 </tr>
                             `).join('')}
                         </tbody>
                     </table>
-                    
+
                     <div class="divider"></div>
-                    
-                    <div class="totals">
-                        <div class="row">
-                            <span>Sub Total</span>
-                            <span>${order.items.reduce((a, b) => a + b.quantity, 0)}</span>
-                            <span>${order.items.reduce((a, b) => a + (b.price * b.quantity), 0).toFixed(2)}</span>
+
+                    <div class="totals-section">
+                        <div class="totals-row subtotal">
+                            <span>Sub Total (${order.items.reduce((a, b) => a + b.quantity, 0)} item${order.items.reduce((a, b) => a + b.quantity, 0) > 1 ? 's' : ''})</span>
+                            <span>Rs ${order.items.reduce((a, b) => a + (b.price * b.quantity), 0).toFixed(2)}</span>
                         </div>
                         ${order.shippingFee ? `
-                        <div class="row">
-                            <span style="margin-left: auto; margin-right: 4mm;">Shipping </span>
-                            <span>${order.shippingFee.toFixed(2)}</span>
+                        <div class="totals-row subtotal">
+                            <span>Shipping Fee</span>
+                            <span>Rs ${order.shippingFee.toFixed(2)}</span>
                         </div>` : ''}
-                    </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="totals">
-                        <div class="big-row">
-                            <span>TOTAL</span>
+                        <div class="totals-row grand-total">
+                            <span>TOTAL AMOUNT</span>
+                            <span>Rs ${(order.total || 0).toFixed(2)}</span>
+                        </div>
+                        <div class="totals-row payment">
+                            <span>${order.paymentMethod === 'COD' ? '💵 Cash To Collect' : '✅ Amount Paid (Online)'}</span>
                             <span>Rs ${(order.total || 0).toFixed(2)}</span>
                         </div>
                     </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="totals">
-                        <div class="row">
-                            <span>${order.paymentMethod === 'COD' ? 'Cash To Collect' : 'Prepaid'} :</span>
-                            <span>Rs ${(order.total || 0).toFixed(2)}</span>
-                        </div>
-                    </div>
-                    
+
                     <div class="footer">
-                        <p>E & O.E</p>
+                        <div class="thank-you">Thank you for shopping with Kosem! 🌿</div>
+                        <div class="eoe">
+                            <div>E. &amp; O.E.</div>
+                            <div>This is a computer generated invoice.</div>
+                        </div>
                     </div>
+
                     <script>
-                        window.print();
+                        window.onload = function() { window.print(); };
                     </script>
                 </body>
             </html>
