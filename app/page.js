@@ -307,7 +307,7 @@ export default async function Home() {
                         <div className="heritage-content" style={{ flex: '1', minWidth: '300px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }} className="heritage-header-wrap">
                                 <div style={{ width: '30px', height: '1px', background: 'var(--color-gold)' }}></div>
-                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '0.75rem', fontWeight: '800' }}>The Heritage</span>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '1.1rem', fontWeight: '800' }}>The Heritage</span>
                             </div>
 
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
@@ -350,7 +350,7 @@ export default async function Home() {
 
                                 { icon: '💎', title: 'Premium Quality', desc: 'The cost of the ingredients is not counted, only the depth of the impression they leave, is on our mind. Premium quality is our promise that what touches your skin is the absolute truest, richest expression of our art.' },
 
-                                { icon: '🏆', title: 'Trusted Heritage', desc: 'When a perfume company is born entirely out of passion rather than business lineage, its heritage isnt measured in centuries-old ledgers or inherited formulas. Its heritage is built on intuition, experimentation, and raw emotion.' }
+                                { icon: '🏆', title: 'Trusted Heritage', desc: <span>When a perfume company is born entirely out of passion rather than business lineage, its heritage isn&apos;t measured in centuries-old ledgers or inherited formulas. Its heritage is built on <strong>intuition, experimentation, and raw emotion.</strong></span> }
                             ].map((prop, i) => (
                                 <div key={i} className="glass-card hover-glow" style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
                                     <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>{prop.icon}</div>
