@@ -13,7 +13,7 @@ export default function Footer() {
 
     useEffect(() => {
         setYear(new Date().getFullYear());
-        
+
         // Fetch categories dynamically
         fetch('/api/categories')
             .then(res => res.json())
@@ -71,7 +71,7 @@ export default function Footer() {
                 <div>
                     <h4 className="footer-heading">Collections</h4>
                     <ul style={{ listStyle: 'none', padding: 0 }}>
-                        <li><Link href="/shop" className="footer-link">All Perfumes</Link></li>
+                        <li><Link href="/shop" className="footer-link">All Products</Link></li>
                         {categories.map((cat) => (
                             <li key={cat.id || cat.name}>
                                 <Link href={`/shop?category=${encodeURIComponent(cat.name)}`} className="footer-link">

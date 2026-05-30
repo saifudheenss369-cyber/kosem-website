@@ -307,7 +307,7 @@ export default async function Home() {
                         <div className="heritage-content" style={{ flex: '1', minWidth: '300px' }}>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '1rem' }} className="heritage-header-wrap">
                                 <div style={{ width: '30px', height: '1px', background: 'var(--color-gold)' }}></div>
-                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '1.1rem', fontWeight: '800' }}>The Heritage</span>
+                                <span style={{ color: 'var(--color-gold)', letterSpacing: '4px', textTransform: 'uppercase', fontSize: '2.1rem', fontWeight: '800' }}>The Heritage</span>
                             </div>
 
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
