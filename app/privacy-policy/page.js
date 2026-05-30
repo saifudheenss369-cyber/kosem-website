@@ -5,7 +5,7 @@ export default function PrivacyPolicy() {
     return (
         <>
             <Navbar />
-            <main style={{ padding: '6rem 2rem', maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
+            <main style={{ paddingTop: '10rem', paddingBottom: '6rem', paddingLeft: '2rem', paddingRight: '2rem', maxWidth: '800px', margin: '0 auto', fontFamily: 'sans-serif' }}>
                 <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '2.5rem', marginBottom: '2rem' }}>Privacy Policy</h1>
                 <p style={{ color: 'var(--color-text-muted)', marginBottom: '2rem' }}>Last updated: {new Date().toLocaleDateString()}</p>
 
