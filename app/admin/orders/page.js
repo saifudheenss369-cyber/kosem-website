@@ -529,7 +529,7 @@ export default function AdminOrders() {
                         setSearchText('');
                         setFilters({ startDate: '', endDate: '', status: 'ALL', q: '', datePreset: 'ALL', page: 1 });
                     }}
-                    style={{ padding: '0.6rem 1.2rem', background: '#e0e0e0', color: 'var(--color-text-main)', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
+                    style={{ padding: '0.6rem 1.2rem', background: '#222', color: '#fff', border: '1px solid #444', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}
                 >
                     Clear Filter
                 </button>
