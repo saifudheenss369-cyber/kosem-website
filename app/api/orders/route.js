@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import jwt from 'jsonwebtoken';
 
-import { sendInvoiceEmail } from '@/lib/email';
+import { sendInvoiceEmail, sendCancellationEmail } from '@/lib/email';
 import { createShiprocketOrder } from '@/lib/shiprocket';
 import { sendWhatsAppAlert, buildOrderAlertMessage } from '@/lib/whatsapp';
 import { sendPushNotification, buildOrderPushPayload } from '@/lib/fcm-server';
@@ -18,6 +18,16 @@ const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-key-change-this';
 export async function POST(req) {
     try {
         const { name, address, district, state, pincode, phone, email, items, total, paymentMethod, shippingMethod, couponCode, discountAmount, landmark, paymentPending } = await req.json();
+
+        // Validate Cash on Delivery settings
+        if (paymentMethod === 'COD') {
+            const codSetting = await prisma.setting.findUnique({
+                where: { key: 'codEnabled' }
+            });
+            if (codSetting && codSetting.value === 'false') {
+                return NextResponse.json({ error: 'Cash on Delivery is currently disabled' }, { status: 400 });
+            }
+        }
 
         // Try to get userId from token
         const cookieStore = cookies();
@@ -306,8 +316,21 @@ export async function PUT(req) {
         const { status } = await req.json();
         const order = await prisma.order.update({
             where: { id: parseInt(id) },
-            data: { status }
+            data: { status },
+            include: {
+                user: true,
+                items: { include: { product: true } }
+            }
         });
+
+        if (status === 'CANCELLED') {
+            try {
+                await sendCancellationEmail(order);
+            } catch (emailErr) {
+                console.error('Failed to send cancellation email:', emailErr);
+            }
+        }
+
         return NextResponse.json(order);
     } catch (error) {
         return NextResponse.json({ error: 'Update failed' }, { status: 500 });

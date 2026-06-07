@@ -59,6 +59,10 @@ export default function Checkout() {
                 if (data.onlineDiscountPercentage) {
                     setOnlineDiscountPercentage(Number(data.onlineDiscountPercentage));
                 }
+                if (data.codEnabled === 'false') {
+                    setIsCodGloballyEnabled(false);
+                    setPaymentMethod('ONLINE');
+                }
             })
             .catch(console.error);
     }, []);
@@ -139,6 +143,7 @@ export default function Checkout() {
     const [orderData, setOrderData] = useState(null);
     const [isPlacingOrder, setIsPlacingOrder] = useState(false);
     const [isCodAvailable, setIsCodAvailable] = useState(true);
+    const [isCodGloballyEnabled, setIsCodGloballyEnabled] = useState(true);
 
     // Coupon states
     const [couponCodeInput, setCouponCodeInput] = useState('');
@@ -628,7 +633,17 @@ export default function Checkout() {
                              <div className="method-section">
                                  <h3>Payment Method</h3>
                                  <div className="method-grid">
-                                     {isCodAvailable ? (
+                                     {!isCodGloballyEnabled ? (
+                                         <div className="method-card disabled">
+                                             <div className="method-info">
+                                                 <span className="method-icon">⚠️</span>
+                                                 <div className="method-details">
+                                                     <span className="method-name" style={{ color: '#ef4444' }}>COD Unavailable</span>
+                                                     <span className="method-desc">Cash on Delivery is currently disabled</span>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                     ) : isCodAvailable ? (
                                          <label className={`method-card ${paymentMethod === 'COD' ? 'active' : ''}`}>
                                              <div className="method-info">
                                                  <input

@@ -577,6 +577,19 @@ export default function AdminOrders() {
                                     >
                                         {printingId === order.id ? '⏳' : 'Print Invoice'}
                                     </button>
+                                    {order.status !== 'CANCELLED' && (
+                                        <button
+                                            onClick={() => {
+                                                if (confirm(`Are you sure you want to cancel order ${getSmartId(order)}? This will notify the customer via email.`)) {
+                                                    updateStatus(order.id, 'CANCELLED');
+                                                }
+                                            }}
+                                            disabled={updatingStatusId === order.id}
+                                            style={{ display: 'block', marginTop: '0.5rem', width: '100%', padding: '0.25rem', background: '#c62828', color: 'white', border: 'none', borderRadius: '4px', cursor: updatingStatusId === order.id ? 'wait' : 'pointer', fontSize: '0.8rem', fontWeight: 'bold', opacity: updatingStatusId === order.id ? 0.7 : 1 }}
+                                        >
+                                            {updatingStatusId === order.id ? '⏳' : 'Cancel Order'}
+                                        </button>
+                                    )}
                                 </div>
                             </div>
 

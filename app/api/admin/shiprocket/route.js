@@ -58,10 +58,20 @@ export async function POST(req) {
                 if (res.success) {
                     if (orderId) {
                         // Sync cancellation to our DB
-                        await prisma.order.update({
+                        const updatedOrder = await prisma.order.update({
                             where: { id: parseInt(orderId) },
-                            data: { status: 'CANCELLED' }
+                            data: { status: 'CANCELLED' },
+                            include: {
+                                user: true,
+                                items: { include: { product: true } }
+                            }
                         });
+                        try {
+                            const { sendCancellationEmail } = await import('@/lib/email');
+                            await sendCancellationEmail(updatedOrder);
+                        } catch (e) {
+                            console.error('Shiprocket cancellation email error:', e);
+                        }
                     }
                     await logAudit('SHIPROCKET_CANCEL', `Cancelled Shiprocket order ID ${shiprocketOrderId} (Order #${orderId})`);
                 }
