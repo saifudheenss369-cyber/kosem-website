@@ -20,7 +20,7 @@ export default function AboutPage() {
                             About Kosem Perfume
                         </h1>
                         <p style={{ fontSize: '1.2rem', maxWidth: '700px', margin: '0 auto', color: 'var(--color-text-muted)', lineHeight: '1.8' }}>
-                            Captivate your precious moments with our signature fragrances, in a place where tradition meets sophisticated elegance, Where tradition meets sophisticated elegance.
+                            Captivate your precious moments with our signature fragrances, in a place where tradition meets sophisticated elegance
                         </p>
                     </div>
                 </section>
