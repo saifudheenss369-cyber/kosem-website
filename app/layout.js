@@ -25,7 +25,7 @@ export const metadata = {
         default: 'Kosem | Premium Attar & Oudh',
         template: '%s | Kosem Perfume'
     },
-    description: 'Discover authentic, alcohol-free premium attar and oudh crafted from the rarest natural ingredients. Experience true luxury fragrances.',
+    description: 'Captivate your precious moments with our signature fragrances, where tradition meets sophisticated elegance.',
     keywords: ['Attar', 'Oudh', 'Premium Fragrance', 'Alcohol-Free Perfume', 'Luxury Attar', 'Indian Attar', 'Kosem'],
     openGraph: {
         title: 'Kosem | Premium Attar & Oudh',
