@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 
-export default function WebGLHero({ image = '/hero-box.jpg', title = 'Kosem', subtitle = 'Premium Attar & Oudh', link = '/shop' }) {
+export default function WebGLHero({ image = '/hero-box.jpg', title = 'Kosem', subtitle = 'Premium Perfumes and Attar', link = '/shop' }) {
     const canvasRef = useRef(null);
     const rendererRef = useRef(null);
     const frameRef = useRef(null);

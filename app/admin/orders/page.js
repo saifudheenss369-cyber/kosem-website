@@ -339,7 +339,7 @@ export default function AdminOrders() {
                 <body>
                     <div class="header">
                         <h1>KOSEM</h1>
-                        <p class="subtitle">PREMIUM ATTAR &amp; OUDH</p>
+                        <p class="subtitle">PREMIUM PERFUMES &amp; ATTAR</p>
                         <p class="contact">KERALA, INDIA &nbsp;|&nbsp; PHONE: 9656867773</p>
                     </div>
                     

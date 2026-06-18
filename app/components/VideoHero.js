@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 
-export default function VideoHero({ title = 'Kosem', subtitle = 'Premium Attar & Oudh', link = '/shop' }) {
+export default function VideoHero({ title = 'Kosem', subtitle = 'Premium Perfumes and Attar', link = '/shop' }) {
     return (
         <section style={{
             position: 'relative',

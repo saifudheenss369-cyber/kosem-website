@@ -22,14 +22,14 @@ import Footer from './components/Footer';
 export const metadata = {
     metadataBase: new URL('https://kosemperfumes.com'),
     title: {
-        default: 'Kosem | Premium Attar & Oudh',
+        default: 'Kosem | Premium Perfumes and Attar',
         template: '%s | Kosem Perfume'
     },
     description: 'Captivate your precious moments with our signature fragrances, where tradition meets sophisticated elegance.',
     keywords: ['Attar', 'Oudh', 'Premium Fragrance', 'Alcohol-Free Perfume', 'Luxury Attar', 'Indian Attar', 'Kosem'],
     openGraph: {
-        title: 'Kosem | Premium Attar & Oudh',
-        description: 'Authentic, alcohol-free premium attar and oudh.',
+        title: 'Kosem | Premium Perfumes and Attar',
+        description: 'Captivate your precious moments with our signature fragrances, where tradition meets sophisticated elegance.',
         url: 'https://kosemperfumes.com',
         siteName: 'Kosem Perfume',
         locale: 'en_IN',
