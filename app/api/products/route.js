@@ -4,6 +4,7 @@ import { logAudit } from '@/lib/audit';
 import jwt from 'jsonwebtoken';
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { uploadBase64Image } from '@/lib/cloudinary';
 
 export const dynamic = 'force-dynamic';
 
@@ -146,6 +147,30 @@ export async function POST(req) {
             return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
         }
 
+        // Process images with Cloudinary
+        let processedImages = images || '';
+        if (processedImages.startsWith('data:image')) {
+            processedImages = await uploadBase64Image(processedImages);
+        }
+
+        let processedGallery = gallery || null;
+        if (processedGallery) {
+            let galleryArray = [];
+            try { galleryArray = JSON.parse(processedGallery); } catch(e) {}
+            
+            if (galleryArray.length > 0) {
+                const updatedGallery = await Promise.all(
+                    galleryArray.map(async (img) => {
+                        if (img.startsWith('data:image')) {
+                            return await uploadBase64Image(img);
+                        }
+                        return img;
+                    })
+                );
+                processedGallery = JSON.stringify(updatedGallery);
+            }
+        }
+
         const product = await prisma.product.create({
             data: {
                 name,
@@ -154,14 +179,14 @@ export async function POST(req) {
                 stock: parseInt(stock),
                 category,
                 occasions: occasions || '',
-                images: images || '',
+                images: processedImages,
                 rating: parseFloat(rating || 0),
                 isBestSeller: Boolean(isBestSeller),
                 isMainVariant: Boolean(isMainVariant),
                 size: size || null,
                 variantGroupId: variantGroupId || null,
                 similarProductIds: similarProductIds || null,
-                gallery: gallery || null,
+                gallery: processedGallery,
                 showStockCount: showStockCount !== undefined ? Boolean(showStockCount) : true,
                 originalPrice: originalPrice ? parseFloat(originalPrice) : null,
                 fakeRatingCount: fakeRatingCount ? parseInt(fakeRatingCount) : 0,
@@ -196,6 +221,30 @@ export async function PUT(req) {
 
         if (!productId) return NextResponse.json({ error: 'Product ID required' }, { status: 400 });
 
+        // Process images with Cloudinary
+        let processedImages = images;
+        if (processedImages && processedImages.startsWith('data:image')) {
+            processedImages = await uploadBase64Image(processedImages);
+        }
+
+        let processedGallery = gallery;
+        if (processedGallery) {
+            let galleryArray = [];
+            try { galleryArray = JSON.parse(processedGallery); } catch(e) {}
+            
+            if (galleryArray.length > 0) {
+                const updatedGallery = await Promise.all(
+                    galleryArray.map(async (img) => {
+                        if (img.startsWith('data:image')) {
+                            return await uploadBase64Image(img);
+                        }
+                        return img;
+                    })
+                );
+                processedGallery = JSON.stringify(updatedGallery);
+            }
+        }
+
         const product = await prisma.product.update({
             where: { id: parseInt(productId) },
             data: {
@@ -205,13 +254,13 @@ export async function PUT(req) {
                 stock: parseInt(stock),
                 category,
                 occasions: occasions !== undefined ? occasions : undefined,
-                images,
+                images: processedImages !== undefined ? processedImages : undefined,
                 rating: parseFloat(rating),
                 isBestSeller: Boolean(isBestSeller),
                 size: size !== undefined ? size : null,
                 variantGroupId: variantGroupId !== undefined ? variantGroupId : null,
                 similarProductIds: similarProductIds !== undefined ? similarProductIds : null,
-                gallery: gallery !== undefined ? gallery : null,
+                gallery: processedGallery !== undefined ? processedGallery : null,
                 ...(isMainVariant !== undefined && { isMainVariant: Boolean(isMainVariant) }),
                 // Only update these if provided (or if null is intended, but for now assuming optional update)
                 ...(showStockCount !== undefined && { showStockCount: Boolean(showStockCount) }),
