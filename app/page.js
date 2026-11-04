@@ -56,6 +56,7 @@ export default async function Home() {
     let heroProducts = [];
     let offerBanners = [];
     let newArrivals = [];
+    let discoverySets = [];
     let heritageMedia = null;
     let heritageLink = null;
 
@@ -69,6 +70,7 @@ export default async function Home() {
             fetchedPremium,
             fetchedLuxury,
             fetchedNewArrivalsTemp,
+            fetchedDiscoverySets,
             heritageSetting,
             heritageLinkSetting
         ] = await Promise.all([
@@ -79,6 +81,7 @@ export default async function Home() {
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } }),
+            prisma.discoverySet.findMany({ where: { isActive: true }, include: { scents: true }, orderBy: { createdAt: 'desc' } }),
             prisma.setting.findUnique({ where: { key: 'heritageMedia' } }),
             prisma.setting.findUnique({ where: { key: 'heritageLink' } })
         ]);
@@ -89,6 +92,8 @@ export default async function Home() {
         bestSellers = fetchedBestSellers;
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
+        const homeSets = (fetchedDiscoverySets || []).filter(s => s.showOnHome);
+        discoverySets = homeSets.length > 0 ? homeSets : (fetchedDiscoverySets || []);
         heritageMedia = heritageSetting?.value || null;
         heritageLink = heritageLinkSetting?.value || null;
 
@@ -154,6 +159,113 @@ export default async function Home() {
                     </section>
                 )}
 
+                {/* Discovery Sets Section - Positioned right below Best Sellers */}
+                {discoverySets.length > 0 && (
+                    <>
+                        <div className="luxury-divider-wrap">
+                            <div className="luxury-divider-line"></div>
+                            <div className="luxury-divider-center">
+                                <div className="luxury-divider-dot"></div>
+                                <div className="luxury-divider-emblem">
+                                    <span className="luxury-divider-emblem-icon">✨</span>
+                                </div>
+                                <div className="luxury-divider-dot"></div>
+                            </div>
+                            <div className="luxury-divider-line right"></div>
+                        </div>
+
+                        <section className="section-padding">
+                            <div className="container">
+                                <div className="carousel-header" style={{ textAlign: 'center', marginBottom: '3rem', width: '100%' }}>
+                                    <span style={{ color: 'var(--color-gold)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '700' }}>Build Your Own</span>
+                                    <h2 style={{
+                                        fontFamily: 'var(--font-serif)',
+                                        fontSize: '2.5rem',
+                                        color: 'var(--color-text-main)',
+                                        marginTop: '0.5rem',
+                                        marginBottom: '0.25rem'
+                                    }}>
+                                        Discovery <span className="text-gradient-gold">Sets</span>
+                                    </h2>
+                                    <div style={{ width: '40px', height: '2px', background: 'var(--color-gold)', margin: '1rem auto' }}></div>
+                                </div>
+
+                                <div style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                                    gap: '1.8rem',
+                                    maxWidth: discoverySets.length === 1 ? '400px' : '100%',
+                                    margin: '0 auto'
+                                }}>
+                                    {discoverySets.map((set) => {
+                                        let packs = [];
+                                        let gallery = [];
+                                        try { packs = JSON.parse(set.packs || '[]'); } catch { packs = []; }
+                                        try { gallery = JSON.parse(set.gallery || '[]'); } catch { gallery = []; }
+                                        const prices = Array.isArray(packs) ? packs.map(p => Number(p.price)).filter(n => n > 0) : [];
+                                        const fromPrice = prices.length ? Math.min(...prices) : null;
+                                        const img = set.image || (Array.isArray(gallery) && gallery[0]) || null;
+
+                                        return (
+                                            <Link
+                                                key={set.id}
+                                                href={`/discovery-set/${set.id}`}
+                                                style={{
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    background: 'var(--color-bg-secondary)',
+                                                    borderRadius: '14px',
+                                                    overflow: 'hidden',
+                                                    border: '1px solid rgba(184, 134, 11, 0.2)',
+                                                    textDecoration: 'none',
+                                                    color: 'inherit',
+                                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+                                                }}
+                                            >
+                                                <div style={{ aspectRatio: '1 / 1', background: '#111', position: 'relative', overflow: 'hidden' }}>
+                                                    {img && (
+                                                        <img
+                                                            src={img}
+                                                            alt={set.name}
+                                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                                        />
+                                                    )}
+                                                </div>
+                                                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', margin: '0 0 0.4rem', color: 'var(--color-text-main)' }}>
+                                                        {set.name}
+                                                    </h3>
+                                                    {set.tagline && (
+                                                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', margin: '0 0 1rem', lineHeight: 1.5 }}>
+                                                            {set.tagline}
+                                                        </p>
+                                                    )}
+                                                    <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.8rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                                                        {fromPrice !== null ? (
+                                                            <span style={{ color: 'var(--color-gold)', fontWeight: '700', fontSize: '1.1rem' }}>
+                                                                From ₹{fromPrice}
+                                                            </span>
+                                                        ) : <span />}
+                                                        <span style={{ color: 'var(--color-gold)', fontSize: '0.85rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>
+                                                            Customize &rarr;
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </Link>
+                                        );
+                                    })}
+                                </div>
+
+                                <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+                                    <Link href="/discovery-set" className="hover-link">
+                                        Explore All Discovery Sets &rarr;
+                                    </Link>
+                                </div>
+                            </div>
+                        </section>
+                    </>
+                )}
+
                 {/* Luxury Section Divider */}
                 <div className="luxury-divider-wrap">
                     <div className="luxury-divider-line"></div>
@@ -167,7 +279,7 @@ export default async function Home() {
                     <div className="luxury-divider-line right"></div>
                 </div>
 
-                {/* New Arrivals Section - Positioned right below Best Sellers */}
+                {/* New Arrivals Section - Positioned right below Discovery Sets */}
                 {newArrivals.length > 0 && (
                     <section className="section-padding">
                         <div className="container">
@@ -298,8 +410,6 @@ export default async function Home() {
                                     boxShadow: '0 10px 20px rgba(0,0,0,0.3)',
                                     textAlign: 'center'
                                 }}>
-                                    {/* <span style={{ fontSize: '1.2rem', display: 'block', lineHeight: '1' }}>100%</span>
-                                    <span style={{ fontSize: '0.5rem', textTransform: 'uppercase', display: 'block', letterSpacing: '1px' }}>Pure Essence</span> */}
                                 </div>
                             </div>
                         </div>
@@ -313,18 +423,6 @@ export default async function Home() {
                             <p style={{ color: 'var(--color-text-main)', lineHeight: '1.8', marginBottom: '2.5rem', fontSize: '1rem', opacity: 0.9, borderLeft: '2px solid var(--color-gold)', paddingLeft: '1.2rem' }} className="heritage-p">
                                 We didn’t inherit a kingdom. We built a sanctuary of scent, drop by single drop, driven by nothing but the desire to connect one human being to another through the invisible language of perfume
                             </p>
-
-                            {/* <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '1.5rem' }}>
-                                {[
-                                    { title: 'Long Lasting', desc: 'Stays for 6+ hours.' },
-
-                                ].map((item, idx) => (
-                                    <div key={idx} style={{ background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                                        <h4 style={{ color: 'var(--color-gold)', marginBottom: '0.3rem', fontSize: '0.9rem', textTransform: 'uppercase' }}>{item.title}</h4>
-                                        <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', lineHeight: '1.4' }}>{item.desc}</p>
-                                    </div>
-                                ))}
-                            </div> */}
                         </div>
                     </div>
                     <style dangerouslySetInnerHTML={{
@@ -347,9 +445,7 @@ export default async function Home() {
                             gap: '2rem'
                         }} className="props-grid">
                             {[
-
                                 { icon: '💎', title: 'Premium Quality', desc: 'The cost of the ingredients is not counted, only the depth of the impression they leave, is on our mind. Premium quality is our promise that what touches your skin is the absolute truest, richest expression of our art.' },
-
                                 { icon: '🏆', title: 'Trusted Heritage', desc: <span>When a perfume company is born entirely out of passion rather than business lineage, its heritage isn&apos;t measured in centuries-old ledgers or inherited formulas. Its heritage is built on <strong>intuition, experimentation, and raw emotion.</strong></span> }
                             ].map((prop, i) => (
                                 <div key={i} className="glass-card hover-glow" style={{ padding: '2.5rem 1.5rem', textAlign: 'center' }}>
@@ -376,5 +472,4 @@ export default async function Home() {
             </main >
         </>
     );
-
 }
