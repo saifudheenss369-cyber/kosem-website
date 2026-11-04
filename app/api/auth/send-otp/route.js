@@ -12,8 +12,8 @@ export async function POST(req) {
 
         // Check if user already exists
         const existingUser = await prisma.user.findUnique({ where: { email } });
-        if (existingUser) {
-            return NextResponse.json({ error: 'Email already registered' }, { status: 400 });
+        if (existingUser && existingUser.password !== 'OTP_LOGIN') {
+            return NextResponse.json({ error: 'Email already registered. Please login.' }, { status: 400 });
         }
 
         // Generate OTP

@@ -215,20 +215,12 @@ export default function Checkout() {
 
         if (cart.length === 0) return;
 
-        // Force OTP if:
-        // 1. Not logged in
-        // 2. Logged in but not verified
-        // 3. Logged in and verified BUT has changed the phone number in the form
-        const isVerifiedUser = user && user.isVerified;
-        const phoneMatches = user && user.phone === formData.phone;
-
-        if (isVerifiedUser && phoneMatches) {
-            await processOrder(user);
+        if (!formData.phone || formData.phone.length < 10) {
+            setPopupConfig({ isOpen: true, title: 'Error', message: 'Please enter a valid 10-digit phone number.', type: 'error' });
             return;
         }
 
-        // Otherwise, require phone OTP
-        handleSendOtp();
+        await processOrder(user);
     };
 
     const handleSendOtp = async (overridePhone = null) => {
@@ -501,7 +493,7 @@ export default function Checkout() {
                 <h1>Checkout</h1>
                 <div className="checkout-grid">
                     <div>
-                        <h3>Shipping & Verification</h3>
+                        <h3>Shipping Details</h3>
                         <form onSubmit={handleSubmit} id="checkout-form">
                             <div className="form-group">
                                 <label>Name</label>
@@ -777,11 +769,9 @@ export default function Checkout() {
                                      type="submit"
                                      form="checkout-form"
                                      className="btn-primary checkout-submit-btn hide-mobile"
-                                     disabled={inlineAuthStep === 1 || isPlacingOrder}
+                                     disabled={isPlacingOrder}
                                  >
-                                     {(user && user.isVerified && user.phone === formData.phone)
-                                         ? (isPlacingOrder ? 'Processing...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order'))
-                                         : (inlineAuthStep === 0 ? 'Verify & Continue' : 'Verifying...')}
+                                     {isPlacingOrder ? 'Processing...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Place Order')}
                                  </button>
                              </div>
                          </div>
@@ -849,12 +839,10 @@ export default function Checkout() {
                             type="submit"
                             form="checkout-form"
                             className="btn-primary"
-                            disabled={inlineAuthStep === 1 || isPlacingOrder}
+                            disabled={isPlacingOrder}
                             style={{ padding: '0.8rem 1.5rem', minWidth: '140px' }}
                         >
-                            {(user && user.isVerified && user.phone === formData.phone)
-                                ? (isPlacingOrder ? '...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Order Now'))
-                                : (inlineAuthStep === 0 ? 'Verify' : '...')}
+                            {isPlacingOrder ? '...' : (paymentMethod === 'ONLINE' ? 'Pay Now' : 'Order Now')}
                         </button>
                     </div>
                 </div>

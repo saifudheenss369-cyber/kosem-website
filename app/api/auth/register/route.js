@@ -15,14 +15,14 @@ export async function POST(req) {
             return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
         }
 
-        // Check Verification Status (Disabled for Firebase Frontend Trust flow)
-        // const verification = await prisma.verification.findUnique({
-        //     where: { identifier: email }
-        // });
+        // Check Email OTP Verification Status
+        const verification = await prisma.verification.findUnique({
+            where: { identifier: email }
+        });
 
-        // if (!verification || !verification.verified) {
-        //     return NextResponse.json({ error: 'Email not verified' }, { status: 400 });
-        // }
+        if (!verification || !verification.verified) {
+            return NextResponse.json({ error: 'Email not verified. Please verify your email with OTP.' }, { status: 400 });
+        }
 
         // Check existing user by email
         const existingUserByEmail = await prisma.user.findUnique({ where: { email } });
