@@ -56,7 +56,6 @@ export default async function Home() {
     let heroProducts = [];
     let offerBanners = [];
     let newArrivals = [];
-    let discoverySets = [];
     let heritageMedia = null;
     let heritageLink = null;
 
@@ -70,7 +69,6 @@ export default async function Home() {
             fetchedPremium,
             fetchedLuxury,
             fetchedNewArrivalsTemp,
-            fetchedDiscoverySets,
             heritageSetting,
             heritageLinkSetting
         ] = await Promise.all([
@@ -81,7 +79,6 @@ export default async function Home() {
             prisma.product.findMany({ where: { category: 'Premium' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { category: 'Luxury' }, take: 50, orderBy: { createdAt: 'desc' } }),
             prisma.product.findMany({ where: { isNewArrival: true }, take: 30, orderBy: { createdAt: 'desc' } }),
-            prisma.discoverySet.findMany({ where: { isActive: true }, include: { scents: true }, orderBy: { createdAt: 'desc' } }),
             prisma.setting.findUnique({ where: { key: 'heritageMedia' } }),
             prisma.setting.findUnique({ where: { key: 'heritageLink' } })
         ]);
@@ -92,8 +89,6 @@ export default async function Home() {
         bestSellers = fetchedBestSellers;
         premiumProducts = fetchedPremium;
         luxuryProducts = fetchedLuxury;
-        const homeSets = (fetchedDiscoverySets || []).filter(s => s.showOnHome);
-        discoverySets = homeSets.length > 0 ? homeSets : (fetchedDiscoverySets || []);
         heritageMedia = heritageSetting?.value || null;
         heritageLink = heritageLinkSetting?.value || null;
 
@@ -159,112 +154,232 @@ export default async function Home() {
                     </section>
                 )}
 
-                {/* Discovery Sets Section - Positioned right below Best Sellers */}
-                {discoverySets.length > 0 && (
-                    <>
-                        <div className="luxury-divider-wrap">
-                            <div className="luxury-divider-line"></div>
-                            <div className="luxury-divider-center">
-                                <div className="luxury-divider-dot"></div>
-                                <div className="luxury-divider-emblem">
-                                    <span className="luxury-divider-emblem-icon">✨</span>
-                                </div>
-                                <div className="luxury-divider-dot"></div>
-                            </div>
-                            <div className="luxury-divider-line right"></div>
+                {/* Luxury Section Divider */}
+                <div className="luxury-divider-wrap">
+                    <div className="luxury-divider-line"></div>
+                    <div className="luxury-divider-center">
+                        <div className="luxury-divider-dot"></div>
+                        <div className="luxury-divider-emblem">
+                            <span className="luxury-divider-emblem-icon">✨</span>
                         </div>
+                        <div className="luxury-divider-dot"></div>
+                    </div>
+                    <div className="luxury-divider-line right"></div>
+                </div>
 
-                        <section className="section-padding">
-                            <div className="container">
-                                <div className="carousel-header" style={{ textAlign: 'center', marginBottom: '3rem', width: '100%' }}>
-                                    <span style={{ color: 'var(--color-gold)', letterSpacing: '3px', textTransform: 'uppercase', fontSize: '0.8rem', fontWeight: '700' }}>Build Your Own</span>
-                                    <h2 style={{
-                                        fontFamily: 'var(--font-serif)',
-                                        fontSize: '2.5rem',
-                                        color: 'var(--color-text-main)',
-                                        marginTop: '0.5rem',
-                                        marginBottom: '0.25rem'
-                                    }}>
-                                        Discovery <span className="text-gradient-gold">Sets</span>
-                                    </h2>
-                                    <div style={{ width: '40px', height: '2px', background: 'var(--color-gold)', margin: '1rem auto' }}></div>
+                {/* Discovery Set Promotional Banner - Positioned right below Best Sellers */}
+                <section className="section-padding" style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                    <div className="container">
+                        <Link href="/discovery-set" className="discovery-promo-banner">
+                            <div className="discovery-promo-glow glow-1" />
+                            <div className="discovery-promo-glow glow-2" />
+
+                            <div className="discovery-promo-content">
+                                <span className="discovery-promo-badge">✨ CURATED FRAGRANCE BOX</span>
+                                <h2 className="discovery-promo-title">
+                                    Build Your Own <span className="text-gradient-gold">Discovery Set</span>
+                                </h2>
+                                <p className="discovery-promo-desc">
+                                    Can&apos;t decide on a single scent? Handpick your favourite signature fragrances into a custom luxury box — crafted for exploration and gifting.
+                                </p>
+                                <div className="discovery-promo-pills">
+                                    <span>✦ Pick Your Own Scents</span>
+                                    <span>✦ Multiple Pack Sizes</span>
+                                    <span>✦ Luxury Gift Packaging</span>
                                 </div>
-
-                                <div style={{
-                                    display: 'grid',
-                                    gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-                                    gap: '1.8rem',
-                                    maxWidth: discoverySets.length === 1 ? '400px' : '100%',
-                                    margin: '0 auto'
-                                }}>
-                                    {discoverySets.map((set) => {
-                                        let packs = [];
-                                        let gallery = [];
-                                        try { packs = JSON.parse(set.packs || '[]'); } catch { packs = []; }
-                                        try { gallery = JSON.parse(set.gallery || '[]'); } catch { gallery = []; }
-                                        const prices = Array.isArray(packs) ? packs.map(p => Number(p.price)).filter(n => n > 0) : [];
-                                        const fromPrice = prices.length ? Math.min(...prices) : null;
-                                        const img = set.image || (Array.isArray(gallery) && gallery[0]) || null;
-
-                                        return (
-                                            <Link
-                                                key={set.id}
-                                                href={`/discovery-set/${set.id}`}
-                                                style={{
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                    background: 'var(--color-bg-secondary)',
-                                                    borderRadius: '14px',
-                                                    overflow: 'hidden',
-                                                    border: '1px solid rgba(184, 134, 11, 0.2)',
-                                                    textDecoration: 'none',
-                                                    color: 'inherit',
-                                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease'
-                                                }}
-                                            >
-                                                <div style={{ aspectRatio: '1 / 1', background: '#111', position: 'relative', overflow: 'hidden' }}>
-                                                    {img && (
-                                                        <img
-                                                            src={img}
-                                                            alt={set.name}
-                                                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                                                        />
-                                                    )}
-                                                </div>
-                                                <div style={{ padding: '1.25rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                                    <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', margin: '0 0 0.4rem', color: 'var(--color-text-main)' }}>
-                                                        {set.name}
-                                                    </h3>
-                                                    {set.tagline && (
-                                                        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)', margin: '0 0 1rem', lineHeight: 1.5 }}>
-                                                            {set.tagline}
-                                                        </p>
-                                                    )}
-                                                    <div style={{ marginTop: 'auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '0.8rem', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
-                                                        {fromPrice !== null ? (
-                                                            <span style={{ color: 'var(--color-gold)', fontWeight: '700', fontSize: '1.1rem' }}>
-                                                                From ₹{fromPrice}
-                                                            </span>
-                                                        ) : <span />}
-                                                        <span style={{ color: 'var(--color-gold)', fontSize: '0.85rem', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                                                            Customize &rarr;
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </Link>
-                                        );
-                                    })}
-                                </div>
-
-                                <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-                                    <Link href="/discovery-set" className="hover-link">
-                                        Explore All Discovery Sets &rarr;
-                                    </Link>
+                                <div className="discovery-promo-cta">
+                                    <span className="btn-primary discovery-cta-btn">
+                                        Create Your Set &rarr;
+                                    </span>
                                 </div>
                             </div>
-                        </section>
-                    </>
-                )}
+
+                            <div className="discovery-promo-visual">
+                                <div className="discovery-visual-frame">
+                                    <img
+                                        src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=900&auto=format&fit=crop"
+                                        alt="Kosem Discovery Set"
+                                    />
+                                    <div className="discovery-visual-overlay" />
+                                    <div className="discovery-floating-tag">
+                                        <span className="tag-top">CUSTOMIZABLE</span>
+                                        <span className="tag-main">Trial &amp; Gift Packs</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </Link>
+                    </div>
+
+                    <style dangerouslySetInnerHTML={{
+                        __html: `
+                        .discovery-promo-banner {
+                            position: relative;
+                            display: grid;
+                            grid-template-columns: 1.25fr 0.9fr;
+                            align-items: center;
+                            gap: 2.5rem;
+                            padding: 3rem 3.5rem;
+                            border-radius: 24px;
+                            background: linear-gradient(135deg, rgba(20, 25, 35, 0.95) 0%, rgba(10, 12, 18, 0.98) 100%);
+                            border: 1px solid rgba(212, 175, 55, 0.35);
+                            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                            text-decoration: none;
+                            color: inherit;
+                            overflow: hidden;
+                            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+                        }
+                        .discovery-promo-banner:hover {
+                            transform: translateY(-4px);
+                            border-color: rgba(212, 175, 55, 0.75);
+                            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.15);
+                        }
+                        .discovery-promo-glow {
+                            position: absolute;
+                            border-radius: 50%;
+                            filter: blur(110px);
+                            pointer-events: none;
+                            background: var(--color-gold);
+                        }
+                        .discovery-promo-glow.glow-1 {
+                            width: 320px;
+                            height: 320px;
+                            top: -120px;
+                            left: -80px;
+                            opacity: 0.12;
+                        }
+                        .discovery-promo-glow.glow-2 {
+                            width: 360px;
+                            height: 360px;
+                            bottom: -150px;
+                            right: -60px;
+                            opacity: 0.14;
+                        }
+                        .discovery-promo-content {
+                            position: relative;
+                            z-index: 2;
+                        }
+                        .discovery-promo-badge {
+                            display: inline-block;
+                            padding: 0.4rem 1rem;
+                            border-radius: 999px;
+                            background: rgba(212, 175, 55, 0.12);
+                            border: 1px solid rgba(212, 175, 55, 0.35);
+                            color: var(--color-gold);
+                            font-size: 0.75rem;
+                            font-weight: 700;
+                            letter-spacing: 2.5px;
+                            text-transform: uppercase;
+                            margin-bottom: 1.1rem;
+                        }
+                        .discovery-promo-title {
+                            font-family: var(--font-serif);
+                            font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+                            line-height: 1.2;
+                            color: var(--color-text-main);
+                            margin: 0 0 1rem 0;
+                        }
+                        .discovery-promo-desc {
+                            color: var(--color-text-muted);
+                            font-size: 1rem;
+                            line-height: 1.7;
+                            margin: 0 0 1.4rem 0;
+                            max-width: 540px;
+                        }
+                        .discovery-promo-pills {
+                            display: flex;
+                            flex-wrap: wrap;
+                            gap: 0.75rem 1.4rem;
+                            margin-bottom: 2rem;
+                            font-size: 0.85rem;
+                            color: #e5e7eb;
+                            opacity: 0.9;
+                        }
+                        .discovery-promo-pills span {
+                            color: var(--color-gold);
+                            font-weight: 500;
+                        }
+                        .discovery-cta-btn {
+                            display: inline-block;
+                            padding: 0.9rem 2.2rem;
+                            font-size: 0.9rem;
+                            letter-spacing: 1.5px;
+                            border-radius: 8px;
+                        }
+                        .discovery-promo-visual {
+                            position: relative;
+                            z-index: 2;
+                            display: flex;
+                            justify-content: center;
+                        }
+                        .discovery-visual-frame {
+                            position: relative;
+                            width: 100%;
+                            max-width: 360px;
+                            height: 270px;
+                            border-radius: 18px;
+                            overflow: hidden;
+                            border: 1px solid rgba(212, 175, 55, 0.35);
+                            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+                        }
+                        .discovery-visual-frame img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                            transition: transform 0.6s ease;
+                        }
+                        .discovery-promo-banner:hover .discovery-visual-frame img {
+                            transform: scale(1.06);
+                        }
+                        .discovery-visual-overlay {
+                            position: absolute;
+                            inset: 0;
+                            background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 60%);
+                        }
+                        .discovery-floating-tag {
+                            position: absolute;
+                            bottom: 14px;
+                            left: 14px;
+                            right: 14px;
+                            padding: 0.7rem 1rem;
+                            border-radius: 12px;
+                            background: rgba(15, 18, 26, 0.85);
+                            backdrop-filter: blur(8px);
+                            border: 1px solid rgba(212, 175, 55, 0.3);
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                        }
+                        .discovery-floating-tag .tag-top {
+                            font-size: 0.68rem;
+                            letter-spacing: 2px;
+                            color: var(--color-gold);
+                            font-weight: 700;
+                        }
+                        .discovery-floating-tag .tag-main {
+                            font-family: var(--font-serif);
+                            font-size: 0.95rem;
+                            color: #fff;
+                        }
+                        @media (max-width: 900px) {
+                            .discovery-promo-banner {
+                                grid-template-columns: 1fr;
+                                padding: 2.2rem 1.6rem;
+                                text-align: center;
+                                gap: 1.8rem;
+                            }
+                            .discovery-promo-desc {
+                                margin-left: auto;
+                                margin-right: auto;
+                            }
+                            .discovery-promo-pills {
+                                justify-content: center;
+                            }
+                            .discovery-visual-frame {
+                                height: 220px;
+                            }
+                        }
+                    `}} />
+                </section>
 
                 {/* Luxury Section Divider */}
                 <div className="luxury-divider-wrap">
@@ -279,7 +394,7 @@ export default async function Home() {
                     <div className="luxury-divider-line right"></div>
                 </div>
 
-                {/* New Arrivals Section - Positioned right below Discovery Sets */}
+                {/* New Arrivals Section - Positioned right below Discovery Set Banner */}
                 {newArrivals.length > 0 && (
                     <section className="section-padding">
                         <div className="container">
