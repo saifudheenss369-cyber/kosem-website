@@ -64,25 +64,25 @@ export default function Navbar() {
         <>
             {/* Top Banner */}
             {announcementEnabled && (
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '32px',
-                background: 'var(--color-black)',
-                color: 'var(--color-gold)',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                fontSize: '0.75rem',
-                fontWeight: '600',
-                letterSpacing: '1.5px',
-                zIndex: 1001,
-                textTransform: 'uppercase'
-            }}>
-                {announcement}
-            </div>
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '32px',
+                    background: 'var(--color-black)',
+                    color: 'var(--color-gold)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    fontSize: '0.75rem',
+                    fontWeight: '600',
+                    letterSpacing: '1.5px',
+                    zIndex: 1001,
+                    textTransform: 'uppercase'
+                }}>
+                    {announcement}
+                </div>
             )}
 
             <nav className="main-nav" style={{
@@ -129,6 +129,7 @@ export default function Navbar() {
 
                     <Link href="/" className="nav-link">Home</Link>
                     <Link href="/shop" className="nav-link">Collection</Link>
+                    <Link href="/discovery-set" className="nav-link">Discovery Sets</Link>
 
                     {user ? (
                         <Link href="/profile" className="nav-link">Account</Link>
@@ -137,7 +138,7 @@ export default function Navbar() {
                     )}
 
                     <Link href="/about" className="nav-link">Our Story</Link>
-                    
+
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.1)', paddingLeft: '1.5rem' }}>
                         {/* Wishlist Icon */}
                         <div className="nav-icon-wrapper" onClick={() => router.push('/wishlist')} style={{ cursor: 'pointer' }}>
@@ -169,7 +170,8 @@ export default function Navbar() {
                 </div>
 
 
-                <style dangerouslySetInnerHTML={{ __html: `
+                <style dangerouslySetInnerHTML={{
+                    __html: `
         .nav-link {
           text-transform: uppercase;
           font-size: 0.8rem;
@@ -309,6 +311,7 @@ export default function Navbar() {
                             {/* Main Navigation */}
                             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', marginBottom: '2rem' }}>
                                 <Link href="/" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Home</Link>
+                                <Link href="/discovery-set" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Discovery Sets</Link>
                                 <Link href="/about" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Our Heritage</Link>
                                 <Link href="/track-order" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">Track Order</Link>
                                 {user && <Link href="/profile" onClick={() => setMobileMenuOpen(false)} className="mobile-main-link">My Account</Link>}
@@ -320,10 +323,10 @@ export default function Navbar() {
                                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                     <Link href="/shop" onClick={() => setMobileMenuOpen(false)} className="mobile-sub-link">All Products</Link>
                                     {categories.map(cat => (
-                                        <Link 
-                                            key={cat.id} 
-                                            href={`/shop?category=${encodeURIComponent(cat.name)}`} 
-                                            onClick={() => setMobileMenuOpen(false)} 
+                                        <Link
+                                            key={cat.id}
+                                            href={`/shop?category=${encodeURIComponent(cat.name)}`}
+                                            onClick={() => setMobileMenuOpen(false)}
                                             className="mobile-sub-link"
                                         >
                                             {cat.name}
@@ -349,7 +352,8 @@ export default function Navbar() {
                                 )}
                             </div>
                         </div>
-                        <style dangerouslySetInnerHTML={{ __html: `
+                        <style dangerouslySetInnerHTML={{
+                            __html: `
                         .mobile-menu-drawer {
                             display: flex;
                             flex-direction: column;

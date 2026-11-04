@@ -15,6 +15,7 @@ export default function AdminLayoutClient({ children }) {
                     <h2 style={{ marginRight: 'auto', color: '#b8860b', fontFamily: 'var(--font-serif)', margin: 0 }}>Admin Dashboard</h2>
                     <a href="/admin" className="admin-nav-link">Dashboard</a>
                     <a href="/admin/products" className="admin-nav-link">Products</a>
+                    <a href="/admin/discovery-sets" className="admin-nav-link">Discovery Sets</a>
                     <a href="/admin/categories" className="admin-nav-link">Categories</a>
                     <a href="/admin/occasions" className="admin-nav-link">Occasions</a>
                     <a href="/admin/orders" className="admin-nav-link">Orders</a>
