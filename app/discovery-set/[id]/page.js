@@ -56,11 +56,11 @@ export default async function DiscoverySetPage({ params }) {
                 </Link>
 
                 {/* Header */}
-                <header style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 5vw, 3rem)', color: '#fff', margin: 0 }}>{set.name}</h1>
-                    {set.tagline && <p style={{ fontSize: '1.15rem', color: 'var(--color-gold)', marginTop: '0.5rem' }}>{set.tagline}</p>}
+                <header style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', color: '#fff', margin: 0 }}>{set.name}</h1>
+                    {set.tagline && <p style={{ fontSize: '0.95rem', color: 'var(--color-gold)', marginTop: '0.35rem' }}>{set.tagline}</p>}
                     {set.description && (
-                        <p style={{ maxWidth: '750px', margin: '1rem auto 0', lineHeight: 1.7, opacity: 0.85, whiteSpace: 'pre-line' }}>{set.description}</p>
+                        <p style={{ maxWidth: '680px', margin: '0.75rem auto 0', fontSize: '0.9rem', lineHeight: 1.6, opacity: 0.85, whiteSpace: 'pre-line' }}>{set.description}</p>
                     )}
                 </header>
 

@@ -34,7 +34,6 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
         const chosen = scents.filter(s => qty[s.id]).map(s => ({ name: s.name, qty: qty[s.id] }));
         const summary = chosen.map(s => `${s.name} x${s.qty}`).join(', ');
         addToCart({
-            // Same pack + same scents merge into one cart line
             id: `ds-${setId}-${pack.label}-${summary}`,
             discoverySetId: setId,
             packLabel: pack.label,
@@ -53,66 +52,143 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
         return <p style={{ textAlign: 'center', opacity: 0.7 }}>Packs for this set are coming soon.</p>;
     }
 
-    const btn = { width: '28px', height: '28px', borderRadius: '6px', border: '1px solid #444', background: '#222', color: '#fff', cursor: 'pointer' };
+    const btn = {
+        width: '26px',
+        height: '26px',
+        borderRadius: '6px',
+        border: '1px solid rgba(212,175,55,0.4)',
+        background: 'rgba(212,175,55,0.1)',
+        color: '#f3d27a',
+        cursor: 'pointer',
+        fontWeight: 700,
+        fontSize: '0.9rem'
+    };
 
     return (
         <>
             {/* Pack selector */}
-            <section style={{ marginBottom: '2.5rem' }}>
-                <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1rem' }}>Select a Pack</h2>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1rem' }}>
-                    {packs.map((p, idx) => (
-                        <button
-                            key={idx}
-                            type="button"
-                            onClick={() => choosePack(idx)}
-                            style={{
-                                padding: '1.2rem', borderRadius: '10px', textAlign: 'center', cursor: 'pointer',
-                                background: idx === packIdx ? 'rgba(184,134,11,0.15)' : 'transparent',
-                                border: `2px solid ${idx === packIdx ? 'var(--color-gold)' : '#333'}`,
-                                color: 'inherit'
-                            }}
-                        >
-                            <p style={{ fontWeight: 600, margin: 0 }}>{p.label}</p>
-                            <p style={{ fontSize: '0.85rem', opacity: 0.8, margin: '0.25rem 0' }}>{p.count} Scents</p>
-                            <p style={{ fontSize: '1.2rem', fontWeight: 700, margin: '0.5rem 0 0' }}>₹{p.price}</p>
-                            {p.originalPrice > 0 && <p style={{ textDecoration: 'line-through', fontSize: '0.85rem', opacity: 0.6, margin: 0 }}>₹{p.originalPrice}</p>}
-                            {p.badge && <span style={{ display: 'inline-block', background: 'var(--color-gold)', color: '#000', fontSize: '0.7rem', fontWeight: 600, padding: '2px 8px', borderRadius: '4px', marginTop: '0.5rem' }}>{p.badge}</span>}
-                        </button>
-                    ))}
+            <section style={{ marginBottom: '2.2rem' }}>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', marginBottom: '0.9rem' }}>
+                    1. Select a Pack
+                </h2>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(175px, 210px))', gap: '0.9rem' }}>
+                    {packs.map((p, idx) => {
+                        const active = idx === packIdx;
+                        return (
+                            <button
+                                key={idx}
+                                type="button"
+                                onClick={() => choosePack(idx)}
+                                style={{
+                                    padding: '0.95rem 1rem',
+                                    borderRadius: '12px',
+                                    textAlign: 'left',
+                                    cursor: 'pointer',
+                                    background: active
+                                        ? 'linear-gradient(145deg, rgba(212,175,55,0.18), rgba(15,18,26,0.95))'
+                                        : 'rgba(18, 22, 31, 0.85)',
+                                    border: active ? '1.5px solid #d4af37' : '1px solid rgba(255,255,255,0.1)',
+                                    boxShadow: active ? '0 8px 24px rgba(212,175,55,0.18)' : 'none',
+                                    color: 'inherit',
+                                    position: 'relative',
+                                    transition: 'all 0.25s ease'
+                                }}
+                            >
+                                {p.badge && (
+                                    <span style={{
+                                        display: 'inline-block',
+                                        background: 'linear-gradient(90deg, #f5d77f, #c99722)',
+                                        color: '#111',
+                                        fontSize: '0.62rem',
+                                        fontWeight: 800,
+                                        textTransform: 'uppercase',
+                                        letterSpacing: '0.6px',
+                                        padding: '2px 7px',
+                                        borderRadius: '99px',
+                                        marginBottom: '0.4rem'
+                                    }}>
+                                        {p.badge}
+                                    </span>
+                                )}
+                                <p style={{ fontWeight: 700, fontSize: '0.98rem', margin: 0, color: '#fff' }}>{p.label}</p>
+                                <p style={{ fontSize: '0.78rem', opacity: 0.75, margin: '0.15rem 0 0.5rem' }}>{p.count} Scents Included</p>
+                                <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.4rem' }}>
+                                    <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#f3d27a' }}>₹{p.price}</span>
+                                    {p.originalPrice > 0 && (
+                                        <span style={{ textDecoration: 'line-through', fontSize: '0.78rem', opacity: 0.55 }}>₹{p.originalPrice}</span>
+                                    )}
+                                </div>
+                            </button>
+                        );
+                    })}
                 </div>
             </section>
 
             {/* Scent chooser */}
             <section style={{ marginBottom: '2rem' }}>
-                <h2 style={{ fontFamily: 'var(--font-serif)', marginBottom: '1rem' }}>
-                    Choose Your Scents <span style={{ fontSize: '1rem', color: 'var(--color-gold)' }}>({selected}/{limit})</span>
+                <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.35rem', marginBottom: '0.9rem' }}>
+                    2. Choose Your Scents <span style={{ fontSize: '0.95rem', color: 'var(--color-gold)' }}>({selected}/{limit})</span>
                 </h2>
                 {scents.length === 0 ? (
                     <p style={{ opacity: 0.7 }}>No scents added to this set yet.</p>
                 ) : (
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))', gap: '1rem' }}>
-                        {scents.map(s => (
-                            <div key={s.id} style={{ background: '#1a1a1a', padding: '0.8rem', borderRadius: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                                {s.image && (
-                                    // eslint-disable-next-line @next/next/no-img-element
-                                    <img src={s.image} alt={s.name} style={{ width: '80px', height: '80px', objectFit: 'cover', borderRadius: '6px', marginBottom: '0.5rem' }} />
-                                )}
-                                <p style={{ fontSize: '0.9rem', margin: '0 0 0.5rem', textAlign: 'center' }}>{s.name}</p>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-                                    <button type="button" style={btn} onClick={() => change(s.id, -1)} disabled={!qty[s.id]}>-</button>
-                                    <span style={{ minWidth: '1rem', textAlign: 'center' }}>{qty[s.id] || 0}</span>
-                                    <button type="button" style={btn} onClick={() => change(s.id, 1)} disabled={selected >= limit}>+</button>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(135px, 155px))', gap: '0.9rem' }}>
+                        {scents.map(s => {
+                            const count = qty[s.id] || 0;
+                            return (
+                                <div
+                                    key={s.id}
+                                    style={{
+                                        background: count > 0 ? 'rgba(212,175,55,0.1)' : 'rgba(18, 22, 31, 0.85)',
+                                        border: count > 0 ? '1px solid rgba(212,175,55,0.65)' : '1px solid rgba(255,255,255,0.08)',
+                                        padding: '0.75rem',
+                                        borderRadius: '12px',
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'center',
+                                        transition: 'all 0.2s ease'
+                                    }}
+                                >
+                                    {s.image && (
+                                        // eslint-disable-next-line @next/next/no-img-element
+                                        <img
+                                            src={s.image}
+                                            alt={s.name}
+                                            style={{ width: '68px', height: '68px', objectFit: 'cover', borderRadius: '8px', marginBottom: '0.5rem' }}
+                                        />
+                                    )}
+                                    <p style={{ fontSize: '0.84rem', fontWeight: 600, margin: '0 0 0.55rem', textAlign: 'center', lineHeight: 1.3 }}>
+                                        {s.name}
+                                    </p>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.55rem', marginTop: 'auto' }}>
+                                        <button type="button" style={{ ...btn, opacity: count ? 1 : 0.4 }} onClick={() => change(s.id, -1)} disabled={!count}>-</button>
+                                        <span style={{ minWidth: '1.1rem', textAlign: 'center', fontSize: '0.88rem', fontWeight: 700 }}>{count}</span>
+                                        <button type="button" style={{ ...btn, opacity: selected >= limit ? 0.4 : 1 }} onClick={() => change(s.id, 1)} disabled={selected >= limit}>+</button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
                 )}
             </section>
 
             {/* Order bar */}
-            <section style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: 'rgba(17,17,17,0.97)', padding: '1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem', zIndex: 900, borderTop: '1px solid #333' }}>
-                <span style={{ fontSize: '0.9rem', opacity: 0.85 }}>
+            <section style={{
+                position: 'fixed',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                background: 'rgba(12, 15, 22, 0.96)',
+                backdropFilter: 'blur(10px)',
+                padding: '0.85rem 1rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '1rem',
+                zIndex: 900,
+                borderTop: '1px solid rgba(212,175,55,0.3)'
+            }}>
+                <span style={{ fontSize: '0.88rem', opacity: 0.9 }}>
                     {complete ? `${pack.label} · ₹${pack.price}` : `Pick ${limit - selected} more scent${limit - selected === 1 ? '' : 's'}`}
                 </span>
                 <button
@@ -120,7 +196,13 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                     onClick={handleAddToCart}
                     disabled={!complete}
                     className="btn-primary"
-                    style={{ padding: '0.8rem 2rem', opacity: complete ? 1 : 0.5, cursor: complete ? 'pointer' : 'not-allowed' }}
+                    style={{
+                        padding: '0.7rem 1.8rem',
+                        borderRadius: '999px',
+                        fontSize: '0.85rem',
+                        opacity: complete ? 1 : 0.5,
+                        cursor: complete ? 'pointer' : 'not-allowed'
+                    }}
                 >
                     {added ? 'Added ✓' : 'Add to Cart'}
                 </button>
