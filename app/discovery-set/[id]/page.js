@@ -55,21 +55,14 @@ export default async function DiscoverySetPage({ params }) {
                     &larr; All Discovery Sets
                 </Link>
 
-                {/* Hero */}
-                <section style={{ position: 'relative', minHeight: '360px', borderRadius: '12px', overflow: 'hidden', marginBottom: '2.5rem', background: '#111' }}>
-                    {heroImage && (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={heroImage} alt={set.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                {/* Header */}
+                <header style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 5vw, 3rem)', color: '#fff', margin: 0 }}>{set.name}</h1>
+                    {set.tagline && <p style={{ fontSize: '1.15rem', color: 'var(--color-gold)', marginTop: '0.5rem' }}>{set.tagline}</p>}
+                    {set.description && (
+                        <p style={{ maxWidth: '750px', margin: '1rem auto 0', lineHeight: 1.7, opacity: 0.85, whiteSpace: 'pre-line' }}>{set.description}</p>
                     )}
-                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: '1.5rem' }}>
-                        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem, 5vw, 3rem)', color: '#fff', margin: 0 }}>{set.name}</h1>
-                        {set.tagline && <p style={{ fontSize: '1.2rem', color: 'var(--color-gold)', marginTop: '0.5rem' }}>{set.tagline}</p>}
-                    </div>
-                </section>
-
-                {set.description && (
-                    <p style={{ maxWidth: '800px', margin: '0 auto 2.5rem', lineHeight: 1.7, opacity: 0.9, whiteSpace: 'pre-line' }}>{set.description}</p>
-                )}
+                </header>
 
                 <DiscoverySetSelector
                     setId={set.id}
