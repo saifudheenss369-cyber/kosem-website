@@ -170,41 +170,73 @@ export default async function Home() {
                 {/* Discovery Set Promotional Banner - Positioned right below Best Sellers */}
                 <section className="section-padding" style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
                     <div className="container">
-                        <Link href="/discovery-set" className="discovery-promo-banner">
-                            <div className="discovery-promo-glow glow-1" />
-                            <div className="discovery-promo-glow glow-2" />
+                        <Link href="/discovery-set" className="ds-hero-banner">
+                            {/* Top/Bottom Golden Edge Flares */}
+                            <span className="ds-flare ds-flare-tl" />
+                            <span className="ds-flare ds-flare-tr" />
+                            <span className="ds-flare ds-flare-bl" />
 
-                            <div className="discovery-promo-content">
-                                <span className="discovery-promo-badge">✨ CURATED FRAGRANCE BOX</span>
-                                <h2 className="discovery-promo-title">
-                                    Build Your Own <span className="text-gradient-gold">Discovery Set</span>
+                            <div className="ds-hero-content">
+                                <div className="ds-pill-badge">
+                                    <span className="ds-sparkle">✦</span>
+                                    <span>CURATED FRAGRANCE BOX</span>
+                                </div>
+
+                                <h2 className="ds-hero-heading">
+                                    <span className="ds-heading-white">Build Your Own</span>
+                                    <span className="ds-heading-gold">Discovery Set</span>
                                 </h2>
-                                <p className="discovery-promo-desc">
-                                    Can&apos;t decide on a single scent? Handpick your favourite signature fragrances into a custom luxury box — crafted for exploration and gifting.
-                                </p>
-                                <div className="discovery-promo-pills">
-                                    <span>✦ Pick Your Own Scents</span>
-                                    <span>✦ Multiple Pack Sizes</span>
-                                    <span>✦ Luxury Gift Packaging</span>
-                                </div>
-                                <div className="discovery-promo-cta">
-                                    <span className="btn-primary discovery-cta-btn">
-                                        Create Your Set &rarr;
-                                    </span>
-                                </div>
-                            </div>
 
-                            <div className="discovery-promo-visual">
-                                <div className="discovery-visual-frame">
-                                    <img
-                                        src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?q=80&w=900&auto=format&fit=crop"
-                                        alt="Kosem Discovery Set"
-                                    />
-                                    <div className="discovery-visual-overlay" />
-                                    <div className="discovery-floating-tag">
-                                        <span className="tag-top">CUSTOMIZABLE</span>
-                                        <span className="tag-main">Trial &amp; Gift Packs</span>
+                                <div className="ds-gold-bar" />
+
+                                <div className="ds-features-row">
+                                    <div className="ds-feature-item">
+                                        <span className="ds-icon-box">
+                                            {/* Perfume bottle icon */}
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                                <rect x="9" y="3" width="6" height="3" rx="1" />
+                                                <path d="M10 6h4v2l3 3v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8l3-3V6z" />
+                                                <circle cx="12" cy="14" r="2" />
+                                            </svg>
+                                        </span>
+                                        <span className="ds-feature-text">Pick Scents</span>
                                     </div>
+
+                                    <span className="ds-feature-divider" />
+
+                                    <div className="ds-feature-item">
+                                        <span className="ds-icon-box">
+                                            {/* Layers / Choose Size icon */}
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                                <polygon points="12 3 3 8 12 13 21 8 12 3" />
+                                                <polyline points="3 12.5 12 17.5 21 12.5" />
+                                                <polyline points="3 17 12 22 21 17" />
+                                            </svg>
+                                        </span>
+                                        <span className="ds-feature-text">Choose Size</span>
+                                    </div>
+
+                                    <span className="ds-feature-divider" />
+
+                                    <div className="ds-feature-item">
+                                        <span className="ds-icon-box">
+                                            {/* Gift Box icon */}
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                                <polyline points="20 12 20 21 4 21 4 12" />
+                                                <rect x="2" y="7" width="20" height="5" rx="1" />
+                                                <line x1="12" y1="21" x2="12" y2="7" />
+                                                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                                                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+                                            </svg>
+                                        </span>
+                                        <span className="ds-feature-text">Gift Ready</span>
+                                    </div>
+                                </div>
+
+                                <div className="ds-cta-wrap">
+                                    <span className="ds-gold-pill-btn">
+                                        CREATE YOUR SET <span className="ds-arrow">&rarr;</span>
+                                    </span>
                                 </div>
                             </div>
                         </Link>
@@ -212,170 +244,182 @@ export default async function Home() {
 
                     <style dangerouslySetInnerHTML={{
                         __html: `
-                        .discovery-promo-banner {
+                        .ds-hero-banner {
                             position: relative;
-                            display: grid;
-                            grid-template-columns: 1.25fr 0.9fr;
+                            display: flex;
                             align-items: center;
-                            gap: 2.5rem;
-                            padding: 3rem 3.5rem;
-                            border-radius: 24px;
-                            background: linear-gradient(135deg, rgba(20, 25, 35, 0.95) 0%, rgba(10, 12, 18, 0.98) 100%);
-                            border: 1px solid rgba(212, 175, 55, 0.35);
-                            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+                            min-height: 360px;
+                            padding: 2.8rem 3.5rem;
+                            border-radius: 22px;
+                            background-color: #080c12;
+                            background-image: url('/discovery-banner-bg.jpg');
+                            background-size: cover;
+                            background-position: right center;
+                            background-repeat: no-repeat;
+                            border: 1.5px solid rgba(218, 175, 72, 0.65);
+                            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 28px rgba(212, 175, 55, 0.14), inset 0 0 25px rgba(212, 175, 55, 0.06);
                             text-decoration: none;
-                            color: inherit;
+                            color: #fff;
                             overflow: hidden;
-                            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+                            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
                         }
-                        .discovery-promo-banner:hover {
+                        .ds-hero-banner:hover {
                             transform: translateY(-4px);
-                            border-color: rgba(212, 175, 55, 0.75);
-                            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7), 0 0 35px rgba(212, 175, 55, 0.15);
+                            border-color: rgba(245, 208, 105, 0.95);
+                            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.25);
                         }
-                        .discovery-promo-glow {
+                        .ds-flare {
                             position: absolute;
-                            border-radius: 50%;
-                            filter: blur(110px);
+                            height: 2px;
                             pointer-events: none;
-                            background: var(--color-gold);
+                            z-index: 3;
+                            background: radial-gradient(circle, #fff6d1 0%, #f1c453 45%, transparent 100%);
+                            filter: drop-shadow(0 0 8px #f5d069);
                         }
-                        .discovery-promo-glow.glow-1 {
-                            width: 320px;
-                            height: 320px;
-                            top: -120px;
-                            left: -80px;
-                            opacity: 0.12;
+                        .ds-flare-tl {
+                            top: 0;
+                            left: 6%;
+                            width: 180px;
                         }
-                        .discovery-promo-glow.glow-2 {
-                            width: 360px;
-                            height: 360px;
-                            bottom: -150px;
-                            right: -60px;
-                            opacity: 0.14;
+                        .ds-flare-tr {
+                            top: 0;
+                            right: 12%;
+                            width: 190px;
                         }
-                        .discovery-promo-content {
+                        .ds-flare-bl {
+                            bottom: 0;
+                            left: 8%;
+                            width: 200px;
+                        }
+                        .ds-hero-content {
                             position: relative;
                             z-index: 2;
+                            max-width: 520px;
                         }
-                        .discovery-promo-badge {
-                            display: inline-block;
-                            padding: 0.4rem 1rem;
+                        .ds-pill-badge {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.5rem;
+                            padding: 0.42rem 1.15rem;
                             border-radius: 999px;
-                            background: rgba(212, 175, 55, 0.12);
-                            border: 1px solid rgba(212, 175, 55, 0.35);
-                            color: var(--color-gold);
-                            font-size: 0.75rem;
-                            font-weight: 700;
-                            letter-spacing: 2.5px;
+                            background: rgba(15, 18, 25, 0.75);
+                            border: 1px solid rgba(218, 175, 72, 0.55);
+                            color: #e8c468;
+                            font-size: 0.74rem;
+                            font-weight: 600;
+                            letter-spacing: 2.2px;
                             text-transform: uppercase;
                             margin-bottom: 1.1rem;
                         }
-                        .discovery-promo-title {
-                            font-family: var(--font-serif);
-                            font-size: clamp(1.9rem, 3.5vw, 2.8rem);
-                            line-height: 1.2;
-                            color: var(--color-text-main);
-                            margin: 0 0 1rem 0;
-                        }
-                        .discovery-promo-desc {
-                            color: var(--color-text-muted);
-                            font-size: 1rem;
-                            line-height: 1.7;
-                            margin: 0 0 1.4rem 0;
-                            max-width: 540px;
-                        }
-                        .discovery-promo-pills {
-                            display: flex;
-                            flex-wrap: wrap;
-                            gap: 0.75rem 1.4rem;
-                            margin-bottom: 2rem;
+                        .ds-sparkle {
+                            color: #f5d67b;
                             font-size: 0.85rem;
-                            color: #e5e7eb;
-                            opacity: 0.9;
                         }
-                        .discovery-promo-pills span {
-                            color: var(--color-gold);
-                            font-weight: 500;
-                        }
-                        .discovery-cta-btn {
-                            display: inline-block;
-                            padding: 0.9rem 2.2rem;
-                            font-size: 0.9rem;
-                            letter-spacing: 1.5px;
-                            border-radius: 8px;
-                        }
-                        .discovery-promo-visual {
-                            position: relative;
-                            z-index: 2;
-                            display: flex;
-                            justify-content: center;
-                        }
-                        .discovery-visual-frame {
-                            position: relative;
-                            width: 100%;
-                            max-width: 360px;
-                            height: 270px;
-                            border-radius: 18px;
-                            overflow: hidden;
-                            border: 1px solid rgba(212, 175, 55, 0.35);
-                            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
-                        }
-                        .discovery-visual-frame img {
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                            transition: transform 0.6s ease;
-                        }
-                        .discovery-promo-banner:hover .discovery-visual-frame img {
-                            transform: scale(1.06);
-                        }
-                        .discovery-visual-overlay {
-                            position: absolute;
-                            inset: 0;
-                            background: linear-gradient(to top, rgba(0,0,0,0.65), transparent 60%);
-                        }
-                        .discovery-floating-tag {
-                            position: absolute;
-                            bottom: 14px;
-                            left: 14px;
-                            right: 14px;
-                            padding: 0.7rem 1rem;
-                            border-radius: 12px;
-                            background: rgba(15, 18, 26, 0.85);
-                            backdrop-filter: blur(8px);
-                            border: 1px solid rgba(212, 175, 55, 0.3);
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                        }
-                        .discovery-floating-tag .tag-top {
-                            font-size: 0.68rem;
-                            letter-spacing: 2px;
-                            color: var(--color-gold);
-                            font-weight: 700;
-                        }
-                        .discovery-floating-tag .tag-main {
+                        .ds-hero-heading {
+                            margin: 0;
                             font-family: var(--font-serif);
-                            font-size: 0.95rem;
-                            color: #fff;
+                            line-height: 1.08;
+                        }
+                        .ds-heading-white {
+                            display: block;
+                            color: #ffffff;
+                            font-size: clamp(2rem, 3.4vw, 2.85rem);
+                            font-weight: 700;
+                            letter-spacing: 0.3px;
+                        }
+                        .ds-heading-gold {
+                            display: block;
+                            font-size: clamp(2.35rem, 4vw, 3.35rem);
+                            font-weight: 700;
+                            margin-top: 0.1rem;
+                            background: linear-gradient(180deg, #fae29c 0%, #d4a238 55%, #9e6f14 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                        }
+                        .ds-gold-bar {
+                            width: 56px;
+                            height: 3.5px;
+                            border-radius: 99px;
+                            background: linear-gradient(90deg, #f7df94, #b8860b);
+                            margin: 0.95rem 0 1.45rem 0;
+                        }
+                        .ds-features-row {
+                            display: flex;
+                            align-items: center;
+                            flex-wrap: wrap;
+                            gap: 0.9rem;
+                            margin-bottom: 1.85rem;
+                        }
+                        .ds-feature-item {
+                            display: flex;
+                            align-items: center;
+                            gap: 0.65rem;
+                        }
+                        .ds-icon-box {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 9px;
+                            border: 1px solid rgba(218, 175, 72, 0.6);
+                            background: radial-gradient(circle at top left, rgba(218, 175, 72, 0.2), rgba(10, 14, 20, 0.85));
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: #ecc96c;
+                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                        }
+                        .ds-icon-box svg {
+                            width: 19px;
+                            height: 19px;
+                        }
+                        .ds-feature-text {
+                            font-size: 0.92rem;
+                            color: #f3f4f6;
+                            font-weight: 500;
+                            white-space: nowrap;
+                        }
+                        .ds-feature-divider {
+                            width: 1px;
+                            height: 24px;
+                            background: rgba(255, 255, 255, 0.2);
+                        }
+                        .ds-gold-pill-btn {
+                            display: inline-flex;
+                            align-items: center;
+                            gap: 0.6rem;
+                            padding: 0.9rem 2.2rem;
+                            border-radius: 999px;
+                            background: linear-gradient(180deg, #f9e195 0%, #deb041 50%, #bd8819 100%);
+                            color: #111111;
+                            font-size: 0.88rem;
+                            font-weight: 800;
+                            letter-spacing: 1.4px;
+                            text-transform: uppercase;
+                            box-shadow: 0 8px 25px rgba(218, 175, 72, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.65);
+                            transition: transform 0.25s ease, box-shadow 0.25s ease;
+                        }
+                        .ds-hero-banner:hover .ds-gold-pill-btn {
+                            transform: scale(1.03);
+                            box-shadow: 0 10px 32px rgba(240, 196, 85, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+                        }
+                        .ds-arrow {
+                            font-size: 1.05rem;
+                            line-height: 1;
                         }
                         @media (max-width: 900px) {
-                            .discovery-promo-banner {
-                                grid-template-columns: 1fr;
-                                padding: 2.2rem 1.6rem;
-                                text-align: center;
-                                gap: 1.8rem;
+                            .ds-hero-banner {
+                                padding: 2.2rem 1.5rem 16rem 1.5rem;
+                                background-position: 78% bottom;
+                                background-size: 165% auto;
                             }
-                            .discovery-promo-desc {
-                                margin-left: auto;
-                                margin-right: auto;
+                            .ds-hero-content {
+                                max-width: 100%;
                             }
-                            .discovery-promo-pills {
-                                justify-content: center;
+                            .ds-features-row {
+                                gap: 0.65rem;
                             }
-                            .discovery-visual-frame {
-                                height: 220px;
+                            .ds-feature-divider {
+                                display: none;
                             }
                         }
                     `}} />
