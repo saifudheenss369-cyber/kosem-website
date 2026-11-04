@@ -58,89 +58,78 @@ export default async function DiscoverySetPage({ params }) {
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: '0.45rem',
-                            padding: '0.42rem 1rem',
+                            padding: '0.4rem 0.95rem',
                             borderRadius: '999px',
-                            background: 'rgba(15, 19, 28, 0.85)',
-                            border: '1px solid rgba(212, 175, 55, 0.35)',
-                            color: '#e8c468',
-                            fontSize: '0.78rem',
+                            background: 'var(--color-bg-secondary)',
+                            border: '1px solid rgba(184, 134, 11, 0.25)',
+                            color: 'var(--color-gold)',
+                            fontSize: '0.76rem',
                             fontWeight: 600,
-                            textDecoration: 'none',
-                            letterSpacing: '0.5px'
+                            textDecoration: 'none'
                         }}
                     >
                         <span>&larr;</span> All Discovery Sets
                     </Link>
                 </div>
 
-                {/* Luxury Header Card */}
+                {/* Minimal Header Matched to Site Theme */}
                 <header
                     style={{
-                        position: 'relative',
                         textAlign: 'center',
-                        padding: '1.8rem 1.5rem',
-                        marginBottom: '2.2rem',
-                        borderRadius: '18px',
-                        background: 'linear-gradient(145deg, rgba(20, 25, 36, 0.95) 0%, rgba(9, 12, 18, 0.98) 100%)',
-                        border: '1px solid rgba(212, 175, 55, 0.35)',
-                        boxShadow: '0 18px 45px rgba(0, 0, 0, 0.5), inset 0 0 25px rgba(212, 175, 55, 0.05)',
-                        overflow: 'hidden'
+                        padding: '1.6rem 1.25rem',
+                        marginBottom: '2rem',
+                        borderRadius: '14px',
+                        background: 'var(--color-bg-secondary)',
+                        border: '1px solid rgba(184, 134, 11, 0.22)',
+                        boxShadow: '0 10px 28px rgba(0, 0, 0, 0.25)'
                     }}
                 >
                     <span
                         style={{
-                            display: 'inline-block',
-                            padding: '0.28rem 0.9rem',
-                            borderRadius: '999px',
-                            background: 'rgba(212, 175, 55, 0.1)',
-                            border: '1px solid rgba(212, 175, 55, 0.4)',
-                            color: '#f3d27a',
-                            fontSize: '0.68rem',
+                            display: 'block',
+                            color: 'var(--color-gold)',
+                            fontSize: '0.7rem',
                             fontWeight: 700,
-                            letterSpacing: '2px',
+                            letterSpacing: '2.5px',
                             textTransform: 'uppercase',
-                            marginBottom: '0.6rem'
+                            marginBottom: '0.4rem'
                         }}
                     >
-                        ✦ Customize Your Fragrance Box
+                        Customize Your Fragrance Box
                     </span>
 
                     <h1
                         style={{
                             fontFamily: 'var(--font-serif)',
-                            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+                            fontSize: 'clamp(1.55rem, 3vw, 2.1rem)',
                             margin: 0,
-                            background: 'linear-gradient(180deg, #ffffff 0%, #f5d77f 100%)',
-                            WebkitBackgroundClip: 'text',
-                            WebkitTextFillColor: 'transparent',
-                            backgroundClip: 'text'
+                            color: 'var(--color-text-main)'
                         }}
                     >
                         {set.name}
                     </h1>
 
                     {set.tagline && (
-                        <p style={{ fontSize: '0.92rem', color: '#e8c468', margin: '0.35rem 0 0', fontWeight: 500 }}>
+                        <p style={{ fontSize: '0.88rem', color: 'var(--color-gold)', margin: '0.3rem 0 0', fontWeight: 500 }}>
                             {set.tagline}
                         </p>
                     )}
 
                     <div
                         style={{
-                            width: '44px',
-                            height: '2.5px',
-                            borderRadius: '99px',
-                            background: 'linear-gradient(90deg, #f7df94, #b8860b)',
-                            margin: '0.75rem auto'
+                            width: '38px',
+                            height: '2px',
+                            background: 'var(--color-gold)',
+                            margin: '0.7rem auto'
                         }}
                     />
 
                     {set.description && (
                         <p
                             style={{
-                                maxWidth: '640px',
+                                maxWidth: '620px',
                                 margin: '0 auto',
-                                fontSize: '0.85rem',
+                                fontSize: '0.84rem',
                                 lineHeight: 1.6,
                                 color: 'var(--color-text-muted)',
                                 whiteSpace: 'pre-line'

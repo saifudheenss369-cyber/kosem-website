@@ -56,7 +56,7 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
     return (
         <>
             {/* 1. Pack selector */}
-            <section style={{ marginBottom: '2.4rem' }}>
+            <section style={{ marginBottom: '2.2rem' }}>
                 <div className="ds-step-header">
                     <span className="ds-step-num">STEP 1</span>
                     <h2 className="ds-step-title">Select Your Pack</h2>
@@ -79,7 +79,7 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                             >
                                 <div className="ds-pack-top">
                                     <span className="ds-pack-icon">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                                             <rect x="9" y="3" width="6" height="3" rx="1" />
                                             <path d="M10 6h4v2l3 3v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8l3-3V6z" />
                                             <circle cx="12" cy="14" r="2" />
@@ -113,7 +113,7 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
             <section style={{ marginBottom: '2.5rem' }}>
                 <div className="ds-scents-header-row">
                     <div>
-                        <div className="ds-step-header" style={{ marginBottom: '0.25rem' }}>
+                        <div className="ds-step-header" style={{ marginBottom: '0.2rem' }}>
                             <span className="ds-step-num">STEP 2</span>
                             <h2 className="ds-step-title">Choose Your Scents</h2>
                         </div>
@@ -124,7 +124,7 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
 
                     <div className="ds-progress-box">
                         <div className="ds-progress-labels">
-                            <span style={{ color: '#f3d27a', fontWeight: 700 }}>{selected} / {limit} Selected</span>
+                            <span style={{ color: 'var(--color-gold)', fontWeight: 700 }}>{selected} / {limit} Selected</span>
                             <span>{complete ? 'Box Ready ✓' : `${limit - selected} left`}</span>
                         </div>
                         <div className="ds-progress-track">
@@ -150,7 +150,6 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                                         ) : (
                                             <div className="ds-scent-placeholder">✨</div>
                                         )}
-                                        <div className="ds-scent-img-Shade" />
                                         {isSelected && (
                                             <span className="ds-scent-qty-badge">×{count}</span>
                                         )}
@@ -204,9 +203,9 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                         type="button"
                         onClick={handleAddToCart}
                         disabled={!complete}
-                        className={`ds-add-cart-btn ${complete ? 'ready' : ''}`}
+                        className={`btn-primary ds-add-cart-btn ${complete ? 'ready' : ''}`}
                     >
-                        {added ? 'ADDED TO CART ✓' : 'ADD TO CART →'}
+                        {added ? 'Added ✓' : 'Add to Cart →'}
                     </button>
                 </div>
             </section>
@@ -216,132 +215,132 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                 .ds-step-header {
                     display: flex;
                     align-items: center;
-                    gap: 0.65rem;
-                    margin-bottom: 1rem;
+                    gap: 0.6rem;
+                    margin-bottom: 0.9rem;
                 }
                 .ds-step-num {
-                    padding: 0.22rem 0.65rem;
-                    border-radius: 999px;
-                    background: rgba(212, 175, 55, 0.14);
-                    border: 1px solid rgba(212, 175, 55, 0.45);
-                    color: #f3d27a;
-                    font-size: 0.66rem;
-                    font-weight: 800;
+                    padding: 0.2rem 0.6rem;
+                    border-radius: 4px;
+                    background: rgba(184, 134, 11, 0.12);
+                    border: 1px solid rgba(184, 134, 11, 0.35);
+                    color: var(--color-gold);
+                    font-size: 0.65rem;
+                    font-weight: 700;
                     letter-spacing: 1.5px;
                 }
                 .ds-step-title {
                     font-family: var(--font-serif);
-                    font-size: 1.3rem;
+                    font-size: 1.25rem;
                     margin: 0;
-                    color: #ffffff;
+                    color: var(--color-text-main);
                 }
                 .ds-packs-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(200px, 235px));
-                    gap: 1rem;
+                    grid-template-columns: repeat(auto-fill, minmax(195px, 230px));
+                    gap: 0.9rem;
                 }
                 .ds-pack-card {
                     position: relative;
                     display: flex;
                     flex-direction: column;
-                    padding: 1rem 1.1rem;
-                    border-radius: 14px;
+                    padding: 0.95rem 1rem;
+                    border-radius: 12px;
                     text-align: left;
                     cursor: pointer;
-                    background: linear-gradient(160deg, rgba(20, 25, 36, 0.92) 0%, rgba(10, 13, 20, 0.96) 100%);
-                    border: 1px solid rgba(212, 175, 55, 0.25);
-                    color: #fff;
-                    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+                    background: var(--color-bg-secondary);
+                    border: 1px solid rgba(184, 134, 11, 0.2);
+                    color: var(--color-text-main);
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
                     transition: all 0.25s ease;
                 }
                 .ds-pack-card:hover {
-                    transform: translateY(-3px);
-                    border-color: rgba(212, 175, 55, 0.6);
+                    transform: translateY(-2px);
+                    border-color: rgba(184, 134, 11, 0.45);
                 }
                 .ds-pack-card.active {
-                    background: linear-gradient(155deg, rgba(212, 175, 55, 0.2) 0%, rgba(14, 18, 27, 0.98) 70%);
-                    border: 1.5px solid #e5bd52;
-                    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), 0 0 22px rgba(212, 175, 55, 0.22);
+                    border: 1.5px solid var(--color-gold);
+                    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
                 }
                 .ds-pack-top {
                     display: flex;
                     justify-content: space-between;
                     align-items: center;
-                    margin-bottom: 0.7rem;
+                    margin-bottom: 0.65rem;
                 }
                 .ds-pack-icon {
-                    width: 34px;
-                    height: 34px;
-                    border-radius: 8px;
-                    border: 1px solid rgba(212, 175, 55, 0.5);
-                    background: rgba(212, 175, 55, 0.12);
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 7px;
+                    border: 1px solid rgba(184, 134, 11, 0.35);
+                    background: rgba(184, 134, 11, 0.08);
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    color: #f3d27a;
+                    color: var(--color-gold);
                 }
                 .ds-pack-icon svg {
-                    width: 17px;
-                    height: 17px;
+                    width: 16px;
+                    height: 16px;
                 }
                 .ds-pack-badges {
                     display: flex;
                     align-items: center;
-                    gap: 0.45rem;
+                    gap: 0.4rem;
                 }
                 .ds-pack-badge {
-                    padding: 0.18rem 0.55rem;
-                    border-radius: 999px;
-                    background: linear-gradient(90deg, #f7df94, #c99722);
-                    color: #111;
-                    font-size: 0.62rem;
-                    font-weight: 800;
-                    letter-spacing: 0.6px;
+                    padding: 0.15rem 0.5rem;
+                    border-radius: 4px;
+                    background: rgba(184, 134, 11, 0.15);
+                    border: 1px solid rgba(184, 134, 11, 0.35);
+                    color: var(--color-gold);
+                    font-size: 0.6rem;
+                    font-weight: 700;
+                    letter-spacing: 0.5px;
                     text-transform: uppercase;
                 }
                 .ds-pack-radio {
-                    width: 20px;
-                    height: 20px;
+                    width: 19px;
+                    height: 19px;
                     border-radius: 50%;
-                    border: 1.5px solid rgba(212, 175, 55, 0.5);
+                    border: 1.5px solid rgba(184, 134, 11, 0.45);
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 0.7rem;
+                    font-size: 0.68rem;
                     font-weight: 900;
-                    color: #111;
+                    color: var(--color-black);
                 }
                 .ds-pack-radio.checked {
-                    background: linear-gradient(180deg, #f7df94, #d4a238);
-                    border-color: #f7df94;
+                    background: var(--color-gold);
+                    border-color: var(--color-gold);
                 }
                 .ds-pack-label {
                     font-family: var(--font-serif);
-                    font-size: 1.08rem;
-                    font-weight: 700;
+                    font-size: 1.02rem;
+                    font-weight: 600;
                     margin: 0 0 0.15rem 0;
-                    color: #fff;
+                    color: var(--color-text-main);
                 }
                 .ds-pack-count {
-                    font-size: 0.76rem;
+                    font-size: 0.74rem;
                     color: var(--color-text-muted);
-                    margin: 0 0 0.65rem 0;
+                    margin: 0 0 0.6rem 0;
                 }
                 .ds-pack-price-row {
                     margin-top: auto;
-                    padding-top: 0.55rem;
-                    border-top: 1px solid rgba(255, 255, 255, 0.07);
+                    padding-top: 0.5rem;
+                    border-top: 1px solid rgba(255, 255, 255, 0.06);
                     display: flex;
                     align-items: baseline;
-                    gap: 0.45rem;
+                    gap: 0.4rem;
                 }
                 .ds-pack-price {
-                    font-size: 1.18rem;
-                    font-weight: 800;
-                    color: #f3d27a;
+                    font-size: 1.1rem;
+                    font-weight: 700;
+                    color: var(--color-gold);
                 }
                 .ds-pack-orig {
-                    font-size: 0.78rem;
+                    font-size: 0.75rem;
                     color: var(--color-text-muted);
                     text-decoration: line-through;
                     opacity: 0.65;
@@ -353,26 +352,26 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                     justify-content: space-between;
                     align-items: flex-end;
                     flex-wrap: wrap;
-                    gap: 1rem;
-                    margin-bottom: 1.25rem;
+                    gap: 0.9rem;
+                    margin-bottom: 1.15rem;
                 }
                 .ds-progress-box {
-                    min-width: 220px;
-                    background: rgba(16, 20, 30, 0.9);
-                    border: 1px solid rgba(212, 175, 55, 0.3);
-                    padding: 0.6rem 0.9rem;
-                    border-radius: 12px;
+                    min-width: 210px;
+                    background: var(--color-bg-secondary);
+                    border: 1px solid rgba(184, 134, 11, 0.25);
+                    padding: 0.55rem 0.85rem;
+                    border-radius: 10px;
                 }
                 .ds-progress-labels {
                     display: flex;
                     justify-content: space-between;
-                    font-size: 0.75rem;
+                    font-size: 0.73rem;
                     color: var(--color-text-muted);
                     margin-bottom: 0.35rem;
                 }
                 .ds-progress-track {
                     width: 100%;
-                    height: 6px;
+                    height: 5px;
                     border-radius: 99px;
                     background: rgba(255, 255, 255, 0.08);
                     overflow: hidden;
@@ -380,47 +379,46 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                 .ds-progress-fill {
                     height: 100%;
                     border-radius: 99px;
-                    background: linear-gradient(90deg, #f7df94, #c99722);
+                    background: var(--color-gold);
                     transition: width 0.25s ease;
                 }
 
                 .ds-scents-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(150px, 175px));
-                    gap: 1rem;
+                    grid-template-columns: repeat(auto-fill, minmax(145px, 170px));
+                    gap: 0.9rem;
                 }
                 .ds-scent-card {
                     display: flex;
                     flex-direction: column;
-                    background: linear-gradient(165deg, rgba(20, 25, 36, 0.94) 0%, rgba(10, 13, 20, 0.98) 100%);
-                    border: 1px solid rgba(212, 175, 55, 0.25);
-                    border-radius: 14px;
+                    background: var(--color-bg-secondary);
+                    border: 1px solid rgba(184, 134, 11, 0.2);
+                    border-radius: 12px;
                     overflow: hidden;
-                    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
-                    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.22);
+                    transition: transform 0.25s ease, border-color 0.25s ease;
                 }
                 .ds-scent-card:hover {
-                    transform: translateY(-4px);
-                    border-color: rgba(212, 175, 55, 0.55);
+                    transform: translateY(-3px);
+                    border-color: rgba(184, 134, 11, 0.45);
                 }
                 .ds-scent-card.selected {
-                    border: 1.5px solid #e5bd52;
-                    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.2);
+                    border: 1.5px solid var(--color-gold);
                 }
                 .ds-scent-img-wrap {
                     position: relative;
-                    aspect-ratio: 1 / 0.92;
-                    background: #0c0f16;
+                    aspect-ratio: 1 / 1;
+                    background: var(--color-bg-main);
                     overflow: hidden;
                 }
                 .ds-scent-img {
                     width: 100%;
                     height: 100%;
                     object-fit: cover;
-                    transition: transform 0.45s ease;
+                    transition: transform 0.4s ease;
                 }
                 .ds-scent-card:hover .ds-scent-img {
-                    transform: scale(1.06);
+                    transform: scale(1.04);
                 }
                 .ds-scent-placeholder {
                     width: 100%;
@@ -428,38 +426,31 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 1.6rem;
-                }
-                .ds-scent-img-Shade {
-                    position: absolute;
-                    inset: 0;
-                    background: linear-gradient(to top, rgba(10, 13, 20, 0.85) 0%, transparent 50%);
-                    pointer-events: none;
+                    font-size: 1.5rem;
                 }
                 .ds-scent-qty-badge {
                     position: absolute;
                     top: 8px;
                     right: 8px;
-                    padding: 0.18rem 0.55rem;
+                    padding: 0.15rem 0.5rem;
                     border-radius: 999px;
-                    background: linear-gradient(180deg, #f7df94 0%, #d4a238 100%);
-                    color: #111;
-                    font-size: 0.7rem;
+                    background: var(--color-gold);
+                    color: var(--color-black);
+                    font-size: 0.68rem;
                     font-weight: 800;
-                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.45);
                 }
                 .ds-scent-body {
-                    padding: 0.75rem 0.85rem 0.85rem;
+                    padding: 0.7rem 0.75rem 0.8rem;
                     display: flex;
                     flex-direction: column;
                     flex: 1;
                 }
                 .ds-scent-name {
                     font-family: var(--font-serif);
-                    font-size: 0.95rem;
-                    font-weight: 700;
-                    color: #fff;
-                    margin: 0 0 0.65rem 0;
+                    font-size: 0.92rem;
+                    font-weight: 600;
+                    color: var(--color-text-main);
+                    margin: 0 0 0.6rem 0;
                     text-align: center;
                     line-height: 1.3;
                 }
@@ -468,39 +459,38 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    background: rgba(255, 255, 255, 0.04);
-                    border: 1px solid rgba(212, 175, 55, 0.3);
-                    border-radius: 999px;
-                    padding: 0.2rem;
+                    background: var(--color-bg-main);
+                    border: 1px solid rgba(184, 134, 11, 0.25);
+                    border-radius: 6px;
+                    padding: 0.18rem;
                 }
                 .ds-qty-btn {
-                    width: 28px;
-                    height: 28px;
-                    border-radius: 50%;
+                    width: 26px;
+                    height: 26px;
+                    border-radius: 4px;
                     border: none;
-                    background: rgba(212, 175, 55, 0.14);
-                    color: #f3d27a;
-                    font-size: 1rem;
+                    background: rgba(184, 134, 11, 0.12);
+                    color: var(--color-gold);
+                    font-size: 0.95rem;
                     font-weight: 700;
                     cursor: pointer;
                     display: inline-flex;
                     align-items: center;
                     justify-content: center;
-                    transition: all 0.2s ease;
                 }
                 .ds-qty-btn.plus {
-                    background: linear-gradient(180deg, #f7df94 0%, #d4a238 100%);
-                    color: #111;
+                    background: var(--color-gold);
+                    color: var(--color-black);
                 }
                 .ds-qty-btn:disabled {
                     opacity: 0.3;
                     cursor: not-allowed;
                 }
                 .ds-qty-val {
-                    font-size: 0.88rem;
-                    font-weight: 800;
-                    color: #fff;
-                    min-width: 1.4rem;
+                    font-size: 0.85rem;
+                    font-weight: 700;
+                    color: var(--color-text-main);
+                    min-width: 1.3rem;
                     text-align: center;
                 }
 
@@ -511,11 +501,10 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                     left: 0;
                     right: 0;
                     z-index: 900;
-                    background: rgba(10, 13, 20, 0.94);
-                    backdrop-filter: blur(12px);
-                    border-top: 1px solid rgba(212, 175, 55, 0.4);
-                    box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.6);
-                    padding: 0.8rem 1.25rem;
+                    background: rgba(15, 23, 42, 0.95);
+                    backdrop-filter: blur(10px);
+                    border-top: 1px solid rgba(184, 134, 11, 0.3);
+                    padding: 0.75rem 1.2rem;
                 }
                 .ds-bottom-inner {
                     max-width: 900px;
@@ -531,52 +520,41 @@ export default function DiscoverySetSelector({ setId, setName, image, packs, sce
                 }
                 .ds-bottom-pack {
                     font-family: var(--font-serif);
-                    font-size: 1rem;
-                    font-weight: 700;
-                    color: #f3d27a;
+                    font-size: 0.98rem;
+                    font-weight: 600;
+                    color: var(--color-gold);
                 }
                 .ds-bottom-status {
-                    font-size: 0.78rem;
-                    color: #d1d5db;
+                    font-size: 0.76rem;
+                    color: var(--color-text-muted);
                 }
                 .ds-add-cart-btn {
-                    padding: 0.78rem 2rem;
-                    border-radius: 999px;
-                    border: 1px solid rgba(212, 175, 55, 0.4);
-                    background: rgba(212, 175, 55, 0.18);
-                    color: rgba(255, 255, 255, 0.5);
-                    font-size: 0.82rem;
-                    font-weight: 800;
-                    letter-spacing: 1.2px;
+                    padding: 0.7rem 1.8rem;
+                    border-radius: 6px;
+                    font-size: 0.78rem;
+                    opacity: 0.45;
                     cursor: not-allowed;
-                    transition: all 0.25s ease;
                     white-space: nowrap;
                 }
                 .ds-add-cart-btn.ready {
-                    background: linear-gradient(180deg, #f9e195 0%, #deb041 55%, #bd8819 100%);
-                    color: #111111;
-                    border-color: #f9e195;
+                    opacity: 1;
                     cursor: pointer;
-                    box-shadow: 0 6px 22px rgba(218, 175, 72, 0.45);
-                }
-                .ds-add-cart-btn.ready:hover {
-                    transform: scale(1.03);
                 }
                 @media (max-width: 600px) {
                     .ds-packs-grid {
                         grid-template-columns: repeat(2, 1fr);
-                        gap: 0.75rem;
+                        gap: 0.7rem;
                     }
                     .ds-scents-grid {
                         grid-template-columns: repeat(2, 1fr);
-                        gap: 0.75rem;
+                        gap: 0.7rem;
                     }
                     .ds-progress-box {
                         width: 100%;
                     }
                     .ds-add-cart-btn {
-                        padding: 0.7rem 1.3rem;
-                        font-size: 0.75rem;
+                        padding: 0.65rem 1.2rem;
+                        font-size: 0.72rem;
                     }
                 }
             `}} />

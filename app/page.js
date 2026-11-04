@@ -167,61 +167,53 @@ export default async function Home() {
                     <div className="luxury-divider-line right"></div>
                 </div>
 
-                {/* Discovery Set Promotional Banner - Positioned right below Best Sellers */}
-                <section className="section-padding" style={{ paddingTop: '1rem', paddingBottom: '1rem' }}>
+                {/* Discovery Set Minimal Banner - Matched to Website Theme */}
+                <section className="section-padding" style={{ paddingTop: '0.5rem', paddingBottom: '0.5rem' }}>
                     <div className="container">
-                        <Link href="/discovery-set" className="ds-hero-banner">
-                            {/* Top/Bottom Golden Edge Flares */}
-                            <span className="ds-flare ds-flare-tl" />
-                            <span className="ds-flare ds-flare-tr" />
-                            <span className="ds-flare ds-flare-bl" />
+                        <Link href="/discovery-set" className="ds-minimal-banner">
+                            <div className="ds-minimal-content">
+                                <span className="ds-minimal-eyebrow">CURATED FRAGRANCE BOX</span>
 
-                            <div className="ds-hero-content">
-                                <div className="ds-pill-badge">
-                                    <span className="ds-sparkle">✦</span>
-                                    <span>CURATED FRAGRANCE BOX</span>
-                                </div>
-
-                                <h2 className="ds-hero-heading">
-                                    <span className="ds-heading-white">Build Your Own</span>
-                                    <span className="ds-heading-gold">Discovery Set</span>
+                                <h2 className="ds-minimal-title">
+                                    Build Your Own <span className="text-gradient-gold">Discovery Set</span>
                                 </h2>
 
-                                <div className="ds-gold-bar" />
+                                <div className="ds-minimal-divider" />
 
-                                <div className="ds-features-row">
-                                    <div className="ds-feature-item">
-                                        <span className="ds-icon-box">
-                                            {/* Perfume bottle icon */}
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                <p className="ds-minimal-sub">
+                                    Handpick your favourite signature scents in a custom trial or gift box.
+                                </p>
+
+                                <div className="ds-minimal-steps">
+                                    <div className="ds-minimal-step">
+                                        <span className="ds-minimal-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                                                 <rect x="9" y="3" width="6" height="3" rx="1" />
                                                 <path d="M10 6h4v2l3 3v8a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2v-8l3-3V6z" />
                                                 <circle cx="12" cy="14" r="2" />
                                             </svg>
                                         </span>
-                                        <span className="ds-feature-text">Pick Scents</span>
+                                        <span>Pick Scents</span>
                                     </div>
 
-                                    <span className="ds-feature-divider" />
+                                    <span className="ds-minimal-sep" />
 
-                                    <div className="ds-feature-item">
-                                        <span className="ds-icon-box">
-                                            {/* Layers / Choose Size icon */}
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                    <div className="ds-minimal-step">
+                                        <span className="ds-minimal-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                                                 <polygon points="12 3 3 8 12 13 21 8 12 3" />
                                                 <polyline points="3 12.5 12 17.5 21 12.5" />
                                                 <polyline points="3 17 12 22 21 17" />
                                             </svg>
                                         </span>
-                                        <span className="ds-feature-text">Choose Size</span>
+                                        <span>Choose Size</span>
                                     </div>
 
-                                    <span className="ds-feature-divider" />
+                                    <span className="ds-minimal-sep" />
 
-                                    <div className="ds-feature-item">
-                                        <span className="ds-icon-box">
-                                            {/* Gift Box icon */}
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                                    <div className="ds-minimal-step">
+                                        <span className="ds-minimal-icon">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
                                                 <polyline points="20 12 20 21 4 21 4 12" />
                                                 <rect x="2" y="7" width="20" height="5" rx="1" />
                                                 <line x1="12" y1="21" x2="12" y2="7" />
@@ -229,13 +221,13 @@ export default async function Home() {
                                                 <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
                                             </svg>
                                         </span>
-                                        <span className="ds-feature-text">Gift Ready</span>
+                                        <span>Gift Ready</span>
                                     </div>
                                 </div>
 
-                                <div className="ds-cta-wrap">
-                                    <span className="ds-gold-pill-btn">
-                                        CREATE YOUR SET <span className="ds-arrow">&rarr;</span>
+                                <div>
+                                    <span className="btn-primary ds-minimal-cta">
+                                        Create Your Set &rarr;
                                     </span>
                                 </div>
                             </div>
@@ -244,182 +236,133 @@ export default async function Home() {
 
                     <style dangerouslySetInnerHTML={{
                         __html: `
-                        .ds-hero-banner {
+                        .ds-minimal-banner {
                             position: relative;
-                            display: flex;
-                            align-items: center;
-                            min-height: 360px;
-                            padding: 2.8rem 3.5rem;
-                            border-radius: 22px;
-                            background-color: #080c12;
-                            background-image: url('/discovery-banner-bg.jpg');
-                            background-size: cover;
-                            background-position: right center;
-                            background-repeat: no-repeat;
-                            border: 1.5px solid rgba(218, 175, 72, 0.65);
-                            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 28px rgba(212, 175, 55, 0.14), inset 0 0 25px rgba(212, 175, 55, 0.06);
+                            display: block;
+                            max-width: 920px;
+                            margin: 0 auto;
+                            padding: 2.6rem 2rem;
+                            border-radius: 16px;
+                            background: var(--color-bg-secondary);
+                            border: 1px solid rgba(184, 134, 11, 0.22);
+                            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+                            text-align: center;
                             text-decoration: none;
-                            color: #fff;
+                            color: var(--color-text-main);
                             overflow: hidden;
-                            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+                            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
                         }
-                        .ds-hero-banner:hover {
-                            transform: translateY(-4px);
-                            border-color: rgba(245, 208, 105, 0.95);
-                            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.85), 0 0 40px rgba(212, 175, 55, 0.25);
+                        .ds-minimal-banner:hover {
+                            transform: translateY(-3px);
+                            border-color: rgba(184, 134, 11, 0.45);
+                            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
                         }
-                        .ds-flare {
-                            position: absolute;
-                            height: 2px;
-                            pointer-events: none;
-                            z-index: 3;
-                            background: radial-gradient(circle, #fff6d1 0%, #f1c453 45%, transparent 100%);
-                            filter: drop-shadow(0 0 8px #f5d069);
-                        }
-                        .ds-flare-tl {
-                            top: 0;
-                            left: 6%;
-                            width: 180px;
-                        }
-                        .ds-flare-tr {
-                            top: 0;
-                            right: 12%;
-                            width: 190px;
-                        }
-                        .ds-flare-bl {
-                            bottom: 0;
-                            left: 8%;
-                            width: 200px;
-                        }
-                        .ds-hero-content {
+                        .ds-minimal-content {
                             position: relative;
                             z-index: 2;
-                            max-width: 520px;
+                            max-width: 600px;
+                            margin: 0 auto;
                         }
-                        .ds-pill-badge {
-                            display: inline-flex;
-                            align-items: center;
-                            gap: 0.5rem;
-                            padding: 0.42rem 1.15rem;
-                            border-radius: 999px;
-                            background: rgba(15, 18, 25, 0.75);
-                            border: 1px solid rgba(218, 175, 72, 0.55);
-                            color: #e8c468;
-                            font-size: 0.74rem;
-                            font-weight: 600;
-                            letter-spacing: 2.2px;
+                        .ds-minimal-eyebrow {
+                            display: block;
+                            color: var(--color-gold);
+                            letter-spacing: 3px;
                             text-transform: uppercase;
-                            margin-bottom: 1.1rem;
+                            font-size: 0.75rem;
+                            font-weight: 700;
                         }
-                        .ds-sparkle {
-                            color: #f5d67b;
-                            font-size: 0.85rem;
-                        }
-                        .ds-hero-heading {
-                            margin: 0;
+                        .ds-minimal-title {
                             font-family: var(--font-serif);
-                            line-height: 1.08;
+                            font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+                            color: var(--color-text-main);
+                            margin: 0.45rem 0 0.25rem;
                         }
-                        .ds-heading-white {
-                            display: block;
-                            color: #ffffff;
-                            font-size: clamp(2rem, 3.4vw, 2.85rem);
-                            font-weight: 700;
-                            letter-spacing: 0.3px;
+                        .ds-minimal-divider {
+                            width: 40px;
+                            height: 2px;
+                            background: var(--color-gold);
+                            margin: 0.85rem auto 1rem;
                         }
-                        .ds-heading-gold {
-                            display: block;
-                            font-size: clamp(2.35rem, 4vw, 3.35rem);
-                            font-weight: 700;
-                            margin-top: 0.1rem;
-                            background: linear-gradient(180deg, #fae29c 0%, #d4a238 55%, #9e6f14 100%);
-                            -webkit-background-clip: text;
-                            -webkit-text-fill-color: transparent;
-                            background-clip: text;
+                        .ds-minimal-sub {
+                            color: var(--color-text-muted);
+                            font-size: 0.92rem;
+                            line-height: 1.6;
+                            margin: 0 auto 1.4rem;
+                            max-width: 460px;
                         }
-                        .ds-gold-bar {
-                            width: 56px;
-                            height: 3.5px;
-                            border-radius: 99px;
-                            background: linear-gradient(90deg, #f7df94, #b8860b);
-                            margin: 0.95rem 0 1.45rem 0;
-                        }
-                        .ds-features-row {
-                            display: flex;
-                            align-items: center;
-                            flex-wrap: wrap;
-                            gap: 0.9rem;
-                            margin-bottom: 1.85rem;
-                        }
-                        .ds-feature-item {
-                            display: flex;
-                            align-items: center;
-                            gap: 0.65rem;
-                        }
-                        .ds-icon-box {
-                            width: 38px;
-                            height: 38px;
-                            border-radius: 9px;
-                            border: 1px solid rgba(218, 175, 72, 0.6);
-                            background: radial-gradient(circle at top left, rgba(218, 175, 72, 0.2), rgba(10, 14, 20, 0.85));
+                        .ds-minimal-steps {
                             display: inline-flex;
                             align-items: center;
                             justify-content: center;
-                            color: #ecc96c;
-                            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+                            flex-wrap: wrap;
+                            gap: 0.75rem 1.1rem;
+                            margin-bottom: 1.6rem;
                         }
-                        .ds-icon-box svg {
-                            width: 19px;
-                            height: 19px;
-                        }
-                        .ds-feature-text {
-                            font-size: 0.92rem;
-                            color: #f3f4f6;
-                            font-weight: 500;
-                            white-space: nowrap;
-                        }
-                        .ds-feature-divider {
-                            width: 1px;
-                            height: 24px;
-                            background: rgba(255, 255, 255, 0.2);
-                        }
-                        .ds-gold-pill-btn {
+                        .ds-minimal-step {
                             display: inline-flex;
                             align-items: center;
-                            gap: 0.6rem;
-                            padding: 0.9rem 2.2rem;
-                            border-radius: 999px;
-                            background: linear-gradient(180deg, #f9e195 0%, #deb041 50%, #bd8819 100%);
-                            color: #111111;
-                            font-size: 0.88rem;
-                            font-weight: 800;
-                            letter-spacing: 1.4px;
-                            text-transform: uppercase;
-                            box-shadow: 0 8px 25px rgba(218, 175, 72, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.65);
-                            transition: transform 0.25s ease, box-shadow 0.25s ease;
+                            gap: 0.45rem;
+                            font-size: 0.84rem;
+                            color: var(--color-text-main);
+                            font-weight: 500;
                         }
-                        .ds-hero-banner:hover .ds-gold-pill-btn {
-                            transform: scale(1.03);
-                            box-shadow: 0 10px 32px rgba(240, 196, 85, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+                        .ds-minimal-icon {
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 7px;
+                            border: 1px solid rgba(184, 134, 11, 0.35);
+                            background: rgba(184, 134, 11, 0.08);
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            color: var(--color-gold);
                         }
-                        .ds-arrow {
-                            font-size: 1.05rem;
-                            line-height: 1;
+                        .ds-minimal-icon svg {
+                            width: 15px;
+                            height: 15px;
                         }
-                        @media (max-width: 900px) {
-                            .ds-hero-banner {
-                                padding: 2.2rem 1.5rem 16rem 1.5rem;
-                                background-position: 78% bottom;
-                                background-size: 165% auto;
+                        .ds-minimal-sep {
+                            width: 1px;
+                            height: 18px;
+                            background: rgba(255, 255, 255, 0.12);
+                        }
+                        .ds-minimal-cta {
+                            display: inline-block;
+                            padding: 0.78rem 2rem;
+                            border-radius: 6px;
+                            font-size: 0.82rem;
+                        }
+                        @media (max-width: 600px) {
+                            .ds-minimal-banner {
+                                padding: 1.9rem 1.1rem;
+                                border-radius: 14px;
                             }
-                            .ds-hero-content {
-                                max-width: 100%;
+                            .ds-minimal-sub {
+                                font-size: 0.84rem;
+                                margin-bottom: 1.15rem;
                             }
-                            .ds-features-row {
-                                gap: 0.65rem;
+                            .ds-minimal-steps {
+                                gap: 0.5rem 0.65rem;
+                                margin-bottom: 1.35rem;
                             }
-                            .ds-feature-divider {
-                                display: none;
+                            .ds-minimal-step {
+                                font-size: 0.76rem;
+                                gap: 0.35rem;
+                            }
+                            .ds-minimal-icon {
+                                width: 26px;
+                                height: 26px;
+                            }
+                            .ds-minimal-icon svg {
+                                width: 13px;
+                                height: 13px;
+                            }
+                            .ds-minimal-sep {
+                                height: 14px;
+                            }
+                            .ds-minimal-cta {
+                                padding: 0.7rem 1.6rem;
+                                font-size: 0.76rem;
                             }
                         }
                     `}} />
