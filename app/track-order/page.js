@@ -257,7 +257,7 @@ export default function TrackOrder() {
                                 <h4 style={{ color: 'var(--color-gold)', marginBottom: '1.5rem', fontFamily: 'var(--font-sans)', textTransform: 'uppercase', fontSize: '0.9rem', letterSpacing: '1px' }}>Items Summary</h4>
                                 {order.items.map(item => (
                                     <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1rem', marginBottom: '1rem', borderBottom: '1px solid #333', paddingBottom: '1rem' }}>
-                                        <span style={{ color: '#eee' }}>{item.product?.name || 'Product'} <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9em', marginLeft: '0.5rem' }}>x {item.quantity}</span></span>
+                                        <span style={{ color: '#eee' }}>{item.title || item.product?.name || 'Product'}{item.details ? ` (${item.details})` : ''} <span style={{ color: 'var(--color-text-muted)', fontSize: '0.9em', marginLeft: '0.5rem' }}>x {item.quantity}</span></span>
                                         <span style={{ color: '#ddd' }}>₹{item.price}</span>
                                     </div>
                                 ))}

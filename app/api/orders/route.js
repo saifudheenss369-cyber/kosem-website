@@ -47,13 +47,38 @@ export async function POST(req) {
 
         // Transaction: Check Stock -> Create Order -> (Decrement Stock only if not pending)
         const order = await prisma.$transaction(async (tx) => {
+            // 0. Resolve Discovery Set items (not real products): validate price from DB
+            const productItems = [];
+            const setItems = [];
+            for (const item of items) {
+                if (item.discoverySetId) {
+                    const set = await tx.discoverySet.findUnique({ where: { id: parseInt(item.discoverySetId) } });
+                    if (!set || !set.isActive) throw new Error('Discovery set not available');
+                    let packs = [];
+                    try { packs = JSON.parse(set.packs); } catch (e) { packs = []; }
+                    const pack = packs.find(p => p.label === item.packLabel);
+                    if (!pack) throw new Error(`Pack not found: ${item.packLabel}`);
+                    const scentList = Array.isArray(item.scents) ? item.scents : [];
+                    const picked = scentList.reduce((a, s) => a + (parseInt(s.qty) || 0), 0);
+                    if (picked !== (parseInt(pack.count) || 0)) throw new Error(`Please select exactly ${pack.count} scents for ${set.name}`);
+                    setItems.push({
+                        quantity: parseInt(item.quantity),
+                        price: parseFloat(pack.price),
+                        title: `${set.name} - ${pack.label}`,
+                        details: scentList.filter(s => s.qty > 0).map(s => `${s.name} x${s.qty}`).join(', ')
+                    });
+                } else {
+                    productItems.push(item);
+                }
+            }
+
             // 1. Verify Stock (Batched)
-            const productIds = items.map(item => parseInt(item.productId));
+            const productIds = productItems.map(item => parseInt(item.productId));
             const products = await tx.product.findMany({
                 where: { id: { in: productIds } }
             });
 
-            for (const item of items) {
+            for (const item of productItems) {
                 const product = products.find(p => p.id === parseInt(item.productId));
                 if (!product) throw new Error(`Product not found: ${item.productId}`);
                 if (product.stock < parseInt(item.quantity)) {
@@ -110,11 +135,14 @@ export async function POST(req) {
                     shippingPhone: phone,
                     shippingEmail: email,
                     items: {
-                        create: items.map(item => ({
-                            productId: parseInt(item.productId),
-                            quantity: parseInt(item.quantity),
-                            price: parseFloat(item.price)
-                        }))
+                        create: [
+                            ...productItems.map(item => ({
+                                productId: parseInt(item.productId),
+                                quantity: parseInt(item.quantity),
+                                price: parseFloat(item.price)
+                            })),
+                            ...setItems
+                        ]
                     }
                 },
                 include: {
@@ -125,7 +153,7 @@ export async function POST(req) {
 
             // 4. Decrement Stock ONLY for COD orders (online orders decrement after payment verified)
             if (!isOnlinePending) {
-                for (const item of items) {
+                for (const item of productItems) {
                     await tx.product.update({
                         where: { id: parseInt(item.productId) },
                         data: { stock: { decrement: parseInt(item.quantity) } }

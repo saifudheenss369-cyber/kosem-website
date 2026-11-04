@@ -46,7 +46,7 @@ export default function MyOrders() {
                                     <div style={{ marginTop: '1rem' }}>
                                         {order.items.map(item => (
                                             <div key={item.id} style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>
-                                                {item.product?.name} x {item.quantity}
+                                                {item.title || item.product?.name} x {item.quantity}{item.details ? ` (${item.details})` : ''}
                                             </div>
                                         ))}
                                     </div>

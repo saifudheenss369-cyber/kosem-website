@@ -375,7 +375,7 @@ export default function AdminOrders() {
                                 <tr>
                                     <td>${idx + 1}</td>
                                     <td>
-                                        <div class="item-name">${item.product?.name || 'Product'}</div>
+                                        <div class="item-name">${item.title || item.product?.name || 'Product'}</div>${item.details ? `<div class="item-size">${item.details}</div>` : ''}
                                         ${item.product?.size ? `<div class="item-size">Size: ${item.product.size}</div>` : ''}
                                     </td>
                                     <td style="text-align: center;">${item.quantity}</td>
@@ -636,7 +636,7 @@ export default function AdminOrders() {
                                 <div style={{ marginTop: '1rem', paddingLeft: '1rem', borderLeft: '2px solid #eee' }}>
                                     {order.items.map(item => (
                                         <div key={item.id} style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem' }}>
-                                            <span>{item.product?.name || 'Unknown Item'} x {item.quantity}</span>
+                                            <span>{item.title || item.product?.name || 'Unknown Item'} x {item.quantity}</span>
                                             <span>₹{item.price}</span>
                                         </div>
                                     ))}

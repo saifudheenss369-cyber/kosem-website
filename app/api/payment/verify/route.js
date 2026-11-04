@@ -36,6 +36,7 @@ export async function POST(req) {
             const updatedOrder = await prisma.$transaction(async (tx) => {
                 // Decrement stock for each item (deferred from order creation)
                 for (const item of pendingOrder.items) {
+                    if (!item.productId) continue; // discovery set items have no stock
                     await tx.product.update({
                         where: { id: item.productId },
                         data: { stock: { decrement: item.quantity } }

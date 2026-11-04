@@ -340,7 +340,9 @@ export default function Checkout() {
             pincode: formData.pincode,
             phone: formData.phone || verifiedUser?.phone || '9999999999',
             email: formData.email || verifiedUser?.email || '',
-            items: cart.map(item => ({ productId: item.id, quantity: item.quantity, price: item.price })),
+            items: cart.map(item => item.discoverySetId
+                ? { discoverySetId: item.discoverySetId, packLabel: item.packLabel, scents: item.scents, quantity: item.quantity, price: item.price }
+                : { productId: item.id, quantity: item.quantity, price: item.price }),
             total: finalTotal,
             paymentMethod: paymentMethod,
             shippingMethod: shippingMethod,
@@ -731,7 +733,7 @@ export default function Checkout() {
                                  <div className="summary-items">
                                      {cart.map(item => (
                                          <div key={item.id} className="summary-item">
-                                             <span className="item-name">{item.name} x {item.quantity}</span>
+                                             <span className="item-name">{item.name} x {item.quantity}{item.scentSummary ? ` (${item.scentSummary})` : ''}</span>
                                              <span className="item-price">₹{item.price * item.quantity}</span>
                                          </div>
                                      ))}

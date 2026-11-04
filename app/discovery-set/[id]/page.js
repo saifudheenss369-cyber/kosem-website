@@ -74,6 +74,7 @@ export default async function DiscoverySetPage({ params }) {
                 <DiscoverySetSelector
                     setId={set.id}
                     setName={set.name}
+                    image={set.image || heroImage}
                     packs={packs}
                     scents={set.scents.map(s => ({ id: s.id, name: s.name, image: s.image }))}
                 />

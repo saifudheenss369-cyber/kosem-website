@@ -50,8 +50,8 @@ export async function GET(req) {
 
         orders.forEach(order => {
             order.items.forEach(item => {
-                const cat = item.product?.category || 'Uncategorized';
-                const itemName = item.product?.name || 'Unknown Item';
+                const cat = item.product?.category || (item.title ? 'Discovery Sets' : 'Uncategorized');
+                const itemName = item.title || item.product?.name || 'Unknown Item';
                 const revenue = item.price * item.quantity;
 
                 // Category aggregate

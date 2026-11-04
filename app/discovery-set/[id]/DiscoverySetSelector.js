@@ -1,13 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { useCart } from '../../context/CartContext';
 
-// Same admin number used by WhatsAppFloat
-const WHATSAPP_NUMBER = '919656867773';
-
-export default function DiscoverySetSelector({ setName, packs, scents }) {
+export default function DiscoverySetSelector({ setId, setName, image, packs, scents }) {
     const [packIdx, setPackIdx] = useState(0);
     const [qty, setQty] = useState({}); // { scentId: count }
+    const { addToCart } = useCart();
+    const [added, setAdded] = useState(false);
 
     const pack = packs[packIdx];
     const limit = parseInt(pack?.count, 10) || 0;
@@ -29,13 +29,24 @@ export default function DiscoverySetSelector({ setName, packs, scents }) {
         });
     };
 
-    const orderLink = () => {
-        const lines = scents
-            .filter(s => qty[s.id])
-            .map(s => `- ${s.name} x${qty[s.id]}`)
-            .join('\n');
-        const msg = `Hello Kosem, I'd like to order the ${setName} (${pack.label} - ${limit} scents, ₹${pack.price}):\n${lines}`;
-        return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+    const handleAddToCart = () => {
+        if (!complete) return;
+        const chosen = scents.filter(s => qty[s.id]).map(s => ({ name: s.name, qty: qty[s.id] }));
+        const summary = chosen.map(s => `${s.name} x${s.qty}`).join(', ');
+        addToCart({
+            // Same pack + same scents merge into one cart line
+            id: `ds-${setId}-${pack.label}-${summary}`,
+            discoverySetId: setId,
+            packLabel: pack.label,
+            scents: chosen,
+            scentSummary: summary,
+            name: `${setName} - ${pack.label}`,
+            price: parseFloat(pack.price),
+            images: image || ''
+        });
+        setQty({});
+        setAdded(true);
+        setTimeout(() => setAdded(false), 2000);
     };
 
     if (packs.length === 0) {
@@ -104,16 +115,15 @@ export default function DiscoverySetSelector({ setName, packs, scents }) {
                 <span style={{ fontSize: '0.9rem', opacity: 0.85 }}>
                     {complete ? `${pack.label} · ₹${pack.price}` : `Pick ${limit - selected} more scent${limit - selected === 1 ? '' : 's'}`}
                 </span>
-                <a
-                    href={complete ? orderLink() : undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={!complete}
                     className="btn-primary"
-                    aria-disabled={!complete}
-                    style={{ padding: '0.8rem 2rem', opacity: complete ? 1 : 0.5, pointerEvents: complete ? 'auto' : 'none' }}
+                    style={{ padding: '0.8rem 2rem', opacity: complete ? 1 : 0.5, cursor: complete ? 'pointer' : 'not-allowed' }}
                 >
-                    Order on WhatsApp
-                </a>
+                    {added ? 'Added ✓' : 'Add to Cart'}
+                </button>
             </section>
         </>
     );

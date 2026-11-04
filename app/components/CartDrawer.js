@@ -47,6 +47,7 @@ export default function CartDrawer() {
                                 </div>
                                 <div style={{ flex: 1 }}>
                                     <h4 style={{ marginBottom: '0.3rem', fontSize: '1rem', color: 'var(--color-text-main)' }}>{item.name}</h4>
+                                {item.scentSummary && <p style={{ fontSize: '0.78rem', opacity: 0.7, margin: '0 0 0.4rem', lineHeight: 1.4 }}>{item.scentSummary}</p>}
                                     <p style={{ fontSize: '0.95rem', color: 'var(--color-gold)', fontWeight: '700', marginBottom: '0.8rem' }}>₹{item.price}</p>
                                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', background: 'rgba(255,255,255,0.05)', borderRadius: '4px', padding: '2px' }}>
