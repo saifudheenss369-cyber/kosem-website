@@ -362,7 +362,9 @@ export default function Checkout() {
                 });
 
                 if (!res.ok) {
-                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: 'Failed to initiate order. Please try again.', type: 'error' });
+                    let errMsg = 'Failed to initiate order. Please try again.';
+                    try { const errData = await res.json(); if (errData.error) errMsg = errData.error; } catch {}
+                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: errMsg, type: 'error' });
                     setIsPlacingOrder(false);
                     return;
                 }
@@ -463,7 +465,9 @@ export default function Checkout() {
                     setOrderPlaced(true);
                     clearCart();
                 } else {
-                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: 'Failed to place order. Please check your details and try again.', type: 'error' });
+                    let errMsg = 'Failed to place order. Please check your details and try again.';
+                    try { const errData = await res.json(); if (errData.error) errMsg = errData.error; } catch {}
+                    setPopupConfig({ isOpen: true, title: 'Order Failed', message: errMsg, type: 'error' });
                 }
             }
         } catch (err) {

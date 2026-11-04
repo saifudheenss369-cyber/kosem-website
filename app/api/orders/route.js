@@ -29,16 +29,50 @@ export async function POST(req) {
             }
         }
 
-        // Try to get userId from token
+        // Try to get userId from token, or find/create customer record for guest checkout
         const cookieStore = cookies();
         const token = cookieStore.get('token');
-        let userId = 1; // Default to admin/guest if not logged in
+        let userId = null;
 
         if (token) {
             try {
                 const decoded = jwt.verify(token.value, JWT_SECRET);
-                userId = decoded.userId || 1;
+                if (decoded.userId) {
+                    const found = await prisma.user.findUnique({ where: { id: decoded.userId } });
+                    if (found) userId = found.id;
+                }
             } catch (e) { /* ignore invalid token */ }
+        }
+
+        if (!userId) {
+            const cleanEmail = email && email.trim() ? email.trim() : null;
+            const cleanPhone = phone && phone.trim() ? phone.trim() : null;
+            let guestUser = null;
+
+            if (cleanEmail) {
+                guestUser = await prisma.user.findUnique({ where: { email: cleanEmail } });
+            }
+            if (!guestUser && cleanPhone) {
+                guestUser = await prisma.user.findFirst({ where: { phone: cleanPhone } });
+            }
+            if (!guestUser) {
+                guestUser = await prisma.user.create({
+                    data: {
+                        name: name || 'Customer',
+                        email: cleanEmail || `guest_${Date.now()}@attarstore.local`,
+                        password: 'OTP_LOGIN',
+                        phone: cleanPhone || null,
+                        address: address || null,
+                        city: district || null,
+                        state: state || null,
+                        zip: pincode || null,
+                        landmark: landmark || null,
+                        role: 'CUSTOMER',
+                        isVerified: false
+                    }
+                });
+            }
+            userId = guestUser.id;
         }
 
         // For online payments, create a PAYMENT_PENDING order WITHOUT decrementing stock
