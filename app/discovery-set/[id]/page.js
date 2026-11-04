@@ -6,7 +6,6 @@ import DiscoverySetSelector from './DiscoverySetSelector';
 
 export const dynamic = 'force-dynamic';
 
-// Helper to parse JSON safely (always returns an array)
 const safeParse = (str) => {
     try {
         const v = JSON.parse(str);
@@ -50,17 +49,105 @@ export default async function DiscoverySetPage({ params }) {
     return (
         <>
             <Navbar />
-            <main style={{ paddingTop: '120px', paddingBottom: '8rem' }} className="container">
-                <Link href="/discovery-set" style={{ textDecoration: 'underline', marginBottom: '2rem', display: 'inline-block' }}>
-                    &larr; All Discovery Sets
-                </Link>
+            <main style={{ paddingTop: '110px', paddingBottom: '8rem', minHeight: '90vh' }} className="container">
+                {/* Back button */}
+                <div style={{ marginBottom: '1.2rem' }}>
+                    <Link
+                        href="/discovery-set"
+                        style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.45rem',
+                            padding: '0.42rem 1rem',
+                            borderRadius: '999px',
+                            background: 'rgba(15, 19, 28, 0.85)',
+                            border: '1px solid rgba(212, 175, 55, 0.35)',
+                            color: '#e8c468',
+                            fontSize: '0.78rem',
+                            fontWeight: 600,
+                            textDecoration: 'none',
+                            letterSpacing: '0.5px'
+                        }}
+                    >
+                        <span>&larr;</span> All Discovery Sets
+                    </Link>
+                </div>
 
-                {/* Header */}
-                <header style={{ textAlign: 'center', marginBottom: '2rem' }}>
-                    <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', color: '#fff', margin: 0 }}>{set.name}</h1>
-                    {set.tagline && <p style={{ fontSize: '0.95rem', color: 'var(--color-gold)', marginTop: '0.35rem' }}>{set.tagline}</p>}
+                {/* Luxury Header Card */}
+                <header
+                    style={{
+                        position: 'relative',
+                        textAlign: 'center',
+                        padding: '1.8rem 1.5rem',
+                        marginBottom: '2.2rem',
+                        borderRadius: '18px',
+                        background: 'linear-gradient(145deg, rgba(20, 25, 36, 0.95) 0%, rgba(9, 12, 18, 0.98) 100%)',
+                        border: '1px solid rgba(212, 175, 55, 0.35)',
+                        boxShadow: '0 18px 45px rgba(0, 0, 0, 0.5), inset 0 0 25px rgba(212, 175, 55, 0.05)',
+                        overflow: 'hidden'
+                    }}
+                >
+                    <span
+                        style={{
+                            display: 'inline-block',
+                            padding: '0.28rem 0.9rem',
+                            borderRadius: '999px',
+                            background: 'rgba(212, 175, 55, 0.1)',
+                            border: '1px solid rgba(212, 175, 55, 0.4)',
+                            color: '#f3d27a',
+                            fontSize: '0.68rem',
+                            fontWeight: 700,
+                            letterSpacing: '2px',
+                            textTransform: 'uppercase',
+                            marginBottom: '0.6rem'
+                        }}
+                    >
+                        ✦ Customize Your Fragrance Box
+                    </span>
+
+                    <h1
+                        style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: 'clamp(1.6rem, 3vw, 2.2rem)',
+                            margin: 0,
+                            background: 'linear-gradient(180deg, #ffffff 0%, #f5d77f 100%)',
+                            WebkitBackgroundClip: 'text',
+                            WebkitTextFillColor: 'transparent',
+                            backgroundClip: 'text'
+                        }}
+                    >
+                        {set.name}
+                    </h1>
+
+                    {set.tagline && (
+                        <p style={{ fontSize: '0.92rem', color: '#e8c468', margin: '0.35rem 0 0', fontWeight: 500 }}>
+                            {set.tagline}
+                        </p>
+                    )}
+
+                    <div
+                        style={{
+                            width: '44px',
+                            height: '2.5px',
+                            borderRadius: '99px',
+                            background: 'linear-gradient(90deg, #f7df94, #b8860b)',
+                            margin: '0.75rem auto'
+                        }}
+                    />
+
                     {set.description && (
-                        <p style={{ maxWidth: '680px', margin: '0.75rem auto 0', fontSize: '0.9rem', lineHeight: 1.6, opacity: 0.85, whiteSpace: 'pre-line' }}>{set.description}</p>
+                        <p
+                            style={{
+                                maxWidth: '640px',
+                                margin: '0 auto',
+                                fontSize: '0.85rem',
+                                lineHeight: 1.6,
+                                color: 'var(--color-text-muted)',
+                                whiteSpace: 'pre-line'
+                            }}
+                        >
+                            {set.description}
+                        </p>
                     )}
                 </header>
 
