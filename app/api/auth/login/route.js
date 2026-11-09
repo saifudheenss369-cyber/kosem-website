@@ -39,7 +39,19 @@ export async function POST(req) {
         }
 
         if (existingUser.role === 'ADMIN') {
-            return NextResponse.json({ role: 'ADMIN' });
+            const adminToken = jwt.sign(
+                { userId: existingUser.id, id: existingUser.id, email: existingUser.email, role: 'ADMIN' },
+                JWT_SECRET,
+                { expiresIn: '30d' }
+            );
+            const adminResponse = NextResponse.json({ message: 'Login successful', role: 'ADMIN' });
+            adminResponse.cookies.set('token', adminToken, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV === 'production',
+                maxAge: 60 * 60 * 24 * 30,
+                path: '/',
+            });
+            return adminResponse;
         }
 
         // Step 1: Send Email OTP if otp not provided yet
