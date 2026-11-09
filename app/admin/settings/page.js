@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 
 export default function AdminSettings() {
-    const [settings, setSettings] = useState({ announcement: '', onlineDiscountPercentage: '0', heritageMedia: '' });
+    const [settings, setSettings] = useState({ announcement: '', onlineDiscountPercentage: '0', heritageMedia: '', adminNotificationEmail: '' });
     const [isLoading, setIsLoading] = useState(true);
     const [msg, setMsg] = useState('');
 
@@ -158,6 +158,34 @@ export default function AdminSettings() {
                         style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
                     >
                         Save Announcement
+                    </button>
+                </div>
+            </div>
+
+            <div style={{ marginTop: '2rem', background: '#151515', padding: '2rem', borderRadius: '12px', border: '1px solid #222' }}>
+                <h3 style={{ marginBottom: '1.5rem', color: 'var(--color-gold)' }}>Order Notification Email</h3>
+                
+                <div style={{ display: 'grid', gap: '1.5rem' }}>
+                    <div className="form-group">
+                        <label style={{ display: 'block', marginBottom: '0.5rem' }}>Admin Notification Email(s)</label>
+                        <input 
+                            type="text"
+                            value={settings.adminNotificationEmail || ''}
+                            onChange={(e) => setSettings({ ...settings, adminNotificationEmail: e.target.value })}
+                            placeholder="e.g. info@kosemperfumes.com, yourname@gmail.com"
+                            style={{ width: '100%', padding: '0.8rem', background: '#111', color: '#fff', border: '1px solid #333', borderRadius: '4px' }}
+                        />
+                        <small style={{ display: 'block', marginTop: '0.5rem', color: '#888' }}>
+                            Order alerts are always sent to <strong>info@kosemperfumes.com</strong>. Add your Gmail or other email addresses here (comma-separated) to receive instant order notifications there as well.
+                        </small>
+                    </div>
+
+                    <button 
+                        onClick={() => handleSave('adminNotificationEmail', settings.adminNotificationEmail)}
+                        className="btn-primary"
+                        style={{ padding: '0.8rem 2rem', width: 'fit-content' }}
+                    >
+                        Save Notification Email
                     </button>
                 </div>
             </div>
