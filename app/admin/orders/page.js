@@ -40,7 +40,7 @@ ${refundInfo}
 ${closingQuote}
 ${closingBody}
 
-👉 Visit Kosem Perfume (https://kosemperfume.in)
+👉 Visit Kosem Perfumes (https://kosemperfumes.com)
 
 Stay Fragrant,
 Team Kosem 🕊️`;
